@@ -394,6 +394,8 @@ def score_and_deduplicate(
     seen_map: dict[str, Any],
     lookback_hours: int,
     priority_keywords: dict[str, int],
+    custom_topic: str = "",
+    allow_seen_fallback: bool = False,
 ) -> list[dict[str, Any]]:
     now_utc = datetime.now(timezone.utc)
     cutoff_dt = now_utc - timedelta(hours=lookback_hours)
@@ -401,16 +403,23 @@ def score_and_deduplicate(
     seen_titles = [meta.get("title", "") for meta in seen_map.values() if meta.get("title")]
 
     fresh: list[dict[str, Any]] = []
+    fallback_pool: list[dict[str, Any]] = []
     for item in raw_items:
         url = item["url"]
-        if url in seen_map:
-            continue
         pub_dt = item.get("published_dt")
         if pub_dt and pub_dt < cutoff_dt:
             continue
-        if any(titles_are_similar(item["title"], old_t) for old_t in seen_titles):
+        is_seen = url in seen_map or any(titles_are_similar(item["title"], old_t) for old_t in seen_titles)
+        if is_seen:
+            if allow_seen_fallback and seen_map.get(url, {}).get("status") != "sent":
+                fallback_pool.append(item)
             continue
         fresh.append(item)
+
+    if allow_seen_fallback and len(fresh) < 12 and fallback_pool:
+        fresh.extend(fallback_pool)
+
+    topic_tokens = [t.lower() for t in re.split(r"[\s,،]+", custom_topic or "") if len(t) >= 2]
 
     merged: list[dict[str, Any]] = []
     for item in fresh:
@@ -433,8 +442,13 @@ def score_and_deduplicate(
             merged.append(item)
 
     for item in merged:
-        text_blob = f"{item['title']} {item['summary']}".lower()
+        text_blob = f"{item['title']} {item['summary']} {item['category']} {item['source']}".lower()
         kw_score = sum(pts for kw, pts in priority_keywords.items() if kw.lower() in text_blob)
+
+        topic_bonus = 0.0
+        if topic_tokens:
+            hits = sum(1 for tok in topic_tokens if tok in text_blob)
+            topic_bonus = hits * 12.0
 
         recency_bonus = 2.0
         if item.get("published_dt"):
@@ -443,13 +457,18 @@ def score_and_deduplicate(
 
         buzz_bonus = (item["buzz_count"] - 1) * 4.0
         cat_bonus = 3.0 if item["category"] in {"bioinformatics", "ai_bio"} else 1.0
-        item["pre_score"] = round((kw_score + recency_bonus + buzz_bonus + cat_bonus) * item["weight"], 2)
+        item["pre_score"] = round((kw_score + topic_bonus + recency_bonus + buzz_bonus + cat_bonus) * item["weight"], 2)
 
     merged.sort(key=lambda x: x["pre_score"], reverse=True)
     return merged
 
 
-def call_gemini(candidates: list[dict[str, Any]], max_posts: int) -> list[dict[str, Any]]:
+def call_gemini(
+    candidates: list[dict[str, Any]],
+    max_posts: int,
+    custom_topic: str = "",
+    custom_query: str = "",
+) -> list[dict[str, Any]]:
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY is missing.")
@@ -500,9 +519,17 @@ def call_gemini(candidates: list[dict[str, Any]], max_posts: int) -> list[dict[s
 
 خروجی باید صرفاً JSON معتبر مطابق اسکیما باشد."""
 
+    topic_note = ""
+    if custom_topic or custom_query:
+        topic_note = (
+            f"درخواست اختصاصی کاربر در چت: «{custom_query or custom_topic}»\n"
+            f"موضوع هدف (بسیار مهم): «{custom_topic}» — فقط خبرهایی را انتخاب کن که مستقیماً به این موضوع یا حوزه مرتبط باشند و در صورت وجود، دقیقاً به تعداد درخواستی ({max_posts} مورد) بفرست.\n"
+        )
+
     user_prompt = (
         f"تاریخ امروز: {today_str}\n"
-        f"حداکثر تعداد پست انتخابی در این نوبت: {max_posts}\n\n"
+        f"حداکثر تعداد پست انتخابی در این نوبت: {max_posts}\n"
+        f"{topic_note}\n"
         f"لیست اخبار و مقالات خام ورودی:\n{json.dumps(compact_articles, ensure_ascii=False)}"
     )
 
@@ -627,12 +654,22 @@ def send_telegram_message(bot_token: str, chat_id: str, html_text: str) -> None:
 
 def main() -> None:
     dry_run = os.getenv("DRY_RUN", "false").strip().lower() in {"true", "1", "yes"}
+    on_demand = os.getenv("ON_DEMAND", "false").strip().lower() in {"true", "1", "yes"}
+    custom_topic = os.getenv("CUSTOM_TOPIC", "").strip()
+    custom_query = os.getenv("CUSTOM_QUERY", "").strip()
+    custom_count_raw = os.getenv("CUSTOM_COUNT", "").strip()
+
     config = load_sources()
     settings = config.get("settings", {})
 
     max_posts = int(settings.get("max_posts_per_run", 5))
+    if custom_count_raw.isdigit() and 1 <= int(custom_count_raw) <= 10:
+        max_posts = int(custom_count_raw)
+
     max_candidates = int(settings.get("max_candidates_for_ai", 35))
     lookback_hours = int(settings.get("lookback_hours", 36))
+    if on_demand:
+        lookback_hours = max(lookback_hours, 72)
     retention_days = int(settings.get("state_retention_days", 21))
     fetch_body = bool(settings.get("fetch_article_body", True))
     priority_keywords = config.get("priority_keywords", {})
@@ -643,12 +680,37 @@ def main() -> None:
     enabled_feeds = [f for f in config.get("rss_feeds", []) if f.get("enabled", True)]
     enabled_pubmed = [q for q in config.get("pubmed_queries", []) if q.get("enabled", True)]
 
+    if custom_topic:
+        encoded_q = requests.utils.quote(custom_topic)
+        enabled_feeds.append(
+            {
+                "name": f"Google News ({custom_topic})",
+                "category": "custom_topic",
+                "url": f"https://news.google.com/rss/search?q={encoded_q}&hl=en-US&gl=US&ceid=US:en",
+                "weight": 1.6,
+                "enabled": True,
+            }
+        )
+        enabled_pubmed.append(
+            {
+                "name": f"PubMed ({custom_topic})",
+                "category": "custom_topic",
+                "term": custom_topic,
+                "retmax": 10,
+                "weight": 1.6,
+                "enabled": True,
+            }
+        )
+
     print(f"[INFO] Fetching {len(enabled_feeds)} RSS feeds and {len(enabled_pubmed)} PubMed queries...")
     with ThreadPoolExecutor(max_workers=12) as executor:
         futures = [executor.submit(fetch_single_rss, f) for f in enabled_feeds]
-        futures.extend(executor.submit(fetch_pubmed_query, q) for q in enabled_pubmed)
         for fut in as_completed(futures):
             raw_items.extend(fut.result())
+
+    for q in enabled_pubmed:
+        raw_items.extend(fetch_pubmed_query(q))
+        time.sleep(0.5)
 
     print(f"[INFO] Total raw entries fetched: {len(raw_items)}")
 
@@ -657,11 +719,22 @@ def main() -> None:
         seen_map=state["seen"],
         lookback_hours=lookback_hours,
         priority_keywords=priority_keywords,
+        custom_topic=custom_topic,
+        allow_seen_fallback=on_demand,
     )
     print(f"[INFO] Fresh deduplicated candidates: {len(candidates)}")
 
     if not candidates:
         print("[INFO] No fresh news items found in this window. Exiting cleanly.")
+        if on_demand and not dry_run:
+            bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+            chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+            if bot_token and chat_id:
+                send_telegram_message(
+                    bot_token,
+                    chat_id,
+                    "متأسفانه در ۷۲ ساعت گذشته خبر جدیدی مطابق درخواست شما پیدا نشد.",
+                )
         save_state(state)
         return
 
@@ -678,11 +751,25 @@ def main() -> None:
             print(f"  {i}. [{c['pre_score']}] ({c['source']}) {c['title']} -> {c['url']}")
         return
 
-    selected_posts = call_gemini(top_candidates, max_posts=max_posts)
+    selected_posts = call_gemini(
+        top_candidates,
+        max_posts=max_posts,
+        custom_topic=custom_topic,
+        custom_query=custom_query,
+    )
     print(f"[INFO] Gemini selected {len(selected_posts)} posts.")
 
     if not selected_posts:
         print("[INFO] Gemini found no high-impact stories worth posting right now.")
+        if on_demand and not dry_run:
+            bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+            chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+            if bot_token and chat_id:
+                send_telegram_message(
+                    bot_token,
+                    chat_id,
+                    "در حال حاضر خبر شاخص و جدیدی درباره این موضوع پیدا نشد.",
+                )
         now_iso = datetime.now(timezone.utc).isoformat()
         for c in top_candidates[:15]:
             state["seen"][c["url"]] = {"title": c["title"], "ts": now_iso, "status": "skipped"}
