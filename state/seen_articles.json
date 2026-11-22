@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 10,
+  "daily_post_count": 15,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -315,6 +315,181 @@
     "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014203": {
       "title": "Simulation-guided design of exotendons to reduce the energetic cost of running",
       "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMirAFBVV95cUxQTnU1MU1DVUI0TFJHMklHdjVPdEhJQ2M4Y1cxdUhXUkVEX3lxZXd6SWp4M0FoNkpnMHNHU1B2akJqWmUyTFRFOW1TRjRBaE1uVHNnZTZiZ245dlBBWXM0RGRLSGd2S0VxLUs3ZUhZUkpnNEMzcE8tS0R0dGY1MUQyMUFHZXR3cGFMMWNXMlMzSlEzeDF5bXA5VVhsbnBCbzlKTDd6UG42Ym1jQ1Bh?oc=5": {
+      "title": "OpenAI Chief Scientist Urges Industry Limits on AI Development",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMingFBVV95cUxOQlA3VzdCRlA3eWdqaXd2aktoVFV2MDZnSHhqU3h6aGI4M2V2SU4zZUtxYUFZNlJSalYtMGhfMGdxOVVGWmdiRTlPZjZLWVlLTTNONGJ1ejBuLVVIeXJjbGhSemwwRzlnY2U5S1MzOHhETzRLMGkxZGZVSG9CLUZPTnVUZ1NDUGJwMGtucHBKTDF6WVkzVUI2cGFfSnVPUQ?oc=5": {
+      "title": "Anthropic's record Nasdaq IPO puts AI drug discovery in the spotlight",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "sent"
+    },
+    "https://phys.org/news/2026-11-ai-virtual-cell-technology-reveal.html": {
+      "title": "AI virtual cell technology could reveal how genetic changes and drugs alter cells",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s42256-026-01339-0": {
+      "title": "Enabling lab autonomy with reward functions and executable workflows",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "sent"
+    },
+    "https://phys.org/news/2026-11-mushrooms-ai-potential-crop-stress.html": {
+      "title": "Tested on mushrooms, an AI model shows potential for detecting crop stress with far fewer computations",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43068241/": {
+      "title": "EEG biomarkers for neurodegenerative diseases: Machine learning applications and clinical trial insights.",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43068334/": {
+      "title": "Design strategies and anti-tumor applications of nanorobots.",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxOWmVjR2pPZV81aXlnbXVMblJIYTZka3ZuYS1FVl9aRW9IX3l5YS12eGRtZVVHT2xVeW9MbWU1WkQ1YmhBNnJZaDZxaTVRYVpZSEFyMTFPNXJIYTNpNDhUbkt5alM2ZTNIb0V3ckJHc2M2WHZxUnhIRDJUcnFEM2JqZXZQdlpqVjhIUmtBNDNoU3dxR0IzS1ZPRXI5MkRldXQyN3p5aV9Eaw?oc=5": {
+      "title": "Nvidia Just Delivered Incredible Results. Buy This Artificial Intelligence (AI) Stock Instead If You’re Still Worried About the Semiconductor Giant’s Future",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNQXlwaTA3b0NUcm5wSldhVkp2ZjFFTjJfdkRtdWYzYUZSdVFqZ3FnZUxubW5BczR4NjBJMUh4OFVNczBrOW1WSzc1U2ZZX005cV9IczJteW9BYjJ3MTVQVlBwaVE4VVZkY2xVbDNBa0dTbEQ4YkE1RmxQWkVXUGdpN0tBaHhNcHNKVXNlZnFuLWUybE41YzB4Y2xTa2pzNGlRTllvM2NOUEdDLTJ5NC11U1VuWGlNMGVrN2V0ZnQyTDlqU2M?oc=5": {
+      "title": "Trending Industry Today: Micron Technology Leads Losses In Artificial Intelligence Stocks",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxQdGU2Xzl5SEhkbnJDRFpNYTliVS1wTjIxMGtJYzdKc3dlU3V5U0UtUU4wUFdPME1WTUJDX0NLLU1nTWE1ZVhWMFpSXzZ1QlBYOFFkX3V0Ykdad2dpWlFHLUQ3enZaUEl0akhyQ1hjVDkwNDBFN3hma0NERjduSmhpWTduUW9zSWpHNV9HVFlfZ2lFanJxaDV6MjlMWlloQ3hWNWV6OXFCOFFxb1RGdGVLRWJpblJRQUx5UWpROGxlSGJPY0ZD?oc=5": {
+      "title": "Morocco explores cooperation with Oracle on cloud computing and artificial intelligence",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMitgFBVV95cUxOQ0dsai1pOHp5UXVMM2Jjd0JFVWFvdjNNVTlHeDJXLUJwTDN4eFdvb1JmLXUzVk5SVUowSHBjSWl2RkpzNW1MMHNWQjVaeFcwcTIzRlI1dlZ5Ym5SQ1cxcncwVVV1T19wT2ROQmRUejE0MnNKSjlSdXlaR085SVd5ZkhxaE1rTUFDd1lDZWVma05RLXY3b01zWXAyQUNCbEM3SXdMWXIydUlnU05SWUxNaDNOSlpQUQ?oc=5": {
+      "title": "Review Outlines Advanced Drying Methods and Artificial Intelligence for Kaffir Lime Leaves",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMivwFBVV95cUxNM3dacFUzVzFWX2dwQnNRTkNrTHJlYXNVS1hkSmlUcHp1RzJhNk54RmZJQnBqeGlaREk4d0VrUFd5MGhMNmVybGJWMkVCalE4bFo0bU5IeC04aUNlUmRndXlYVm1uSlJLZEtJZXUzOVl4Y2twQngwSFRPbW5ZSmdPX0lUU2k2bVpCM1BwUkVPcDA5RjhLRHRkc19qMldvalJucDVXNXU3cm9IdUh1Ykw3NXNxcFJFMmNDUFBuUDdaOA?oc=5": {
+      "title": "Italian Citizens Favor Farm Artificial Intelligence While Expressing Notable Response Uncertainty",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMizAFBVV95cUxQOHZwendMTjFORVBNdGZ1VEVHeXZWVWtSRjVTT0JfVVpLeWRBS0YtTnptTEJzRjFfR3FUS1VMd1NhVGZ6ZUc4WlNUUTBpQ2lvRnE5QmVzTDdvMHd4OFY2VXJKc1Qtem4zclRQTmQxdmZNamNQYmNaT3R4VzJENTJuTFJ4ZU85akxHWGtmSWJUcWxVNnJ0ck5sVGY1MmN4T19SNmh3WUh0ZzNuTWYzbFZvY19EeVNyZjFBNEItbURWcjVOQ1YtMjJGd29YUWE?oc=5": {
+      "title": "41.6% of Berkshire Hathaway's $358 Billion Portfolio Is Parked in 3 Artificial Intelligence (AI) Stocks",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQWUJHMmxoR3N5c1lFdzY1NW5WLXlBbXRfYmxmbFQyTmIwc05CVDZuTEFPZ18zUVZaTmtIOFRtUkJHMmc2S00zLXZ1X1Jpbng1b01EMGxjT20wSEZkSGdYSFhVQTRqLVRTR3BCQzc3ZUxpSDZrbDAyeUpqcndGMThPdWFyM1VleUFkbWt3b25paHFucl9SSkk5T3lsYWtYcE9mcVdGUHY1Szl6NmpTTFNUSnlMdnRlQ0V6cUMtZnIxZFladjhlRnBhZUhHSUp1TlBL?oc=5": {
+      "title": "Missouri S&T will soon offer the state's first undergraduate degree in artificial intelligence",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMijAFBVV95cUxNVmw5MEdUWFlVTW1fVFBSc3JyR0k2SXBBbjdiU0lJZnpDM25TNzNNRUxkU254Uk1tQ3UtUlo0alhWb2R1b2FkT0dKcWJaSWtuVkNNank5YTNvaFlkT1Rrb1FMRDcwWDhoYmpGX1RxT2Z0QXZtWGgtNjVqS0xtT0ZuVFlWaS1jT0FickRtSw?oc=5": {
+      "title": "‘The doom of humanity’: will the quest to make robotic hands render us obsolete? | AI (artificial intelligence)",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOcjJWdXRwbEtCeEM0WTdLYVVfaTBTSnM0Q0N6Z3Yzd1RPRVE5STNTcEp5STJ0bGFuRThnbm1ydnVyUTV6ZWZLRWxpY2k1OThuOFNlVnphM196YjIycEZ0cVdVQUs5YWtocWxDY1ZCMldYa0tEbXNpQjFsNTBOQ3BKN29tR3lLRDhyT3I5NldmX0o2c1psQ04ta1Q4NG1NbjZfbE53ZG5qSTBHTUFLMTJzTE9LVnZmNkp2RjVfQW9OV3g3SWNHSUlfVGF0TGFjcmZZX01z?oc=5": {
+      "title": "We May Be Witnessing Wall Street's Biggest Bubble Burst in Real Time (and I'm Not Talking About Artificial Intelligence)",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMinwFBVV95cUxOM2ZIVFhQbmxWX215UDE3NkV4MTFjWDVfZnB0UU5tQnJBdzA1Y2hvRHRhZTNhejFiYmRNbnRSc2dNS2ZDYThBU0g3NHlham5vVHlBTTdKVXU4UmNha2xoSnNEeGtDejNoMXJHSjhocHdTR0V6R0NhU0lQTHJ0SnN5R3Rjd3lJZEdVd1lPYlI0M1pZMXhzZ0ZKbTAtS082c00?oc=5": {
+      "title": "Opinion | Artificial intelligence flourished in California election advertising — and divided voters",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPY3Q4YUVRdERQYTBEVlEyekZhSEN0eFVPYXhaNlk5V09QR25Ja2dKNEFKMXh6Y3RwdzdTRGlGNXFEU2c1V3BwWlFxQnBrM0dpRGk5WHBCT1JJVC1LNDRSXzFOZ1JhUWhDbVE5OHlLUjJvS0UzbFhpRVdFNkRsOTk1bEk5anVuVFhwQ3lUdkVaeW9ncHRVSUU4ZVVVSTd5cXA2cktmRXNLbVM2QUUxajlqSW1vMU9jckFnaWlXS1ZfLW5FLW0xNUNIX21UZ044Q1BrYWVNOWcyTTEwYTRX?oc=5": {
+      "title": "Building better artificial intelligence requires people willing to do meticulous work at scale",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiswFBVV95cUxNVjB5LWNHOTc5UUF0T0pkSFZ3Ylh3UHdVYzI1bXNFbDRYWEhnMk5RWm92dWR3djVwUWJreVB0cWF4dUVJbjdHRjZJMkFTdnZ2RGYwYVZxWnVQcUxabjl2dDRMZlcxR1Babk92NXlOYXhHUlBXUWxmaTBYdVpDYmZzOXZkeFZLLXc1QlpKOFNvdHRManNEX2FwbG5IOGZHT0pZMldEV1NvY1lGdmNZWXBoNDc5SQ?oc=5": {
+      "title": "UVA President Scott Beardsley charts University’s future in artificial intelligence",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxPOUExVVlpRDMwUmlpOWZpdDhtR01URkR0VW9TT1lScTY3bURMOTMtMnozblZwMEt1X3U5Q3JZMEF3WjJ3bE44VjhnRXgyZUlBelY3bUlyOWpmZ1lqMHRLN0tFcGVoREFBLUo2SjdwMEV2WTgtaDFmV2k2dDJPeVl6dEYyWW9wRjFuN0paSjZMSmwyLXFXSG9yeQ?oc=5": {
+      "title": "A statement from LPM on artificial intelligence",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiqgFBVV95cUxObDg1RjdrSUF2UjNJdjFRRTh6WUtINHUzTVNtdHkxX08wSDEydndlSUNJSVVhMHlEenVIb091NzhsZWk2ZmF1czNFN1VtLVdaTlBPT1J3NHVjNmRreC1JQ3VLOHVhUzM5RzFrbEtHTzVEa2hZZlU0dTdvQlB4QXRfWWotd21KdWxUNU1nNUdmbjFOTGtaUXNmZDJEdkJhQ3F4MF9HLW01REp3QQ?oc=5": {
+      "title": "Journal editor discusses artificial intelligence in academic publishing",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiugFBVV95cUxQWVdqNHRVcGw2amM1QVZ4SkxNZzNtdTBmb0JZdkNMYXZTRlZia0tJdDVTWHVoNnJBUWFlcUtjQXQ4NGZYMEZKNEkyUi02eWcwN214QTdtOWdRVkxUS0lobmY3SklZUUthR05TWnJUcGZXampFbjU0b0NqTGVxazJsS0phSjB1d0R0QjdDd0ppQW5hck82WTNCdEt1LVZxc0ZacFhONnE1V1pvRS1TM3JZRkY2dDZMV2RTNkE?oc=5": {
+      "title": "Governor Hochul Breaks Ground on Permanent Empire AI Supercomputing Center, Marking Major Milestone in New York’s National Leadership in Using Artificial Intelligence for the Public Good",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03790-w": {
+      "title": "Claude, find me a planet: amateur astronomers are using AI with mixed results",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMikgFBVV95cUxPc0UyZUdJbmJyV3E2MkFmMjlaVU43ZXItWDZNd2JtdVFKcGEwMlNENHpLdWJ0dGlqNk5iTXhvc0xXRkI5TVhzSHg3bTFTdzN6MkNkT1pnRktNRWFFazZCTkQ2dlNrZGhjTGI4cWxKaDhKbTg3R2dSbXE2N19aU2plcktMUGFNYmpqLVdkbkVLU3ZDd9IBlwFBVV95cUxQRmQ4Rjd1WnZHMVZWb1BKNTYwWFdzV1JRWWY3SllzSm5EOG5yZjlvNmhma0JEUWhJbHIwNkxHUGZfTTZqUHVQV0ZyR0JfQmx5VFNVR29OaTByQ1VhS3hmVFdNUkJlUmlnbElzSDNXc3Y1VjNkdm9nUTVOTUtYdUNsWHdNajJ5eGhPZVB1Uk5QMmZ4VzV1Q3Fj?oc=5": {
+      "title": "Director of National Intelligence Jay Clayton warns Americans of 'bumps in the road' after tech outages",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43068275/": {
+      "title": "Unlock the potential of power-to-ammonia in future multi-energy transition pathways.",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.763725v1": {
+      "title": "Read&Tag enables antibody-independent combinatorial and multifactorial chromatin profiling",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://elifesciences.org/articles/113786": {
+      "title": "Correction: MotorNet, a Python toolbox for controlling differentiable biomechanical effectors with artificial neural networks",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43068310/": {
+      "title": "A microwave-responsive bio-heterojunction via synergistic antibacterial and osteogenic microenvironment temporal regulation for treating periodontitis in diabetes.",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014064": {
+      "title": "Pupil dynamics reflect uncertainty-driven adjustments of probability learning",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-bumblebees-held-beliefs-brain-size.html": {
+      "title": "Bumblebees challenge long-held beliefs about brain size and intelligence",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-lab-hatched-turtle-survives-wild.html": {
+      "title": "Lab-hatched turtle survives in the wild, offering hope for Perth populations",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43062134/": {
+      "title": "RNAcomp2D: a web tool to execute multiple methods and visually compare predictions of RNA secondary structure.",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.18.767742v1": {
+      "title": "RADSuite: Improving Species-Level Identification in Microbiome Research",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768104v1": {
+      "title": "Single-base 5mC and 5hmC profiling identifies a dynamic 5hmC-to-5mC transition at gene bodies and transcription end sites during neuronal differentiation of mouse embryonic stem cells.",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.13.766407v1": {
+      "title": "Cross-Species Dynamics of Transposable Elements in Aging Female Visceral Adipose Tissues",
+      "ts": "2026-11-22T21:35:51.148940+00:00",
       "status": "skipped"
     }
   }
