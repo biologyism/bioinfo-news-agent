@@ -1,0 +1,329 @@
+{
+  "settings": {
+    "max_posts_per_run": 5,
+    "max_candidates_for_ai": 35,
+    "lookback_hours": 36,
+    "fetch_article_body": true,
+    "state_retention_days": 21,
+    "timezone": "Asia/Tehran"
+  },
+  "priority_keywords": {
+    "bioinformatics": 4,
+    "computational biology": 4,
+    "alphafold": 5,
+    "protein design": 4,
+    "single-cell": 4,
+    "scrna-seq": 4,
+    "spatial transcriptomics": 4,
+    "genomics": 3,
+    "metagenomics": 3,
+    "rna velocity": 4,
+    "crispr": 4,
+    "gene editing": 4,
+    "drug discovery": 4,
+    "isomorphic": 4,
+    "foundation model": 4,
+    "llm": 3,
+    "transformer": 3,
+    "artificial intelligence": 3,
+    "machine learning": 3,
+    "deep learning": 3,
+    "biotech": 3,
+    "open source": 2,
+    "open-source": 2,
+    "open access": 2,
+    "nature": 2,
+    "science": 2,
+    "anthropic": 3,
+    "openai": 3,
+    "deepmind": 4,
+    "claude": 3,
+    "gemini": 3,
+    "hugging face": 3
+  },
+  "rss_feeds": [
+    {
+      "name": "bioRxiv (Bioinformatics & Genomics)",
+      "category": "bioinformatics",
+      "url": "https://connect.biorxiv.org/biorxiv_xml.php?subject=genomics+bioinformatics",
+      "weight": 1.35,
+      "enabled": true
+    },
+    {
+      "name": "arXiv (Quantitative Biology)",
+      "category": "bioinformatics",
+      "url": "https://export.arxiv.org/api/query?search_query=cat:q-bio.*&sortBy=submittedDate&sortOrder=descending&max_results=20",
+      "weight": 1.25,
+      "enabled": true
+    },
+    {
+      "name": "Nature Biotechnology",
+      "category": "bioinformatics",
+      "url": "https://www.nature.com/nbt.rss",
+      "weight": 1.45,
+      "enabled": true
+    },
+    {
+      "name": "Nature Methods",
+      "category": "bioinformatics",
+      "url": "https://www.nature.com/nmeth.rss",
+      "weight": 1.45,
+      "enabled": true
+    },
+    {
+      "name": "Nature Genetics",
+      "category": "bioinformatics",
+      "url": "https://www.nature.com/ng.rss",
+      "weight": 1.35,
+      "enabled": true
+    },
+    {
+      "name": "Nature Computational Science",
+      "category": "bioinformatics",
+      "url": "https://www.nature.com/natcomputsci.rss",
+      "weight": 1.4,
+      "enabled": true
+    },
+    {
+      "name": "Nature Communications",
+      "category": "biology",
+      "url": "https://www.nature.com/ncomms.rss",
+      "weight": 1.25,
+      "enabled": true
+    },
+    {
+      "name": "PLOS Computational Biology",
+      "category": "bioinformatics",
+      "url": "https://journals.plos.org/ploscompbiol/feed/atom",
+      "weight": 1.3,
+      "enabled": true
+    },
+    {
+      "name": "Frontiers in Bioinformatics",
+      "category": "bioinformatics",
+      "url": "https://www.frontiersin.org/journals/bioinformatics/rss",
+      "weight": 1.2,
+      "enabled": true
+    },
+    {
+      "name": "NCBI Insights",
+      "category": "bioinformatics",
+      "url": "https://www.nlm.nih.gov/rss/ncbiinsights.rss",
+      "weight": 1.25,
+      "enabled": true
+    },
+    {
+      "name": "nf-core Blog",
+      "category": "bioinformatics",
+      "url": "https://nf-co.re/blog/rss.xml",
+      "weight": 1.15,
+      "enabled": true
+    },
+    {
+      "name": "Bits of DNA (Lior Pachter)",
+      "category": "bioinformatics",
+      "url": "https://liorpachter.wordpress.com/feed/",
+      "weight": 1.2,
+      "enabled": true
+    },
+    {
+      "name": "Google News: Bio-IT World, GenomeWeb & Fierce Biotech",
+      "category": "ai_bio",
+      "url": "https://news.google.com/rss/search?q=site:bio-itworld.com+OR+site:genomeweb.com+OR+site:fiercebiotech.com&hl=en-US&gl=US&ceid=US:en",
+      "weight": 1.3,
+      "enabled": true
+    },
+    {
+      "name": "Google News: Oxford Bioinformatics, BMC, Genome Biology & The Scientist",
+      "category": "bioinformatics",
+      "url": "https://news.google.com/rss/search?q=site:academic.oup.com/bioinformatics+OR+site:genomebiology.biomedcentral.com+OR+site:bmcbioinformatics.biomedcentral.com+OR+site:the-scientist.com&hl=en-US&gl=US&ceid=US:en",
+      "weight": 1.25,
+      "enabled": true
+    },
+    {
+      "name": "Google News: EMBL-EBI & NAR",
+      "category": "bioinformatics",
+      "url": "https://news.google.com/rss/search?q=site:ebi.ac.uk/about/news+OR+%22Nucleic+Acids+Research%22+bioinformatics&hl=en-US&gl=US&ceid=US:en",
+      "weight": 1.2,
+      "enabled": true
+    },
+    {
+      "name": "Endpoints News (Biotech & AI Drug Discovery)",
+      "category": "ai_bio",
+      "url": "https://endpts.com/feed/",
+      "weight": 1.35,
+      "enabled": true
+    },
+    {
+      "name": "STAT News (Biotech)",
+      "category": "ai_bio",
+      "url": "https://www.statnews.com/category/biotech/feed/",
+      "weight": 1.35,
+      "enabled": true
+    },
+    {
+      "name": "GEN (Genetic Engineering & Biotechnology News)",
+      "category": "ai_bio",
+      "url": "https://www.genengnews.com/feed/",
+      "weight": 1.25,
+      "enabled": true
+    },
+    {
+      "name": "Labiotech.eu",
+      "category": "ai_bio",
+      "url": "https://www.labiotech.eu/feed/",
+      "weight": 1.2,
+      "enabled": true
+    },
+    {
+      "name": "Drug Discovery & Development",
+      "category": "ai_bio",
+      "url": "https://www.drugdiscoverytrends.com/feed/",
+      "weight": 1.2,
+      "enabled": true
+    },
+    {
+      "name": "Google News: AI in Biology, AlphaFold & Isomorphic Labs",
+      "category": "ai_bio",
+      "url": "https://news.google.com/rss/search?q=bioinformatics+OR+AlphaFold+OR+%22Isomorphic+Labs%22+OR+%22AI+drug+discovery%22+OR+%22protein+design%22&hl=en-US&gl=US&ceid=US:en",
+      "weight": 1.4,
+      "enabled": true
+    },
+    {
+      "name": "Nature (Main Journal & News)",
+      "category": "biology",
+      "url": "https://www.nature.com/nature.rss",
+      "weight": 1.35,
+      "enabled": true
+    },
+    {
+      "name": "Science Magazine (AAAS)",
+      "category": "biology",
+      "url": "https://www.science.org/action/showFeed?type=etoc&feed=rss&jc=science",
+      "weight": 1.35,
+      "enabled": true
+    },
+    {
+      "name": "Quanta Magazine (Biology)",
+      "category": "biology",
+      "url": "https://www.quantamagazine.org/biology/feed/",
+      "weight": 1.3,
+      "enabled": true
+    },
+    {
+      "name": "PLOS Biology",
+      "category": "biology",
+      "url": "https://journals.plos.org/plosbiology/feed/atom",
+      "weight": 1.2,
+      "enabled": true
+    },
+    {
+      "name": "Phys.org (Biology News)",
+      "category": "biology",
+      "url": "https://phys.org/rss-feed/biology-news/",
+      "weight": 1.1,
+      "enabled": true
+    },
+    {
+      "name": "ScienceDaily (Biotechnology)",
+      "category": "biology",
+      "url": "https://www.sciencedaily.com/rss/plants_animals/biotechnology.xml",
+      "weight": 1.1,
+      "enabled": true
+    },
+    {
+      "name": "eLife",
+      "category": "biology",
+      "url": "https://elifesciences.org/rss/recent.xml",
+      "weight": 1.15,
+      "enabled": true
+    },
+    {
+      "name": "Nature Machine Intelligence",
+      "category": "ai",
+      "url": "https://www.nature.com/natmachintell.rss",
+      "weight": 1.4,
+      "enabled": true
+    },
+    {
+      "name": "OpenAI News",
+      "category": "ai",
+      "url": "https://openai.com/news/rss.xml",
+      "weight": 1.3,
+      "enabled": true
+    },
+    {
+      "name": "Google AI Blog",
+      "category": "ai",
+      "url": "https://blog.google/innovation-and-ai/technology/ai/rss/",
+      "weight": 1.3,
+      "enabled": true
+    },
+    {
+      "name": "Hugging Face Blog",
+      "category": "ai",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "weight": 1.25,
+      "enabled": true
+    },
+    {
+      "name": "MIT Technology Review (AI)",
+      "category": "ai",
+      "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed/",
+      "weight": 1.3,
+      "enabled": true
+    },
+    {
+      "name": "MIT News (Machine Learning)",
+      "category": "ai",
+      "url": "https://news.mit.edu/rss/topic/machine-learning",
+      "weight": 1.25,
+      "enabled": true
+    },
+    {
+      "name": "MarkTechPost",
+      "category": "ai",
+      "url": "https://www.marktechpost.com/feed/",
+      "weight": 1.1,
+      "enabled": true
+    },
+    {
+      "name": "arXiv (cs.AI)",
+      "category": "ai",
+      "url": "https://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=15",
+      "weight": 1.1,
+      "enabled": true
+    },
+    {
+      "name": "The Verge (AI)",
+      "category": "ai",
+      "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+      "weight": 1.1,
+      "enabled": true
+    },
+    {
+      "name": "Ahead of AI (Sebastian Raschka)",
+      "category": "ai",
+      "url": "https://magazine.sebastianraschka.com/feed",
+      "weight": 1.25,
+      "enabled": true
+    },
+    {
+      "name": "Google News: Anthropic & Frontier AI",
+      "category": "ai",
+      "url": "https://news.google.com/rss/search?q=site:anthropic.com+OR+(%22Anthropic%22+%22Claude%22+AI)+OR+(%22OpenAI%22+research)&hl=en-US&gl=US&ceid=US:en",
+      "weight": 1.2,
+      "enabled": true
+    }
+  ],
+  "pubmed_queries": [
+    {
+      "name": "PubMed Top Bioinformatics Journals",
+      "category": "bioinformatics",
+      "term": "(\"Bioinformatics\"[Journal] OR \"Brief Bioinform\"[Journal] OR \"Genome Biol\"[Journal] OR \"Nucleic Acids Res\"[Journal] OR \"Nat Biotechnol\"[Journal] OR \"Nat Methods\"[Journal]) AND (AI OR \"machine learning\" OR \"deep learning\" OR \"single-cell\" OR \"foundation model\" OR bioinformatics OR genomics)",
+      "retmax": 12,
+      "weight": 1.4,
+      "enabled": true
+    }
+  ]
+}
