@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 5,
+  "daily_post_count": 10,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -140,6 +140,181 @@
     "https://www.theverge.com/games/1038099/chess-classic-games-expansion-ai": {
       "title": "Chess.com’s next move is a new hub for classic games, from mahjong to sudoku",
       "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiugFBVV95cUxNWjNsM2VVS2J1c3J5Y25Mek5KUU9EZ0IyVlBKM0xuZXFFcDRPTUhiSFNhQ0t4QzR5WThuc3NIUldRTEhiRUI5OTRsNkVTbHRkM2Y2bXk5eUNSUWtnSjNOQkZJODQzekVrSEVQLVV6MHZJNHBIdFhnd1Fod1JtRXNxQi1VVGUzMnVURU9EcC1QMHhOWFhqZnlWWG9yVGdrV1ppYU1qa3VYUjJuSlhHQ2xLWGRyLVlMQ2dnRkE?oc=5": {
+      "title": "Ganges water treaty set to expire, but neither country clarifies position on new agreement",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMikgFBVV95cUxOd1lJUHdWdjZsWGRCbmVyc0dmbng1RUFJdEpnNG9IRmgyNWg5WWwzanBEU1ZRdl93dDZGaVM3azAyMjVoLWxhSGgtMS1abWoyR3EyUGduY2RvQ05SVXpRUnNtUjYyaWtxUzcwZFE0N1pjd3FzQ3phSWR0ZU5Rd1JZV2VMUjZxdjJfMHRfTFBzNHoydw?oc=5": {
+      "title": "Prime Minister Narendra Modi walked across Nitish Setu after opening the 9.76-km, six-lane bridge over the Ganges, built for about ₹4,280 crore to give north and south Bihar a new road link and take traffic off two older bridges.",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPUGZVREdfU0JHWmlCdHhJUHRRVTk5RGFHb2FyVnVyOXlTTHZZQ2N2VkF2UmxkdVQycWFGLTk2M3JFQnNfcEpJb2FxT25fZjlvUzFiQlY3M0xQdy1ZcG9CUVp3azFJT1h2cjdXRkIyZWNMRjVMQlItV3BtYk9xM3ZGZFRONkZHUTFqdk1VSS1veTJBUkgwNXpOOHFUbVRoalVWY21saU1rTHlkRVJzTjB4bjI2X1QzQkVwZ2NJVHpVUHo0UQ?oc=5": {
+      "title": "Ganges Water: Dhaka urges Delhi to take necessary steps to begin formal negotiations",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMixwFBVV95cUxPd0pNd1dFQmxzOWNoWlBFNFJaLW5NMDk5aUFTQ2FJREREbHQ3emRIZmxkTURSTno5dl96c245RE0zX3RaejFEejJray1tRjdSMDJkczB5ZXNWaVJiWWstRDZBYS1XUm5laU4tcFBWeEtMSmxRcm5ORzZQVFlSQmlMVGZoanF0Yzk0RkNmYkQwdjExWUdubXJpOWREUGd4ZHV3S2ZFM1RFTmFTNDBhc0UzN24tTUVqVkdDa0xZNGlSUlNsckRCSGRV?oc=5": {
+      "title": "India-Bangladesh Ganga Water Treaty Nears Expiry on Dec 12",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiSkFVX3lxTE10Q0RLMWVBY3g3TGE2NzRSOUJKemN2U0EyX3hQb1k0WGNkSVVJXy1ySThfa29iU1k5WG0wdnJNemU5N0hDaHdhcDVn?oc=5": {
+      "title": "B’desh-India JRC meeting begins in Dhaka; Ganges Treaty in focus",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1xUzlvSmJGUFVWQVhIQkpSVFphVXJodG1tUWJ3VVNGaE9XQzZiQ0FEcUt6QkNoeGJnUUtUdU1hTGIzQ29lcTBIUkxpMlN0VVhoOHItXy1MTzk4SXBIQmM1VkxFUjJKQzA?oc=5": {
+      "title": "Indian delegation in Dhaka for Ganges Water Treaty",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMisgFBVV95cUxOVzZORllYTXJWSEtkUS12cThBMV9Wa0hsaXNRX1J1c3VMbjFyOUdQVnJGNTM3dTF4MXBDSnp3UlZCZThUTXhGUFBka2tIQVJ2TldBYjhxSVp5a2I5Qm5uUEJRWmt5T1k4am5QdkFxdkhUdWI1cmxYTHFjcmZaUmJSdEJJVmNDWnY4QWxETzgyWGZjZTBFbHIxcmNoZUsxS3BGS19zS0xFUDFLYldWdVhkMVF30gG3AUFVX3lxTE40UVBXckVSb0Q3eFBrTkx4Tmk4ZXZXODNHZ0M1cldaQU1SbXdtUkhZWThsTUx6am9vNjh0VlI1RTgwbHB5MDVES1RZblRaa3RLdHQ1d0N5Q3pSZ3ItLTZFSHpZY0gxeVQ0WVRZVXlmRENzY2laemNHR0NRWUxMX3F5MWpDQ29aMEtwVGoyaGtJX0p6amZleG9hTjh0WEZ3bkpNLWVwSjdBNWJvRUo1ZHFqNmNkN1BISQ?oc=5": {
+      "title": "Ganges treaty: Bangladesh & India meeting today",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMigAFBVV95cUxQeFpudW5JOVlGSEw1VzNPeDNsdllaWWQyRGY4WHE1TTRHcXhSWTA5U3l3QTRpcUx1b3RlZjU3aTRDcmdfc053WTNmSENCSXdZMmgxdlB5LW1HdlV2ZEFrbDh0LUN1SFJ3eDNxYjdBaHN1Y25SSmR0T0h3V0tHelEzWg?oc=5": {
+      "title": "Rescuers launch 3 speedboats to save dog battling strong river current in India",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767940v1": {
+      "title": "Modelling Phenotypic Assay Noise for Multivariable Biomarker Discovery using Deep Neural Networks",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiSkFVX3lxTE9jT3VicGVvYmhVTXRIaHZMeFVyRVVzQ3ZCc3A1QjN5Y2FmYzBxaG9SOEV2YThUckRTaEJ4aGN0cVpnbFBtZGs2Y0ZR?oc=5": {
+      "title": "JRC meeting today shead of Ganges water-sharing treaty expiry",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41592-026-03287-4": {
+      "title": "Computational methods for cell–cell communication via single cells",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.17.767465v1": {
+      "title": "MicroBioAgent: an AI agent for automated microbiome analysis",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/20/biotech-news-early-results-for-alterome-kras-drug-arrive": {
+      "title": "STAT+: Early results for Alterome’s KRAS drug for pancreas, lung and colon cancer arrive",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767876v1": {
+      "title": "VEGABrain: a Visualizer of Enriched Gene Analysis for the developing human brain",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43059368/": {
+      "title": "canSAR 2026-an update to the public drug discovery knowledgebase.",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s43588-026-01041-6": {
+      "title": "Predicting degradation of polymeric materials in complex chemical environments via molecular modeling",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.12.766040v1": {
+      "title": "Mapping Senescence Landscapes in Metabolic Liver Disease Progression",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.768003v1": {
+      "title": "SIREN: Predicting RNA-Small Molecule Interaction using Language Models without Requiring Structure",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768023v1": {
+      "title": "Period-Specific Remodeling of Luminal Lineages and the Mammary Microenvironment in Dairy Goats",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767931v1": {
+      "title": "Replicate libraries set the noise floor for cell-state claims in cross-sectional single-cell data: an empirical audit in drug-tolerant EGFR-mutant PC9 cells",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767942v1": {
+      "title": "Single-cell study of the FCG rat model and cross-species comparison reveal stronger gene regulation by sex chromosome complement in the medial septum",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767173v1": {
+      "title": "scPACE: A Personalized Autoencoder for Cell Evolution in Single-Cell Transcriptomics",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://elifesciences.org/articles/107767": {
+      "title": "Integrating distributed lag non-linear models and deep learning reveals meteorological drivers of influenza A and B positivity in a 6-year subtropical surveillance study",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014945": {
+      "title": "Rollout models of human planning with exact action probabilities",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43059400/": {
+      "title": "FusionGDB 3.0: integrating breakpoints, generating personalized sequences, and inferring tumorigenic scenarios for human fusion genes.",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767946v1": {
+      "title": "PhageLysClass: Evidence-aware classification of phage lytic proteins using protein language models",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767791v1": {
+      "title": "Improving Target-Adverse Event Association Prediction via Inverse Node Frequency Transformation to Mitigate Knowledge Graph Topological Bias",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.frontiersin.org/articles/10.3389/fbinf.2026.2010708": {
+      "title": "Epistemic blind spots in protein function prediction: uncertainty, homology bias and failure modes in deep learning models",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43062152/": {
+      "title": "pyGENIE: A Python library for programmatic access and mutational analysis of AACR Project GENIE.",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s43588-026-01058-x": {
+      "title": "System of agentic AI for the discovery of metal–organic frameworks",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiowFBVV95cUxObEpqeDZ6X2dnNjloc1Bic3JtSGRSSVFJbkVUejVyOFFnUF9MbExDVi1oUk56UGYzblY1eDduUGN0T0VUVGNOS2xwa09aSnB5bzMwTkF6aGRDLTlxbV8tYzZ4WlU4cGUwa3MxRUEyb2VTRkRYVjBhTXZRdnlHTElwNG5UQVUwWTB4X004QUxKR09CcHpLcDVTUmhQUmF5RjVXcm1R?oc=5": {
+      "title": "Isomorphic Labs and MSD collaborate in cancer drug discovery",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014977": {
+      "title": "Ionic condition-dependent allostery shapes ribosomal dynamics",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014974": {
+      "title": "A hybrid mixture approach for clustering and characterizing biomedical data",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014960": {
+      "title": "Inferring population-level physiologically based model parameters for sleep in infancy and young childhood",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014203": {
+      "title": "Simulation-guided design of exotendons to reduce the energetic cost of running",
+      "ts": "2026-11-22T21:28:06.026770+00:00",
       "status": "skipped"
     }
   }
