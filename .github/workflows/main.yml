@@ -5,6 +5,23 @@ on:
     # 09:00, 12:00, 15:00, 18:00, 21:00, 00:00 Iran Time (UTC+3:30)
     - cron: '30 5,8,11,14,17,20 * * *'
   workflow_dispatch:
+    inputs:
+      topic:
+        description: 'موضوع یا کلیدواژه انگلیسی/فارسی (اختیاری)'
+        required: false
+        default: ''
+      count:
+        description: 'تعداد خبر درخواستی (۱ تا ۱۰)'
+        required: false
+        default: ''
+      custom_query:
+        description: 'متن پیام کاربر در تلگرام (اختیاری)'
+        required: false
+        default: ''
+      on_demand:
+        description: 'اجرای درخواستی از طریق چت تلگرام'
+        required: false
+        default: 'false'
 
 permissions:
   contents: write
@@ -33,6 +50,10 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          CUSTOM_TOPIC: ${{ github.event.inputs.topic || '' }}
+          CUSTOM_COUNT: ${{ github.event.inputs.count || '' }}
+          CUSTOM_QUERY: ${{ github.event.inputs.custom_query || '' }}
+          ON_DEMAND: ${{ github.event.inputs.on_demand || 'false' }}
         run: python main.py
 
       - name: Commit updated state
