@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 15,
+  "daily_post_count": 18,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -490,6 +490,181 @@
     "https://www.biorxiv.org/content/10.64898/2026.11.13.766407v1": {
       "title": "Cross-Species Dynamics of Transposable Elements in Aging Female Visceral Adipose Tissues",
       "ts": "2026-11-22T21:35:51.148940+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43067887/": {
+      "title": "Development and Validation of an Artificial Intelligence-Driven Multigene Assay Decision-Support System for Personalized Management of T1 High-Grade Bladder Cancer.",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.768000v1": {
+      "title": "Sequence-Derived Geometric Priors Enable Controllable Generation of Intrinsically Disordered Protein Ensembles",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43067613/": {
+      "title": "The evolution of microRNA target prediction: from seed-based heuristics to deep learning and context-aware frameworks.",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43066850/": {
+      "title": "Targeting protein degradation strategies in drug discovery: integrating PROTACs, ubiquitination biology, and AI-driven design.",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43065563/": {
+      "title": "Next-generation anti-obesity drugs: emerging molecular targets and translational opportunities.",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPZktBUmhBT2lTRy12Z1NlLWNPc0dwdUE1UW1NZWQ2enZUZWtHenZjZGxHdXVOQ2NwQXNjVmp4Z3dGU1B6T0JOb3hqVzBnUDNnU1I5NzFyWGNaQ192bllib3ZOejRXbk51MnptUi04aHFseG1OTHlTYVgyU1huMm1yeXFDQ29LR2tHM3JpT09EQlVoX2VwSEhPaHk0bm54bDFJRm1USk4zT1FmUHBPSVZZVF90QWFINU9mYXJJ?oc=5": {
+      "title": "Targeted Protein Degraders Advance Through Ubiquitination Biology and Machine Learning Systems",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03680-1": {
+      "title": "How AI is affecting science careers",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03590-2": {
+      "title": "‘I had felt overconfident’: senior scientists reveal mistakes that aided discovery",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.sciencedaily.com/releases/2026/11/261121221128.htm": {
+      "title": "DNA’s secret sunscreen may have helped life survive on early Earth",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03803-8": {
+      "title": "BepiColombo finally reaches Mercury after eight-year odyssey",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03751-3": {
+      "title": "Lifting weights reduces muscle loss from obesity drugs",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03776-8": {
+      "title": "Fraud helps little fire ants to survive and conquer",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03812-7": {
+      "title": "Mathematicians astounded by AI and human-written proofs of iconic Riemann hypothesis",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03799-1": {
+      "title": "Sleuth finds ‘impossible proteins’ in hundreds of research papers",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03465-6": {
+      "title": "How to turn impostor syndrome into a superpower",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43065762/": {
+      "title": "SU9516 promotes myogenic differentiation of human induced pluripotent stem cells.",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/plosbiology/article?id=10.1371%2Fjournal.pbio.3004129": {
+      "title": "When and how is preregistration in experimental biology worth the effort?",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-microbes-arms-viruses-planetary-scale.html": {
+      "title": "Mapping the microbes' arms race with viruses at planetary scale",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41592-026-03327-z": {
+      "title": "A two-platform blueprint for modeling human brain development",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.767841v1": {
+      "title": "BEguided: Systematic guide and base editor evaluation for precision single-nucleotide editing",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.14.765823v1": {
+      "title": "Identification of seven candidate structured noncoding RNA motifs in protists by comparative genomics",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.18.767751v1": {
+      "title": "RR3DD 2.0: an expanded database for RNA three-dimensional structure classification",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767748v1": {
+      "title": "Evaluating cell-free RNA extraction platforms for RNA liquid biopsy via nanopore sequencing",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767893v1": {
+      "title": "MDQ: A DockQ-Inspired Scoring Function for Assessing Interface Similarity and Clustering in Molecular Dynamics",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767979v1": {
+      "title": "Combinatorial perturbation structure enables graded inference of signaling activity by CIRCE",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.18.764533v1": {
+      "title": "Pangenome-guided interpretation of k-mer GWAS inCapsicum",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767872v1": {
+      "title": "A site-resolved post-translational modification framework for drug-response analysis",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767922v1": {
+      "title": "MSGFLEX: An optimized end-to-end pipeline for proteomics and metaproteomics analysis built on MS-GF+ with a dedicated rescoring model XPECTRA",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767913v1": {
+      "title": "Systematic inference of biological relatedness across the global ancient DNA record",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767884v1": {
+      "title": "Curated annotations locate biological concepts in protein language models from layers to neurons",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767955v1": {
+      "title": "SOUR Disentangles Heritable and Microenvironmental Contributions to Intratumoral Heterogeneity in Spatial Lineage Tracing Data",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767467v1": {
+      "title": "Tissue-specific mucociliary regulatory programs in the healthy human endocervix and ectocervix",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/more-lawmakers-stake-out-stances-on-china-biotech-investment": {
+      "title": "More lawmakers stake out stances on China biotech investment",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/pharma-layoffs-continue-in-new-jersey-bausch-lomb-drug-misses-endpoint": {
+      "title": "Pharma layoffs continue in New Jersey; Bausch + Lomb drug misses endpoint",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/cns-dispatches-from-jefferies-acadias-search-for-deals-altos-psychiatry-question-and-promis-alzheimers-ambitions": {
+      "title": "CNS dispatches from Jefferies: Acadia’s search for deals, Alto’s psychiatry question and ProMIS’ Alzheimer’s ambitions",
+      "ts": "2026-11-22T22:20:15.088218+00:00",
       "status": "skipped"
     }
   }
