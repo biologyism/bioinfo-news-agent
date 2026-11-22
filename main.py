@@ -499,25 +499,44 @@ def call_gemini(
 
     today_str = datetime.now(IRST).strftime("%Y-%m-%d")
 
-    system_instruction = """تو سردبیر ارشد علمی «آکادمی بیوانفورماتیک ایران» هستی.
-وظیفه‌ات انتخاب داغ‌ترین، مهم‌ترین و معتبرترین اخبار از بین لیست مقالات و خبرهای ورودی و نگارش پست فارسی دقیقاً به سبک ژورنالیسم علمی حرفه‌ای است.
+    system_instruction = """تو سردبیر ارشد رسانه «آکادمی بیوانفورماتیک ایران» (به مدیریت معین شیرین‌کام) هستی.
+این خبرها قرار است مستقیم در کانال تلگرام و استوری اینستاگرام منتشر شوند؛ بنابراین باید فوق‌العاده جذاب، قلاب‌دار، داستانی، روان، غیرخشک و کنجکاوکننده باشند — طوری که هم دانشجو و هم علاقه‌مند علم با اشتیاق تا آخر بخواند، ولی هم‌زمان کاملاً دقیق و علمی باشد.
 
-قوانین انتخاب خبر:
-1. اولویت اول: بیوانفورماتیک، ژنومیکس، تحلیل تک‌سلولی، طراحی پروتئین، AI در زیست‌شناسی و کشف دارو، و ابزارهای جدید محاسباتی.
-2. اولویت دوم: کشفیات بزرگ زیست‌شناسی (Nature/Science/Cell/Quanta) و تحولات مهم هوش مصنوعی (OpenAI, Anthropic, DeepMind, Hugging Face, مدل‌ها و پژوهش‌های شاخص).
-3. از بین ورودی‌ها، حداکثر تعداد درخواستی خبر واقعاً ارزشمند و غیرتکراری انتخاب کن. اگر خبر خیلی مهمی نبود، تعداد کمتری انتخاب کن (کیفیت بر کمیت مقدم است).
+قوانین انتخاب خبر (بسیار مهم):
+1. دنبال خبرهای «داستان‌دار و دهان‌بازکن» بگرد: کشف‌های پزشکی و درمانی شگفت‌انگیز، کاربردهای حیرت‌انگیز AI در تشخیص بیماری، کشف دارو، ژنتیک، پروتئین، مغز، سرطان، طول عمر، یا خبرهای بزرگ صنعت بیوتک و AI.
+2. از مقالات خشک و صرفاً آماری/تست بنچمارک که هیچ داستان جذابی برای مخاطب عمومی-تخصصی ندارند بپرهیز (مگر اینکه بتوانی زاویه جذاب انسانی/علمی آن‌ها را نشان بدهی).
+3. تعداد درخواستی را از بهترین‌ها انتخاب کن و تکراری نباشد.
 
-قوانین نگارش هر پست (دقیقاً ۶ بخش، موجز، دقیق، بدون اغراق و بدون توهم‌زایی):
-- short_title: عنوان بسیار کوتاه دوپاره با علامت «؛» — مثل: `VHSeek؛ میزبان ویروس را حدس بزن` یا `Space-map؛ بافت در سه بعد`
-- emoji: یک ایموجی مرتبط و جذاب (مثل 🦠، 📊، 🗺️، 🎭، 🛡️، 🔍، 📚، 💻، 📈، 🧬، 🧪، 🤖)
-- hook_headline: یک جمله کوتاه و کنجکاوی‌برانگیز درباره هسته خبر (بدون اغراق زرد)
-- why_it_matters: بخش 🎯 — ۱ تا ۲ جمله درباره شکاف علمی یا اهمیت واقعی مسئله
-- what_happened: بخش 🔬 — گزارش دقیق علمی: در صورت وجود در متن ورودی، نام نویسندگان/تیم/شرکت، نام ژورنال یا رسانه، تاریخ انتشار به فارسی (مثلاً ۲۰ نوامبر ۲۰۲۶)، خلاصه روش و اعداد دقیق و اشاره به دسترسی‌باز (Open Access) بودن. **اکیداً ممنوع:** هرگز نام نویسنده، عدد، درصد، جلد مجله یا ادعایی را که در ورودی نیست حدس نزن یا نساز!
-- analysis_and_limitation: بخش 💡 — ۱ تا ۲ جمله شامل معنای کاربردی خبر **به‌همراه نقد صادقانه و بیان محدودیت واقعی** (مثلاً پیش‌بینی محاسباتی است نه اثبات آزمایشگاهی، پیش‌چاپ است و داوری نشده، مطالعه تکی است، یا ارقام اعلامی خود شرکت است)
-- closing_question: یک سؤال کوتاه، هوشمندانه و چالشی در پایان بخش 💡 برای ایجاد بحث بین متخصصان و دانشجویان
-- source_label: نام دقیق منبع و تاریخ به فارسی (مثلاً: `Nature Communications، ۲۰ نوامبر ۲۰۲۶` یا `bioRxiv (پیش‌چاپ)، ۲۲ نوامبر ۲۰۲۶`)
+الگوی دقیق نگارش (موبه‌مو مثل این سبک بنویس):
+نمونه ۱:
+title_emoji: "💵"
+hook_title: "شرط‌بندی ۵ میلیارد دلاری روی آینده داروسازی با هوش مصنوعی!"
+paragraphs:
+  - "😉 هوش مصنوعی حالا به مرحله‌ای رسیده که می‌تواند <b>ساختار پروتئین‌های مرتبط با بیماری را تحلیل کند و برای ساخت دارو، مولکول‌های جدید طراحی کند.</b>"
+  - "🚨 <b>شرکت Isomorphic Labs، زیرمجموعه Alphabet، با جذب ۵ میلیارد دلار سرمایه</b> می‌خواهد موتور <u>هوش مصنوعی خود به نام IsoDDE را توسعه دهد</u>؛ فناوری‌ای که هدفش متحول کردن فرایند کشف و طراحی دارو است."
+  - "📣 این فناوری قرار است با شبیه‌سازی برهم‌کنش مولکول‌ها، مسیر پیدا کردن داروهای جدید را <b>سریع‌تر و کم‌هزینه‌تر کند.</b>"
+quote_box: "⚠️ نکته حیرت‌انگیز: هنوز هیچ دارویی از این شرکت وارد آزمایش انسانی نشده، اما سرمایه‌گذاران روی آینده آن ۵ میلیارد دلار شرط بسته‌اند!"
+closing_question: "آیا نسل بعدی داروها را هوش مصنوعی کشف خواهد کرد؟"
 
-خروجی باید صرفاً JSON معتبر مطابق اسکیما باشد."""
+نمونه ۲:
+title_emoji: "💊"
+hook_title: "<u>ادعای GRAIL</u>: شناسایی بیش از ۵۰ سرطان با یک آزمایش خون!"
+paragraphs:
+  - "🔬 تصور کنید با یک آزمایش خون، بتوان نشانه‌های ده‌ها نوع سرطان را پیش از بروز علائم پیدا کرد! <b>شرکت GRAIL با توسعه تست Galleri و استفاده از هوش مصنوعی</b>، به دنبال تحقق همین ایده است."
+  - "🧪 این تست به جای جست‌وجوی خود تومور، <b>ردپای DNA سرطانی را در خون شناسایی می‌کند؛ <u>حتی می‌تواند محل احتمالی سرطان را پیش‌بینی کند.</u></b>"
+  - "🖨 اما در یک <b>کارآزمایی بزرگ با بیش از ۱۴۲ هزار نفر</b> در بریتانیا، این تست توانست برخی سرطان‌ها را زودتر شناسایی کند؛ <b>اما در مجموع فقط حدود یک‌سوم سرطان‌ها را پیدا کرد.</b>"
+quote_box: "⚠️ حالا پرسش اصلی این است: آیا چنین آزمایشی می‌تواند آینده غربالگری سرطان را تغییر دهد یا هنوز برای استفاده عمومی زود است؟"
+closing_question: ""
+
+قوانین اکید نگارش:
+- تیتر (hook_title) باید کوتاه، قلاب‌دار و کنجکاوکننده باشد (مثلاً با کلماتی مثل «ادعای عجیب...»، «کشف حیرت‌انگیز...»، عدد شوکه‌کننده یا پرسش جذاب؛ بدون دروغ).
+- هر پست ۲ تا ۳ پاراگراف کوتاه و خوش‌خوان داشته باشد (هر پاراگراف ۱ تا ۲ جمله + یک ایموجی مرتبط در اولش). اصطلاحات فوق‌تخصصی انگلیسی را خیلی روان و قابل‌فهم برای مخاطب ایرانی توضیح بده (مثلاً به جای پپتید ۱۲-مر بگو «مولکولی که فقط ۱۲ واحد سازنده پروتئین دارد»).
+- برای تأکید روی مهم‌ترین بخش جمله، داخل متن فقط از تگ‌های <b>...</b> (بولد) و <u>...</u> (زیرخط‌دار، برای نقطه‌ی عطف یا عدد شگفت‌انگیز) استفاده کن؛ زیاده‌روی نکن (در هر پاراگراف نهایتاً ۱ یا ۲ عبارت کوتاه).
+- بخش quote_box (باکس نقل‌قول) بسیار مهم است: یک زاویه تامل‌برانگیز، نکته حیرت‌انگیز یا محدودیت واقعی و صادقانه پژوهش را بنویس (مثل: هنوز روی انسان آزمایش نشده / فقط روی موش بوده / پیش‌چاپ است و هنوز داوری نشده / برای استفاده عمومی زود است). با یک ایموجی مناسب مثل ⚠️ یا ⭐️ یا 👁 یا 🎁 شروع شود.
+- اگر quote_box خودش سوال نیست و سوال جذابی به ذهن می‌رسد، در closing_question یک سوال کوتاه و چالشی بنویس (بدون ایموجی، خود سیستم ❓ می‌گذارد)؛ وگرنه خالی بگذار "".
+- **اکیداً ممنوع:** هرگز عدد، درصد، نام شرکت یا ادعایی را که در متن ورودی نیست از خودت نساز!
+
+خروجی فقط JSON معتبر مطابق اسکیما باشد."""
 
     topic_note = ""
     if custom_topic or custom_query:
@@ -537,7 +556,7 @@ def call_gemini(
         "system_instruction": {"parts": [{"text": system_instruction}]},
         "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
         "generationConfig": {
-            "temperature": 0.35,
+            "temperature": 0.45,
             "responseMimeType": "application/json",
             "responseSchema": {
                 "type": "OBJECT",
@@ -548,25 +567,22 @@ def call_gemini(
                             "type": "OBJECT",
                             "properties": {
                                 "article_id": {"type": "INTEGER"},
-                                "short_title": {"type": "STRING"},
-                                "emoji": {"type": "STRING"},
-                                "hook_headline": {"type": "STRING"},
-                                "why_it_matters": {"type": "STRING"},
-                                "what_happened": {"type": "STRING"},
-                                "analysis_and_limitation": {"type": "STRING"},
+                                "title_emoji": {"type": "STRING"},
+                                "hook_title": {"type": "STRING"},
+                                "paragraphs": {
+                                    "type": "ARRAY",
+                                    "items": {"type": "STRING"},
+                                },
+                                "quote_box": {"type": "STRING"},
                                 "closing_question": {"type": "STRING"},
-                                "source_label": {"type": "STRING"},
                             },
                             "required": [
                                 "article_id",
-                                "short_title",
-                                "emoji",
-                                "hook_headline",
-                                "why_it_matters",
-                                "what_happened",
-                                "analysis_and_limitation",
+                                "title_emoji",
+                                "hook_title",
+                                "paragraphs",
+                                "quote_box",
                                 "closing_question",
-                                "source_label",
                             ],
                         },
                     }
@@ -613,27 +629,71 @@ def call_gemini(
     raise RuntimeError(f"All Gemini models failed. Last error: {last_err}")
 
 
-def format_telegram_html(post: dict[str, Any], post_number: int) -> str:
-    num_fa = to_persian_digits(post_number)
-    short_title = html.escape(post["short_title"].strip())
-    emoji = html.escape(post["emoji"].strip())
-    hook = html.escape(post["hook_headline"].strip())
-    why = html.escape(post["why_it_matters"].strip())
-    what = html.escape(post["what_happened"].strip())
-    analysis = html.escape(post["analysis_and_limitation"].strip())
-    question = html.escape(post["closing_question"].strip())
-    source = html.escape(post["source_label"].strip())
-    url = html.escape(post["url"].strip(), quote=True)
+def sanitize_tg_inline_html(text: str) -> str:
+    # Preserve only balanced <b>, </b>, <u>, </u> tags and escape everything else safely
+    tokens: list[str] = []
+    pattern = re.compile(r"(</?(?:b|u)>)", re.IGNORECASE)
+    pos = 0
+    open_b = False
+    open_u = False
 
-    return (
-        f"<b>پست {num_fa} | {short_title}</b>\n\n"
-        f"{emoji} {hook}\n\n"
-        f"🎯 {why}\n\n"
-        f"🔬 {what}\n\n"
-        f"💡 {analysis} {question}\n\n"
-        f"منبع: {source}\n"
-        f'🔗 <a href="{url}">مشاهده منبع اصلی</a>'
+    for match in pattern.finditer(text or ""):
+        if match.start() > pos:
+            tokens.append(html.escape(text[pos:match.start()]))
+        tag = match.group(1).lower()
+        if tag == "<b>" and not open_b:
+            tokens.append("<b>")
+            open_b = True
+        elif tag == "</b>" and open_b:
+            tokens.append("</b>")
+            open_b = False
+        elif tag == "<u>" and not open_u:
+            tokens.append("<u>")
+            open_u = True
+        elif tag == "</u>" and open_u:
+            tokens.append("</u>")
+            open_u = False
+        pos = match.end()
+
+    if pos < len(text or ""):
+        tokens.append(html.escape(text[pos:]))
+    if open_u:
+        tokens.append("</u>")
+    if open_b:
+        tokens.append("</b>")
+    return "".join(tokens).strip()
+
+
+def format_telegram_html(post: dict[str, Any], post_number: int) -> str:
+    title_emoji = html.escape((post.get("title_emoji") or "🧬").strip())
+    hook_title = sanitize_tg_inline_html(post.get("hook_title") or "")
+    paragraphs = [
+        sanitize_tg_inline_html(p)
+        for p in (post.get("paragraphs") or [])
+        if p and p.strip()
+    ]
+    quote_box = sanitize_tg_inline_html(post.get("quote_box") or "")
+    closing_q = sanitize_tg_inline_html(post.get("closing_question") or "")
+    url = html.escape((post.get("url") or "").strip(), quote=True)
+
+    parts = [f"{title_emoji} <b>{hook_title}</b>"]
+    parts.extend(paragraphs[:3])
+    if quote_box:
+        parts.append(f"<blockquote>{quote_box}</blockquote>")
+    if closing_q:
+        parts.append(f"❓ <b>{closing_q}</b>")
+
+    footer = (
+        "⭕️ معین شیرین کام\n"
+        f'🧷 <a href="{url}">Source</a>\n'
+        '<a href="https://www.instagram.com/ir_bioinf_academy?igsh=MTl0ZGgyYzl4OW1uaQ==">Instagram</a> | '
+        '<a href="https://www.linkedin.com/in/ir-bioinformatics-academy-888b02377?utm_source=share&amp;utm_campaign=share_via&amp;utm_content=profile&amp;utm_medium=android_app">LinkedIn</a> | '
+        '<a href="https://t.me/ir_bioinf_group">Q &amp; A group</a>\n\n'
+        "آکادمی بیوانفورماتیک ایران 🖥⭐️\n"
+        "@ir_bioinformtic_academy"
     )
+    parts.append(footer)
+    return "\n\n".join(parts)
 
 
 def send_telegram_message(bot_token: str, chat_id: str, html_text: str) -> None:
@@ -644,12 +704,20 @@ def send_telegram_message(bot_token: str, chat_id: str, html_text: str) -> None:
             "chat_id": chat_id,
             "text": html_text,
             "parse_mode": "HTML",
-            "disable_web_page_preview": False,
+            "disable_web_page_preview": True,
         },
         timeout=20,
     )
     if resp.status_code != 200:
         raise RuntimeError(f"Telegram API error {resp.status_code}: {resp.text}")
+
+
+def get_target_chat_ids() -> list[str]:
+    reply_chat_id = os.getenv("REPLY_CHAT_ID", "").strip()
+    if reply_chat_id:
+        return [cid.strip() for cid in reply_chat_id.split(",") if cid.strip()]
+    raw = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+    return [cid.strip() for cid in raw.split(",") if cid.strip()]
 
 
 def main() -> None:
@@ -728,13 +796,13 @@ def main() -> None:
         print("[INFO] No fresh news items found in this window. Exiting cleanly.")
         if on_demand and not dry_run:
             bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-            chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
-            if bot_token and chat_id:
-                send_telegram_message(
-                    bot_token,
-                    chat_id,
-                    "متأسفانه در ۷۲ ساعت گذشته خبر جدیدی مطابق درخواست شما پیدا نشد.",
-                )
+            for cid in get_target_chat_ids():
+                if bot_token:
+                    send_telegram_message(
+                        bot_token,
+                        cid,
+                        "متأسفانه در ۷۲ ساعت گذشته خبر جدیدی مطابق درخواست شما پیدا نشد.",
+                    )
         save_state(state)
         return
 
@@ -763,13 +831,13 @@ def main() -> None:
         print("[INFO] Gemini found no high-impact stories worth posting right now.")
         if on_demand and not dry_run:
             bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-            chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
-            if bot_token and chat_id:
-                send_telegram_message(
-                    bot_token,
-                    chat_id,
-                    "در حال حاضر خبر شاخص و جدیدی درباره این موضوع پیدا نشد.",
-                )
+            for cid in get_target_chat_ids():
+                if bot_token:
+                    send_telegram_message(
+                        bot_token,
+                        cid,
+                        "در حال حاضر خبر شاخص و جدیدی درباره این موضوع پیدا نشد.",
+                    )
         now_iso = datetime.now(timezone.utc).isoformat()
         for c in top_candidates[:15]:
             state["seen"][c["url"]] = {"title": c["title"], "ts": now_iso, "status": "skipped"}
@@ -777,9 +845,9 @@ def main() -> None:
         return
 
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-    chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+    target_chat_ids = get_target_chat_ids()
 
-    if not dry_run and (not bot_token or not chat_id):
+    if not dry_run and (not bot_token or not target_chat_ids):
         raise RuntimeError("TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing.")
 
     now_iso = datetime.now(timezone.utc).isoformat()
@@ -792,11 +860,16 @@ def main() -> None:
             print("\n" + "=" * 50)
             print(msg_html)
         else:
-            send_telegram_message(bot_token, chat_id, msg_html)
-            time.sleep(1.2)
+            for cid in target_chat_ids:
+                try:
+                    send_telegram_message(bot_token, cid, msg_html)
+                except Exception as exc:
+                    print(f"[WARN] Failed sending to {cid}: {exc}")
+                time.sleep(0.6)
+            time.sleep(0.8)
         sent_urls.add(post["url"])
         state["seen"][post["url"]] = {
-            "title": post.get("raw_title") or post["short_title"],
+            "title": post.get("raw_title") or post.get("hook_title", ""),
             "ts": now_iso,
             "status": "sent",
         }
