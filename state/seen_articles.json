@@ -1,5 +1,146 @@
 {
-  "daily_date": "",
-  "daily_post_count": 0,
-  "seen": {}
+  "daily_date": "2026-11-23",
+  "daily_post_count": 5,
+  "seen": {
+    "https://www.nature.com/articles/s41467-026-79404-w": {
+      "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.12.766196v1": {
+      "title": "EPIC2: integrating single-cell chromatin accessibility with human genetics to identify trait-relevant cell types",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41467-026-79465-x": {
+      "title": "The genetic and proteomic determinants of pediatric stature development and their link to adult height and type 2 diabetes",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.16.767117v1": {
+      "title": "Remarkable Biosynthetic Diversity in the Bionectriaceae: Uncovering the genomic basis of antipathogen bioactivity of cacao fungal endophytes Clonostachys rosea and Waltergamsia zeylanica.",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "sent"
+    },
+    "https://www.sciencedaily.com/releases/2026/11/261119194538.htm": {
+      "title": "A 50-year-old theory about evolution may have been wrong all along",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "sent"
+    },
+    "https://www.genengnews.com/topics/translational-medicine/stockwatch-insmed-jumps-on-report-of-takeover-interest-by-sanofi-as-analysts-conclude-a-deal-would-make-sense": {
+      "title": "StockWatch: Insmed Jumps on Report of Takeover Interest by Sanofi, as Analysts Conclude a Deal Would Make Sense",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/22/best-personal-ai-agents-2026": {
+      "title": "Best Personal AI Agents in 2026: OpenClaw, Hermes Agent, Gemini Spark and More, Compared on Memory, Security and Cost",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/its-over-ton-thoughts-on-isomorphics-latest-haul-and-more": {
+      "title": "It’s Over-ton; Thoughts on Isomorphic’s latest haul; and more",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/22/google-gemini-api-tool-retrieval": {
+      "title": "Google AI Previews Tool Retrieval in the Gemini API for Large Tool Libraries",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/podcast/1038701/anthropic-ipo-ai-safety-openai-nvidia-structure": {
+      "title": "Can Anthropic afford to put safety first?",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/22/nvidia-alpamayo-2-edge-2b-reasoning-vla-drive-thor": {
+      "title": "NVIDIA Releases Alpamayo 2 Edge: A 2B Reasoning VLA for DRIVE Thor",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music": {
+      "title": "Binding of Isaac developer removes AI music from Repentance Plus",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79559-6": {
+      "title": "Electrically induced glass transition of polyelectrolyte complexes enables kinetic ionic diodes",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79400-0": {
+      "title": "Benzoxaboroles target CPSF3 for degradation through a SUMO-dependent pathway in trypanosomes",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79723-y": {
+      "title": "Foliar and floral frost damage reshape reproductive phenology with limited carry-over effects",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79747-4": {
+      "title": "Chronically stable, frequency-selective auditory brainstem stimulation via ultra-flexible penetrating electrode arrays",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79344-5": {
+      "title": "Desmin filaments extend along actin filaments within the mouse skeletal muscle sarcomere",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79707-y": {
+      "title": "Denitrogenative glycosylations of glycosyl sulfonohydrazides",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-parasite-mice-blood-bugs-aid.html": {
+      "title": "Parasite makes mice more attractive to blood-feeding bugs, which may aid its spread",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/column/1039139/vibe-coding-gadgets-tv-camera": {
+      "title": "The vibe-coding revolution is coming to all the gadgets",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/21/thinking-machines-inkling-2-mini-looped-transformer": {
+      "title": "Meet Thinking Machines Inkling 2 Mini: 26B Looped MoE Runs on a 32GB Mac",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/21/openai-gpt-live-1-1-api-standby-mode": {
+      "title": "OpenAI Ships GPT-Live-1.1 for Voice Agents, Cuts Idle Cost to $0.02/Min",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://openai.com/index/perplexity-and-intelligence": {
+      "title": "Perplexity and Intelligence",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/21/columbia-certik-tensorlean-formal-verification-gpu-kernels": {
+      "title": "A Team of Researchers from Columbia and CertiK Introduce TensorLean for Formal Verification of GPU Kernels",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-feathers-reveal-eastern-black-rails.html": {
+      "title": "Single feathers may reveal whether eastern black rails stay in Texas or migrate north",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-avian-champions-distance-migration-scientists.html": {
+      "title": "The avian champions of long-distance migration keep surprising scientists",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/tech/1039554/un-regulations-killer-robots": {
+      "title": "The UN fails to agree on rules regulating ‘killer robots’",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/games/1038099/chess-classic-games-expansion-ai": {
+      "title": "Chess.com’s next move is a new hub for classic games, from mahjong to sudoku",
+      "ts": "2026-11-22T20:34:04.718650+00:00",
+      "status": "skipped"
+    }
+  }
 }
