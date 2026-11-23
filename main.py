@@ -36,6 +36,7 @@ REQUEST_HEADERS = {"User-Agent": USER_AGENT}
 
 GEMINI_FALLBACK_MODELS = [
     "gemini-3.8-flash",
+    "gemini-3.7-flash",
     "gemini-3.6-flash",
     "gemini-3.5-flash-lite",
     "gemini-3-flash-preview",
@@ -578,68 +579,39 @@ def run_scout_agent(
     return candidates[:target_keep]
 
 
-def run_critic_agent(
-    posts: list[dict[str, Any]],
-    candidates_by_url: dict[str, dict[str, Any]],
-) -> list[dict[str, Any]]:
-    """Agent 3 (Cloudflare AI / Groq / OpenRouter): Fast fact-check & Persian hook polish pass."""
-    cf_acc = os.getenv("CF_ACCOUNT_ID", "").strip()
-    cf_tok = os.getenv("CF_AI_TOKEN", "").strip()
-    groq_key = os.getenv("GROQ_API_KEY", "").strip()
-    or_key = os.getenv("OPENROUTER_API_KEY", "").strip()
-    if (not (cf_acc and cf_tok) and not groq_key and not or_key) or not posts:
-        return posts
+def _strip_leading_emoji(text: str) -> str:
+    # Remove accidental duplicate emoji(s) at the very start of hook_title
+    return re.sub(r"^[\W_]*[\U0001F300-\U0001FAFF\u2600-\u27BF\uFE0F\u200D\s]+", "", (text or "").strip()).strip()
 
-    review_payload = []
-    for idx, p in enumerate(posts):
-        src = candidates_by_url.get(p.get("url", ""), {})
-        review_payload.append(
-            {
-                "post_idx": idx,
-                "source_title": src.get("title", ""),
-                "source_summary": (src.get("summary") or "")[:900],
-                "title_emoji": p.get("title_emoji", ""),
-                "hook_title": p.get("hook_title", ""),
-                "paragraphs": p.get("paragraphs", []),
-                "quote_box": p.get("quote_box", ""),
-                "closing_question": p.get("closing_question", ""),
-            }
-        )
 
-    sys_p = """تو سردبیر نهایی و ناظر دقت علمی هستی.
-پست‌های فارسی تولیدشده را با متن منبع انگلیسی مقایسه کن:
-1. اگر عدد، درصد، یا ادعایی بود که در متن منبع انگلیسی نیست، حذف یا اصلاحش کن تا کاملاً وفادار به منبع باشد.
-2. تیتر (hook_title) و پاراگراف‌ها را بررسی کن که فارسی کاملاً طبیعی، جذاب، قلاب‌دار و روان باشد (بدون کلمات ترجمه‌ایِ خشک).
-3. تگ‌های مجاز فقط <b> و <u> هستند؛ هیچ تگ HTML دیگری اضافه نکن.
-خروجی فقط JSON معتبر با فرمت {"reviewed_posts": [...]} شامل همان فیلدهای post_idx, title_emoji, hook_title, paragraphs, quote_box, closing_question باشد."""
+def validate_and_polish_posts(posts: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Agent 3 (Deterministic Quality & BiDi Guard): Fixes emojis, RTL BiDi, and formatting without altering Gemini's Persian prose."""
+    cleaned: list[dict[str, Any]] = []
+    for p in posts:
+        item = dict(p)
+        t_emoji = (item.get("title_emoji") or "🧬").strip().split()[0]
+        hook = (item.get("hook_title") or "").strip()
+        if hook.startswith(t_emoji):
+            hook = _strip_leading_emoji(hook) or hook
+        # Fix Telegram RTL BiDi inversion when hook_title starts with Latin chars (e.g., "AI ...")
+        if hook and re.match(r"^[A-Za-z0-9]", hook):
+            hook = "\u200f" + hook
+        item["title_emoji"] = t_emoji
+        item["hook_title"] = hook
 
-    usr_p = json.dumps(review_payload, ensure_ascii=False)
-
-    providers = []
-    if cf_acc and cf_tok:
-        cf_ep = f"https://api.cloudflare.com/client/v4/accounts/{cf_acc}/ai/v1/chat/completions"
-        providers.append((cf_ep, cf_tok, "@cf/qwen/qwen3-30b-a3b-fp8", False))
-        providers.append((cf_ep, cf_tok, "@cf/meta/llama-3.3-70b-instruct-fp8-fast", False))
-    if groq_key:
-        providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "llama-3.3-70b-versatile", True))
-    if or_key:
-        providers.append(("https://openrouter.ai/api/v1/chat/completions", or_key, "openrouter/free", False))
-
-    for ep, key, model, jm in providers:
-        res = call_openai_compat_json(ep, key, model, sys_p, usr_p, timeout=28, use_json_mode=jm)
-        reviewed = res.get("reviewed_posts") if isinstance(res, dict) else None
-        if isinstance(reviewed, list) and len(reviewed) == len(posts):
-            merged_out = []
-            for orig, rev in zip(posts, reviewed):
-                updated = dict(orig)
-                for k in ("title_emoji", "hook_title", "paragraphs", "quote_box", "closing_question"):
-                    if rev.get(k) is not None:
-                        updated[k] = rev[k]
-                merged_out.append(updated)
-            print(f"[INFO] Critic Agent ({model}) polished {len(merged_out)} posts.")
-            return merged_out
-
-    return posts
+        fixed_paras: list[str] = []
+        for para in item.get("paragraphs") or []:
+            txt = (para or "").strip()
+            if not txt:
+                continue
+            # Collapse accidental doubled leading emoji like "👁️ 👁️ ..."
+            txt = re.sub(r"^([\U0001F300-\U0001FAFF\u2600-\u27BF]\uFE0F?)\s+\1", r"\1", txt)
+            fixed_paras.append(txt)
+        item["paragraphs"] = fixed_paras
+        item["quote_box"] = (item.get("quote_box") or "").strip()
+        item["closing_question"] = _strip_leading_emoji((item.get("closing_question") or "").strip())
+        cleaned.append(item)
+    return cleaned
 
 
 def call_gemini(
@@ -1223,8 +1195,7 @@ def main() -> None:
     print(f"[INFO +{time.time() - t_start:.1f}s] Writer Agent produced {len(selected_posts)} posts.")
 
     if selected_posts:
-        cand_map = {c["url"]: c for c in top_candidates}
-        selected_posts = run_critic_agent(selected_posts, cand_map)
+        selected_posts = validate_and_polish_posts(selected_posts)
 
     if not selected_posts:
         print("[INFO] Gemini found no high-impact stories worth posting right now.")
