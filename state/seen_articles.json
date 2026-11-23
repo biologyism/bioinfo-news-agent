@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 26,
+  "daily_post_count": 31,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1015,6 +1015,181 @@
     "https://pubmed.ncbi.nlm.nih.gov/43069515/": {
       "title": "miRTarBase 11.0: an evidence-centred resource for experimentally supported microRNA-target interactions.",
       "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27876v1": {
+      "title": "LesionAgent: Training-Free Agentic Tumor Tracking and Response Assessment in Longitudinal CT",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMilgFBVV95cUxNUEFFQXlUdWpBNTFPUHdIU3JDZ25xZXZDeU9RbWRRQTgzWnktZUtXZ1c0cXNzLUh0aHl5Mmd0WDEwaXRDamVhOUh2dllLVnJvdkNlS3RXRWExREZpWGlkN0tsUjAxNVZ6QndIeEhxdHRHRGZmSHJsUVdLOV9ENlF5SVNESHR6NmY2V056RWRXTDVGbXAzMEE?oc=5": {
+      "title": "AI drug discovery’s new bottleneck is the lab",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.19.767866v1": {
+      "title": "SpliceVarMech: A causal generative framework for mechanistic interpretation of non-canonical splicing variants",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "sent"
+    },
+    "https://arxiv.org/abs/2611.27924v1": {
+      "title": "BioEmu2: Scalable Emulation of Biomolecular Dynamics",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMixgFBVV95cUxQNVBtVlRGOHlPQ3pmRmFCakplT2hoMHZiZ0R2VE9wWGtpMzlzRFVjdGlYMWptM2pQdlVwTWUwZ0o4TXRrbld6S25TREFNcXRnZ1ZRb2tXa3pGWGxLSFQ4S3JuRmdnbVhGUUNQWUVLYkpwcUx6NllMSDVmeVRORmlhSWI3ZlBTc29DdlZxTkpfQ0d2ZTJRSnhpQnBEV1RkYkN1Vkd0OUVXUFJaTUpmc1FjQUpyYlJKMDh5dmlqNkZMZTdKX1RPUlE?oc=5": {
+      "title": "Explainable Artificial Intelligence for Cervical Cytology Screening Lacks Rigorous Clinical Validation",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNWVRsSGZ1czFjRUNkYVJ5RVFPQlh5VEpJeXZrRGZwSkVOZmtUazhpYlNNVFJNT0ZFdXF5S2tWeWhwLTJvU2Y4VHRyVzJSUnM1ckRSU2VoMkhJMWd0WVJaeDFzQnVQaEo3WWMteU5maHBVWW5ERDRUdjZFdWNnemwtUncteEEwZ3diTDBubkdaa0lDU2daZG5rSjNwTm9lR1hCQWdpY2dEMHQ4dXVPV3h4MTEwal9DTTBuQzcyZV9SZm85NDR5V1NqQ2ZVRVhJMUxpNDQ2ZXZsYm55bWRHbGJHclhCRGxhZzFOQ0k0SjBQQXQ1dw?oc=5": {
+      "title": "Eugene library holds workshop to educate public on how to opt out of artificial intelligence",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPZkFxTm5xRXoxcFMzaS02cWhMTzhSME1sN1RMQTVmM0dMc1U1U1JBemYzWVNZVjZ5RUY5SEJLVEU5MUl3elR1Tjh0Yy1lbGg0Z2hDVXliaHZCdnFHNmlGcFh3emJHYnBhcTBwOG5XMG1KZ0h1T3FxRmc0TWN0V3ZzbGo3bV9NQ3ZxMi1HMDZCek1menV3TzdFZmpVNFpNcEJoamt4VjluMzh2UGJ1NGpBNzI1Q3E4SXJQZmVQeWI4VnJDSS1RVC1uRA?oc=5": {
+      "title": "From Wall Street to Main Street, how artificial intelligence is affecting the economy",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMic0FVX3lxTE9tbkYxcmNfY2o2b3lFQk8yUlBjaklOdWs3Y2prMkYwc01NcHhTVU1Pc1pBM0poaVFNRkFRWWpMUHBBcjRjc1BMM2xFb2dNVTNQRjFsU0FuX3NfMmZ2MHJyXzliNGVJc0IyWFZqWG40ZDdmN28?oc=5": {
+      "title": "Artificial Intelligence at Amgen – Two Use Cases",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPY2lNZ00ybkduSU5oYTBpa1FmajVOMjZ3bHVQNFNpcjdxczFiNDdHd2p2VHFUYkQ1OEkyWGVFcnJUR1NISi13Z3dUVUNHVzZtOXM3TVI4anRiMGRqM1dRbDRpSGtCOFUyeHZLdXVZblNXN0F1Y2xrTGN4eWhjUGkzZ211cVpwdjFvUHgyOXN0S05yOG1xS2pYQmU2bkFTd0FEbUQxNVZ6bGdGY3NubERnZTVya1ZqTHJZUTU0cEhjUUEydUdVb1kyd3pqR1Z1TS04?oc=5": {
+      "title": "Five policy planks to prepare U.S. workers for dislocation caused by artificial intelligence",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMicEFVX3lxTE5nQ2w3VHUxSWdFVEZfVExlNGJaWUszOURZQWpxb0l1MlZFYXJZVXl4LUM2aWpZcDB1UjNuM2czUXJWUjFfVmZTRjd2YTZlSmtiWlRjaTNJcjJWU21fOWFQcFJGc2ZPRGZ3VUhGejBPYXI?oc=5": {
+      "title": "Artificial intelligence adoption and occupational well-being in higher education management: evidence from universities in Guangzhou",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNZGctZ3lLZ3ZvNmRHYmp3dFNTV2pqVHFMaGFvR0lyeUR4WS1IRElmTmNtejQtMWp6NndZRGZVZlJYSW85cGpnMk9ac21tT1lEN0Z1ZjNyRTNiSXVFYzdtU3BJN2NUSjNnb3BTN1VvMXVLeU5CYmhBOUUyRUNob1dRVmlTWWdNNFhQUTFXMFpRLWk0WnZRcFlJRU05SGVjaG5GNWRkNmxOcjJ3cVFWbzNKcDVhY2RpUUFhZzlvamh6QnI?oc=5": {
+      "title": "Fluent Dependence Framework Explains How Artificial Intelligence Masks Developing Human Capability",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiswFBVV95cUxNNU5LeTBCR3Z5U2RCcWtudVNoTmd4cjlrNS1nd3RxbGJTTTA5NVpYcXd5U3VqWFVWR2liWVRPOG5lbVQtaFEwUTMxOHJjRTVqRzU2aWliUXZrNDNGZVJMZFo0aWRaRmNVcGhFbHJpbWhiZXpoUDlVNGZwUWlLREQ1ZmMzYXgtY0pPbHBNZk1fOExNcFczanhIamhHRkFid0RRUnZHQWg2S2JaZkNVMlJJWGNicw?oc=5": {
+      "title": "Technical Safety Benchmarks Fail to Secure Public Legitimacy for Artificial Intelligence",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMixwFBVV95cUxNelNaSU9xTndGSTUyb2FvbDIxTEh4OTZEUDRKSVlMY3Vrczg3S2ZDM2U4aktsc290SDYzRzFKNXY3N1ZIbmpQOHV0UTc1Q1U5RUxMSlBYSk5Tdm1DdnV3dGIwbnhZZl9WZTNUSWJfZ3lJWjExXy1vRDIxT2VVcWJRaU9TeE9ySHphdWVDVDRnYnNPMlItUFQ2TlM1bjlMdElLVWFZRWgzODM2clJUaENrMi1fNGNBemphXzJDeHVNOXRtTlJaVWdR?oc=5": {
+      "title": "This Unstoppable Artificial Intelligence (AI) Stock Is Bucking the Tech Sell-Off, but Is It a Buy Right Now?",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOeWpybmFmbHRmSnhocDFSWkRVcHZKQmx0LVM3V1lZamVoU0Q3dFZEbjlkZ3J0UWkzaEJ6NWQxa1RJN3lsbXk4a3NuM1BpVmxQc0lSd0VBV21QTENULWl2bmZqQ2U1bHRlM1o1NWoya2JIRm5HTVY1cmJOMDZjd0oyMTRvSnd3WnJxYzRwVDhyVFRIb1J5MHhTb21ZeHlnbjBTdGdOUVVXTHM1cE9hSlR5dnU1SGtXbGlCY3M4?oc=5": {
+      "title": "Artificial Intelligence Framework Integrates Urban Building Energy Modeling Across Life Cycles",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOUVdWakcwLXlzVkRFajJDUFBJYVFORnNMbG1IUzBudHgzamwyX3BWWXdaNXZ5VExOMHpwMDVMQm1SVEZ0OVZsR0dGeVJpdVRfaWJzTUFCSnF2TENOZUxoMVpEeTFvTkYxa05UUEF3ZlgwSkM3YlhweGNGS01fM21ld195MUlvMVcxbTR4UmhaRThpOHh1a09wZ2dTOFRrc3REbXpmUHloSG9MS0dJdHFlQXlkcXlsbGFX?oc=5": {
+      "title": "Retinal Artificial Intelligence Predicts Systemic Disease Risk but Lacks Clinical Validation",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiugFBVV95cUxOa0Y5bFdTbGFaaDhyeWdsVGdxWnZlUTNzSTFMYzd2NWgxXy1neWpFSU1BdWdkSzhwbkFtdGRGR09VR3hPWk5QcGpLYUVwcHlyV1ZLQXF0Y0Y5MGxYejYzS1FTdXlTaVF1VUJHbTZ0UjZZaUJLakpyZGpQZ1lNSEpzTjVlUUZJS1lMZzNyVEhMNGVDNnpPaDAyU0dpaVlhcEVJME04VUxfMV8zMjBDTWhEQS1ZbUlleTBlalE?oc=5": {
+      "title": "The Double Alignment Problem: Civil-Military Relations in the Age of Artificial Intelligence",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMibEFVX3lxTE5QT0FJUWtmVjhmcE55U2Fhd2g1QjJrTnN2bE9MeGdrT1dST1IzaFFBLUxRT2hWTmdoRXdYYWtkUVFpUFhHX3NnODVuUVpsMzRhNkhIZ1ZxeGpWYlpMelBRMERic2UwLTJWVlNEMQ?oc=5": {
+      "title": "A December to remember for artificial intelligence",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiywFBVV95cUxOb0pTZXpTNGdMSWdXcExGejc0TVZhTm53ZHpSZFpJSTlFNTdhVGE4TWpMVUdBcHFWQzZzY2FLSDAyWkVDTjdNaFkzY3QyUXc1bjRJdXppc2NOTWVxU1dDbklOZHhaWThxbFpUbC1hY2ZJNGdXZ01JR1RycXpKYnU4RnlMV1NMZXZPRnNIQTZfZHBhenZtWDZ2X1RSeWlGWi1WMlh4d3RmZFdMN21PZmU2ZV9xSUdWWkEzbjZwYU8zXzIzUU01NjVYaTRETQ?oc=5": {
+      "title": "How Artificial Intelligence Is Making It Harder To Stop Cyberattacks",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOaGxmdS12MlFfSGwtRkptVW9HOHkwUENXODJOeXlxU3FMbTlFdUNkOWIwMFV2LTlkNVVvN0JvMVB6U1Ayd05ac0p3MFhqTXZPRWZwVllDQk5TaEVwajA4b2gyMzNpdWt0cXF4T1FSdElpUHhldjBxYWNwcHpkbmt0bGdQcGl1U1ppVHAyaVNSVkNXQ3M5U3hGa0MwVEVUZzNYbVEtNDNtR0hFRThhS3l5NWxET3Fhc2FUWk5sYTVHSmJZRF9zTTJ2bjBlRUFrcEV4ZXNsMzhn?oc=5": {
+      "title": "Arm vs. Marvell Technology: Which Artificial Intelligence Stock Is a Better Buy for 2027?",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMioAFBVV95cUxOZnRiM0ZpVzFaTkZaZ2lUc2dtYjY2U2tqZnFGQlNCb2JRWjlCdkxNQWU2WENIYnVsb0hXVjNtNS1XQ1JzdmtBaU1qRDE2aDd5T2c1Z1lTY2VsaXE4NHJUNjhwdGl6Tm1DRlNVa01DOFlPa294amRMSl9uQlFTczN1dVlhSmRBVWJETV84VkxFcG5EUDVxSC14bUpoREdBZGM50gGmAUFVX3lxTFBESHNmbkFBdXN2ZGc2b3FMT3JiVlNQWHNjRnZYUV83dV9NRVJaWXd0ZWVjbU82Qy1yYVNoXzVtT2VzbzQtQ05WTHI5X1MtZTEyRjdKN0M1UUtJdk5UNTYtdHhQbHlBdE9fZ29ZMnV4VzZhNnF1QTd2QnViYlhyOVNBQVM4V2FFV0otaGN5WkhqSTZMNWtvUUxBZG9ZUmEzQUYxWkpwbkE?oc=5": {
+      "title": "Artificial superintelligence ‘arriving’, warns top Meta executive",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03721-9": {
+      "title": "Ayanna Howard thinks ‘everyone has to be part of’ building ethical AI tools",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27868v1": {
+      "title": "Integrating Generative Artificial Intelligence with Learning Style Models: Opportunities, Challenges, and Future Directions",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27762v1": {
+      "title": "From Novel Combinations to Informative Absence: Structural permission, communicative opportunity, and form choice in language learning",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/kymeras-stat6-degrader-clears-mid-stage-test-in-atopic-dermatitis": {
+      "title": "Kymera’s STAT6 degrader clears mid-stage test in atopic dermatitis",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/after-14b-intra-cellular-success-sharon-mates-returns-with-new-biotech-ritzey-therapeutics": {
+      "title": "After $14B Intra-Cellular success, Sharon Mates returns with new biotech Ritzey Therapeutics",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.767921v1": {
+      "title": "gutenTAG: A MALDI-IHC processing and quality control tool",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768221v1": {
+      "title": "SCOPE: Gaussian-regularized graph learning for enzyme catalytic residue prediction",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/tech/1039851/major-tech-outages": {
+      "title": "We haven’t seen the last of the major tech outages",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/23/invivyd-covid-monoclonal-antibody-declaration-trial-vyd2311": {
+      "title": "STAT+: Invivyd reports positive results in Sisyphean Covid antibody quest",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/23/kymera-therapeutics-eczema-trial-success-potential-dupixent-rival": {
+      "title": "STAT+: Kymera Therapeutics reports mid-stage eczema trial success for would-be Dupixent rival",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069509/": {
+      "title": "MIsoTEx: a mammalian transcript-isoform classification framework and database for exploring tissue distribution, expression stability, and abundance patterns.",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069488/": {
+      "title": "PhageScope 2.0: a million-scale resource for integrated exploration of phage genomic, functional, and structural diversity.",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.16.767020v1": {
+      "title": "Enabling Genotyping of Low-Biomass Zebra Mussel Samples via Multi-Displacement Amplification (MDA)",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.sciencedaily.com/releases/2026/11/261122060334.htm": {
+      "title": "Mysterious new viruses reveal a missing link in evolution",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27795v1": {
+      "title": "The Four-Step Action Loop with Feedback: A teachable perception-action framework for everyday self-regulation",
+      "ts": "2026-11-23T12:53:47.069873+00:00",
       "status": "skipped"
     }
   }
