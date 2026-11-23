@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-24",
-  "daily_post_count": 10,
+  "daily_post_count": 15,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1950,6 +1950,81 @@
     "https://pubmed.ncbi.nlm.nih.gov/43071919/": {
       "title": "Occurrence of tomato brown rugose fruit virus infecting field tomato (Solanum lycopersicum) in Hawaii.",
       "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42866282/": {
+      "title": "Brown-Séquard Syndrome after Self-administered Manual Manipulation of the Cervical Spine: A Case Report.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "sent"
+    },
+    "https://doi.org/10.1136/pn-2026-005379": {
+      "title": "Zosteriform herpes simplex virus type 2 presenting as Brown-Séquard syndrome in an immunocompromised man",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42670523/": {
+      "title": "Brown-Séquard syndrome caused by cervical disc herniation with associated Horner's syndrome: a case report.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/41770212/": {
+      "title": "A case of Brown-Séquard syndrome due to spınal cord infarctıon following percutaneous coronary intervention.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42767785/": {
+      "title": "Total knee arthroplasty in Brown-Séquard syndrome.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42751592/": {
+      "title": "Mesenchymal Chondrosarcoma Presenting as Atypical Brown-Sequard Syndrome.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMitAFBVV95cUxPaWliVWN1R2FjQnBDcXVhV3ZjMV9WSU5KWXZsWU9KUkhsUUFiLTJRZy1jTGlKc2JFRURfOG5VMjdZd2lFSlY3SThIbmc3dWc1c1dyaFlRYXpnZ3hlX1B5SkpFRGZqRzZfWnVBcVVkbEdqcHZQTDFCSzFhQzNpUE4zX3ppR0dtSVl6VlZmRWJ6aEdvc0FQMUlqNU5WT1lxTlBWbUhKam1YZzRnOU5lV1B3TmxpX1k?oc=5": {
+      "title": "Brown-Séquard Syndrome Secondary to Cervical Spinal Meningioma: A Case Report",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42155976/": {
+      "title": "Evoked Potentials as a Complementary Tool for Tract-Level Functional Assessment in Postoperative Brown-Séquard Syndrome.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42536831/": {
+      "title": "[An inspired and wandering researcher: Charles-Édouard Brown-Séquard (1817-1894)].",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42891819/": {
+      "title": "Prognostic Factors for Neurological Outcome After Surgery for Idiopathic Spinal Cord Herniation: A Systematic Review and Published Individual Patient Data Analysis.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42707836/": {
+      "title": "Incomplete Brown-Séquard syndrome secondary to acenocoumarol-induced hematomyelia: A case report.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/41992358/": {
+      "title": "Spontaneous hemorrhage in the spinal canal leading to Brown-Séquard syndrome: a case report and review of the literature.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42716806/": {
+      "title": "Imaging Characteristics, Clinical Presentation, and Prognosis of Spinal Cord Infarction.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42174133/": {
+      "title": "Lessons from 19th-century Edinburgh: a perspective on paraplegia management from 1876.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/41812671/": {
+      "title": "Ventral Spinal Cord Displacement as a Cause of Thoracic Myelopathy: A Case Series of Nine Patients with Special Consideration of Magnetic Resonance Imaging Findings.",
+      "ts": "2026-11-23T23:31:38.109883+00:00",
       "status": "skipped"
     }
   }
