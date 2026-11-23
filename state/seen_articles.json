@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 49,
+  "daily_post_count": 52,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1575,6 +1575,81 @@
     "https://www.nature.com/articles/s41467-026-79746-5": {
       "title": "Quasi-degenerate cation occupation enables oxygen-vacancy defect healing in nonlinear optical crystals",
       "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-hidden-million-years-rays-reveal.html": {
+      "title": "Hidden for 100 million years: X-rays reveal an ancient flower from the age of dinosaurs",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "sent"
+    },
+    "https://phys.org/news/2026-11-anatomical-variant-ancient-jaw-reveals.html": {
+      "title": "Anatomical variant found in an ancient jaw reveals a modern-day mystery",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "sent"
+    },
+    "https://phys.org/news/2026-11-supergene-moss-ant-queen-winged.html": {
+      "title": "How a single supergene determines whether a moss ant queen is winged or wingless",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.765608v1": {
+      "title": "Identification of eukaryotes as a bycatch in global microbiome data",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768085v1": {
+      "title": "Plasma electrolyte changes can modulate post-repolarisation refractoriness in the human atrium",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79687-z": {
+      "title": "Mesophase-induced vitrification in coordination polymers via aliphatic chain dynamics",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79932-5": {
+      "title": "Nationwide high-resolution assessment reveals the underestimated carbon sink of Chinese parks",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-specialized-brain-cells-wasps-wasp.html": {
+      "title": "Specialized brain cells help wasps recognize other wasp faces",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-recycling-food-essential-minerals-crops.html": {
+      "title": "Recycling food waste could return essential minerals to crops, food and animal feed",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://elifesciences.org/articles/113568": {
+      "title": "A step towards modelling amyotrophic lateral sclerosis in primates",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/house-committee-issues-final-report-on-us-china-biotech-race": {
+      "title": "House committee issues final report on US-China biotech race",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-acquisitive-traits-favored-drought.html": {
+      "title": "Acquisitive plant traits are favored during and following drought",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03722-8": {
+      "title": "Build for the future climate — or waste trillions of dollars",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03720-w": {
+      "title": "‘Mozart of maths’ Terence Tao is your guide to what underpins reality",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/tech/1040069/jensen-huang-return-elon-musk-sam-altman-yay": {
+      "title": "Tech leaders are celebrating Jensen Huang’s return",
+      "ts": "2026-11-23T16:21:33.564582+00:00",
       "status": "skipped"
     }
   }
