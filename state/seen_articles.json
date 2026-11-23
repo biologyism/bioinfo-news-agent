@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-24",
-  "daily_post_count": 5,
+  "daily_post_count": 7,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1725,6 +1725,81 @@
     "https://www.biorxiv.org/content/10.64898/2026.11.21.768281v1": {
       "title": "BASIN: Background-Anchored Signal Normalization with Integrated Quality Control for CUT&RUN and CUT&Tag",
       "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxNREM4b3l2czBJOU1Eak1BSXVIVi1na250X3NodDMwWkdTb3p0RUJoZk5EbTJGRVJlZWVOQ2lTdFlpWjV5Zy1OWTBYVjZkd1RoYTdVTVpBR1h2b3o3ZzhYSnJwcW5uUWZpUWl6Q19heGZ4N196TzhSQm95eTlmdm01ZTRVLVgxTE54eGNOV0tjbW0xV3llaHh6cXI1WklRNjl1NjhXRmxYdlpXa2J1c2RWaWpidnpHX2xQd05IUTk1U1R1TlFW?oc=5": {
+      "title": "AlphaFold Structure Analysis Uncovers Organism Signatures That Reconstruct Evolutionary Relationships",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "sent"
+    },
+    "https://phys.org/news/2026-11-ai-method-advances-high-resolution.html": {
+      "title": "AI-assisted method advances high-resolution structure classification of membrane proteins in vesicles",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPeWFjMGNMZk5fODduSUhua1ZwdmJlN1U2T2pyWnVEVmlyekVsc0dVLVZESktqdWNkb0xnSGp3cW1ZUU5lb2JtT2h1cnpzY3Q4Si1WdC16NEhhbVAxbEQ1bDM3Z2VXLXhrTS10bHFON0syU1pNdnQ0Y25peXFDd2h3RG5mcU1mNzlFTk1PcjRTY1hBSno4dXl4d3JIa0JZMU5hN3FzVzhXYXNvSGFOZ3N4akloRmlrRkZ0N2Qw?oc=5": {
+      "title": "Mass Spectrometry Integrates De Novo Protein Design Into Structural Biology Method Development",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.22.768374v1": {
+      "title": "Multiscale superinformation reveals structured organization of genomic sequence features",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.22.768365v1": {
+      "title": "A stop codon shared by all Gyps vultures, including the three Critically Endangered species of South Asia, lies in a coding exon of the bird gene CYP2C45",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://ncbiinsights.ncbi.nlm.nih.gov/2026/11/23/conserved-domain-database-3-22": {
+      "title": "Conserved Domain Database Version 3.22 Now Available!",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/arcus-stops-phase-3-study-of-cd73-inhibitor-novartis-leqvio-eases-heart-event-risk": {
+      "title": "Arcus stops Phase 3 study of CD73 inhibitor; Novartis' Leqvio eases heart event risk",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/capricor-says-it-will-challenge-fdas-rejection-of-duchenne-therapy": {
+      "title": "Capricor says it will challenge FDA's rejection of Duchenne therapy",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/fda-approves-bridgebio-rare-disease-drug-for-muscular-dystrophy": {
+      "title": "FDA approves BridgeBio rare disease drug for muscular dystrophy",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMigAFBVV95cUxNc08yZWU5UnRzZHEyLVJfdXdjZVNoX3JrWWd3UW14ODZjRkd3ZU1aTlh1SWQ2MGR1MTdJYmxJcHR1WFIzaG8wa3djdGFFOE5RR3hOUjN0N1MtVjhnUC1jVkd2YjBMM255b3p4VVVCdjRUY3ZzQ0xBcU1rV0RFS196bg?oc=5": {
+      "title": "Top 12 AI Drug Discovery Signals Of 2026",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/healthcare-spending-on-ai-surpasses-other-sectors-report-says": {
+      "title": "Healthcare spending on AI surpasses other sectors, report says",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPelR0ZnlyaC11NWJQVVl1YlZMdTVld0tHYmdxSEIwM29CMjFBU0stYWVaV05fVUIwUXJQanozQW1MZG5tSHJoQ3BSX2VGNTVxOTlkaHlXX29uUjJDRVByc3AzZmtJUG8tUDkyd1F4aUZ6ejFDMG9xUUVkeW9veFd5SENtNFhXSWZqSmhJUW00aTEyWjhQRDBqdzhzM2lYSlNGdkxSaXpvWV91Zw?oc=5": {
+      "title": "Bridging Sulfur Strategy Directs AlphaFold 3 to Model Protein Disulfide Chemistry",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/23/fda-approves-bridgebio-lgmd-drug-welgemda": {
+      "title": "STAT+: Limb-girdle muscular dystrophy gets its first FDA-approved drug, from BridgeBio",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://www.drugdiscoverytrends.com/lillys-tunelab-passes-150-members-as-partners-expand-its-training-set-by-30": {
+      "title": "Lilly’s TuneLab passes 150 members as partners expand its training set by 30%",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
+      "status": "skipped"
+    },
+    "https://www.genengnews.com/topics/drug-discovery/metabolic-pathway-identified-as-potential-target-for-liver-diseases": {
+      "title": "Metabolic Pathway Identified as Potential Target for Liver Diseases",
+      "ts": "2026-11-23T23:17:53.540446+00:00",
       "status": "skipped"
     }
   }
