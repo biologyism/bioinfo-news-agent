@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 43,
+  "daily_post_count": 48,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1425,6 +1425,81 @@
     "https://www.genengnews.com/topics/omics/ptsd-brain-dna-methylation-patterns-linked-to-age-of-trauma-exposure-sex-and-ethnicity": {
       "title": "PTSD Brain DNA Methylation Patterns Linked to Age of Trauma Exposure, Sex, and Ethnicity",
       "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768276v1": {
+      "title": "Cortical neurons accumulate point mutations at similar rates in mice and humans",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "sent"
+    },
+    "https://arxiv.org/abs/2611.27960v1": {
+      "title": "Receptor Abundance Alone Underpredicts Red Blood Cell Adhesion in Gaucher Disease",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "sent"
+    },
+    "https://arxiv.org/abs/2611.27888v1": {
+      "title": "Spatial model of neurogliovascular unit: arachidonic acid can control the stability",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43067070/": {
+      "title": "Uncovering the genetic architecture of optic nerve integrity estimates through genome-wide association study meta-analyses.",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "sent"
+    },
+    "https://elifesciences.org/articles/112193": {
+      "title": "Pre-rRNA represses gene transcription in the XY body of male germ cells",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "sent"
+    },
+    "https://arxiv.org/abs/2611.27847v1": {
+      "title": "Self-organized fractional silencing of pyramidal neurons under global depolarization in a spatial neuron-glial microcircuit model",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768272v1": {
+      "title": "Genomic Characterisation of the Irish Traditional BoRiabhach Cattle Breed",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://elifesciences.org/articles/110466": {
+      "title": "ATP8B1–TMEM30B flippase activity maintains stereocilia lipid asymmetry required for hearing",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79922-7": {
+      "title": "A conceptual analysis of One Health and Person-Centred Practice",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79275-1": {
+      "title": "CARM1-mediated methylation controls interactions of ALIX with key partners important for cytokinesis",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/tech/1039937/nvidia-ceo-jensen-huang-reinstated": {
+      "title": "Jensen Huang is back as Nvidia’s CEO",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27983v1": {
+      "title": "Optimal Linear Regression Without a Variance",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27919v1": {
+      "title": "SUAF: Spectral Universal Advantage Features for Zero-Shot Policy Improvement",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27915v1": {
+      "title": "StereoVLM: Binocular Vision-Language Models for Metric 3D Spatial Reasoning",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27895v1": {
+      "title": "TEA-Bench-BR: Can Coding Agents Turn a Branching Clinical Specification into Correct Code?",
+      "ts": "2026-11-23T15:42:27.831403+00:00",
       "status": "skipped"
     }
   }
