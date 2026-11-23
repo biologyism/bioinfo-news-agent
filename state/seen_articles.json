@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 33,
+  "daily_post_count": 38,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1265,6 +1265,81 @@
     "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update": {
       "title": "The most misunderstood graph in AI just got a major update",
       "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMioAFBVV95cUxPVTFmbXFMWUQwb1h5b29LbWNfUXdCdm1ycnQ0ZWNSeU1WUHJYU09FdEJSMGZKVGZjWWtwV0ZXZzZwTVpNMC1ucUNfYnJzMTc4eDctVllzbTM4Ny1qVjdaRlZvVlUteHVjYU4zYUU0V0psZm92UkxHUEJHWC1VaExzblVGQnU3cVFocWJiSGJZZjh1UHFUUm4tTk1Jc21ZQ3oy?oc=5": {
+      "title": "Can the United States and China Cooperate to Control Artificial Intelligence?",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1lZUZiNE91Y0ZaX3VQcjl3bXNBd0FPazNuRlhzMHhIYXQ1VDJiOElDeDFhbUptblZtMXpFcnRXdzY4SkRlTWM3a0RfOTAzMFhDVERjblpmeEZPR3N5YmVZ?oc=5": {
+      "title": "Isomorphic Labs President Max Jaderberg: Can AI Solve All Disease?｜Giant Ideas",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOc0o1SU9KSTFxLWY1cUlxdEI0UjBZSUNQMjY3SHpCNGZLQm40NV9RQ2Rmd3FqWlU0WTM2Mi1jZ09vS1pHSWMwcnowZ1E1NXFLV1lhT09UTzF3aTQyYTFrUWloMzh2LXZPVkFpdWJCQ3AtOVFFY183UklJY3JfOTJfZmFFZEMycTB1RDhaZVVVLVFqQ2VIeW9POHZHZDRVdFJ3OWhZMG13Q2JLR3l5VjNWYWNMZEhwVWh0MndpZjNXUXBGeTRCZ1VVQ1RtSWRZUGI3cmE2NkZ5TWI3a2pWVkE?oc=5": {
+      "title": "AI is already saving lives on our roads, rails, and runways",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOemlGZ2FoaWljUkNZU0xCcEpManRBZUNBck1wOFlQcXA1b2dNNC1IX21wUGlUVU92ZWxZbHFyXzhiN21FMFA5Z2R0ZkNWOHBRektRMnNHOERuckI3OXd3WnVHZTNOU1c5aHdtUFk2bGRta1MxY3NVUGlFeHozYUJ5SVI0QzVPSGFHQ2FRWXFqaG5XTUlJcmIwdGhOWE1TSEE5TTlZWEZqNUlkZw?oc=5": {
+      "title": "Recent Cyberattacks Could Signal the Awakening of Artificial Intelligence",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMib0FVX3lxTE0yaS1OaGZZX0NqZndfaW1HQ01LQmZxU0lIaUhmTVdEdFZPSVpJUlVudjBFVFR2eFdmY3F6U2FTbThfbU9lOE5kUmowYUJuOUl5d1c3TEM3dWxsUG9WQUFVZVB6dkFSTDk4eWFOTHhPWQ?oc=5": {
+      "title": "AI may not work like the human brain after all, scientists discover",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMimwFBVV95cUxPVExlbEFkNThWNXFfNFJwUkFkLUtzQWVYemJlaDEyenRlS2dfZDB2c0ZNblV6bGNBbmJrZ2UzMUxEdDBvM0RnS0cwWndoem9HaFZkOVUydHg2SDJYa2J1Rml3U1R0V3VOWVdQelRtTzNpRkFzNEtwY2xWVGtMd1pVYmhwd1Y1T1E4amZmb0FMV2FyTmRpbUNyNkczMA?oc=5": {
+      "title": "Lumexa Imaging Appoints Dr. Ayis Pyrros as New Chief Clinical Artificial Intelligence Officer",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070085/": {
+      "title": "Harnessing generative artificial intelligence for emergency and disaster medicine: A systematic review of applications, challenges, and future directions.",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbWJHUlRGQkwwbjM1RFpUcHQtV2NtREJkME1pNnc1YXllSG5Ec1VaUDNsR0xHZXhqM0tBa0FaLXpmRGF2TjE3eGZkdjBiQnUzX1JSU3Vrel9DUWhXcGswWmw1UDFxRHY2eno1V3dBYllBcjFCT2NVRnBxRjEzWUUyM0pKRTJNcDA2SE5sRTNwQV9qczVFRnhJWEFtT3FDaWlfb3ZtSDJlcWdsdw?oc=5": {
+      "title": "Why Compliance, Security and Data Strategy Are Key to AI Readiness",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMirgFBVV95cUxQLTdXUUlEMlBXRXpXYng2dmp1Snd4SlNzQ21jWW96OW1nZklFU3RsLUwycnpWdmZqQmxwb05yUnVmRlgzQm9FRk5lM2RNOHB4UEVZeTRJV3Fsd3kyVU1LZ2xrTXVrUk9Wd0pTTlp1TTFOTV84d0ZjVTVVa1NIWFhudzFoWjlfZmtlc1M1SHdlM20tYXVpczVXcVA0RVRJLVJ0dEhYNkZtRXJZd2pzbHc?oc=5": {
+      "title": "Sexual images from Elon Musk's AI chatbot harmed consumers, AGs argue",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNaHBGSkIzOGdFdXJGbGpWRlBobGFTRkdVdlBneFVSd2F3YzlIYUdkNTJ4T3YtLXZvelM0QVFtZkRDdFJRNG1JSXl6WVIzOU1oMG10QzZHM1RaV2VtNXM5RktoZmhDUHg2bHFUeE1razBGVko4UlRvb1VsWlFZNUJwT0l3TE15NUo0QTYxRmpTbGRsbGNqRy01c3NwZ0dqbEFuRml2ekdseVpWZWRHNmpnbEcwRGMxWXhnV19aVmdfcWFxSnotWFVwVlBGV3JTOUUwWFR2a1VLY001d0xNN25RdjdkMlRlWmlYUDZOU3loMy1aZFplUlBJ?oc=5": {
+      "title": "Executive survival guide: 10 tough questions for the industrial AI age",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMivwFBVV95cUxPalEtTjcxRkpZeXFjX1k3Zkd2YXV6RE5IMGtGblV4ZzM0cURnSXdFcVFHcG9vRVBXaUdsRllSQnU5LWVCNW9MU3k3VDFUSjFBQXJkd3FvZjZMSll5MUtVX1F1RUc4SGpVR2c0X01oeXRXaGJmWUc4MXVMWFR4cUMwSWpNNGFyQ0xxaldmakNfR1BIaXV1X1NLZkNDNGtrZmx6WlpMcUJ3UjF0bVhZSFZlWDlUSFV0OVYxcS1NbTVKYw?oc=5": {
+      "title": "AI tools help brands curb Black Friday deals, from clothes to skincare",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://news.mit.edu/2026/qa-enabling-more-human-interactions-understanding-multimodal-foundation-models-1120": {
+      "title": "Q&A: Enabling more human-like interactions and understanding in multimodal foundation models",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/23/meta-tlx-triton-low-level-extensions": {
+      "title": "Meta TLX Brings Warp-Group GPU Control to Triton on Hopper, Blackwell, AMD",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/ai-artificial-intelligence/1039874/walmart-agent-gateway-meta-muse-black-friday": {
+      "title": "Meta Muse can do your Black Friday shopping at Walmart",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/23/27-ai-cybersecurity-terms": {
+      "title": "27 Cybersecurity Terms to Prepare You for the Age of AI",
+      "ts": "2026-11-23T14:32:59.794286+00:00",
       "status": "skipped"
     }
   }
