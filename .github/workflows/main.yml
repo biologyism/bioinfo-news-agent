@@ -22,6 +22,10 @@ on:
         description: 'اجرای درخواستی از طریق چت تلگرام'
         required: false
         default: 'false'
+      reply_chat_id:
+        description: 'آیدی چت درخواست‌کننده (برای ارسال مستقیم پاسخ به همان کاربر)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -48,12 +52,15 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_AI_TOKEN: ${{ secrets.CF_AI_TOKEN }}
           GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           CUSTOM_TOPIC: ${{ github.event.inputs.topic || '' }}
           CUSTOM_COUNT: ${{ github.event.inputs.count || '' }}
           CUSTOM_QUERY: ${{ github.event.inputs.custom_query || '' }}
           ON_DEMAND: ${{ github.event.inputs.on_demand || 'false' }}
+          REPLY_CHAT_ID: ${{ github.event.inputs.reply_chat_id || '' }}
         run: python main.py
 
       - name: Commit updated state
