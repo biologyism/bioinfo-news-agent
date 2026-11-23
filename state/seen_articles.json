@@ -1,6 +1,6 @@
 {
-  "daily_date": "2026-11-23",
-  "daily_post_count": 52,
+  "daily_date": "2026-11-24",
+  "daily_post_count": 5,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1650,6 +1650,81 @@
     "https://www.theverge.com/tech/1040069/jensen-huang-return-elon-musk-sam-altman-yay": {
       "title": "Tech leaders are celebrating Jensen Huang’s return",
       "ts": "2026-11-23T16:21:33.564582+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768275v1": {
+      "title": "Deciphering state bridges via a single-cell large language model",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "sent"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014932": {
+      "title": "AlphaFold models of host-pathogen interactions elucidate the prevalence and structural modes of molecular mimicry",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768324v1": {
+      "title": "Genomic foundation models and complementary variant-scoring strategies in LGMD-associated genes: architecture, adaptation, and sequence context",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768339v1": {
+      "title": "TrailMix: Mixture Proportion and Placement Estimation of Ancient Hominin mtDNA Samples using a Pangenomic Reference",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "sent"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014929": {
+      "title": "Large-scale analysis of AlphaFold structures reveals organism-specific physicochemical signatures",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070671/": {
+      "title": "BioBatchNet: A Dual-Encoder Framework for Robust Batch Effect Correction in Imaging Mass Cytometry.",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768082v1": {
+      "title": "Integrating CRISPRi perturbation responses and transcription-factor binding priors for regulatory network inference in triple-negative breast cancer",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070636/": {
+      "title": "GSP: a multi-scale metric for evaluation of 3D RNA structure predictions.",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768293v1": {
+      "title": "Zero-shot virtual knock-out rankings do not recover causal genes from observational single-cell data",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768321v1": {
+      "title": "deeprok: highly accurate prokaryotic gene prediction through deep learning and overlap-aware decoding",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768291v1": {
+      "title": "How predictable is an individual's DNA methylation?",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014990": {
+      "title": "Statistical analysis of residue contact energies reveals folding determinants of ion channels",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s43588-026-01109-3": {
+      "title": "Richer data improve predictions of T cell receptor binding to specific antigens",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768089v1": {
+      "title": "Effects of sequence splitting and negative-set selection on antimicrobial peptide prediction",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.21.768281v1": {
+      "title": "BASIN: Background-Anchored Signal Normalization with Integrated Quality Control for CUT&RUN and CUT&Tag",
+      "ts": "2026-11-23T20:34:47.227935+00:00",
       "status": "skipped"
     }
   }
