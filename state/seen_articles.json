@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 23,
+  "daily_post_count": 26,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -840,6 +840,181 @@
     "https://news.google.com/rss/articles/CBMinwFBVV95cUxNanpueFFWeXBsTGxSYnBraDR6QUNTVnNFdVZodTlyX1I0cV84MURlVjhYVWlDb2pHcC0xN0NseF85LXRCWl8xSWZXc29OM29zcVJ0N3M1b3Y1OWliV3BfSDRyZXlmRXNkclZNNzQwRUdWVU1wWlE2R0ZzR0lQQm5KUkdNMkZSSklkWGNkTDVvQ2ItbmNJbklrTFV0bFQtdWs?oc=5": {
       "title": "Rx Rundown: Ollin Biosciences, AstraZeneca, Isomorphic Labs and more",
       "ts": "2026-11-23T07:39:10.541299+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069374/": {
+      "title": "Microgravity-assisted large spheroid culture generates mesenchymal stem cells with enhanced wound-healing activity.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070088/": {
+      "title": "AAV-mediated neurogenetic therapy for Huntington's disease: from experimental hope to responsible clinical translation.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070144/": {
+      "title": "Systemic protection of Tongyang Zhixie decoction against radiation-induced intestinal injury: Role of stem cells, apozptosis, and gut microbiota.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768136v1": {
+      "title": "Population-level learning of non-additive effects enables accurate and efficient prediction of combinatorial perturbation responses",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070059/": {
+      "title": "BGC Atlas v2: biosynthetic gene clusters with taxonomic and environmental context at scale.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768127v1": {
+      "title": "Machine learning prediction of antimicrobial resistance in respiratory metagenomes",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069518/": {
+      "title": "VEuPathDB: 2026 update on data, tools, and infrastructure for eukaryotic pathogens, vectors, and hosts.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768078v1": {
+      "title": "Predicted templates improve the prediction of antibody-antigen structures by AlphaFold 3 and Boltz-2",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768015v1": {
+      "title": "Machine Learning-based Transcriptomic Data Analysis of Long COVID Patients: Generating Hypotheses for Molecular Signatures",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQbDdXMzg2NGVoOW5sMVBoOXlJLV9Id01uVTdaM1R1Ti1TNWhQZTBPeC1vTEROLXlxby1qZHpTWUo4cTRneE1sSEtqWHdsaHBZd0lwM0JqbkprU0U0SFZaLWFmV25JeDhnSllwaEN3d2RvV04wZ2dWZ0xGOUx4M1VRZmlKa0RzVWd5RUU1SVpuMEpSQ2c5aE1uaFdGMURaUXJ4X1B2Zzl2cjJlSllfb1ZLbzN0TnhlN1hQQXdvaThoXzVETEJBVVowUm4tN2wxOTNTYnhJdC1jUVlBV29jWlRJRjNaY0dOb1FnQXBDR1RfWUl3MkQxWkY3Rjl3?oc=5": {
+      "title": "Salvaging a Tooth Following Failed Regenerative Therapy for a Persistent Endo-Periodontal Lesion Using an Autogenous Bone Block",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768203v1": {
+      "title": "Dependence-Aware Conformal Prediction for 3D Uncertainty Quantification in Molecular Docking",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768033v1": {
+      "title": "A2Holo: Dual-Stream Flow Matching of 3D Structure and a Protein Language Model for Conformational Transition Prediction",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069503/": {
+      "title": "MGnify analyses in 2027: enhancing the depth and breadth of analyses across metabarcoding, unassembled metagenomes, and assembled datasets.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069498/": {
+      "title": "DrugMAP 3.0: an enriched molecular atlas featuring ADMET endpoints, pharmacogenomic perturbations, and bioactivity atlas of drugs.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41587-026-03284-0": {
+      "title": "A unified framework for scalable differential testing for spatial omics",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069223/": {
+      "title": "Development and validation of a machine learning-based cell death-immune prognostic model for risk stratification in diffuse large B-cell lymphoma.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070058/": {
+      "title": "BFVD v3-the atlas of predicted viral protein structures.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41588-026-02842-1": {
+      "title": "A draft mouse pangenome graph reference",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768178v1": {
+      "title": "Genomics of the diversification of Heliconius cydno (Lepidoptera: Nymphalidae) in northern South America: geographic and phenotypic patterns",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/lilly-buys-huntingtons-startup-loqus23-for-up-to-725m": {
+      "title": "Lilly buys Huntington's startup LoQus23 for up to $725M",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070158/": {
+      "title": "Translons upstream of protein-coding regions rather than their products are crucial for proliferation of human cells of distinct origin.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070157/": {
+      "title": "AAV-mediated XIST deletion in female human hepatocytes with skewed X-inactivation induces limited reactivation of the X-linked OTC gene in vivo.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069556/": {
+      "title": "Potential ameliorating effect of granulocyte-colony stimulating factor on bleomycin-induced pulmonary fibrosis in rats: via TNF-α/IL-6 signaling, α-SMA/PCNA, and tight junctions modulation.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070074/": {
+      "title": "MissenseDB: proteome-wide human missense variant effect prediction database with structural context.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768048v1": {
+      "title": "siGMA: Modeling Label Noise and Heterogeneity in siRNA Efficacy Prediction",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768050v1": {
+      "title": "Evolutionary constraints on mitochondrial bioenergetics are reshaped in cancer",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.767990v1": {
+      "title": "Large populations from few founders: founder-aware likelihoods for inferring cell proliferation rates",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768148v1": {
+      "title": "NanoHIV-DR: a Nextflow workflow for consensus and read level HIV-1 drug resistance profiling from Oxford Nanopore sequencing",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768114v1": {
+      "title": "The Impact of Germ Layer Origin on the Ageing Transcriptome",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.767624v1": {
+      "title": "Non-invasive detection of tissue clonal mosaicism in chronic disease",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41592-026-03406-1": {
+      "title": "Tracking individual birds by their song",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/23/genmab-cancer-drugs-oncology-clinical-trials": {
+      "title": "STAT+: A string of wins with cancer drugs sets Genmab up for its next chapter",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/23/caronilex-dual-targeting-car-t-overcomes-myeloma-resistance": {
+      "title": "STAT+: New biotech aims to develop next generation CAR-T for multiple myeloma",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43070156/": {
+      "title": "Endogenous variability in transcription factor concentrations shapes their genome-wide occupancy.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43069515/": {
+      "title": "miRTarBase 11.0: an evidence-centred resource for experimentally supported microRNA-target interactions.",
+      "ts": "2026-11-23T11:16:20.296683+00:00",
       "status": "skipped"
     }
   }
