@@ -221,7 +221,7 @@ def fetch_single_rss(feed_cfg: dict[str, Any]) -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
 
     try:
-        resp = requests.get(url, headers=REQUEST_HEADERS, timeout=15)
+        resp = requests.get(url, headers=REQUEST_HEADERS, timeout=10)
         if resp.status_code != 200:
             print(f"[WARN] Feed HTTP {resp.status_code}: {name}")
             return items
@@ -364,7 +364,7 @@ def enrich_article_snippet(item: dict[str, Any]) -> None:
     if len(item.get("summary", "")) >= 450 and item.get("og_image"):
         return
     try:
-        resp = requests.get(url, headers=REQUEST_HEADERS, timeout=8)
+        resp = requests.get(url, headers=REQUEST_HEADERS, timeout=5)
         if resp.status_code != 200 or "text/html" not in resp.headers.get("Content-Type", ""):
             return
         soup = BeautifulSoup(resp.text, "html.parser")
@@ -613,7 +613,7 @@ closing_question: ""
                 endpoint,
                 params={"key": api_key},
                 json=payload,
-                timeout=90,
+                timeout=45,
             )
             if resp.status_code in {404, 429, 503}:
                 print(f"[WARN] Model {model} returned {resp.status_code}: {resp.text[:250]}")
@@ -841,12 +841,49 @@ def get_target_chat_ids() -> list[str]:
     return [cid.strip() for cid in raw.split(",") if cid.strip()]
 
 
+def update_progress(
+    bot_token: str,
+    chat_ids: list[str],
+    status_msg_id: str,
+    percent: int,
+    label: str,
+    done: bool = False,
+) -> None:
+    if not bot_token or not status_msg_id or not chat_ids:
+        return
+    filled = max(0, min(10, round(percent / 10)))
+    bar = "▓" * filled + "░" * (10 - filled)
+    icon = "✅" if done else "⏳"
+    text = f"{icon} <b>گزارش وضعیت ربات</b>\n\n<code>[{bar}] {to_persian_digits(percent)}٪</code>\n{html.escape(label)}"
+    try:
+        requests.post(
+            f"https://api.telegram.org/bot{bot_token}/editMessageText",
+            json={
+                "chat_id": chat_ids[0],
+                "message_id": int(status_msg_id),
+                "text": text,
+                "parse_mode": "HTML",
+            },
+            timeout=10,
+        )
+    except Exception:
+        pass
+
+
 def main() -> None:
+    t_start = time.time()
     dry_run = os.getenv("DRY_RUN", "false").strip().lower() in {"true", "1", "yes"}
     on_demand = os.getenv("ON_DEMAND", "false").strip().lower() in {"true", "1", "yes"}
     custom_topic = os.getenv("CUSTOM_TOPIC", "").strip()
     custom_query = os.getenv("CUSTOM_QUERY", "").strip()
     custom_count_raw = os.getenv("CUSTOM_COUNT", "").strip()
+    status_msg_id = os.getenv("STATUS_MESSAGE_ID", "").strip()
+
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+    target_chat_ids = get_target_chat_ids()
+
+    if on_demand and not dry_run:
+        update_progress(bot_token, target_chat_ids, status_msg_id, 35, "در حال رصد ۴۰ پایگاه علمی و PubMed...")
 
     config = load_sources()
     settings = config.get("settings", {})
@@ -892,16 +929,16 @@ def main() -> None:
         )
 
     print(f"[INFO] Fetching {len(enabled_feeds)} RSS feeds and {len(enabled_pubmed)} PubMed queries...")
-    with ThreadPoolExecutor(max_workers=12) as executor:
+    with ThreadPoolExecutor(max_workers=16) as executor:
         futures = [executor.submit(fetch_single_rss, f) for f in enabled_feeds]
         for fut in as_completed(futures):
             raw_items.extend(fut.result())
 
     for q in enabled_pubmed:
         raw_items.extend(fetch_pubmed_query(q))
-        time.sleep(0.5)
+        time.sleep(0.4)
 
-    print(f"[INFO] Total raw entries fetched: {len(raw_items)}")
+    print(f"[INFO +{time.time() - t_start:.1f}s] Total raw entries fetched: {len(raw_items)}")
 
     candidates = score_and_deduplicate(
         raw_items=raw_items,
@@ -911,28 +948,29 @@ def main() -> None:
         custom_topic=custom_topic,
         allow_seen_fallback=on_demand,
     )
-    print(f"[INFO] Fresh deduplicated candidates: {len(candidates)}")
+    print(f"[INFO +{time.time() - t_start:.1f}s] Fresh deduplicated candidates: {len(candidates)}")
 
     if not candidates:
         print("[INFO] No fresh news items found in this window. Exiting cleanly.")
         if on_demand and not dry_run:
-            bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-            for cid in get_target_chat_ids():
-                if bot_token:
-                    send_telegram_message(
-                        bot_token,
-                        cid,
-                        "متأسفانه در ۷۲ ساعت گذشته خبر جدیدی مطابق درخواست شما پیدا نشد.",
-                    )
+            update_progress(
+                bot_token,
+                target_chat_ids,
+                status_msg_id,
+                100,
+                "متأسفانه در ۷۲ ساعت گذشته خبر جدیدی مطابق درخواست شما پیدا نشد.",
+                done=True,
+            )
         save_state(state)
         return
 
     top_candidates = candidates[:max_candidates]
 
     if fetch_body:
-        print(f"[INFO] Enriching article excerpts for top {min(20, len(top_candidates))} candidates...")
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            list(executor.map(enrich_article_snippet, top_candidates[:20]))
+        enrich_limit = 12 if on_demand else 18
+        print(f"[INFO +{time.time() - t_start:.1f}s] Enriching article excerpts for top {min(enrich_limit, len(top_candidates))} candidates...")
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            list(executor.map(enrich_article_snippet, top_candidates[:enrich_limit]))
 
     if dry_run and not os.getenv("GEMINI_API_KEY"):
         print("[DRY_RUN] GEMINI_API_KEY not set; printing top 5 pre-scored candidates:")
@@ -940,44 +978,73 @@ def main() -> None:
             print(f"  {i}. [{c['pre_score']}] ({c['source']}) {c['title']} -> {c['url']}")
         return
 
+    if on_demand and not dry_run:
+        update_progress(
+            bot_token,
+            target_chat_ids,
+            status_msg_id,
+            55,
+            f"تعداد {to_persian_digits(len(candidates))} خبر تازه یافت شد؛ در حال انتخاب و نگارش با هوش مصنوعی...",
+        )
+
     selected_posts = call_gemini(
         top_candidates,
         max_posts=max_posts,
         custom_topic=custom_topic,
         custom_query=custom_query,
     )
-    print(f"[INFO] Gemini selected {len(selected_posts)} posts.")
+    print(f"[INFO +{time.time() - t_start:.1f}s] Gemini selected {len(selected_posts)} posts.")
 
     if not selected_posts:
         print("[INFO] Gemini found no high-impact stories worth posting right now.")
         if on_demand and not dry_run:
-            bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-            for cid in get_target_chat_ids():
-                if bot_token:
-                    send_telegram_message(
-                        bot_token,
-                        cid,
-                        "در حال حاضر خبر شاخص و جدیدی درباره این موضوع پیدا نشد.",
-                    )
+            update_progress(
+                bot_token,
+                target_chat_ids,
+                status_msg_id,
+                100,
+                "در حال حاضر خبر شاخص و جدیدی درباره این موضوع پیدا نشد.",
+                done=True,
+            )
         now_iso = datetime.now(timezone.utc).isoformat()
         for c in top_candidates[:15]:
             state["seen"][c["url"]] = {"title": c["title"], "ts": now_iso, "status": "skipped"}
         save_state(state)
         return
 
-    bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-    target_chat_ids = get_target_chat_ids()
-
     if not dry_run and (not bot_token or not target_chat_ids):
         raise RuntimeError("TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing.")
+
+    if on_demand and not dry_run:
+        update_progress(
+            bot_token,
+            target_chat_ids,
+            status_msg_id,
+            75,
+            f"متن {to_persian_digits(len(selected_posts))} خبر آماده شد؛ در حال ساخت هم‌زمان عکس‌های اختصاصی...",
+        )
+
+    images_list: list[bytes | None] = [None] * len(selected_posts)
+    if not dry_run:
+        with ThreadPoolExecutor(max_workers=min(5, len(selected_posts))) as executor:
+            images_list = list(executor.map(generate_branded_image, selected_posts))
+
+    if on_demand and not dry_run:
+        update_progress(
+            bot_token,
+            target_chat_ids,
+            status_msg_id,
+            92,
+            "عکس‌ها و لوگو آماده شدند؛ در حال ارسال به تلگرام...",
+        )
 
     now_iso = datetime.now(timezone.utc).isoformat()
     sent_urls = set()
 
-    for post in selected_posts:
+    for idx, post in enumerate(selected_posts):
         state["daily_post_count"] += 1
         msg_html = format_telegram_html(post, state["daily_post_count"])
-        img_bytes = None if dry_run else generate_branded_image(post)
+        img_bytes = images_list[idx]
         if dry_run:
             print("\n" + "=" * 50)
             print(msg_html)
@@ -991,14 +1058,24 @@ def main() -> None:
                         send_telegram_message(bot_token, cid, msg_html)
                 except Exception as exc:
                     print(f"[WARN] Failed sending to {cid}: {exc}")
-                time.sleep(0.6)
-            time.sleep(0.8)
+                time.sleep(0.5)
+            time.sleep(0.6)
         sent_urls.add(post["url"])
         state["seen"][post["url"]] = {
             "title": post.get("raw_title") or post.get("hook_title", ""),
             "ts": now_iso,
             "status": "sent",
         }
+
+    if on_demand and not dry_run:
+        update_progress(
+            bot_token,
+            target_chat_ids,
+            status_msg_id,
+            100,
+            f"انجام شد! {to_persian_digits(len(selected_posts))} خبر با عکس اختصاصی ارسال شد.",
+            done=True,
+        )
 
     # Mark remaining top evaluated items as skipped so they are not re-evaluated repeatedly
     for c in top_candidates:
