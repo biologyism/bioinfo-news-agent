@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-24",
-  "daily_post_count": 15,
+  "daily_post_count": 18,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2030,6 +2030,81 @@
     "https://news.google.com/rss/articles/CBMiwAFBVV95cUxObUcyMnRXMGEtbGNMYkNRTjBNZlVYZzROWmZUN1gtTktiMWR6bXJ4c3RhSE5Lal93MS1rMmNNNTZyLVNhYXhsOWtDZXl5X0VkNnhSNFNuQzVFSGRaUVpaREpieTZuZmJ6OUFhSE83T2xvRTJmamkybnlTMjVkb2hDTTJ5bmVzeXN2SU55d2duQzlyTnJxaFFvLTJIZDVmTFhQQ3JRdk9zMTdCM1lLTVVqQk42RmlONHZDM1FVVHpvcHc?oc=5": {
       "title": "Top Iranian diplomat defected, received asylum in secret escape",
       "ts": "2026-11-23T23:38:51.381078+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxPRW1COTAtRE5ldTVleEMwejR0YjZXZmVldHNoXzZvMS1NUG9XRUpBMGdseTFlV2oyUGZyYVcyQ2pmbzFtb2JpdERqdWxqUWs3dkNtaUJQOHJyX0ZhdzdDRGxQbkVlVzBnakxFa2JMVWUwanUtOEtpM3BZYXZnVDlJRUtqYjh0V2U2cllkc0RmR3VOZ1IyTmtwNEplQWM?oc=5": {
+      "title": "Bushcrafting weekend in Brussels sells out in four minutes",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxOcTAxWDB2N1pqTGgwZzFJNDYzcU9LellqSHJWbDVCY0JOd2ItU1FpYkJlWmdBRHlqWFJGeVZJeTV0THZRN1FrVmswWm1WS2Jmdm84ak1VbS1TcmxHdHZVU0Y5ei1pTGxmdGh3U1hWeXNqbE84dDlEcVJmU2hjUkRxOXFGRHg1Rk5KQlNZZUN5ZEp5V0VpRU5zYXcwZ1EwdzMwT09iSlBtQ0dZQWtpTGFiNTdRVUQyMHdYTExHcmZoSTlZN1p6?oc=5": {
+      "title": "‘It’s given my mental health a massive boost’: Why everyone should hone their bushcraft skills",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPSG0xV2FsRlFMbjVMV0JSWFQ3S2lWZWNuSnNLS2VfdzhuWHd1YnFKdHdfbDNtQnN0cFVXc3dxanhxT0JsZnpoREhlQmtmWlBrTTFJWEFOMXFIc3RvSEtoWVNLSUxPWG1uaWYyNjZQcUpaXzNCcmFhYzBhUHkzMm5MVHZmb1NfX1NmMk5qamczTEEySVRhVVg1TkkwZHZCbnRhc3VadVh1SUlaZWFWYk9UeVFlSFNkVXZZ?oc=5": {
+      "title": "\"Too confident to survive\": I'm a bushcraft pro now but my first night out in Alberta's Whitehorse Wildland nearly killed me",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMizAFBVV95cUxOclFmXzlsbXYta1BDOXZxSHB2UnIzQUYyWWRBRmIwVmhZaUlqOFQ1MDA4Zk85cXhBWXhrcXdfOGlxTVN3XzVMX2s2SmxVRHhFbGdaNXpWLXFRR3hRZTVuYXZSY2RibjVVVXprd09FY3ZnVGtLV2ItSTVWWElOUEhHMHRud0ViWG1ibmgza2dQR2VyU0c1cU9jMG1rVzd5Y01PTHFHOG9wZHRybzRyX1JkM3p0NFlwUHhzTkRoOWEtRlNNbzZBLWFMSzF6NzQ?oc=5": {
+      "title": "Video. Feel ‘lost’ in nature? Bushcraft skills could help you reconnect",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMivgFBVV95cUxOSDhOcU1aSUc0QVBKbVNydHJNY24yV1hUVlh1dlUxTUJBT3BMYmJuV0NSeGlxeWZ4OFpULXZpM1h5RTYyemhZR3F6bndaUUlBZFlRZkNwQ05vTVJjV2NyZmJqZkhJc01PbUo4Rl8wbTlQTGw1MEtJVExLdTVuRHhpRUlxUGRhLXdyeWM1TmlNcFlFOUlULXlJMjh4a2drcmY4dHE0RU95dzZfUUVOWlpXV1hZbUQwYW1ZdXIxMHpR?oc=5": {
+      "title": "JEP JUNIOR: Young Carers get the chance to learn bushcraft skills in nature",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1yTTFkVGpSclo1MWtaY0xtMXd2SnZORUhnM0VVOVplLUlld28zOTNlOEVQeU5GMzBPZHd5U1JXQmQ4YXJxb2F1VF84X3BETlA4ZWw2NHdSdlUzb2doTDFZ?oc=5": {
+      "title": "The Best Bushcraft Knives of 2026",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBNeUFvdEQ4cnB3RGlOVmpMQjg0M004RHIwYW9CN2RGOEFhSG5tY25ZRlJ3Yk8xLVF1VnVwWjIzVDlSTDdyOENYX1RzMGg4ZzVkZTE4LWlDeFdTdw?oc=5": {
+      "title": "Welsh bushcraft expert competes on Alone: World Championship",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTE9kS3pLNjRlaFNzcHZ3OWtPSWFySEFGdGNQTERUcnJDVzdmVlBtY2FvTnN1TF9jbzVSa2RlcjF1Y296LW5nbDdHSlM0QlhCRWJFRDQxdlAzaVlzTndVekFIdEcxQzVWaFBIYWo5X3hDQTFQZ0trOWc?oc=5": {
+      "title": "Andrew Price on bushcraft, ancient knowledge and representing Wales on Alone",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMirgFBVV95cUxQT29iWFNMLWt1eDcwaDlFV0hYTWlubVhBWWVocTA5X1ZxSkR1UW5nNjhFekFHbFN1YXFpWjA0cUViZXhvSExmcWFIcFNxbjZ3VEtmelhHUkVQdTlubUp5UkNyZld0YnJQSG1HX1dNa0xYMFhsWEtURlB2OV9sNHNIdnJhTFFLZjRyNEx5WmpVWGhCeHJPbEVGVDNITkxBaXNEVUR4cDNSX2RmOEI2dEE?oc=5": {
+      "title": "Comment: East Sooke Regional Park no place for a bushcraft camp",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMihAFBVV95cUxQb05qSEI2dXRtNWQ1X0szc3YwU3B3RlctMHphOEgyYXBxZnRiSnJ5UW1sYkFxb2JDWU10NFpheW1YZmJLeGFIMWtrMXFqSENPb0N3R2Z3UlUtQkNudU1BaU1tSkQyZVNpaVRYSjIwbjAxYTJ2OGRXbldaMHdWWVZYUzlqdlk?oc=5": {
+      "title": "FROM the VAULT – Police Tracker’s Bushcraft",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMihwFBVV95cUxNN3QxcFYzYUMydHRnSE1ELWM2cHNJNFZfQ1JneHlUSWFHc3Npd0Z3V0Y0MFpPbmJORTdnYko5dWFoeDRYRDVZQXlvMlV3dndidnQxbkQwYVpObVB1OHBUS2xDc2ZpQVczSm1BWm1DNXhuQ3FQdGRUNjlYQzYzMFVkQmRLdXhwSU0?oc=5": {
+      "title": "Outback Boys: Australian Outback Boys React to the Outdoor Boys' Arctic Bushcraft @OutdoorBoys",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMicEFVX3lxTFBpUHM2d0w4RHoyZlVUcHlHS203cTRkMGNNNkpad3hRekRLZWV2VGFoc3NpRmFaRWJzWEh6bXBJc3BOVTJVV1FJWHpXZU1Xa1locU94a3I3Q3FfU3dzcDhzZ1d2b3NHZnJJa0JHYWxYeXo?oc=5": {
+      "title": "Cave discovery in China reveals surprising survival skills of Homo erectus",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMijwFBVV95cUxPMnc2STRweEhfSWppUTFwNDYxX01SVm1aMHR2ZjhUNko1NGhZcHBMX1hHbC1ES0ZaMTBtUWhoUXpOMm5IS282ZHB6RWtOVUZEeUp3MEI0Y2tHNnd2NFplYU1rTTJaeVhvNV9hTkNmb3hFcHpaRzB1d2VGejN1Q3BVMGRFeWZMbG1yZmQzUEdJNA?oc=5": {
+      "title": "How elephants pass on crucial survival skills to next generations",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiigFBVV95cUxNZ0l3cHI4WE1UY2dONTFzeXZObVNuNXdmWmpKSjRmdjVmQk9kNjVsMFh1cFlXUmF1Ml9zZkJnNXlTdWl4TXlCVXcwN1hDTlhLek0wX1VHWm5meG5CWjVZOEw4OVN6NGFDWXhqT1c3cHRSd0pmcjZoSVFTQ1N5VFVvMVhhU2hqQjB4U1E?oc=5": {
+      "title": "WATCH | Surviving in the wild: Garland County survival expert Steve Kirschman shares skills learned over 30 years",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMixgFBVV95cUxNTWpkbnFmUDVpSTVGZ0QyZ2pxMWsyaEQyUFYyVU5XU21kdU95eXJjWmxGVkkwWVdQb3VZYUtyTnhUYUZBVU5GcUU1TnFUTEN5ODcxZ0d1TVV0Q3g5ZDIxSUdzVlFqUm9MMlIwLTVNT01vSkotS2NrQzdCbU4xVVF6NVd6OUc1UnFfUWJBT0c1clNJclQyZTY4SU4zdmw3ZlFYRVdWbjIxVXhSRXV3VGdLZVl3VXpxVEpyOVhFelRJb1ZxeFU3T1E?oc=5": {
+      "title": "Researchers have created a synthetic cell that can adapt and learn survival skills",
+      "ts": "2026-11-23T23:40:20.577829+00:00",
       "status": "skipped"
     }
   }
