@@ -759,7 +759,7 @@ closing_question: ""
                     endpoint,
                     params={"key": api_key},
                     json=payload,
-                    timeout=45,
+                    timeout=30,
                 )
                 if resp.status_code in {404, 429, 503}:
                     print(f"[WARN] Model {model} returned {resp.status_code}: {resp.text[:250]}")
@@ -914,7 +914,7 @@ def generate_cf_image_bytes(image_prompt: str) -> bytes | None:
     for model, body in models:
         url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{model}"
         try:
-            resp = requests.post(url, headers=headers, json=body, timeout=60)
+            resp = requests.post(url, headers=headers, json=body, timeout=35)
             if resp.status_code != 200:
                 print(f"[WARN] CF AI {model} returned {resp.status_code}: {resp.text[:200]}")
                 continue
@@ -1036,15 +1036,23 @@ def update_progress(
     bar = "▓" * filled + "░" * (10 - filled)
     icon = "✅" if done else "⏳"
     text = f"{icon} <b>گزارش وضعیت ربات</b>\n\n<code>[{bar}] {to_persian_digits(percent)}٪</code>\n{html.escape(label)}"
+    payload: dict[str, Any] = {
+        "chat_id": chat_ids[0],
+        "message_id": int(status_msg_id),
+        "text": text,
+        "parse_mode": "HTML",
+    }
+    game_url = os.getenv("GAME_URL", "").strip()
+    if game_url and not done:
+        payload["reply_markup"] = {
+            "inline_keyboard": [
+                [{"text": "🧠 بازی تقویت حافظه تا آماده شدن خبرها", "web_app": {"url": game_url}}]
+            ]
+        }
     try:
         requests.post(
             f"https://api.telegram.org/bot{bot_token}/editMessageText",
-            json={
-                "chat_id": chat_ids[0],
-                "message_id": int(status_msg_id),
-                "text": text,
-                "parse_mode": "HTML",
-            },
+            json=payload,
             timeout=10,
         )
     except Exception:
