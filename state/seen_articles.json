@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-24",
-  "daily_post_count": 7,
+  "daily_post_count": 10,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1875,6 +1875,81 @@
     "https://www.nature.com/articles/s41586-026-11458-8": {
       "title": "Architecture of the poxvirus early-transcription machinery and portal complex",
       "ts": "2026-11-23T23:19:43.057747+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43071883/": {
+      "title": "Gammaherpesvirus infection drives genotype-dependent virus-specific T cell responses in the CNS prior to autoimmune neuroinflammation.",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43071760/": {
+      "title": "Noncanonical P gene mRNA editing in Cedar virus generates a U protein that is required for efficient virion production.",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMihwFBVV95cUxNT015UlFoblZkTUhpYWtOM2Q1Ui1FNG8yZEhtQkhZS3gtMDNSM3E0T0hzbzBLNFVDX2ZHU0pfY0xCVzBITmlTa0FpZk9VME5pZV94TG5OMnFJaHhQMVlqOG04d01FMnh3am9uTHBFLUpadnE2M3hRZFpKUGVFcGs5YTdITmVjSjg?oc=5": {
+      "title": "One in 12 children with Lyme disease show signs of Powassan virus co-infection",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43071873/": {
+      "title": "NSP1-SAMD9L interactions govern murine rotavirus host range restriction in vivo.",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43071890/": {
+      "title": "Inactivation of the RB1 and PTPN14 tumor suppressors cooperatively enables the lifespan extension activity of the human papillomavirus E7 oncoprotein.",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43071937/": {
+      "title": "Genomic characterization of a novel WVMV isolate and development of a sensitive, field-deployable RT-RPA-CRISPR/Cas12a lateral flow detection assay.",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPWHBMN0kydk95UGJsV3BrbnR2OVlVMnBjdVR1Q0lYMnN6YUYtT2c1ZDN3bElXOUg1VEtTQTh6N1VSY1d4TExETC1HdjdiVG9sMWttRkVZZF9hTEhGaGlVS1FVaTgzY1NWd1BnSHA5aUFWRkd6eVNqZDEyMFlNWnphX1U2SXRtWHFDVEVCVDBZVjdLOTVnQlA3bzBKZmhueXlxYUZEVm5uanprcXZPd0xkNng2OUdpanpHR0toaXFQT3EzdTE0eG1OM2JzcGg2Y3ZTSFlj0gHTAUFVX3lxTE9YcEw3STJ2T3lQYmxXcGtudHY5WVUycGN1VHVDSVgyc3phRi1PZzVkM3dsSVc5SDVUS1NBOHo3VVJjV3hMTERMLUd2N2JUb2wxa21GRVlkX2FMSEZoaVVLUVVpODNjU1Z3UGdIcDlpQVZGR3p5U2pkMTIwWU1aemFfVTZJdG1YcUNURUJUMFlWN0s5NWdCUDdvMEpmaG55eXFhRkRWbm5qemtxdk93TGQ2eDY5R2lqekdHS2hpcVBPcTN1MTR4bU4zYnNwaDZjdlNIWWM?oc=5": {
+      "title": "Two Studies Reveal How Andes Virus Spread Aboard Cruise Ship and Trace Its Genetic History to Patagonia | Newswise",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMigAFBVV95cUxQNG45OEozd290ZEZydjZNNzdxeTlITkFfN2dmejZublZ1Rm1UN0taRjE2OV9BbGtUS05NRXJUNUg2Rk1HSWl3d2tFNnRMcVl0eG5wYy1ya2NuNUVSdlFYa0ZrOWpGVW4zeHpPYVdWNHp2a3dvOUNicGVxMF9jWGxRQw?oc=5": {
+      "title": "T cells gone viral: New study finds host genetics shape the brain's immune response to chronic herpesvirus infection",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMieEFVX3lxTFBvRDRpMWJaV1dUMGJ2RzJFSUE3MTNFWTJPZlBoRzdDTXl2T1BSWU5wakhMOERzcnRoSktFSDEwMVZ3eHNwSVlydTh3NXhxdnhNdklEN1AzUTFnU0xVbndBWWctWTVEa0wyOWdfZHV6R082UlZvZm9hag?oc=5": {
+      "title": "Italy West Nile virus update",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1FdW9HSHVKT2w1Y2NBNG1oYkEyOTUwUEhYOThmeURjY2Rfd1NOZ3lDTGlOTUVQOFBVdHB4S3l2aDhCdGtESTZrakFETzYwT19WZ3RQaEJNRU1RLTJZ?oc=5": {
+      "title": "High vaccination rates in Duran, Ecuador, contrasted with gaps in virus knowledge among high-risk groups",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxNS0hCQjlXVVJiVlIxNl92S3U2UDVyTjRXNWNVYVQyZFVMeXdhLUg2VnoyRzBCQWlTX2x2N0w1NktTUVQ3YURZc0FieDhJcWxNVm8xTmdfOEhoQmJrZFZTcWtSY01nYzlfajBYRmtuU09SemxMOG5zU256TFpSUm9UMGdnZ0dBRkp6MUtFWGx4ZU1iRC1MM0EyYjI5MGdEdkQ1c2Fiaw?oc=5": {
+      "title": "Study uncovers the inner workings of the poxvirus core",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxPejdIaUpEbUdBOFFNdnJONkJWR2ZrLWlJRTBRZkZGbDhJUkdYdnRhZm5iaWdZd29fZ1JDaTduU3lUZ2VXM1pNRTIzdmZseVphYWdtdll1cHhZWWVxNVlEV1V2R3dQSmJpYUNZaElmU1Y3Z2lVZUtSd0hIdE5HWENaZ3dDNmdRNzRUeXBWYjdXYzRTakd4V1cwZQ?oc=5": {
+      "title": "Why the Ebola Outbreak Keeps Growing, According to Virus Expert Pardis Sabeti",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOVG9YWEctY05raG9KUFFZRkpkWTFBaUt0TlJUaHVtVm0tV0RrWmZpdzRYS2FPNFBBZ3gwQ1UtN2ViU1ktZU83dWVHWk13Zng2ZFZqRm5yZEx3OHBFR1UxZVlsX1k3ZVJlSjdVOEVHbElSSk1CVFE2d0lJQ0c5REkyQXNLQkUwMFhrTV9kS05JcDVTZTFEYkhyQ0ZxbzVLNzQxcy1oNGdmWDhwQQ?oc=5": {
+      "title": "Common herpes virus linked to 48% higher odds of dementia",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiggFBVV95cUxPWFJzR3VMSTVjUl9LMGNDOEdIYlJJMGY1TWpiSjdDMTMwX1FHWkhma3Z4dU0zM1dXQlJfZklUMG5nSnQ5alpVZ1Zqc2VpSkZEcUxqcW83b2c0ZzU2dUNFaGNxTW0wSEZwbEplUHROSzhmWmRXeXRkRHoxeWtNNWJWZ3dB?oc=5": {
+      "title": "Common Virus Linked to 48 Percent Higher Risk of Alzheimer’s",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43071919/": {
+      "title": "Occurrence of tomato brown rugose fruit virus infecting field tomato (Solanum lycopersicum) in Hawaii.",
+      "ts": "2026-11-23T23:23:01.751708+00:00",
       "status": "skipped"
     }
   }
