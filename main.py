@@ -471,6 +471,177 @@ def score_and_deduplicate(
     return merged
 
 
+def call_openai_compat_json(
+    endpoint: str,
+    api_key: str,
+    model: str,
+    system_prompt: str,
+    user_prompt: str,
+    timeout: int = 25,
+    extra_headers: dict[str, str] | None = None,
+    use_json_mode: bool = True,
+) -> dict[str, Any] | None:
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    if extra_headers:
+        headers.update(extra_headers)
+    payload: dict[str, Any] = {
+        "model": model,
+        "temperature": 0.25,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+    }
+    if use_json_mode:
+        payload["response_format"] = {"type": "json_object"}
+    try:
+        resp = requests.post(endpoint, headers=headers, json=payload, timeout=timeout)
+        if resp.status_code == 400 and use_json_mode:
+            payload.pop("response_format", None)
+            resp = requests.post(endpoint, headers=headers, json=payload, timeout=timeout)
+        if resp.status_code != 200:
+            print(f"[WARN] {model} HTTP {resp.status_code}: {resp.text[:200]}")
+            return None
+        content = resp.json()["choices"][0]["message"]["content"]
+        cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", content.strip(), flags=re.S)
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            m = re.search(r"\{.*\}", cleaned, flags=re.S)
+            if m:
+                return json.loads(m.group(0))
+            raise
+    except Exception as exc:
+        print(f"[WARN] OpenAI-compat call failed ({model}): {exc}")
+        return None
+
+
+def run_scout_agent(
+    candidates: list[dict[str, Any]],
+    target_keep: int = 15,
+    custom_topic: str = "",
+) -> list[dict[str, Any]]:
+    """Agent 1 (Groq / Cloudflare AI / OpenRouter): Ultra-fast triage of up to 50 headlines."""
+    groq_key = os.getenv("GROQ_API_KEY", "").strip()
+    cf_acc = os.getenv("CF_ACCOUNT_ID", "").strip()
+    cf_tok = os.getenv("CF_AI_TOKEN", "").strip()
+    or_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    if (not groq_key and not or_key and not (cf_acc and cf_tok)) or len(candidates) <= target_keep:
+        return candidates[:target_keep]
+
+    short_list = [
+        {
+            "id": idx,
+            "title": c["title"],
+            "source": c["source"],
+            "cat": c["category"],
+            "snippet": (c.get("summary") or "")[:240],
+        }
+        for idx, c in enumerate(candidates[:50])
+    ]
+    topic_hint = f"Target topic requested by user: '{custom_topic}'. " if custom_topic else ""
+    sys_p = (
+        "You are an elite science news scout for Iran Bioinformatics Academy. "
+        "Select the most viral, impactful, story-worthy breakthroughs in bioinformatics, AI in biology/medicine, "
+        "genomics, drug discovery, neuroscience, or major AI models. Skip dry incremental benchmark papers unless groundbreaking. "
+        'Return ONLY valid JSON: {"top_ids": [int, ...]}.'
+    )
+    usr_p = f"{topic_hint}Pick the best {target_keep} article IDs from:\n{json.dumps(short_list, ensure_ascii=False)}"
+
+    providers = []
+    if groq_key:
+        providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "llama-3.3-70b-versatile", True))
+        providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "llama-3.1-8b-instant", True))
+    if cf_acc and cf_tok:
+        cf_ep = f"https://api.cloudflare.com/client/v4/accounts/{cf_acc}/ai/v1/chat/completions"
+        providers.append((cf_ep, cf_tok, "@cf/meta/llama-3.3-70b-instruct-fp8-fast", False))
+    if or_key:
+        providers.append(("https://openrouter.ai/api/v1/chat/completions", or_key, "openrouter/free", False))
+
+    for ep, key, model, jm in providers:
+        res = call_openai_compat_json(ep, key, model, sys_p, usr_p, timeout=22, use_json_mode=jm)
+        ids = res.get("top_ids") if isinstance(res, dict) else None
+        if isinstance(ids, list) and ids:
+            picked = []
+            seen_idx = set()
+            for i in ids:
+                if isinstance(i, int) and 0 <= i < len(candidates) and i not in seen_idx:
+                    picked.append(candidates[i])
+                    seen_idx.add(i)
+            if picked:
+                print(f"[INFO] Scout Agent ({model}) narrowed {len(short_list)} -> {len(picked)} stories.")
+                return picked[:target_keep]
+
+    return candidates[:target_keep]
+
+
+def run_critic_agent(
+    posts: list[dict[str, Any]],
+    candidates_by_url: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Agent 3 (Cloudflare AI / Groq / OpenRouter): Fast fact-check & Persian hook polish pass."""
+    cf_acc = os.getenv("CF_ACCOUNT_ID", "").strip()
+    cf_tok = os.getenv("CF_AI_TOKEN", "").strip()
+    groq_key = os.getenv("GROQ_API_KEY", "").strip()
+    or_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    if (not (cf_acc and cf_tok) and not groq_key and not or_key) or not posts:
+        return posts
+
+    review_payload = []
+    for idx, p in enumerate(posts):
+        src = candidates_by_url.get(p.get("url", ""), {})
+        review_payload.append(
+            {
+                "post_idx": idx,
+                "source_title": src.get("title", ""),
+                "source_summary": (src.get("summary") or "")[:900],
+                "title_emoji": p.get("title_emoji", ""),
+                "hook_title": p.get("hook_title", ""),
+                "paragraphs": p.get("paragraphs", []),
+                "quote_box": p.get("quote_box", ""),
+                "closing_question": p.get("closing_question", ""),
+            }
+        )
+
+    sys_p = """تو سردبیر نهایی و ناظر دقت علمی هستی.
+پست‌های فارسی تولیدشده را با متن منبع انگلیسی مقایسه کن:
+1. اگر عدد، درصد، یا ادعایی بود که در متن منبع انگلیسی نیست، حذف یا اصلاحش کن تا کاملاً وفادار به منبع باشد.
+2. تیتر (hook_title) و پاراگراف‌ها را بررسی کن که فارسی کاملاً طبیعی، جذاب، قلاب‌دار و روان باشد (بدون کلمات ترجمه‌ایِ خشک).
+3. تگ‌های مجاز فقط <b> و <u> هستند؛ هیچ تگ HTML دیگری اضافه نکن.
+خروجی فقط JSON معتبر با فرمت {"reviewed_posts": [...]} شامل همان فیلدهای post_idx, title_emoji, hook_title, paragraphs, quote_box, closing_question باشد."""
+
+    usr_p = json.dumps(review_payload, ensure_ascii=False)
+
+    providers = []
+    if cf_acc and cf_tok:
+        cf_ep = f"https://api.cloudflare.com/client/v4/accounts/{cf_acc}/ai/v1/chat/completions"
+        providers.append((cf_ep, cf_tok, "@cf/qwen/qwen3-30b-a3b-fp8", False))
+        providers.append((cf_ep, cf_tok, "@cf/meta/llama-3.3-70b-instruct-fp8-fast", False))
+    if groq_key:
+        providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "llama-3.3-70b-versatile", True))
+    if or_key:
+        providers.append(("https://openrouter.ai/api/v1/chat/completions", or_key, "openrouter/free", False))
+
+    for ep, key, model, jm in providers:
+        res = call_openai_compat_json(ep, key, model, sys_p, usr_p, timeout=28, use_json_mode=jm)
+        reviewed = res.get("reviewed_posts") if isinstance(res, dict) else None
+        if isinstance(reviewed, list) and len(reviewed) == len(posts):
+            merged_out = []
+            for orig, rev in zip(posts, reviewed):
+                updated = dict(orig)
+                for k in ("title_emoji", "hook_title", "paragraphs", "quote_box", "closing_question"):
+                    if rev.get(k) is not None:
+                        updated[k] = rev[k]
+                merged_out.append(updated)
+            print(f"[INFO] Critic Agent ({model}) polished {len(merged_out)} posts.")
+            return merged_out
+
+    return posts
+
+
 def call_gemini(
     candidates: list[dict[str, Any]],
     max_posts: int,
@@ -478,8 +649,10 @@ def call_gemini(
     custom_query: str = "",
 ) -> list[dict[str, Any]]:
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("GEMINI_API_KEY is missing.")
+    cf_acc = os.getenv("CF_ACCOUNT_ID", "").strip()
+    cf_tok = os.getenv("CF_AI_TOKEN", "").strip()
+    if not api_key and not os.getenv("OPENROUTER_API_KEY") and not os.getenv("GROQ_API_KEY") and not (cf_acc and cf_tok):
+        raise RuntimeError("No AI API key configured (GEMINI_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / CF_AI_TOKEN).")
 
     preferred_model = os.getenv("GEMINI_MODEL", "").strip()
     models_to_try = ([preferred_model] if preferred_model else []) + [
@@ -605,28 +778,66 @@ closing_question: ""
     }
 
     last_err = None
-    for model in models_to_try:
-        endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-        try:
-            print(f"[INFO] Calling Gemini model: {model}")
-            resp = requests.post(
-                endpoint,
-                params={"key": api_key},
-                json=payload,
-                timeout=45,
-            )
-            if resp.status_code in {404, 429, 503}:
-                print(f"[WARN] Model {model} returned {resp.status_code}: {resp.text[:250]}")
-                last_err = resp.text
-                continue
-            resp.raise_for_status()
-            data = resp.json()
-            text_out = data["candidates"][0]["content"]["parts"][0]["text"]
-            parsed = json.loads(text_out)
-            posts = parsed.get("selected_posts", [])
+    if api_key:
+        for model in models_to_try:
+            endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+            try:
+                print(f"[INFO] Calling Writer Agent (Gemini: {model})")
+                resp = requests.post(
+                    endpoint,
+                    params={"key": api_key},
+                    json=payload,
+                    timeout=45,
+                )
+                if resp.status_code in {404, 429, 503}:
+                    print(f"[WARN] Model {model} returned {resp.status_code}: {resp.text[:250]}")
+                    last_err = resp.text
+                    continue
+                resp.raise_for_status()
+                data = resp.json()
+                text_out = data["candidates"][0]["content"]["parts"][0]["text"]
+                parsed = json.loads(text_out)
+                posts = parsed.get("selected_posts", [])
+                id_map = {idx: item for idx, item in enumerate(candidates)}
+                enriched_posts = []
+                for p in posts:
+                    art = id_map.get(p.get("article_id"))
+                    if not art:
+                        continue
+                    p["url"] = art["url"]
+                    p["raw_title"] = art["title"]
+                    p["og_image"] = art.get("og_image", "")
+                    enriched_posts.append(p)
+                return enriched_posts[:max_posts]
+            except Exception as exc:
+                print(f"[WARN] Gemini call failed on {model}: {exc}")
+                last_err = str(exc)
+
+    # Automatic Multi-Provider Failover: OpenRouter Free -> Groq -> Cloudflare Workers AI
+    fallback_providers = []
+    or_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    groq_key = os.getenv("GROQ_API_KEY", "").strip()
+    if or_key:
+        fallback_providers.append(("https://openrouter.ai/api/v1/chat/completions", or_key, "openrouter/free", False))
+    if groq_key:
+        fallback_providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "openai/gpt-oss-120b", True))
+        fallback_providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "llama-3.3-70b-versatile", True))
+    if cf_acc and cf_tok:
+        cf_ep = f"https://api.cloudflare.com/client/v4/accounts/{cf_acc}/ai/v1/chat/completions"
+        fallback_providers.append((cf_ep, cf_tok, "@cf/openai/gpt-oss-120b", False))
+        fallback_providers.append((cf_ep, cf_tok, "@cf/meta/llama-3.3-70b-instruct-fp8-fast", False))
+
+    json_hint = (
+        '\nReturn ONLY valid JSON: {"selected_posts": [{"article_id": int, "title_emoji": str, '
+        '"hook_title": str, "paragraphs": [str], "quote_box": str, "closing_question": str, "image_prompt": str}]}.'
+    )
+    for ep, key, model, jm in fallback_providers:
+        print(f"[INFO] Writer Agent failover -> {model}")
+        parsed = call_openai_compat_json(ep, key, model, system_instruction + json_hint, user_prompt, timeout=45, use_json_mode=jm)
+        if parsed and isinstance(parsed.get("selected_posts"), list):
             id_map = {idx: item for idx, item in enumerate(candidates)}
             enriched_posts = []
-            for p in posts:
+            for p in parsed["selected_posts"]:
                 art = id_map.get(p.get("article_id"))
                 if not art:
                     continue
@@ -634,12 +845,10 @@ closing_question: ""
                 p["raw_title"] = art["title"]
                 p["og_image"] = art.get("og_image", "")
                 enriched_posts.append(p)
-            return enriched_posts[:max_posts]
-        except Exception as exc:
-            print(f"[WARN] Gemini call failed on {model}: {exc}")
-            last_err = str(exc)
+            if enriched_posts:
+                return enriched_posts[:max_posts]
 
-    raise RuntimeError(f"All Gemini models failed. Last error: {last_err}")
+    raise RuntimeError(f"All AI Writer providers failed. Last error: {last_err}")
 
 
 def sanitize_tg_inline_html(text: str) -> str:
@@ -964,16 +1173,34 @@ def main() -> None:
         save_state(state)
         return
 
-    top_candidates = candidates[:max_candidates]
+    if on_demand and not dry_run:
+        update_progress(
+            bot_token,
+            target_chat_ids,
+            status_msg_id,
+            45,
+            f"تعداد {to_persian_digits(len(candidates))} خبر تازه یافت شد؛ ایجنت دیده‌بان در حال گلچین داغ‌ترین‌ها...",
+        )
+
+    scouted_candidates = run_scout_agent(
+        candidates,
+        target_keep=max(15, max_posts * 3),
+        custom_topic=custom_topic,
+    )
+    top_candidates = scouted_candidates[:max_candidates]
 
     if fetch_body:
-        enrich_limit = 12 if on_demand else 18
-        print(f"[INFO +{time.time() - t_start:.1f}s] Enriching article excerpts for top {min(enrich_limit, len(top_candidates))} candidates...")
+        enrich_limit = min(15, len(top_candidates))
+        print(f"[INFO +{time.time() - t_start:.1f}s] Enriching article excerpts for top {enrich_limit} scouted candidates...")
         with ThreadPoolExecutor(max_workers=10) as executor:
             list(executor.map(enrich_article_snippet, top_candidates[:enrich_limit]))
 
-    if dry_run and not os.getenv("GEMINI_API_KEY"):
-        print("[DRY_RUN] GEMINI_API_KEY not set; printing top 5 pre-scored candidates:")
+    has_any_ai = any(
+        os.getenv(k, "").strip()
+        for k in ("GEMINI_API_KEY", "GROQ_API_KEY", "OPENROUTER_API_KEY", "CF_AI_TOKEN")
+    )
+    if dry_run and not has_any_ai:
+        print("[DRY_RUN] No AI API key set; printing top 5 pre-scored candidates:")
         for i, c in enumerate(top_candidates[:5], 1):
             print(f"  {i}. [{c['pre_score']}] ({c['source']}) {c['title']} -> {c['url']}")
         return
@@ -983,8 +1210,8 @@ def main() -> None:
             bot_token,
             target_chat_ids,
             status_msg_id,
-            55,
-            f"تعداد {to_persian_digits(len(candidates))} خبر تازه یافت شد؛ در حال انتخاب و نگارش با هوش مصنوعی...",
+            60,
+            "در حال نگارش قلاب‌دار و علمی خبرها توسط ایجنت نویسنده...",
         )
 
     selected_posts = call_gemini(
@@ -993,7 +1220,11 @@ def main() -> None:
         custom_topic=custom_topic,
         custom_query=custom_query,
     )
-    print(f"[INFO +{time.time() - t_start:.1f}s] Gemini selected {len(selected_posts)} posts.")
+    print(f"[INFO +{time.time() - t_start:.1f}s] Writer Agent produced {len(selected_posts)} posts.")
+
+    if selected_posts:
+        cand_map = {c["url"]: c for c in top_candidates}
+        selected_posts = run_critic_agent(selected_posts, cand_map)
 
     if not selected_posts:
         print("[INFO] Gemini found no high-impact stories worth posting right now.")
