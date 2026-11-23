@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 38,
+  "daily_post_count": 40,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1340,6 +1340,46 @@
     "https://www.marktechpost.com/2026/11/23/27-ai-cybersecurity-terms": {
       "title": "27 Cybersecurity Terms to Prepare You for the Age of AI",
       "ts": "2026-11-23T14:32:59.794286+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMijgFBVV95cUxNVDl2THRGejl5ZlktLS1UdTZfTW5Pc2s3ZHV5dkVPeTh5akttU1AtVUNWV0hZSGd4V2JEMEhlRFF6ZUt6WUFtXzdLQ2JfNTFZejh3aGcwTllaakJmanlnbXJhbkhuSUo1TExEczVlUVdoZl9nOFhSVjNsaUhJaHloVUJsOENSVVd1QkpKZlpn?oc=5": {
+      "title": "If the AI bubble bursts, it could create a serious problem for health care",
+      "ts": "2026-11-23T14:56:49.768349+00:00",
+      "status": "sent"
+    },
+    "https://huggingface.co/blog/agentic-evals": {
+      "title": "How to build and maintain an agentic evaluation",
+      "ts": "2026-11-23T14:56:49.768349+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMivAFBVV95cUxONWFpRmpwOVZCaUt3eFdTeHR4STlFeFo3RmR6OVpzcTcxTjR4ZlFuSU1SX1FCMHo3TWhfN0s1TjFnM0lONTRZdG5fWlU3cXlxVlgwWlA0MWxMUHJic3hiUmx4LS13aDJWc2JoWFhmRnJXaGYtQW1ad1pjemVWMm9KbC1DeXBsUW9GbkZwTkZLa0FsZFp4OXA0Xy1SYVdtVmpHTXNRTFYxZ2Y3SkNtRkY1VlRnalBsMThFQTEyVA?oc=5": {
+      "title": "How Artificial Intelligence Is Transforming The Future Of Investing",
+      "ts": "2026-11-23T14:56:49.768349+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMikAFBVV95cUxNS2ZYRzRpbWQ2ZjNQOWh1Q2lwU0VnYlNUSEdSZ2Jwc0tzQVNJMzJpOGJ6bjQ4TUV3TlNmRUZkTHdxXzhhU1d1RXBBYnA0QkJXeEpWWC04NmJ3M1dfOEtYMDN0OGZPWDgzSTBqcWtldndTUk1JQ2ZEbEVEdVlFblN3bU1rZ09NZVRmbklEV0VmblA?oc=5": {
+      "title": "Will Artificial Intelligence Reshape How Humans Work?",
+      "ts": "2026-11-23T14:56:49.768349+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNSTZaeGR6aHFKVHdWN2dkOEJXNzBVSGYxSUZkOXhIb25wU1hVV2l6Q2ZxWm1pZ1ZPM3NHb1MwZ0Y0NlBTbzc3eGdmMDYwTUtWcHFDTEtVamtXSTZrTm9uelE4RkZ3SWZ0V0xxWk5rUjVtZUxHNGNaZnl4WkZDV09nZEVUd3VDMURKVUFQMHl6V1BiQjltdE5ERW9Vc0lINVhYaGFySHg0aTYzNzhaQXd4cFlFQmF1Zkxm?oc=5": {
+      "title": "Bayesian Networks Offer Dynamic Pre-Regulatory Buffer for Artificial Intelligence Governance",
+      "ts": "2026-11-23T14:56:49.768349+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxPSmdWRGZRVWl0NVIxT2w5WmpBdjJWM1kyanhqd3hNdGRuME9SWTgwQU5ZTHVVaVdOdm5LTGdtanlicWpzREgyTjRmYzUtOEcyNl9CTWpGNTdiUHJIYjRmT1F0RUEtZ1RoNHRHeVAxZVpadGpOYjBmOHctMUhQWDZWT0ZWWHZLeHFfblhYZHVIdkczZjZpYmNCeFlGS3dtbnpVQVpjRg?oc=5": {
+      "title": "Australia to treat AI as key foreign policy challenge",
+      "ts": "2026-11-23T14:56:49.768349+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMie0FVX3lxTFBSYVBfd1ZhNFNuSlRic0h4YmpkYkVYaFBkLUQ3UGVOeFV6ZjZKVkE1eTctM193aGJoOXpiVURMMXNTeHRJRHhJWlVjU3dJUm9VQXdDZFpSb3JnNExuV2RJZzdZSlJobjdJZ3ROZzMySEpseEQ0OFlIUUM0UQ?oc=5": {
+      "title": "AI-Assisted Cyber Attacks Trigger Unauthorized Payments at Indian Banks and Fintech Firms",
+      "ts": "2026-11-23T14:56:49.768349+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMia0FVX3lxTE0ta1ZyUTJoeFlCYVB6Y3RLT3pUQVBSMGc5WXh5a3R0eDhCRGFYOGs0WHRBZ0c1NENGT25IR3kwd2xvMXEtZ2pLRENIZ1dBclRxVExqOF92emNPWE5XV2lnZl9iejdON002TlNv?oc=5": {
+      "title": "Many Etsy Sellers Close Up Shop Over Site’s New A.I. Policy",
+      "ts": "2026-11-23T14:56:49.768349+00:00",
       "status": "skipped"
     }
   }
