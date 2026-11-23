@@ -1008,6 +1008,7 @@ def send_telegram_photo(bot_token: str, chat_id: str, image_bytes: bytes, captio
     # Fallback if caption exceeds Telegram's 1024-char photo caption limit
     requests.post(
         url,
+        data={"chat_id": chat_id},
         files={"photo": ("news.jpg", image_bytes, "image/jpeg")},
         timeout=30,
     )
@@ -1044,11 +1045,14 @@ def update_progress(
     }
     game_url = os.getenv("GAME_URL", "").strip()
     if game_url and not done:
-        payload["reply_markup"] = {
-            "inline_keyboard": [
-                [{"text": "🧠 بازی تقویت حافظه تا آماده شدن خبرها", "web_app": {"url": game_url}}]
-            ]
-        }
+        target_cid = str(chat_ids[0]).strip()
+        is_group = target_cid.startswith("-")
+        btn = (
+            {"text": "🧠 بازی تقویت حافظه تا آماده شدن خبرها", "url": game_url}
+            if is_group
+            else {"text": "🧠 بازی تقویت حافظه تا آماده شدن خبرها", "web_app": {"url": game_url}}
+        )
+        payload["reply_markup"] = {"inline_keyboard": [[btn]]}
     try:
         requests.post(
             f"https://api.telegram.org/bot{bot_token}/editMessageText",
