@@ -30,6 +30,10 @@ on:
         description: 'شناسه پیام وضعیت برای آپدیت زنده نوار پیشرفت'
         required: false
         default: ''
+      game_url:
+        description: 'آدرس بازی تقویت حافظه مینی‌اپ تلگرام'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -68,6 +72,7 @@ jobs:
           ON_DEMAND: ${{ github.event.inputs.on_demand || 'false' }}
           REPLY_CHAT_ID: ${{ github.event.inputs.reply_chat_id || '' }}
           STATUS_MESSAGE_ID: ${{ github.event.inputs.status_message_id || '' }}
+          GAME_URL: ${{ github.event.inputs.game_url || '' }}
         run: python main.py
 
       - name: Commit updated state
