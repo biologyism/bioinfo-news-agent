@@ -358,6 +358,137 @@ def fetch_pubmed_query(query_cfg: dict[str, Any]) -> list[dict[str, Any]]:
     return items
 
 
+def fetch_openalex_works(query: str, per_page: int = 12, weight: float = 1.8) -> list[dict[str, Any]]:
+    items: list[dict[str, Any]] = []
+    if not query:
+        return items
+    try:
+        resp = requests.get(
+            "https://api.openalex.org/works",
+            params={"search": query, "per-page": per_page, "sort": "publication_date:desc"},
+            headers=REQUEST_HEADERS,
+            timeout=10,
+        )
+        if resp.status_code != 200:
+            return items
+        for w in resp.json().get("results", []):
+            title = clean_html_text(w.get("title") or "", max_len=300)
+            link = normalize_url(
+                (w.get("primary_location") or {}).get("landing_page_url")
+                or w.get("doi")
+                or w.get("id")
+                or ""
+            )
+            if not title or not link:
+                continue
+            # Reconstruct abstract from OpenAlex inverted index if present
+            inv = w.get("abstract_inverted_index") or {}
+            abstract = ""
+            if isinstance(inv, dict) and inv:
+                max_pos = max((max(pos_list) for pos_list in inv.values() if pos_list), default=-1)
+                if 0 <= max_pos < 600:
+                    words = [""] * (max_pos + 1)
+                    for token, pos_list in inv.items():
+                        for p in pos_list:
+                            words[p] = token
+                    abstract = " ".join(x for x in words if x)[:1500]
+            pub_date_str = w.get("publication_date") or ""
+            pub_dt = None
+            if pub_date_str:
+                try:
+                    pub_dt = date_parser.parse(pub_date_str).replace(tzinfo=timezone.utc)
+                except Exception:
+                    pub_dt = None
+            src_name = ((w.get("primary_location") or {}).get("source") or {}).get("display_name") or "OpenAlex Research"
+            items.append(
+                {
+                    "title": title,
+                    "url": link,
+                    "source": src_name,
+                    "category": "custom_topic",
+                    "weight": weight,
+                    "summary": abstract,
+                    "authors": "",
+                    "published_utc": pub_dt.isoformat() if pub_dt else "",
+                    "published_dt": pub_dt,
+                }
+            )
+    except Exception as exc:
+        print(f"[WARN] OpenAlex search failed ({query}): {exc}")
+    return items
+
+
+def _fold_accents(text: str) -> str:
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFKD", text or "") if not unicodedata.combining(c)).lower()
+
+
+def expand_on_demand_topic(custom_topic: str, custom_query: str) -> dict[str, Any]:
+    """Turn ANY Persian/English user phrase into precise search queries without broadening niche topics."""
+    raw_phrase = (custom_query or custom_topic or "").strip()
+    generic_stops = {"syndrome", "disease", "disorder", "infection", "cancer", "virus", "protein", "gene", "cell", "study", "news", "سندرم", "بیماری"}
+    raw_tokens = [t.lower() for t in re.split(r"[\s\-_,،]+", _fold_accents(custom_topic or raw_phrase)) if len(t) >= 3]
+    distinct_tokens = [t for t in raw_tokens if t not in generic_stops] or raw_tokens
+    fallback = {
+        "is_specific": bool(custom_topic and custom_topic.lower() not in {"bioinformatics biology ai", "bioinformatics", "artificial intelligence", "biology"}),
+        "primary_en": custom_topic or raw_phrase,
+        "alt_en": "",
+        "primary_fa": raw_phrase,
+        "match_tokens": distinct_tokens,
+    }
+    if not raw_phrase:
+        return fallback
+
+    prompt = (
+        "Analyze this user news request and return ONLY valid JSON.\n"
+        f'User query: "{raw_phrase}"\n'
+        f'Initial topic hint: "{custom_topic}"\n'
+        "Rules:\n"
+        "- is_specific: true if the user asked about ANY concrete/specific subject (disease, syndrome, virus, gene, drug, method, company, person, animal, phenomenon — e.g. Brown-Sequard syndrome, parvovirus, CRISPR, Ozempic, neuralink). false ONLY if they asked broadly for general daily news in bioinformatics/biology/AI.\n"
+        "- primary_en: exact specific English/scientific search phrase (NEVER broaden 'parvovirus' to 'virus', NEVER broaden 'Brown-Sequard syndrome' to 'neurology').\n"
+        "- alt_en: 1 short alternative exact English search query (or empty string).\n"
+        "- primary_fa: exact short Persian topic phrase.\n"
+        "- match_tokens: 1 to 3 core lowercase keywords (e.g. ['parvovirus'] or ['brown-sequard', 'brown sequard', 'hemisection']) that an article MUST contain to be truly relevant.\n"
+        'JSON schema: {"is_specific": bool, "primary_en": str, "alt_en": str, "primary_fa": str, "match_tokens": [str]}'
+    )
+
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    if api_key:
+        for model in GEMINI_FALLBACK_MODELS[:4]:
+            try:
+                r = requests.post(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                    params={"key": api_key},
+                    json={
+                        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+                        "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"},
+                    },
+                    timeout=15,
+                )
+                if r.status_code == 200:
+                    data = json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"])
+                    if data.get("primary_en"):
+                        print(f"[INFO] Expanded custom topic ({model}): {data}")
+                        return data
+            except Exception:
+                continue
+
+    groq_key = os.getenv("GROQ_API_KEY", "").strip()
+    if groq_key:
+        res = call_openai_compat_json(
+            "https://api.groq.com/openai/v1/chat/completions",
+            groq_key,
+            "llama-3.3-70b-versatile",
+            "Return ONLY valid JSON.",
+            prompt,
+            timeout=12,
+        )
+        if res and res.get("primary_en"):
+            return res
+
+    return fallback
+
+
 def enrich_article_snippet(item: dict[str, Any]) -> None:
     url = item["url"]
     if "news.google.com" in url or "pubmed.ncbi.nlm.nih.gov" in url:
@@ -696,8 +827,10 @@ closing_question: ""
     topic_note = ""
     if custom_topic or custom_query:
         topic_note = (
-            f"درخواست اختصاصی کاربر در چت: «{custom_query or custom_topic}»\n"
-            f"موضوع هدف (بسیار مهم): «{custom_topic}» — فقط خبرهایی را انتخاب کن که مستقیماً به این موضوع یا حوزه مرتبط باشند و در صورت وجود، دقیقاً به تعداد درخواستی ({max_posts} مورد) بفرست.\n"
+            f"درخواست اختصاصی کاربر: «{custom_query or custom_topic}»\n"
+            f"موضوع دقیق هدف (بسیار حیاتی): «{custom_topic}»\n"
+            f"- تمام {max_posts} پست انتخابی باید **مستقیماً درباره همین موضوعِ دقیق** باشند؛ اگر کاربر موضوع خاصی مثل «پاروویروس» یا «سندرم براون اسکوارد» خواسته، اکیداً سراغ موضوعات کلی‌تر (مثل ویروس‌های دیگر یا اخبار عمومی) نرو.\n"
+            f"- اگر خبرها به صورت پژوهش یا گزارش موردی (Case Report) درباره همین موضوع بودند، آن‌ها را به زبان داستان‌دار، علمی و فوق‌العاده جذاب بنویس.\n"
         )
 
     user_prompt = (
@@ -1099,27 +1232,51 @@ def main() -> None:
     enabled_feeds = [f for f in config.get("rss_feeds", []) if f.get("enabled", True)]
     enabled_pubmed = [q for q in config.get("pubmed_queries", []) if q.get("enabled", True)]
 
-    if custom_topic:
-        encoded_q = requests.utils.quote(custom_topic)
-        enabled_feeds.append(
-            {
-                "name": f"Google News ({custom_topic})",
-                "category": "custom_topic",
-                "url": f"https://news.google.com/rss/search?q={encoded_q}&hl=en-US&gl=US&ceid=US:en",
-                "weight": 1.6,
-                "enabled": True,
-            }
-        )
-        enabled_pubmed.append(
-            {
-                "name": f"PubMed ({custom_topic})",
-                "category": "custom_topic",
-                "term": custom_topic,
-                "retmax": 10,
-                "weight": 1.6,
-                "enabled": True,
-            }
-        )
+    is_specific_topic = False
+    match_tokens: list[str] = []
+    if on_demand and (custom_topic or custom_query):
+        expanded = expand_on_demand_topic(custom_topic, custom_query)
+        is_specific_topic = bool(expanded.get("is_specific"))
+        primary_en = (expanded.get("primary_en") or custom_topic or "").strip()
+        alt_en = (expanded.get("alt_en") or "").strip()
+        primary_fa = (expanded.get("primary_fa") or "").strip()
+        match_tokens = [str(t).lower().strip() for t in (expanded.get("match_tokens") or []) if len(str(t).strip()) >= 3]
+        if primary_en:
+            custom_topic = primary_en
+
+        if is_specific_topic:
+            # For specific topics, prioritize targeted searches instead of drowning in 800 unrelated general feeds
+            enabled_feeds = []
+            enabled_pubmed = []
+
+        for q_str, hl, gl, ceid, w in [
+            (primary_en, "en-US", "US", "US:en", 2.4),
+            (alt_en, "en-US", "US", "US:en", 2.0),
+            (primary_fa, "fa", "IR", "IR:fa", 2.2),
+        ]:
+            if q_str:
+                enc = requests.utils.quote(q_str)
+                enabled_feeds.append(
+                    {
+                        "name": f"Google News ({q_str})",
+                        "category": "custom_topic",
+                        "url": f"https://news.google.com/rss/search?q={enc}&hl={hl}&gl={gl}&ceid={ceid}",
+                        "weight": w,
+                        "enabled": True,
+                    }
+                )
+        if primary_en:
+            enabled_pubmed.append(
+                {
+                    "name": f"PubMed ({primary_en})",
+                    "category": "custom_topic",
+                    "term": primary_en,
+                    "retmax": 15,
+                    "weight": 2.0,
+                    "enabled": True,
+                }
+            )
+            raw_items.extend(fetch_openalex_works(primary_en, per_page=12, weight=1.9))
 
     print(f"[INFO] Fetching {len(enabled_feeds)} RSS feeds and {len(enabled_pubmed)} PubMed queries...")
     with ThreadPoolExecutor(max_workers=16) as executor:
@@ -1133,14 +1290,41 @@ def main() -> None:
 
     print(f"[INFO +{time.time() - t_start:.1f}s] Total raw entries fetched: {len(raw_items)}")
 
-    candidates = score_and_deduplicate(
-        raw_items=raw_items,
-        seen_map=state["seen"],
-        lookback_hours=lookback_hours,
-        priority_keywords=priority_keywords,
-        custom_topic=custom_topic,
-        allow_seen_fallback=on_demand,
-    )
+    if is_specific_topic and match_tokens:
+        folded_tokens = [_fold_accents(t) for t in match_tokens if len(t) >= 3]
+        filtered_items = [
+            it for it in raw_items
+            if any(tok in _fold_accents(f"{it.get('title', '')} {it.get('summary', '')}") for tok in folded_tokens)
+        ]
+        if filtered_items:
+            print(f"[INFO] Specific topic filter kept {len(filtered_items)}/{len(raw_items)} matching items.")
+            raw_items = filtered_items
+
+    # Progressive lookback for specific on-demand topics so rare syndromes/topics always gather rich candidates
+    windows = [8760, 200000] if is_specific_topic else [lookback_hours]
+    candidates: list[dict[str, Any]] = []
+    for win_hours in windows:
+        candidates = score_and_deduplicate(
+            raw_items=raw_items,
+            seen_map=state["seen"],
+            lookback_hours=win_hours,
+            priority_keywords=priority_keywords,
+            custom_topic=custom_topic,
+            allow_seen_fallback=on_demand,
+        )
+        if len(candidates) >= max(max_posts * 3, 10):
+            break
+
+    # If still fewer than max_posts for a specific on-demand search, allow previously-seen items too
+    if is_specific_topic and len(candidates) < max_posts and raw_items:
+        candidates = score_and_deduplicate(
+            raw_items=raw_items,
+            seen_map={},
+            lookback_hours=200000,
+            priority_keywords=priority_keywords,
+            custom_topic=custom_topic,
+            allow_seen_fallback=True,
+        )
     print(f"[INFO +{time.time() - t_start:.1f}s] Fresh deduplicated candidates: {len(candidates)}")
 
     if not candidates:
