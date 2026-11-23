@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 31,
+  "daily_post_count": 33,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1190,6 +1190,81 @@
     "https://arxiv.org/abs/2611.27795v1": {
       "title": "The Four-Step Action Loop with Feedback: A teachable perception-action framework for everyday self-regulation",
       "ts": "2026-11-23T12:53:47.069873+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768248v1": {
+      "title": "Unsupervised tensor integration of hippocampal and colonic multi-omics reveals enteric neural signatures in cognitive aging",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768224v1": {
+      "title": "The IGVF Catalog Knowledge Graph",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.18.767169v1": {
+      "title": "The IGVF Data Portal: a repository for insights into genome function",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.20.768218v1": {
+      "title": "Transposon-driven pervasive genome restructuring and regulatory evolution in early-diverging Holomycota",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxNS2x4OVBDc3Z6OW0ySExMR3U2TFgwMWZQLVBwRUlTaVZEaDZvaXZmaG9MSjgtdHY1TEh4blpRUld3ZlAzUTVSejhZaTRGOUhMTi1va1VmZDhEb2lRX0RIV3JDNkZnWmtBeXd3aEdhT21wQ1J3REJiQXlfUUZIQnB3Y2RKQWpVdDk0dmlDbm1fZ3hKU2Z6cTEwOUdOY0U5cTVVS3JKeXlRWWJCNzBxTjJ5c0R6Vks3Ty1UOElvenVQdllrZFF3?oc=5": {
+      "title": "Structural Constraints Improve Single-Cell RNA Sequencing Imputation Across High Data Sparsity Levels",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiywFBVV95cUxObFpTRU5KLTd0TkhXM25Vd1AwdDYyNnpmLWs5OC01ekhELWV2MlNiY21PREpvYVRBd24zck9xV1RUaE43c3pRZXM1SXBPb1YtZ1ZrN3JCVDJIQ0dLb3QxSmhZaGpxQ1dpS1hvNEozeFdaLVQxUV96WGo0VHNnc09lMDFpRzdjc05CLUJfNWlVVmdyVTBNMXRiWmFMOFpVNTl2WXc5Vk5iVGExOWZhNFcyYVBhdkpCTUUxbS1FSi1kZFg2cFluZW5oVWpZbw?oc=5": {
+      "title": "Computational Study Identifies Distinct Structural and Epitope Patterns in Metapneumovirus Fusion Proteins",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxNLU5CalRkQnpsY1NWZmtjWlNnSkZNS3hyZ3BUejh3LXVsLVFZS09DM2hqN2ZBbXFwY2stZlZUWVdmOTY1ekhoQlBWTFNnNXFJbTNSaDM4MHRIWDV5dzJUZWZpNXRaX3dwNklEak5ZQkxSLVNYTmtOdVdSdWlEcENKbGpuV080OGIwWnZIM09wTVcwZjUzdEpobWVFUHpEWWNRN2RGQ05zVQ?oc=5": {
+      "title": "Pangenome Graph Pipelines Miss Many Structural Inversions in Real Human Genomes",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://news.mit.edu/new-approach-enables-physically-consistent-ai-models-chaotic-systems-1120": {
+      "title": "New approach enables physically consistent AI models of chaotic systems",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27911v1": {
+      "title": "Functional Depth Is Learned: Isolating the Computation That Layers Produce Only Together",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/ai-artificial-intelligence/1010051/anthropic-riemann-hypothesis-millennium-prize-problem": {
+      "title": "Anthropic mathematician claims to have solved prestigious Millennium Prize problem with Claude",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/23/architect-labs-frostbite-ai-designed-cpu-interaction-nets": {
+      "title": "Architect Labs Unveils Frostbite, an Interaction Net CPU Designed by AI",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27962v1": {
+      "title": "Model Carving: Training Transformers That Optimize Their Own Topology",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27899v1": {
+      "title": "The Dual-Tier Sentiment Framework: Scalable Multimodal UX Attribution in Web Search",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27963v1": {
+      "title": "Non-penetrating World Models",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
+      "status": "skipped"
+    },
+    "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update": {
+      "title": "The most misunderstood graph in AI just got a major update",
+      "ts": "2026-11-23T14:24:00.319689+00:00",
       "status": "skipped"
     }
   }
