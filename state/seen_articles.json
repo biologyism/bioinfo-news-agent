@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 48,
+  "daily_post_count": 49,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1500,6 +1500,81 @@
     "https://arxiv.org/abs/2611.27895v1": {
       "title": "TEA-Bench-BR: Can Coding Agents Turn a Branching Clinical Specification into Correct Code?",
       "ts": "2026-11-23T15:42:27.831403+00:00",
+      "status": "skipped"
+    },
+    "https://www.quantamagazine.org/the-incredible-elegant-dna-repair-system-makes-gene-editing-work-20261123": {
+      "title": "The Incredible, Elegant DNA Repair System Makes Gene Editing Work",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "sent"
+    },
+    "https://arxiv.org/abs/2611.27933v1": {
+      "title": "Mammalian gonadal development: origins, specification and differentiation of ovary and testis cell lineages",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/avenzo-begins-public-life-seeks-to-rival-bristol-myers-egfrxher3-bispecific": {
+      "title": "Avenzo begins public life, seeks to rival Bristol Myers' EGFRxHER3 bispecific",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27913v1": {
+      "title": "Star Panoptic Quality: Selectively Evaluating Split and Merged Instances",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27910v1": {
+      "title": "Decision Columns as an Index: Interpretable Embeddings for Explainable Entity Matching and Search",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27891v1": {
+      "title": "Speculative Decoding Is Less Speculative Than You Think",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27870v1": {
+      "title": "Beyond Visual Fidelity: Comparing Categorical and Continuous World Models",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/policy/1038892/trump-foreign-data-centers-tax": {
+      "title": "Trump threatens ‘tremendous tax’ for moving AI data centers outside the US",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/20/baseten-bison-1-groundhog-1-gemma-4-decision-models": {
+      "title": "Baseten Releases Bison-1 and Groundhog-1, Topping Decision Model Index",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.27766v1": {
+      "title": "Critical slowing down in hive temperature does not provide actionable early warnings of honey bee colony collapse",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03818-1": {
+      "title": "How to make climate anxiety your superpower",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79802-0": {
+      "title": "ORE1 stabilizes PIF4 protein through a UBP12/UBP13-dependent regulatory module in thermomorphogenesis",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79534-1": {
+      "title": "Non Hermitian synthetic phase shifter with topologically protected phase control via tunable losses",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79321-y": {
+      "title": "Biomass-based platform for pesticide management balancing field efficacy with postharvest residue via dynamic adhesion switch",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79746-5": {
+      "title": "Quasi-degenerate cation occupation enables oxygen-vacancy defect healing in nonlinear optical crystals",
+      "ts": "2026-11-23T15:44:46.686366+00:00",
       "status": "skipped"
     }
   }
