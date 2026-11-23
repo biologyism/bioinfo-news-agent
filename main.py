@@ -1,3 +1,4 @@
+import base64
 import csv
 import html
 import io
@@ -16,11 +17,13 @@ import feedparser
 import requests
 from bs4 import BeautifulSoup
 from dateutil import parser as date_parser
+from PIL import Image, ImageOps
 
 BASE_DIR = Path(__file__).resolve().parent
 SOURCES_PATH = BASE_DIR / "sources.json"
 STATE_DIR = BASE_DIR / "state"
 STATE_PATH = STATE_DIR / "seen_articles.json"
+OVERLAY_PATH = BASE_DIR / "assets" / "brand_overlay.png"
 
 IRST = timezone(timedelta(hours=3, minutes=30))
 
@@ -358,13 +361,18 @@ def enrich_article_snippet(item: dict[str, Any]) -> None:
     url = item["url"]
     if "news.google.com" in url or "pubmed.ncbi.nlm.nih.gov" in url:
         return
-    if len(item.get("summary", "")) >= 450:
+    if len(item.get("summary", "")) >= 450 and item.get("og_image"):
         return
     try:
         resp = requests.get(url, headers=REQUEST_HEADERS, timeout=8)
         if resp.status_code != 200 or "text/html" not in resp.headers.get("Content-Type", ""):
             return
         soup = BeautifulSoup(resp.text, "html.parser")
+        if not item.get("og_image"):
+            og_img = soup.find("meta", {"property": "og:image"}) or soup.find("meta", {"name": "twitter:image"})
+            if og_img and og_img.get("content") and og_img["content"].startswith("http"):
+                item["og_image"] = og_img["content"].strip()
+
         meta_desc = ""
         for selector in [
             ("meta", {"name": "description"}),
@@ -534,6 +542,8 @@ closing_question: ""
 - برای تأکید روی مهم‌ترین بخش جمله، داخل متن فقط از تگ‌های <b>...</b> (بولد) و <u>...</u> (زیرخط‌دار، برای نقطه‌ی عطف یا عدد شگفت‌انگیز) استفاده کن؛ زیاده‌روی نکن (در هر پاراگراف نهایتاً ۱ یا ۲ عبارت کوتاه).
 - بخش quote_box (باکس نقل‌قول) بسیار مهم است: یک زاویه تامل‌برانگیز، نکته حیرت‌انگیز یا محدودیت واقعی و صادقانه پژوهش را بنویس (مثل: هنوز روی انسان آزمایش نشده / فقط روی موش بوده / پیش‌چاپ است و هنوز داوری نشده / برای استفاده عمومی زود است). با یک ایموجی مناسب مثل ⚠️ یا ⭐️ یا 👁 یا 🎁 شروع شود.
 - اگر quote_box خودش سوال نیست و سوال جذابی به ذهن می‌رسد، در closing_question یک سوال کوتاه و چالشی بنویس (بدون ایموجی، خود سیستم ❓ می‌گذارد)؛ وگرنه خالی بگذار "".
+- طول کل متن (تیتر + پاراگراف‌ها + نقل‌قول + سوال) ترجیحاً بین ۴۰۰ تا ۶۵۰ کاراکتر باشد تا به عنوان کپشن زیر عکس در تلگرام کامل جا شود.
+- image_prompt: یک پرامپت انگلیسی دقیق و سینمایی برای تولید عکس خبری (عکاسی رئال و ژورنالیستی، نورپردازی طبیعی یا دراماتیک، صحنه مرتبط با موضوع خبر مثل پژوهشگر، بیمار، آزمایشگاه یا نمای علمی تمیز؛ ترکیب‌بندی افقی طوری که سوژه در دو سوم بالایی کادر باشد تا پایین تصویر خلوت بماند؛ **اکیداً بدون هیچ متن، نوشته، لوگو یا واترمارک**).
 - **اکیداً ممنوع:** هرگز عدد، درصد، نام شرکت یا ادعایی را که در متن ورودی نیست از خودت نساز!
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
@@ -575,6 +585,7 @@ closing_question: ""
                                 },
                                 "quote_box": {"type": "STRING"},
                                 "closing_question": {"type": "STRING"},
+                                "image_prompt": {"type": "STRING"},
                             },
                             "required": [
                                 "article_id",
@@ -583,6 +594,7 @@ closing_question: ""
                                 "paragraphs",
                                 "quote_box",
                                 "closing_question",
+                                "image_prompt",
                             ],
                         },
                     }
@@ -620,6 +632,7 @@ closing_question: ""
                     continue
                 p["url"] = art["url"]
                 p["raw_title"] = art["title"]
+                p["og_image"] = art.get("og_image", "")
                 enriched_posts.append(p)
             return enriched_posts[:max_posts]
         except Exception as exc:
@@ -696,6 +709,92 @@ def format_telegram_html(post: dict[str, Any], post_number: int) -> str:
     return "\n\n".join(parts)
 
 
+def generate_cf_image_bytes(image_prompt: str) -> bytes | None:
+    account_id = os.getenv("CF_ACCOUNT_ID", "").strip()
+    ai_token = os.getenv("CF_AI_TOKEN", "").strip()
+    if not account_id or not ai_token or not image_prompt:
+        return None
+
+    clean_prompt = (
+        f"{image_prompt.strip()}, photorealistic editorial science photography, "
+        "cinematic natural lighting, high detail, 16:9 widescreen composition, "
+        "subject framed in upper two thirds, clean empty lower edge, "
+        "strictly no text, no letters, no watermark, no logo"
+    )[:1800]
+
+    headers = {
+        "Authorization": f"Bearer {ai_token}",
+        "Content-Type": "application/json",
+    }
+    models = [
+        ("@cf/black-forest-labs/flux-1-schnell", {"prompt": clean_prompt, "steps": 4}),
+        ("@cf/stabilityai/stable-diffusion-xl-lightning", {"prompt": clean_prompt}),
+    ]
+    for model, body in models:
+        url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{model}"
+        try:
+            resp = requests.post(url, headers=headers, json=body, timeout=60)
+            if resp.status_code != 200:
+                print(f"[WARN] CF AI {model} returned {resp.status_code}: {resp.text[:200]}")
+                continue
+            ctype = resp.headers.get("Content-Type", "").lower()
+            if "application/json" in ctype:
+                b64 = resp.json().get("result", {}).get("image")
+                if b64:
+                    return base64.b64decode(b64)
+            elif "image/" in ctype or resp.content[:4] in {b"\xff\xd8\xff\xe0", b"\xff\xd8\xff\xe1", b"\x89PNG"}:
+                return resp.content
+        except Exception as exc:
+            print(f"[WARN] CF AI {model} failed: {exc}")
+    return None
+
+
+def download_fallback_image_bytes(og_image_url: str) -> bytes | None:
+    if not og_image_url:
+        return None
+    try:
+        resp = requests.get(og_image_url, headers=REQUEST_HEADERS, timeout=12)
+        if resp.status_code != 200:
+            return None
+        im = Image.open(io.BytesIO(resp.content))
+        if im.width < 450 or im.height < 250:
+            return None
+        return resp.content
+    except Exception:
+        return None
+
+
+def apply_brand_overlay(raw_img_bytes: bytes) -> bytes:
+    base = Image.open(io.BytesIO(raw_img_bytes)).convert("RGBA")
+    fitted = ImageOps.fit(base, (1280, 720), method=Image.Resampling.LANCZOS, centering=(0.5, 0.35))
+    if OVERLAY_PATH.exists():
+        overlay = Image.open(OVERLAY_PATH).convert("RGBA")
+        if overlay.size != (1280, 720):
+            overlay = overlay.resize((1280, 720), Image.Resampling.LANCZOS)
+        fitted = Image.alpha_composite(fitted, overlay)
+    out = io.BytesIO()
+    fitted.convert("RGB").save(out, format="JPEG", quality=92)
+    return out.getvalue()
+
+
+def generate_branded_image(post: dict[str, Any]) -> bytes | None:
+    raw_bytes = generate_cf_image_bytes(post.get("image_prompt") or "")
+    if not raw_bytes:
+        raw_bytes = download_fallback_image_bytes(post.get("og_image") or "")
+    if not raw_bytes:
+        return None
+    try:
+        return apply_brand_overlay(raw_bytes)
+    except Exception as exc:
+        print(f"[WARN] Brand overlay failed: {exc}")
+        return raw_bytes
+
+
+def visible_text_length(html_text: str) -> int:
+    plain = re.sub(r"<[^>]+>", "", html_text or "")
+    return len(html.unescape(plain))
+
+
 def send_telegram_message(bot_token: str, chat_id: str, html_text: str) -> None:
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
     resp = requests.post(
@@ -710,6 +809,28 @@ def send_telegram_message(bot_token: str, chat_id: str, html_text: str) -> None:
     )
     if resp.status_code != 200:
         raise RuntimeError(f"Telegram API error {resp.status_code}: {resp.text}")
+
+
+def send_telegram_photo(bot_token: str, chat_id: str, image_bytes: bytes, caption_html: str) -> None:
+    url = f"https://api.telegram.org/bot{bot_token}/sendPhoto"
+    if visible_text_length(caption_html) <= 1000:
+        resp = requests.post(
+            url,
+            data={"chat_id": chat_id, "caption": caption_html, "parse_mode": "HTML"},
+            files={"photo": ("news.jpg", image_bytes, "image/jpeg")},
+            timeout=30,
+        )
+        if resp.status_code == 200:
+            return
+        print(f"[WARN] sendPhoto with full caption failed ({resp.status_code}), falling back to photo + message: {resp.text[:200]}")
+
+    # Fallback if caption exceeds Telegram's 1024-char photo caption limit
+    requests.post(
+        url,
+        files={"photo": ("news.jpg", image_bytes, "image/jpeg")},
+        timeout=30,
+    )
+    send_telegram_message(bot_token, chat_id, caption_html)
 
 
 def get_target_chat_ids() -> list[str]:
@@ -856,13 +977,18 @@ def main() -> None:
     for post in selected_posts:
         state["daily_post_count"] += 1
         msg_html = format_telegram_html(post, state["daily_post_count"])
+        img_bytes = None if dry_run else generate_branded_image(post)
         if dry_run:
             print("\n" + "=" * 50)
             print(msg_html)
+            print(f"[IMAGE PROMPT]: {post.get('image_prompt', '')}")
         else:
             for cid in target_chat_ids:
                 try:
-                    send_telegram_message(bot_token, cid, msg_html)
+                    if img_bytes:
+                        send_telegram_photo(bot_token, cid, img_bytes, msg_html)
+                    else:
+                        send_telegram_message(bot_token, cid, msg_html)
                 except Exception as exc:
                     print(f"[WARN] Failed sending to {cid}: {exc}")
                 time.sleep(0.6)
