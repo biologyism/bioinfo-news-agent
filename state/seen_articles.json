@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-23",
-  "daily_post_count": 40,
+  "daily_post_count": 43,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -1380,6 +1380,51 @@
     "https://news.google.com/rss/articles/CBMia0FVX3lxTE0ta1ZyUTJoeFlCYVB6Y3RLT3pUQVBSMGc5WXh5a3R0eDhCRGFYOGs0WHRBZ0c1NENGT25IR3kwd2xvMXEtZ2pLRENIZ1dBclRxVExqOF92emNPWE5XV2lnZl9iejdON002TlNv?oc=5": {
       "title": "Many Etsy Sellers Close Up Shop Over Site’s New A.I. Policy",
       "ts": "2026-11-23T14:56:49.768349+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNOEo3b0F6RllSTjhpb0U1djFuOXo1VDFzU3BQRXRGNU1sdTJMMERZWGtSSFdRVE8xTXF1V3llaXAzMXlUUTd4WDkzSm9VRnFHc21HVkFWSXpNZFh2SW84cGhwdGZwSGQ4WG1FZXBvdGpZR2tnTWlKd1JNRmJUYkZxZmRJQWR2dkJuSEVmcTFKUG9TdDAyY01NcmdjS0l5N2tmYkJrbjNOdWM1Wmc?oc=5": {
+      "title": "AI Is Advancing Faster Than It Can Be Tested. How Can Science Keep Up?",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMidEFVX3lxTE0wbXNudWJmUGU1R0pPTjNGWHQ5aF8tUFY3SGdYZkVhYTNmaTFTMkEzNFBSWGZ3ZVBzdGZ6WjNQNnNURGdfYWwyWTNXUGxxOHFXeEc1UUg5dVdjRkR0a003Rm54cGJoSXI4bC1VazZra1A5YjFy?oc=5": {
+      "title": "Researchers develop smarter way to handle tokens in long-context AI",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMid0FVX3lxTE4zZ2lNRDNWcFpINl91M25NTkhNcTFZczVTVDhpbTBQUkNEek9uVmxNaWZucERCMXdQMUJqQ0hLSnpkcDhmYWJSNkRiSEpDU1l4Z2Y4aml0VDJSTjVXbWdROWZJYWk2ckhFMXl3b0JEdGhKbzZZeTFF?oc=5": {
+      "title": "A New Era of A.I.-Driven Chaos? That Might Just Be Progress.",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "sent"
+    },
+    "https://www.statnews.com/2026/11/23/biotech-news-a-big-win-for-potential-dupixent-competitor-eczema-treatment": {
+      "title": "STAT+: A big win for a potential competitor for Dupixent eczema treatment",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMijAFBVV95cUxQVEh2NDNiR2NnSnVEZmR3dEc4YkJzUG9jWnFRWHpyX29Ra0ZRTXVuS0RvRTAyTTN2aVpJR3BIVnYtVm1ZOXhOcVc1QlBWS3hFVjQtSVBwYTE4SDFUX3Y3T2ZEWEtSQTVOdzBuT2hRbE82eVpnLTE3NXpQS2xzYXhfUnBmc1R2bFhYZkw3cw?oc=5": {
+      "title": "AI Is Changing How Americans Buy Their Vehicles",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "skipped"
+    },
+    "https://www.genengnews.com/topics/cancer/immune-aging-study-in-mice-reveals-clues-to-t-cell-dysfunction-and-cancer-development": {
+      "title": "Immune Aging Study in Mice Reveals Clues to T Cell Dysfunction and Cancer Development",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/20/fda-rejects-capricor-duchenne-therapy": {
+      "title": "STAT+: FDA rejects Capricor Therapeutics’ Duchenne therapy, a decision that was a long time coming",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMirgFBVV95cUxPY18wOXU4Z0tEVmVYQXpKUzY1cDNKZVdsX0ZjVHBDSWdxcnJLZ2hTX0lnTkRkWFZiaVhDc1lmZU9RWkxpNC1yZS1DdFJuVTR5TDVEVGdLaGxQTHZZZnRNdWpFQUt0MEpLMUtXLUpIeVN4NzJVU3BRZnk1ZjNYT0VEc0FzcmpXOTNjeFl2d3Q3QUFESjBPRm5LYm8yVlo4TzFOQzV6SU1udXFVSUZEdmc?oc=5": {
+      "title": "Merck’s TROP2 ADC extends survival in pivotal gastroesophageal cancer trial",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
+      "status": "skipped"
+    },
+    "https://www.genengnews.com/topics/omics/ptsd-brain-dna-methylation-patterns-linked-to-age-of-trauma-exposure-sex-and-ethnicity": {
+      "title": "PTSD Brain DNA Methylation Patterns Linked to Age of Trauma Exposure, Sex, and Ethnicity",
+      "ts": "2026-11-23T15:28:51.541056+00:00",
       "status": "skipped"
     }
   }
