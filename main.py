@@ -36,11 +36,10 @@ REQUEST_HEADERS = {"User-Agent": USER_AGENT}
 
 GEMINI_FALLBACK_MODELS = [
     "gemini-3.8-flash",
-    "gemini-3.7-flash",
     "gemini-3.6-flash",
     "gemini-3.5-flash-lite",
+    "gemini-3.1-flash-lite",
     "gemini-3-flash-preview",
-    "gemini-2.5-flash",
 ]
 
 TRACKING_PARAMS = {
@@ -1212,16 +1211,31 @@ def main() -> None:
     if run_mode == "edu":
         from edu_studio import run_edu_studio
         slide_count = int(custom_count_raw) if (custom_count_raw.isdigit() and 1 <= int(custom_count_raw) <= 10) else 5
-        run_edu_studio(
-            custom_topic=custom_topic,
-            custom_query=custom_query,
-            slide_count=slide_count,
-            bot_token=bot_token,
-            target_chat_ids=target_chat_ids,
-            status_msg_id=status_msg_id,
-            dry_run=dry_run,
-            progress_fn=update_progress,
-        )
+        edu_images = os.getenv("EDU_IMAGES", "false").strip().lower() in {"true", "1", "yes"}
+        try:
+            run_edu_studio(
+                custom_topic=custom_topic,
+                custom_query=custom_query,
+                slide_count=slide_count,
+                with_images=edu_images,
+                bot_token=bot_token,
+                target_chat_ids=target_chat_ids,
+                status_msg_id=status_msg_id,
+                dry_run=dry_run,
+                progress_fn=update_progress,
+            )
+        except Exception as exc:
+            print(f"[ERROR] Edu Studio failed: {exc}")
+            if not dry_run:
+                update_progress(
+                    bot_token,
+                    target_chat_ids,
+                    status_msg_id,
+                    100,
+                    f"⚠️ خطا در تولید محتوای آموزشی: {html.escape(str(exc)[:220])}",
+                    done=True,
+                )
+            raise
         return
 
     if on_demand and not dry_run:

@@ -19,10 +19,10 @@ FONTS_DIR = BASE_DIR / "assets" / "fonts"
 
 GEMINI_MODELS = [
     "gemini-3.8-flash",
-    "gemini-3.7-flash",
     "gemini-3.6-flash",
     "gemini-3.5-flash-lite",
-    "gemini-2.5-flash",
+    "gemini-3.1-flash-lite",
+    "gemini-3-flash-preview",
 ]
 
 PERSIAN_DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
@@ -136,9 +136,29 @@ def plan_search_for_edu(user_query: str, topic_hint: str, all_cats: list[str]) -
         f"Available library categories: {json.dumps(all_cats, ensure_ascii=False)}\n"
         'Return ONLY JSON: {"target_categories": [str], "search_keywords": [str], "is_library_lookup_only": bool}'
     )
+    # Use high-quota Flash-Lite (500 RPD) or Groq for query planning so 3.8-flash (20 RPD) is saved for writing
+    groq_key = os.getenv("GROQ_API_KEY", "").strip()
+    if groq_key:
+        try:
+            gr = requests.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={"Authorization": f"Bearer {groq_key}", "Content-Type": "application/json"},
+                json={
+                    "model": "llama-3.1-8b-instant",
+                    "temperature": 0.1,
+                    "response_format": {"type": "json_object"},
+                    "messages": [{"role": "user", "content": prompt}],
+                },
+                timeout=12,
+            )
+            if gr.status_code == 200:
+                return _extract_json_obj(gr.json()["choices"][0]["message"]["content"])
+        except Exception:
+            pass
+
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if api_key:
-        for m in GEMINI_MODELS[:4]:
+        for m in ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]:
             try:
                 r = requests.post(
                     f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent",
@@ -150,12 +170,113 @@ def plan_search_for_edu(user_query: str, topic_hint: str, all_cats: list[str]) -
                     timeout=14,
                 )
                 if r.status_code == 200:
-                    return json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"])
+                    return _extract_json_obj(r.json()["candidates"][0]["content"]["parts"][0]["text"])
             except Exception:
                 continue
 
     tokens = re.split(r"[\s,،]+", f"{topic_hint} {user_query}".lower())
     return {"target_categories": [], "search_keywords": [t for t in tokens if len(t) >= 3], "is_library_lookup_only": False}
+
+
+def _extract_json_obj(raw: str) -> dict[str, Any]:
+    cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", (raw or "").strip(), flags=re.S)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        m = re.search(r"\{.*\}", cleaned, flags=re.S)
+        if m:
+            return json.loads(m.group(0))
+        raise
+
+
+def call_edu_json_with_failover(
+    system_instruction: str,
+    user_prompt: str,
+    response_schema: dict[str, Any],
+    json_hint: str,
+) -> dict[str, Any]:
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    preferred = os.getenv("GEMINI_MODEL", "").strip()
+    models_to_try = ([preferred] if preferred else []) + [m for m in GEMINI_MODELS if m != preferred]
+
+    payload = {
+        "system_instruction": {"parts": [{"text": system_instruction}]},
+        "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
+        "generationConfig": {
+            "temperature": 0.4,
+            "responseMimeType": "application/json",
+            "responseSchema": response_schema,
+        },
+    }
+
+    last_err = None
+    if api_key:
+        for model in models_to_try:
+            try:
+                print(f"[INFO] Edu Studio calling Gemini: {model}")
+                resp = requests.post(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                    params={"key": api_key},
+                    json=payload,
+                    timeout=45,
+                )
+                if resp.status_code in {400, 403, 404, 429, 503}:
+                    last_err = f"HTTP {resp.status_code}: {resp.text[:220]}"
+                    print(f"[WARN] Edu Gemini {model} -> {last_err}")
+                    continue
+                resp.raise_for_status()
+                text_out = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+                return _extract_json_obj(text_out)
+            except Exception as exc:
+                last_err = str(exc)
+                print(f"[WARN] Edu Gemini {model} failed: {exc}")
+
+    # Multi-Provider Failover: OpenRouter -> Groq -> Cloudflare Workers AI
+    or_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    groq_key = os.getenv("GROQ_API_KEY", "").strip()
+    cf_acc = os.getenv("CF_ACCOUNT_ID", "").strip()
+    cf_tok = os.getenv("CF_AI_TOKEN", "").strip()
+
+    providers = []
+    if or_key:
+        providers.append(("https://openrouter.ai/api/v1/chat/completions", or_key, "openrouter/free", False))
+    if groq_key:
+        providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "openai/gpt-oss-120b", True))
+        providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "llama-3.3-70b-versatile", True))
+    if cf_acc and cf_tok:
+        cf_ep = f"https://api.cloudflare.com/client/v4/accounts/{cf_acc}/ai/v1/chat/completions"
+        providers.append((cf_ep, cf_tok, "@cf/openai/gpt-oss-120b", False))
+        providers.append((cf_ep, cf_tok, "@cf/meta/llama-3.3-70b-instruct-fp8-fast", False))
+
+    for ep, key, model, use_jm in providers:
+        try:
+            print(f"[INFO] Edu Studio failover -> {model}")
+            headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+            body: dict[str, Any] = {
+                "model": model,
+                "temperature": 0.35,
+                "messages": [
+                    {"role": "system", "content": system_instruction + json_hint},
+                    {"role": "user", "content": user_prompt},
+                ],
+            }
+            if use_jm:
+                body["response_format"] = {"type": "json_object"}
+            r = requests.post(ep, headers=headers, json=body, timeout=50)
+            if r.status_code == 400 and use_jm:
+                body.pop("response_format", None)
+                r = requests.post(ep, headers=headers, json=body, timeout=50)
+            if r.status_code != 200:
+                last_err = f"{model} HTTP {r.status_code}: {r.text[:200]}"
+                print(f"[WARN] {last_err}")
+                continue
+            content = r.json()["choices"][0]["message"]["content"]
+            return _extract_json_obj(content)
+        except Exception as exc:
+            last_err = f"{model}: {exc}"
+            print(f"[WARN] Edu failover {model} failed: {exc}")
+
+    raise RuntimeError(f"All AI providers failed in Edu Studio: {last_err}")
 
 
 def generate_edu_carousel(
@@ -164,10 +285,6 @@ def generate_edu_carousel(
     slide_count: int,
     context_bundle: dict[str, Any],
 ) -> dict[str, Any]:
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("GEMINI_API_KEY is missing for Educational Studio.")
-
     system_instruction = f"""تو «مدیر محتوای آموزشی و طراح کاروسل‌های اینستاگرامی» آکادمی بیوانفورماتیک ایران هستی.
 مخاطب تو دانشجویان زیست‌شناسی، بیوانفورماتیک، علوم پایه، پزشکی و علاقه‌مندان هوش مصنوعی هستند.
 
@@ -191,79 +308,55 @@ def generate_edu_carousel(
         f"{json.dumps(context_bundle, ensure_ascii=False)}"
     )
 
-    payload = {
-        "system_instruction": {"parts": [{"text": system_instruction}]},
-        "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
-        "generationConfig": {
-            "temperature": 0.4,
-            "responseMimeType": "application/json",
-            "responseSchema": {
-                "type": "OBJECT",
-                "properties": {
-                    "post_title": {"type": "STRING"},
-                    "slides": {
-                        "type": "ARRAY",
-                        "items": {
-                            "type": "OBJECT",
-                            "properties": {
-                                "slide_number": {"type": "INTEGER"},
-                                "role": {"type": "STRING"},
-                                "badge": {"type": "STRING"},
-                                "headline": {"type": "STRING"},
-                                "body_points": {"type": "ARRAY", "items": {"type": "STRING"}},
-                                "tool_spotlight": {"type": "STRING"},
-                                "visual_prompt": {"type": "STRING"},
-                            },
-                            "required": [
-                                "slide_number",
-                                "role",
-                                "badge",
-                                "headline",
-                                "body_points",
-                                "tool_spotlight",
-                                "visual_prompt",
-                            ],
-                        },
+    schema = {
+        "type": "OBJECT",
+        "properties": {
+            "post_title": {"type": "STRING"},
+            "slides": {
+                "type": "ARRAY",
+                "items": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "slide_number": {"type": "INTEGER"},
+                        "role": {"type": "STRING"},
+                        "badge": {"type": "STRING"},
+                        "headline": {"type": "STRING"},
+                        "body_points": {"type": "ARRAY", "items": {"type": "STRING"}},
+                        "tool_spotlight": {"type": "STRING"},
+                        "visual_prompt": {"type": "STRING"},
                     },
-                    "telegram_caption": {"type": "STRING"},
-                    "selected_repos": {
-                        "type": "ARRAY",
-                        "items": {
-                            "type": "OBJECT",
-                            "properties": {
-                                "repo": {"type": "STRING"},
-                                "why_persian": {"type": "STRING"},
-                            },
-                            "required": ["repo", "why_persian"],
-                        },
-                    },
+                    "required": [
+                        "slide_number",
+                        "role",
+                        "badge",
+                        "headline",
+                        "body_points",
+                        "tool_spotlight",
+                        "visual_prompt",
+                    ],
                 },
-                "required": ["post_title", "slides", "telegram_caption", "selected_repos"],
+            },
+            "telegram_caption": {"type": "STRING"},
+            "selected_repos": {
+                "type": "ARRAY",
+                "items": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "repo": {"type": "STRING"},
+                        "why_persian": {"type": "STRING"},
+                    },
+                    "required": ["repo", "why_persian"],
+                },
             },
         },
+        "required": ["post_title", "slides", "telegram_caption", "selected_repos"],
     }
-
-    last_err = None
-    for model in GEMINI_MODELS:
-        try:
-            print(f"[INFO] Edu Studio calling Gemini: {model}")
-            resp = requests.post(
-                f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
-                params={"key": api_key},
-                json=payload,
-                timeout=35,
-            )
-            if resp.status_code in {404, 429, 503}:
-                last_err = resp.text[:250]
-                continue
-            resp.raise_for_status()
-            text_out = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
-            return json.loads(text_out)
-        except Exception as exc:
-            last_err = str(exc)
-            print(f"[WARN] Edu Gemini {model} failed: {exc}")
-
-    raise RuntimeError(f"Edu Studio Gemini failed: {last_err}")
+    json_hint = (
+        '\nReturn ONLY valid JSON: {"post_title": str, "slides": [{"slide_number": int, "role": "cover"|"content"|"summary", '
+        '"badge": str, "headline": str, "body_points": [str], "tool_spotlight": str, "visual_prompt": str}], '
+        '"telegram_caption": str, "selected_repos": [{"repo": str, "why_persian": str}]}.'
+    )
+    return call_edu_json_with_failover(system_instruction, user_prompt, schema, json_hint)
 
 
 def generate_cf_art(prompt: str) -> bytes | None:
@@ -546,9 +639,19 @@ def send_tg_album(bot_token: str, chat_id: str, slide_images: list[bytes]) -> No
         print(f"[WARN] sendMediaGroup HTTP {resp.status_code}: {resp.text[:250]}")
 
 
+def _clean_tg_html(text: str) -> str:
+    s = re.sub(r"<br\s*/?>", "\n", text or "", flags=re.I)
+    s = re.sub(r"</p\s*>", "\n\n", s, flags=re.I)
+    s = re.sub(r"<p\s*>", "", s, flags=re.I)
+    # Strip any unsupported HTML tags except Telegram-allowed ones
+    s = re.sub(r"<(?!/?(?:b|strong|i|em|u|ins|s|strike|del|code|pre|blockquote|a)(?:\s|>))[^>]+>", "", s, flags=re.I)
+    return s.strip()
+
+
 def send_tg_text(bot_token: str, chat_id: str, html_text: str) -> None:
-    for chunk_start in range(0, len(html_text), 3900):
-        chunk = html_text[chunk_start : chunk_start + 3900]
+    cleaned = _clean_tg_html(html_text)
+    for chunk_start in range(0, len(cleaned), 3900):
+        chunk = cleaned[chunk_start : chunk_start + 3900]
         r = requests.post(
             f"https://api.telegram.org/bot{bot_token}/sendMessage",
             json={
@@ -560,7 +663,13 @@ def send_tg_text(bot_token: str, chat_id: str, html_text: str) -> None:
             timeout=20,
         )
         if r.status_code != 200:
-            print(f"[WARN] sendMessage HTTP {r.status_code}: {r.text[:200]}")
+            print(f"[WARN] sendMessage HTML HTTP {r.status_code}: {r.text[:200]} — retrying plain text")
+            plain = re.sub(r"<[^>]+>", "", chunk)
+            requests.post(
+                f"https://api.telegram.org/bot{bot_token}/sendMessage",
+                json={"chat_id": chat_id, "text": plain, "disable_web_page_preview": True},
+                timeout=20,
+            )
 
 
 def format_editable_slides_text(carousel: dict[str, Any]) -> str:
@@ -622,6 +731,76 @@ def format_library_links_message(carousel: dict[str, Any], matched: dict[str, An
     return "\n".join(lines)
 
 
+def generate_edu_guide(
+    user_query: str,
+    topic_hint: str,
+    item_count: int,
+    context_bundle: dict[str, Any],
+) -> dict[str, Any]:
+    """Generate a direct, crisp Persian educational guide/tutorial/tool-breakdown (NO images, NO forced slide format)."""
+    system_instruction = f"""تو «استاد و طراح محتوای آموزشی» آکادمی بیوانفورماتیک ایران هستی.
+مخاطب تو دانشجویان زیست‌شناسی، بیوانفورماتیک، علوم پایه، پزشکی و علاقه‌مندان هوش مصنوعی هستند.
+
+وظیفه حیاتی تو:
+**دقیقاً همان چیزی را تولید کن که کاربر درخواست کرده است** — نه کمتر و نه چیز دیگری!
+- اگر کاربر خواسته یک موضوع را یاد بدهد یا توضیح بدهد -> گام‌به‌گام، جذاب، ساده، تصویرساز و عملی آموزش بده.
+- اگر کاربر خواسته ابزارها یا ریپوهای گیت‌هاب مرتبط معرفی شود (مثلاً {item_count} ابزار/ریپو) -> دقیقاً بهترین ابزارهای واقعی از کتابخانه پیوست‌شده را با کاربرد دقیقشان معرفی کن.
+- اگر کاربر نقشه راه یا مقایسه یا سناریوی پست خواسته -> دقیقاً در همان قالب پاسخ بده.
+
+قوانین نگارش (۸۰٪ آموزش جذاب و کاربردی + ۲۰٪ ابزارهای واقعی):
+1. تیتر قلاب‌دار و جذاب با ایموجی مناسب در فیلد `title`.
+2. بدنه اصلی (`body_html`) را با فرمت HTML تمیز تلگرام (`<b>`، `<i>`، `<u>`، `<blockquote>`، `<code>`) بنویس؛ خوانا، بخش‌بندی‌شده، با بولت‌های کوتاه و نکته طلایی داخل `<blockquote>`.
+3. در صورت نیاز به معرفی ابزار، از میان مخازن واقعیِ پیوست‌شده در کتابخانه آکادمی (یا ابزارهای قطعی) انتخاب کن و **هرگز نام ریپوی گیت‌هاب جعلی نساز**.
+4. از نوشتن ساختار «اسلاید ۱ از ۵» خودداری کن مگر اینکه کاربر خودش اسلاید خواسته باشد. طول `body_html` کامل، مفید و بین ۱۰۰۰ تا ۳۲۰۰ کاراکتر باشد (در تلگرام کاملاً جا شود و کسل‌کننده نباشد).
+
+خروجی فقط JSON معتبر مطابق اسکیما باشد."""
+
+    user_prompt = (
+        f"درخواست دقیق کاربر: {user_query or topic_hint}\n"
+        f"موضوع هدف: {topic_hint}\n"
+        f"تعداد درخواستی (در صورت نیاز به لیست/گام): {item_count}\n\n"
+        f"منابع واقعی استخراج‌شده از کتابخانه آکادمی (۱۵۰ ریپو + دایرکتوری‌ها + Topicها + منابع ایران):\n"
+        f"{json.dumps(context_bundle, ensure_ascii=False)}"
+    )
+
+    schema = {
+        "type": "OBJECT",
+        "properties": {
+            "title": {"type": "STRING"},
+            "body_html": {"type": "STRING"},
+            "selected_repos": {
+                "type": "ARRAY",
+                "items": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "repo": {"type": "STRING"},
+                        "why_persian": {"type": "STRING"},
+                    },
+                    "required": ["repo", "why_persian"],
+                },
+            },
+        },
+        "required": ["title", "body_html", "selected_repos"],
+    }
+    json_hint = (
+        '\nReturn ONLY valid JSON: {"title": str, "body_html": str, '
+        '"selected_repos": [{"repo": str, "why_persian": str}]}.'
+    )
+    return call_edu_json_with_failover(system_instruction, user_prompt, schema, json_hint)
+
+
+def format_guide_message(guide: dict[str, Any]) -> str:
+    title = (guide.get("title") or "آموزش تخصصی بیوانفورماتیک").strip()
+    body = (guide.get("body_html") or "").strip()
+    return (
+        f"🎓 <b>{title}</b>\n\n"
+        f"{body}\n\n"
+        "⭕️ معین شیرین کام\n"
+        "آکادمی بیوانفورماتیک ایران 🖥⭐️\n"
+        "@ir_bioinformtic_academy"
+    )
+
+
 def run_edu_studio(
     custom_topic: str,
     custom_query: str,
@@ -631,6 +810,7 @@ def run_edu_studio(
     status_msg_id: str,
     dry_run: bool,
     progress_fn: Any,
+    with_images: bool = False,
 ) -> None:
     t0 = time.time()
     lib = load_library()
@@ -657,11 +837,48 @@ def run_edu_studio(
         "iran_persian_searches": matched["iran_searches"],
     }
 
+    wants_slides_format = with_images or bool(re.search(r"(اسلاید|کاروسل|slide|carousel)", custom_query or "", re.I))
+
+    if not wants_slides_format:
+        if not dry_run:
+            progress_fn(bot_token, target_chat_ids, status_msg_id, 65, "در حال نگارش دقیق آموزش درخواستی + تطبیق با ابزارهای واقعی گیت‌هاب...")
+
+        guide = generate_edu_guide(custom_query, custom_topic, slide_count, context_bundle)
+        guide_msg = format_guide_message(guide)
+        links_msg = format_library_links_message(guide, matched)
+
+        if dry_run:
+            print(f"[DRY_RUN] Edu Guide mode (NO images) completed in {time.time() - t0:.1f}s")
+            print(guide_msg)
+            print("\n" + links_msg)
+            return
+
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "محتوای آموزشی آماده شد؛ در حال ارسال به تلگرام...")
+        for cid in target_chat_ids:
+            send_tg_text(bot_token, cid, guide_msg)
+            send_tg_text(bot_token, cid, links_msg)
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 100, "محتوای آموزشی آماده و ارسال شد!", done=True)
+        return
+
     if not dry_run:
         progress_fn(bot_token, target_chat_ids, status_msg_id, 55, f"در حال طراحی و نگارش محتوای {to_fa_digits(slide_count)} اسلاید آموزشی...")
 
     carousel = generate_edu_carousel(custom_query, custom_topic, slide_count, context_bundle)
     slides = (carousel.get("slides") or [])[:slide_count]
+
+    if not with_images:
+        if dry_run:
+            print(f"[DRY_RUN] Edu Carousel TEXT-ONLY mode ({len(slides)} slides, NO images) in {time.time() - t0:.1f}s")
+            print(format_editable_slides_text(carousel))
+            print("\n" + format_library_links_message(carousel, matched))
+            return
+
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "متن اسلایدها و منابع گیت‌هاب آماده شدند؛ در حال ارسال به تلگرام...")
+        for cid in target_chat_ids:
+            send_tg_text(bot_token, cid, format_editable_slides_text(carousel))
+            send_tg_text(bot_token, cid, format_library_links_message(carousel, matched))
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 100, f"متن {to_fa_digits(len(slides))} اسلاید آموزشی (بدون تصویر) ارسال شد!", done=True)
+        return
 
     if not dry_run:
         progress_fn(bot_token, target_chat_ids, status_msg_id, 75, f"در حال رندر گرافیکی {to_fa_digits(len(slides))} اسلاید آماده انتشار (۱۰۸۰×۱۳۵۰)...")
@@ -695,4 +912,4 @@ def run_edu_studio(
         send_tg_text(bot_token, cid, format_editable_slides_text(carousel))
         send_tg_text(bot_token, cid, format_library_links_message(carousel, matched))
 
-    progress_fn(bot_token, target_chat_ids, status_msg_id, 100, f"پست آموزشی {to_fa_digits(len(slides))} اسلایدی آماده و ارسال شد!", done=True)
+    progress_fn(bot_token, target_chat_ids, status_msg_id, 100, f"پست آموزشی {to_fa_digits(len(slides))} اسلایدی با تصویر آماده و ارسال شد!", done=True)
