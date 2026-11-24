@@ -42,6 +42,10 @@ on:
         description: 'ساخت تصویر اسلاید آموزشی (فقط وقتی کاربر صریحاً تصویر بخواهد)'
         required: false
         default: 'false'
+      reply_context:
+        description: 'متن پیامی که کاربر روی آن ریپلای زده تا همان اصلاح یا تکمیل شود'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -83,6 +87,7 @@ jobs:
           GAME_URL: ${{ github.event.inputs.game_url || '' }}
           MODE: ${{ github.event.inputs.mode || 'news' }}
           EDU_IMAGES: ${{ github.event.inputs.edu_images || 'false' }}
+          REPLY_CONTEXT: ${{ github.event.inputs.reply_context || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python main.py
 
