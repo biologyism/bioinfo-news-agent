@@ -1,0 +1,1380 @@
+{
+  "repos": [
+    {
+      "cat": "Core bioinformatics",
+      "repo": "biopython/biopython",
+      "desc": "Python toolkit for computational molecular biology; sequence, structure, alignment and file formats.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "scikit-bio/scikit-bio",
+      "desc": "Scientific Python package for biological data structures, sequence analysis, diversity and statistics.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "etetoolkit/ete",
+      "desc": "Phylogenetic trees, comparative genomics and visualization.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "jeffdaily/parasail",
+      "desc": "Pairwise sequence alignment library with SIMD acceleration.",
+      "lang": "C",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "lh3/minimap2",
+      "desc": "Fast sequence alignment for DNA and RNA reads.",
+      "lang": "C",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "lh3/bwa",
+      "desc": "Burrows-Wheeler Aligner for mapping sequencing reads.",
+      "lang": "C",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "ncbi/sra-tools",
+      "desc": "Tools to access and process NCBI Sequence Read Archive data.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "ncbi/datasets",
+      "desc": "NCBI Datasets command-line tools and API clients.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "ropensci/biomartr",
+      "desc": "Download biological data from public repositories using R.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "igvteam/igv",
+      "desc": "Interactive genomics data visualization.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "GMOD/jbrowse2",
+      "desc": "Genome browser for interactive exploration of genomic data.",
+      "lang": "TypeScript",
+      "kind": "Core"
+    },
+    {
+      "cat": "Core bioinformatics",
+      "repo": "gmod/GBrowse",
+      "desc": "Generic genome browser framework.",
+      "lang": "Perl",
+      "kind": "Core"
+    },
+    {
+      "cat": "Programming & workflow",
+      "repo": "nextflow-io/nextflow",
+      "desc": "Workflow language and engine for reproducible, scalable data pipelines.",
+      "lang": "Groovy",
+      "kind": "Core"
+    },
+    {
+      "cat": "Programming & workflow",
+      "repo": "nf-core/tools",
+      "desc": "Utilities and conventions for building and maintaining nf-core pipelines.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Programming & workflow",
+      "repo": "snakemake/snakemake",
+      "desc": "Workflow management system for reproducible and scalable analysis.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Programming & workflow",
+      "repo": "conda/conda",
+      "desc": "Environment and package management for reproducible scientific computing.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Programming & workflow",
+      "repo": "mamba-org/mamba",
+      "desc": "Fast conda-compatible package manager.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "Programming & workflow",
+      "repo": "apptainer/apptainer",
+      "desc": "Portable containers for HPC and scientific workflows.",
+      "lang": "Go",
+      "kind": "Core"
+    },
+    {
+      "cat": "Programming & workflow",
+      "repo": "broadinstitute/cromwell",
+      "desc": "Workflow execution engine supporting WDL.",
+      "lang": "Scala",
+      "kind": "Core"
+    },
+    {
+      "cat": "Programming & workflow",
+      "repo": "openwdl/wdl",
+      "desc": "Workflow Description Language specification and ecosystem.",
+      "lang": "WDL",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "OpenGene/fastp",
+      "desc": "Fast all-in-one FASTQ quality control and preprocessing.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "MultiQC/MultiQC",
+      "desc": "Aggregate quality-control reports across bioinformatics tools.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "s-andrews/FastQC",
+      "desc": "Quality-control checks for high-throughput sequencing data.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "broadinstitute/picard",
+      "desc": "Utilities for manipulating high-throughput sequencing data.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "samtools/samtools",
+      "desc": "SAM/BAM/CRAM processing and manipulation.",
+      "lang": "C",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "bcftools/bcftools",
+      "desc": "Variant calling and VCF/BCF utilities.",
+      "lang": "C",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "broadinstitute/gatk",
+      "desc": "Genome Analysis Toolkit for variant discovery and genotyping.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "google/deepvariant",
+      "desc": "Deep-learning-based small-variant calling from sequencing data.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "freebayes/freebayes",
+      "desc": "Bayesian haplotype-based genetic variant detector.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "Ensembl/ensembl-vep",
+      "desc": "Variant Effect Predictor for annotating genomic variants.",
+      "lang": "Perl",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "snpeff/snpeff",
+      "desc": "Genetic variant annotation and effect prediction.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "marbl/parsnp",
+      "desc": "Core-genome alignment for microbial genomes.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "quast/quast",
+      "desc": "Genome assembly evaluation.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "ablab/spades",
+      "desc": "Genome assembler for single-cell, isolate and metagenomic data.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "marbl/Mash",
+      "desc": "Fast genome and metagenome distance estimation.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "rrwick/Unicycler",
+      "desc": "Hybrid bacterial genome assembly.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "NGS & genome analysis",
+      "repo": "TobiasMarschall/whatshap",
+      "desc": "Phasing and haplotype-aware variant analysis.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "nf-core/rnaseq",
+      "desc": "Best-practice bulk RNA-seq analysis pipeline.",
+      "lang": "Nextflow",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "alexdobin/STAR",
+      "desc": "Spliced read aligner for RNA-seq.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "DaehwanKimLab/hisat2",
+      "desc": "Fast and sensitive alignment of sequencing reads.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "COMBINE-lab/salmon",
+      "desc": "Transcript-level quantification from RNA-seq data.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "pachterlab/kallisto",
+      "desc": "Fast RNA-seq quantification using pseudoalignment.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "subread.sourceforge.net",
+      "desc": "Subread and featureCounts read summarization toolkit.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "thelovelab/DESeq2",
+      "desc": "Differential gene expression analysis.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "jianjinxu/edgeR",
+      "desc": "Differential expression analysis of count data.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "bioc/limma",
+      "desc": "Linear models for microarray and RNA-seq data.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "YuLab-SMU/clusterProfiler",
+      "desc": "Functional enrichment and gene-set analysis.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "RNA & transcriptomics",
+      "repo": "immunogenomics/presto",
+      "desc": "Fast differential expression and marker detection for single-cell data.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "scverse/scanpy",
+      "desc": "Scalable single-cell gene-expression analysis in Python.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "satijalab/seurat",
+      "desc": "R toolkit for single-cell genomics.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "scverse/anndata",
+      "desc": "Annotated data structures for single-cell omics.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "scverse/scvi-tools",
+      "desc": "Probabilistic deep-learning models for single-cell omics.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "cole-trapnell-lab/monocle3",
+      "desc": "Single-cell trajectory and pseudotime analysis.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "immunogenomics/harmony",
+      "desc": "Fast integration of single-cell data across batches.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "scverse/squidpy",
+      "desc": "Spatial omics analysis and visualization.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "scverse/spatialdata",
+      "desc": "Data framework for spatial omics.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "broadinstitute/CellBender",
+      "desc": "Remove technical artifacts from single-cell RNA-seq data.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "10XGenomics/cellranger",
+      "desc": "10x Genomics single-cell and spatial data processing software.",
+      "lang": "Mixed",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "velocyto-team/velocyto.py",
+      "desc": "RNA velocity estimation from single-cell RNA-seq.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Single-cell & spatial omics",
+      "repo": "velocyto-team/scvelo",
+      "desc": "RNA velocity analysis toolkit.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "qiime2/qiime2",
+      "desc": "Microbiome bioinformatics platform for amplicon and metagenomic data.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "biocore/q2-feature-classifier",
+      "desc": "Taxonomic classification plugin for QIIME 2.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "benjjneb/dada2",
+      "desc": "Amplicon sequence variant inference from Illumina data.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "torognes/vsearch",
+      "desc": "Sequence search, clustering and chimera detection.",
+      "lang": "C",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "DerrickWood/kraken2",
+      "desc": "Taxonomic classification of metagenomic sequence data.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "biobakery/MetaPhlAn",
+      "desc": "Metagenomic taxonomic profiling.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "biobakery/humann",
+      "desc": "Functional profiling of microbial communities.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "merenlab/anvio",
+      "desc": "Interactive analysis of microbial 'omics data.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "CAMI-challenge/benchmarking",
+      "desc": "Benchmarking resources for metagenomic profiling and assembly.",
+      "lang": "Mixed",
+      "kind": "Core"
+    },
+    {
+      "cat": "Microbiome & metagenomics",
+      "repo": "nf-core/mag",
+      "desc": "Metagenome-assembled genome workflow.",
+      "lang": "Nextflow",
+      "kind": "Core"
+    },
+    {
+      "cat": "Epigenomics & regulation",
+      "repo": "macs3-project/MACS",
+      "desc": "Peak calling for ChIP-seq and related assays.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Epigenomics & regulation",
+      "repo": "deeptools/deepTools",
+      "desc": "Visualization and analysis of sequencing-based genomic data.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Epigenomics & regulation",
+      "repo": "GreenleafLab/ArchR",
+      "desc": "Single-cell ATAC-seq analysis.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Epigenomics & regulation",
+      "repo": "stuart-lab/signac",
+      "desc": "Single-cell chromatin data analysis.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Epigenomics & regulation",
+      "repo": "ENCODE-DCC/atac-seq-pipeline",
+      "desc": "ENCODE ATAC-seq pipeline.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Epigenomics & regulation",
+      "repo": "ENCODE-DCC/chip-seq-pipeline2",
+      "desc": "ENCODE ChIP-seq pipeline.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Proteomics & metabolomics",
+      "repo": "CompOmics/fragpipe",
+      "desc": "Computational proteomics platform for MS-based proteomics.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "Proteomics & metabolomics",
+      "repo": "OpenMS/OpenMS",
+      "desc": "Open-source framework for mass-spectrometry data analysis.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "Proteomics & metabolomics",
+      "repo": "MannLabs/alphapept",
+      "desc": "Computational proteomics platform.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Proteomics & metabolomics",
+      "repo": "MannLabs/alphadia",
+      "desc": "Data-independent acquisition proteomics analysis.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Proteomics & metabolomics",
+      "repo": "xcms-team/xcms",
+      "desc": "R package for processing mass spectrometry-based metabolomics data.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Proteomics & metabolomics",
+      "repo": "mzmine/mzmine",
+      "desc": "Mass-spectrometry data processing for metabolomics and lipidomics.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "Proteomics & metabolomics",
+      "repo": "MS-DIAL/MS-DIAL",
+      "desc": "Mass spectrometry data analysis platform.",
+      "lang": "C#",
+      "kind": "Core"
+    },
+    {
+      "cat": "Proteomics & metabolomics",
+      "repo": "bioc/MetaboAnalystR",
+      "desc": "Statistical, functional and integrative metabolomics analysis.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "sokrypton/ColabFold",
+      "desc": "Accessible protein structure prediction using AlphaFold2 and MMseqs2.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "aqlaboratory/openfold",
+      "desc": "Trainable PyTorch implementation of AlphaFold2.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "google-deepmind/alphafold",
+      "desc": "Protein structure prediction system and code.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "jwohlwend/boltz",
+      "desc": "Biomolecular interaction and structure prediction models.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "HannesStark/boltzgen",
+      "desc": "Generative binder and protein design tools.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "RosettaCommons/rosetta",
+      "desc": "Macromolecular modeling and protein design suite.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "dauparas/ProteinMPNN",
+      "desc": "Protein sequence design with message-passing neural networks.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "RosettaCommons/RFdiffusion",
+      "desc": "Diffusion-based protein backbone generation and design.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "facebookresearch/esm",
+      "desc": "Evolutionary Scale Modeling protein language models.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "instadeepai/nucleotide-transformer",
+      "desc": "Foundation models for genomic and transcriptomic sequences.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Protein structure & design",
+      "repo": "EvolutionaryScale/esm",
+      "desc": "Protein language models and representations.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Immunoinformatics & vaccines",
+      "repo": "IEDB/Tools",
+      "desc": "Tools and resources for immune epitope prediction and analysis.",
+      "lang": "Mixed",
+      "kind": "Core"
+    },
+    {
+      "cat": "Immunoinformatics & vaccines",
+      "repo": "griffithlab/pVACtools",
+      "desc": "Personalized cancer vaccine and neoantigen prediction toolkit.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Immunoinformatics & vaccines",
+      "repo": "immunomind/immunarch",
+      "desc": "Immune repertoire analysis for immunology and vaccine research.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Immunoinformatics & vaccines",
+      "repo": "nf-core/epitopeprediction",
+      "desc": "Reproducible epitope prediction and annotation workflow.",
+      "lang": "Nextflow",
+      "kind": "Core"
+    },
+    {
+      "cat": "Cancer & clinical genomics",
+      "repo": "cBioPortal/cbioportal",
+      "desc": "Explore, visualize and analyze multidimensional cancer genomics data.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "Cancer & clinical genomics",
+      "repo": "BioinformaticsFMRP/TCGAbiolinks",
+      "desc": "R tools for querying and analyzing GDC/TCGA data.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Cancer & clinical genomics",
+      "repo": "Maftools/maftools",
+      "desc": "Summarize, analyze and visualize mutation annotation format data.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Cancer & clinical genomics",
+      "repo": "ucscXena/ucsc-xena-client",
+      "desc": "Client and tools for UCSC Xena data exploration.",
+      "lang": "JavaScript",
+      "kind": "Core"
+    },
+    {
+      "cat": "Cancer & clinical genomics",
+      "repo": "genome-nexus/genome-nexus",
+      "desc": "Variant annotation and interpretation service for cancer genomics.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "Cancer & clinical genomics",
+      "repo": "oncokb/oncokb-annotator",
+      "desc": "Annotate genomic alterations with precision oncology knowledge.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Multi-omics & systems biology",
+      "repo": "BioFINDER/MOFA2",
+      "desc": "Multi-omics factor analysis framework.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Multi-omics & systems biology",
+      "repo": "mixOmicsTeam/mixOmics",
+      "desc": "Multivariate methods for multi-omics integration.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Multi-omics & systems biology",
+      "repo": "saezlab/decoupleR",
+      "desc": "Inferring biological activities from omics data.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Multi-omics & systems biology",
+      "repo": "saezlab/OmnipathR",
+      "desc": "Molecular interaction and signaling knowledge resources.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Multi-omics & systems biology",
+      "repo": "opencobra/cobrapy",
+      "desc": "Constraint-based reconstruction and analysis of metabolic networks.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Multi-omics & systems biology",
+      "repo": "SysBioChalmers/GECKO",
+      "desc": "Enzyme-constrained genome-scale metabolic modeling.",
+      "lang": "MATLAB",
+      "kind": "Core"
+    },
+    {
+      "cat": "Multi-omics & systems biology",
+      "repo": "telluriumteam/tellurium",
+      "desc": "Python environment for systems biology modeling.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "deepchem/deepchem",
+      "desc": "Machine learning for molecules, proteins and drug discovery.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "mims-harvard/TDC",
+      "desc": "Therapeutics Data Commons benchmarks and datasets.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "datamol-io/datamol",
+      "desc": "Molecular data manipulation toolkit.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "rdkit/rdkit",
+      "desc": "Cheminformatics and molecular machine learning foundation toolkit.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "chemprop/chemprop",
+      "desc": "Message-passing neural networks for molecular property prediction.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "molecularsets/moses",
+      "desc": "Molecular generation benchmarking platform.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "microsoft/AI-For-Beginners",
+      "desc": "AI learning materials; useful computational foundation, not biology-specific.",
+      "lang": "Jupyter",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "microsoft/biogpt",
+      "desc": "Biomedical language model research implementation.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "ML, AI & drug discovery",
+      "repo": "mims-harvard/PrimeKG",
+      "desc": "Precision medicine knowledge graph.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Evolution, phylogeny & population genetics",
+      "repo": "iqtree/iqtree2",
+      "desc": "Maximum-likelihood phylogenetic inference.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "Evolution, phylogeny & population genetics",
+      "repo": "hyphy/HyPhy",
+      "desc": "Phylogenetic hypothesis testing and molecular evolution.",
+      "lang": "C++",
+      "kind": "Core"
+    },
+    {
+      "cat": "Evolution, phylogeny & population genetics",
+      "repo": "vcftools/vcftools",
+      "desc": "Tools for working with VCF files and population genetics.",
+      "lang": "Perl",
+      "kind": "Core"
+    },
+    {
+      "cat": "Evolution, phylogeny & population genetics",
+      "repo": "samtools/bcftools",
+      "desc": "Variant data processing and population-scale analyses.",
+      "lang": "C",
+      "kind": "Core"
+    },
+    {
+      "cat": "Evolution, phylogeny & population genetics",
+      "repo": "pysam-developers/pysam",
+      "desc": "Python interface to HTSlib for sequencing data.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Evolution, phylogeny & population genetics",
+      "repo": "phyluce/phyluce",
+      "desc": "Phylogenomics workflow toolkit.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Databases, APIs & knowledgebases",
+      "repo": "gget-team/gget",
+      "desc": "Python package for querying genomic reference databases.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Databases, APIs & knowledgebases",
+      "repo": "Ensembl/ensembl-rest",
+      "desc": "REST API resources for Ensembl genomic data.",
+      "lang": "Perl",
+      "kind": "Core"
+    },
+    {
+      "cat": "Databases, APIs & knowledgebases",
+      "repo": "ebi-pf-team/interproscan",
+      "desc": "Protein sequence classification and functional annotation.",
+      "lang": "Java",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "danielecook/Awesome-Bioinformatics",
+      "desc": "Curated list of bioinformatics libraries, software and resources.",
+      "lang": "Markdown",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "yuanx749/awesome-bioinformatics-software",
+      "desc": "Directory of 239 tools across 9 domains and 48 task groups.",
+      "lang": "Markdown",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "seandavi/awesome-single-cell",
+      "desc": "Curated single-cell software and data resources.",
+      "lang": "Markdown",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "natnew/awesome-ai-for-bioengineering",
+      "desc": "AI for bioengineering, protein design, foundation models and datasets.",
+      "lang": "Markdown",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "talharaziq/Advanced-Bioinformatics",
+      "desc": "Hands-on roadmap from Linux/Python/R to RNA-seq and transcriptomics.",
+      "lang": "Markdown",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "bioconductor/bioconductor",
+      "desc": "Bioconductor project: R packages and infrastructure for bioinformatics.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "nf-core",
+      "desc": "Community-curated, reproducible bioinformatics pipelines.",
+      "lang": "Nextflow",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "galaxyproject/galaxy",
+      "desc": "Accessible, reproducible computational research platform.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "training.galaxyproject.org",
+      "desc": "Galaxy Training Network tutorials and training materials.",
+      "lang": "Markdown",
+      "kind": "Core"
+    },
+    {
+      "cat": "Education, tutorials & benchmark",
+      "repo": "datacarpentry/genomics-workshop",
+      "desc": "Genomics data analysis lessons and practical training.",
+      "lang": "Markdown",
+      "kind": "Core"
+    },
+    {
+      "cat": "Plant, agriculture & environmental omics",
+      "repo": "nextgenusfs/funannotate",
+      "desc": "Genome annotation pipeline for fungi.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Plant, agriculture & environmental omics",
+      "repo": "oushujun/EDTA",
+      "desc": "Extensive de novo TE annotation pipeline for plant genomes.",
+      "lang": "Perl",
+      "kind": "Core"
+    },
+    {
+      "cat": "Neuroscience & imaging",
+      "repo": "AllenInstitute/AllenSDK",
+      "desc": "Tools for accessing and analyzing Allen Institute neuroscience data.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Neuroinformatics",
+      "repo": "nipy/nipype",
+      "desc": "Neuroimaging data processing workflows.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Neuroinformatics",
+      "repo": "BIDS-standard/bids-specification",
+      "desc": "Brain Imaging Data Structure standard.",
+      "lang": "Markdown",
+      "kind": "Core"
+    },
+    {
+      "cat": "Neuroinformatics",
+      "repo": "nilearn/nilearn",
+      "desc": "Machine learning and statistical analysis for neuroimaging.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Medical AI & pathology",
+      "repo": "Project-MONAI/MONAI",
+      "desc": "Deep learning framework for healthcare imaging.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Medical AI & pathology",
+      "repo": "DigitalSlideArchive/HistomicsTK",
+      "desc": "Digital pathology image analysis tools.",
+      "lang": "Python",
+      "kind": "Core"
+    },
+    {
+      "cat": "Synthetic biology & CRISPR",
+      "repo": "crisprVerse/crisprDesign",
+      "desc": "R package for designing CRISPR guide RNAs.",
+      "lang": "R",
+      "kind": "Core"
+    },
+    {
+      "cat": "Synthetic biology & CRISPR",
+      "repo": "BroadInstitute/CRISPResso2",
+      "desc": "Analysis of genome editing outcomes from sequencing data.",
+      "lang": "Python",
+      "kind": "Core"
+    }
+  ],
+  "parent_directories": [
+    {
+      "repo": "danielecook/Awesome-Bioinformatics",
+      "desc": "فهرست کلاسیک ابزارها و کتابخانه‌های بیوانفورماتیک.",
+      "url": "https://github.com/danielecook/Awesome-Bioinformatics"
+    },
+    {
+      "repo": "yuanx749/awesome-bioinformatics-software",
+      "desc": "دایرکتوری ابزارها؛ ۲۳۹ ابزار، ۹ حوزه و ۴۸ گروه کاری در snapshot نوامبر ۲۰۲۶.",
+      "url": "https://github.com/yuanx749/awesome-bioinformatics-software"
+    },
+    {
+      "repo": "seandavi/awesome-single-cell",
+      "desc": "منابع نرم‌افزاری و داده‌ای Single-cell و ATAC-seq.",
+      "url": "https://github.com/seandavi/awesome-single-cell"
+    },
+    {
+      "repo": "natnew/awesome-ai-for-bioengineering",
+      "desc": "AI زیستی، مدل‌های بنیادی، طراحی پروتئین و بنچمارک‌ها.",
+      "url": "https://github.com/natnew/awesome-ai-for-bioengineering"
+    },
+    {
+      "repo": "nf-core",
+      "desc": "پایپ‌لاین‌های استاندارد و بازتولیدپذیر.",
+      "url": "https://github.com/nf-core"
+    },
+    {
+      "repo": "galaxyproject/galaxy",
+      "desc": "محیط تحلیل علمی بازتولیدپذیر.",
+      "url": "https://github.com/galaxyproject/galaxy"
+    }
+  ],
+  "github_topics": [
+    {
+      "topic": "bioinformatics",
+      "label": "bioinformatics هسته اصلی",
+      "url": "https://github.com/topics/bioinformatics"
+    },
+    {
+      "topic": "computational-biology",
+      "label": "computational-biology زیست‌شناسی محاسباتی",
+      "url": "https://github.com/topics/computational-biology"
+    },
+    {
+      "topic": "genomics",
+      "label": "genomics ژنومیک",
+      "url": "https://github.com/topics/genomics"
+    },
+    {
+      "topic": "transcriptomics",
+      "label": "transcriptomics ترنسکریپتومیک",
+      "url": "https://github.com/topics/transcriptomics"
+    },
+    {
+      "topic": "proteomics",
+      "label": "proteomics پروتئومیک",
+      "url": "https://github.com/topics/proteomics"
+    },
+    {
+      "topic": "metabolomics",
+      "label": "metabolomics متابولومیک",
+      "url": "https://github.com/topics/metabolomics"
+    },
+    {
+      "topic": "metagenomics",
+      "label": "metagenomics متاژنومیک",
+      "url": "https://github.com/topics/metagenomics"
+    },
+    {
+      "topic": "microbiome",
+      "label": "microbiome میکروبیوم",
+      "url": "https://github.com/topics/microbiome"
+    },
+    {
+      "topic": "single-cell",
+      "label": "single-cell تک‌سلولی",
+      "url": "https://github.com/topics/single-cell"
+    },
+    {
+      "topic": "spatial-transcriptomics",
+      "label": "spatial-transcriptomics اُمیکس مکانی",
+      "url": "https://github.com/topics/spatial-transcriptomics"
+    },
+    {
+      "topic": "epigenomics",
+      "label": "epigenomics اپی‌ژنومیک",
+      "url": "https://github.com/topics/epigenomics"
+    },
+    {
+      "topic": "variant-calling",
+      "label": "variant-calling فراخوانی واریانت",
+      "url": "https://github.com/topics/variant-calling"
+    },
+    {
+      "topic": "population-genetics",
+      "label": "population-genetics ژنتیک جمعیت",
+      "url": "https://github.com/topics/population-genetics"
+    },
+    {
+      "topic": "phylogenetics",
+      "label": "phylogenetics فیلوژنتیک",
+      "url": "https://github.com/topics/phylogenetics"
+    },
+    {
+      "topic": "structural-biology",
+      "label": "structural-biology زیست‌شناسی ساختاری",
+      "url": "https://github.com/topics/structural-biology"
+    },
+    {
+      "topic": "protein-design",
+      "label": "protein-design طراحی پروتئین",
+      "url": "https://github.com/topics/protein-design"
+    },
+    {
+      "topic": "cheminformatics",
+      "label": "cheminformatics شیمی‌اطلاعاتی",
+      "url": "https://github.com/topics/cheminformatics"
+    },
+    {
+      "topic": "drug-discovery",
+      "label": "drug-discovery کشف دارو",
+      "url": "https://github.com/topics/drug-discovery"
+    },
+    {
+      "topic": "immunoinformatics",
+      "label": "immunoinformatics ایمنی‌اطلاعاتی",
+      "url": "https://github.com/topics/immunoinformatics"
+    },
+    {
+      "topic": "systems-biology",
+      "label": "systems-biology زیست‌شناسی سامانه‌ای",
+      "url": "https://github.com/topics/systems-biology"
+    },
+    {
+      "topic": "synthetic-biology",
+      "label": "synthetic-biology زیست‌شناسی مصنوعی",
+      "url": "https://github.com/topics/synthetic-biology"
+    },
+    {
+      "topic": "crispr",
+      "label": "crispr ویرایش ژنوم",
+      "url": "https://github.com/topics/crispr"
+    },
+    {
+      "topic": "bioimage-analysis",
+      "label": "bioimage-analysis تحلیل تصویر زیستی",
+      "url": "https://github.com/topics/bioimage-analysis"
+    },
+    {
+      "topic": "digital-pathology",
+      "label": "digital-pathology پاتولوژی دیجیتال",
+      "url": "https://github.com/topics/digital-pathology"
+    },
+    {
+      "topic": "neuroinformatics",
+      "label": "neuroinformatics نوروانفورماتیک",
+      "url": "https://github.com/topics/neuroinformatics"
+    },
+    {
+      "topic": "biostatistics",
+      "label": "biostatistics آمار زیستی",
+      "url": "https://github.com/topics/biostatistics"
+    },
+    {
+      "topic": "biomedical-informatics",
+      "label": "biomedical-informatics اطلاعات‌پزشکی",
+      "url": "https://github.com/topics/biomedical-informatics"
+    },
+    {
+      "topic": "scientific-machine-learning",
+      "label": "scientific-machine-learning یادگیری ماشین علمی",
+      "url": "https://github.com/topics/scientific-machine-learning"
+    },
+    {
+      "topic": "biomedical-imaging",
+      "label": "biomedical-imaging تصویربرداری زیست‌پزشکی",
+      "url": "https://github.com/topics/biomedical-imaging"
+    },
+    {
+      "topic": "computational-genomics",
+      "label": "Topic مرتبط ↗",
+      "url": "https://github.com/topics/computational-genomics"
+    }
+  ],
+  "iran_persian_searches": [
+    {
+      "title": "مخازن با توضیح فارسی",
+      "desc": "جست‌وجوی عبارت دقیق فارسی در نام و توضیحات مخازن.",
+      "url": "https://github.com/search?q=%22%D8%A8%DB%8C%D9%88%D8%A7%D9%86%D9%81%D9%88%D8%B1%D9%85%D8%A7%D8%AA%DB%8C%DA%A9%22&type=repositories"
+    },
+    {
+      "title": "زیست‌شناسی محاسباتی",
+      "desc": "مخازنی که توضیحات یا README آن‌ها از اصطلاح زیست‌شناسی محاسباتی استفاده می‌کند.",
+      "url": "https://github.com/search?q=%22%D8%B2%DB%8C%D8%B3%D8%AA%20%D8%B4%D9%86%D8%A7%D8%B3%DB%8C%20%D9%85%D8%AD%D8%A7%D8%B3%D8%A8%D8%A7%D8%AA%DB%8C%22&type=repositories"
+    },
+    {
+      "title": "تحلیل ژنوم و ژنومیک",
+      "desc": "جست‌وجوی واژه‌های فارسی مرتبط با ژنوم و ژنومیک.",
+      "url": "https://github.com/search?q=%22%DA%98%D9%86%D9%88%D9%85%22%20OR%20%22%DA%98%D9%86%D9%88%D9%85%DB%8C%DA%A9%22&type=repositories"
+    },
+    {
+      "title": "RNA و ترنسکریپتوم",
+      "desc": "مخازن RNA-seq و ترنسکریپتوم؛ شامل پروژه‌های ایرانی با توضیحات انگلیسی.",
+      "url": "https://github.com/search?q=%22RNA-seq%22%20OR%20%22%D8%AA%D8%B1%D9%86%D8%B3%DA%A9%D8%B1%DB%8C%D9%BE%D8%AA%D9%88%D9%85%22&type=repositories"
+    },
+    {
+      "title": "آموزش بیوانفورماتیک",
+      "desc": "جزوه‌ها، تمرین‌ها، اسلایدها و کدهای آموزشی فارسی.",
+      "url": "https://github.com/search?q=%22%D8%A2%D9%85%D9%88%D8%B2%D8%B4%20%D8%A8%DB%8C%D9%88%D8%A7%D9%86%D9%81%D9%88%D8%B1%D9%85%D8%A7%D8%AA%DB%8C%DA%A9%22&type=repositories"
+    },
+    {
+      "title": "مخازن با README فارسی",
+      "desc": "جست‌وجوی مخازن بر اساس زبان/محتوای فارسی؛ نتایج نیازمند بررسی دستی هستند.",
+      "url": "https://github.com/search?q=language%3APersian%20bioinformatics&type=repositories"
+    },
+    {
+      "title": "بیوانفورماتیک ایران",
+      "desc": "پروژه‌هایی که در توضیحات یا برچسب‌ها به ایران اشاره دارند.",
+      "url": "https://github.com/search?q=bioinformatics%20Iran&type=repositories"
+    },
+    {
+      "title": "زیست‌پزشکی و یادگیری ماشین",
+      "desc": "پروژه‌های فارسی در تقاطع پزشکی، داده و هوش مصنوعی.",
+      "url": "https://github.com/search?q=%22%D9%BE%D8%B2%D8%B4%DA%A9%DB%8C%22%20%22%DB%8C%D8%A7%D8%AF%DA%AF%DB%8C%D8%B1%DB%8C%20%D9%85%D8%A7%D8%B4%DB%8C%D9%86%22&type=repositories"
+    },
+    {
+      "title": "RSG Iran",
+      "desc": "گروه منطقه‌ای/جامعه دانشجویی مرتبط با ISCB در حوزه زیست‌شناسی محاسباتی و بیوانفورماتیک ایران؛ برای کشف افراد، رویدادها و آزمایشگاه‌های همکار. این مورد یک جامعه است، نه یک مخزن نرم‌افزاری واحد.",
+      "url": "https://github.com/search?q=RSG+Iran&type=repositories"
+    },
+    {
+      "title": "Iran bioinformatics lab آزمایشگاه‌ها",
+      "desc": "",
+      "url": "https://github.com/search?q=Iran+bioinformatics+lab&type=repositories"
+    },
+    {
+      "title": "Iran genomics university دانشگاه‌ها",
+      "desc": "",
+      "url": "https://github.com/search?q=Iran+genomics+university&type=repositories"
+    },
+    {
+      "title": "Iran computational biology زیست‌شناسی محاسباتی",
+      "desc": "",
+      "url": "https://github.com/search?q=Iran+computational+biology&type=repositories"
+    },
+    {
+      "title": "دانشگاه‌ها و سازمان‌ها جست‌وجوی سازمانی؛ نیازمند تطبیق دستی",
+      "desc": "",
+      "url": "https://github.com/search?q=org%3Aac+bioinformatics&type=repositories"
+    },
+    {
+      "title": "پروفایل‌های ایران جست‌وجوی کاربران؛ محل پروفایل ممکن است قدیمی باشد",
+      "desc": "",
+      "url": "https://github.com/search?q=location%3AIran+genomics&type=users"
+    },
+    {
+      "title": "«بیوانفورماتیک»",
+      "desc": "یافتن مخازنی که این واژه را در نام یا توضیحات/متن قابل جست‌وجو دارند.",
+      "url": "https://github.com/search?q=%22%D8%A8%DB%8C%D9%88%D8%A7%D9%86%D9%81%D9%88%D8%B1%D9%85%D8%A7%D8%AA%DB%8C%DA%A9%22&type=repositories"
+    },
+    {
+      "title": "«ژنوم» و «ژنومیک»",
+      "desc": "کشف پروژه‌های توالی‌یابی، تحلیل ژنوم و ژنتیک با واژگان فارسی.",
+      "url": "https://github.com/search?q=%22%DA%98%D9%86%D9%88%D9%85%22+OR+%22%DA%98%D9%86%D9%88%D9%85%DB%8C%DA%A9%22&type=repositories"
+    },
+    {
+      "title": "«زیست‌شناسی محاسباتی»",
+      "desc": "مخازن آموزشی و پژوهشی با اصطلاح فارسی computational biology.",
+      "url": "https://github.com/search?q=%22%D8%B2%DB%8C%D8%B3%D8%AA%E2%80%8C%D8%B4%D9%86%D8%A7%D8%B3%DB%8C+%D9%85%D8%AD%D8%A7%D8%B3%D8%A8%D8%A7%D8%AA%DB%8C%22&type=repositories"
+    },
+    {
+      "title": "«تحلیل توالی» و DNA",
+      "desc": "پروژه‌های آموزشی و کدنویسی تحلیل توالی، DNA و پروتئین.",
+      "url": "https://github.com/search?q=%22%D8%AA%D8%AD%D9%84%DB%8C%D9%84+%D8%AA%D9%88%D8%A7%D9%84%DB%8C%22+OR+DNA&type=repositories"
+    },
+    {
+      "title": "Notebookهای فارسی",
+      "desc": "جست‌وجوی مخازن حاوی فایل ipynb و واژه‌های فارسی؛ سپس باید سلول‌های Markdown و توضیحات Notebook بازبینی شوند.",
+      "url": "https://github.com/search?q=extension%3Aipynb+%22%D8%A8%DB%8C%D9%88%D8%A7%D9%86%D9%81%D9%88%D8%B1%D9%85%D8%A7%D8%AA%DB%8C%DA%A9%22&type=code"
+    },
+    {
+      "title": "README فارسی",
+      "desc": "جست‌وجوی متنی عبارت‌های فارسی؛ نتایج باید از نظر وجود README فارسی و ارتباط علمی بررسی شوند.",
+      "url": "https://github.com/search?q=filename%3AREADME+%22%D8%A8%DB%8C%D9%88%D8%A7%D9%86%D9%81%D9%88%D8%B1%D9%85%D8%A7%D8%AA%DB%8C%DA%A9%22&type=code"
+    },
+    {
+      "title": "Bioinformatics · ۰ تا ۵۰ ستاره مرتب‌سازی بر اساس به‌روزرسانی",
+      "desc": "",
+      "url": "https://github.com/search?q=bioinformatics+stars%3A0..50+sort%3Aupdated-desc&type=repositories"
+    },
+    {
+      "title": "Genomics · ۰ تا ۵۰ ستاره مخازن کم‌ستاره ژنومیک",
+      "desc": "",
+      "url": "https://github.com/search?q=genomics+stars%3A0..50+sort%3Aupdated-desc&type=repositories"
+    },
+    {
+      "title": "Computational biology مخازن کم‌ستاره و فعال",
+      "desc": "",
+      "url": "https://github.com/search?q=computational-biology+stars%3A0..50+sort%3Aupdated-desc&type=repositories"
+    },
+    {
+      "title": "Single-cell · کم‌ستاره ابزارهای تازه‌نفس",
+      "desc": "",
+      "url": "https://github.com/search?q=single-cell+stars%3A0..50+sort%3Aupdated-desc&type=repositories"
+    },
+    {
+      "title": "Protein language models مدل‌های پروتئینی",
+      "desc": "",
+      "url": "https://github.com/search?q=protein+language+model+stars%3A0..50+sort%3Aupdated-desc&type=repositories"
+    },
+    {
+      "title": "RNA-seq · کم‌ستاره پروژه‌های تازه/کم‌دیده",
+      "desc": "",
+      "url": "https://github.com/search?q=RNA-seq+stars%3A0..50+sort%3Aupdated-desc&type=repositories"
+    },
+    {
+      "title": "ایجادشده از ۲۰۲۵ به بعد فیلتر تاریخ ایجاد",
+      "desc": "",
+      "url": "https://github.com/search?q=created%3A%3E2025-01-01+bioinformatics&type=repositories"
+    },
+    {
+      "title": "Genomics تازه‌تأسیس فیلتر تاریخ و فعالیت",
+      "desc": "",
+      "url": "https://github.com/search?q=created%3A%3E2025-01-01+genomics+sort%3Aupdated-desc&type=repositories"
+    }
+  ]
+}

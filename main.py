@@ -1207,6 +1207,22 @@ def main() -> None:
 
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
     target_chat_ids = get_target_chat_ids()
+    run_mode = os.getenv("MODE", "news").strip().lower()
+
+    if run_mode == "edu":
+        from edu_studio import run_edu_studio
+        slide_count = int(custom_count_raw) if (custom_count_raw.isdigit() and 1 <= int(custom_count_raw) <= 10) else 5
+        run_edu_studio(
+            custom_topic=custom_topic,
+            custom_query=custom_query,
+            slide_count=slide_count,
+            bot_token=bot_token,
+            target_chat_ids=target_chat_ids,
+            status_msg_id=status_msg_id,
+            dry_run=dry_run,
+            progress_fn=update_progress,
+        )
+        return
 
     if on_demand and not dry_run:
         update_progress(bot_token, target_chat_ids, status_msg_id, 35, "در حال رصد ۴۰ پایگاه علمی و PubMed...")
