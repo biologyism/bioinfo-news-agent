@@ -301,27 +301,29 @@ def generate_edu_carousel(
     topic_hint: str,
     slide_count: int,
     context_bundle: dict[str, Any],
+    reply_context: str = "",
 ) -> dict[str, Any]:
-    system_instruction = f"""تو «مدیر محتوای آموزشی و طراح کاروسل‌های اینستاگرامی» آکادمی بیوانفورماتیک ایران هستی.
-مخاطب تو دانشجویان زیست‌شناسی، بیوانفورماتیک، علوم پایه، پزشکی و علاقه‌مندان هوش مصنوعی هستند.
+    system_instruction = f"""تو استراتژیست محتوای علمی «آکادمی بیوانفورماتیک ایران» هستی.
+مخاطب: کاربران باهوش و کم‌حوصله در ایران (دانشجویان زیست، پزشکی، بیوانفورماتیک و علاقه‌مندان AI).
 
-سبک نگارش (بسیار مهم — دقیقاً ۸۰٪ جذاب و کاربردی + ۲۰٪ ابزارهای واقعی):
-1. زبان فوق‌العاده روان، ساده، تصویرساز، داستانی و کنجکاوکننده باشد؛ طوری که دانشجو با اشتیاق اسلایدها را ورق بزند و پست را ذخیره کند.
-2. از بین مخازن گیت‌هابِ واقعیِ پیوست‌شده (کتابخانه ۱۵۰تایی آکادمی)، مرتبط‌ترین ابزارها و ریپوها را انتخاب و به زبان ساده معرفی کن که هر ابزار دقیقاً چه‌کار می‌کند.
-3. تعداد اسلایدها باید **دقیقاً {slide_count} اسلاید** باشد:
-   - اسلاید ۱ (role: "cover"): تیتر قلاب‌دار و کوتاه (حداکثر ۹ کلمه) + زیرتیتر کنجکاوکننده (۱ جمله کوتاه) + پرامپت انگلیسی سینمایی برای بک‌گراند کاور (`visual_prompt`).
-   - اسلایدهای ۲ تا {slide_count - 1} (role: "content"): هر اسلاید یک گام مشخص از موضوع را با ۲ تا ۳ بولت کوتاه و خوش‌خوان (هر بولت نهایتاً ۱۵–۱۸ کلمه، بدون دیوارِ متن!) توضیح بدهد + فیلد `tool_spotlight` شامل نام واقعی ۱ تا ۲ ابزار/ریپوی گیت‌هاب مرتبط و کارکردش به فارسی ساده.
-   - اسلاید آخر (role: "summary"): جمع‌بندی سریع، نقشه راه عملی، یک سؤال تعاملی و دعوت به ذخیره/کامنت + `tool_spotlight` برای کلیدواژه یا مسیر ادامه یادگیری.
-4. `telegram_caption`: یک کپشن کامل و آماده انتشار برای اینستاگرام و تلگرام با تگ‌های مجاز `<b>`، `<u>` و `<blockquote>` (نکته طلایی)، بدون زیاده‌گویی و آماده کپی‌کردن، همراه با هشتگ‌های مرتبط.
-5. `selected_repos`: فهرست دقیق نام ریپوها (مثلاً `IEDB/Tools`) که در این آموزش معرفی یا استفاده کردی و دلیل انتخاب هر کدام به فارسی کوتاه.
-6. **اکیداً ممنوع:** هرگز نام ریپوی گیت‌هاب جعلی نساز؛ فقط از ریپوهای واقعی موجود در کتابخانه یا موارد قطعی و شناخته‌شده استفاده کن. هیچ ایموجی‌ای داخل تیتر عکس‌های اسلاید نگذار تا فونت فارسی تصویر کاملاً تمیز و گرافیکی رندر شود (ایموجی را در `telegram_caption` استفاده کن).
+قوانین طلایی لحن (بسیار حیاتی):
+1. **هیچ حس زردی و کلیک‌بیت نداشته باشد:** کلمات زرد مثل «معجزه»، «باورنکردنی»، «۱۰ سال صبر تموم شد»، «انفجار علم» یا «حتماً ببینید» اکیداً ممنوع! لحن باید **خودمونیِ باکلاس، دقیق، تیز و حرفه‌ای** باشد.
+2. **فوق‌العاده موجز و کوبنده:** هر بولت نهایتاً ۸ تا ۱۲ کلمه! بدون کش‌دادن، بدون مقدمهٔ طولانی و بدون اصطلاحات سنگین انگلیسی (مثل BindAffinity یا BWT). اگر یک مفهوم تخصصی لازم بود، در همان نیم‌خط با یک مثالِ عادی توضیحش بده.
+3. **تعداد دقیق اسلایدها: {slide_count} اسلاید:**
+   - اسلاید ۱ (role: "cover"): تیتر کوتاه و کنجکاوکننده (حداکثر ۸ کلمه، غیرزرد) + زیرتیتر ۱ خطی + `visual_prompt` انگلیسی تمیز.
+   - اسلایدهای ۲ تا {slide_count - 1} (role: "content"): هر اسلاید یک تکهٔ کلیدی را با ۲ بولت کوتاه و کوبنده بگوید. `tool_spotlight` را فقط اگر ۱ ابزار خیلی ضروری است کوتاه بنویس، وگرنه خالی `""` بگذار تا اسلاید شلوغ نشود.
+   - اسلاید آخر (role: "summary"): جمع‌بندی ۱ خطی + یک سؤال حرفه‌ای برای کامنت/ذخیره.
+4. `telegram_caption`: **کپشن اینستاگرام خیلی کوتاه و شیک** (نهایتاً ۳ تا ۴ خط کوتاه + یک دلیل منطقی برای Save/Share + ۴ تا ۵ هشتگ تخصصی، با ایموجی‌های به‌جا — اصلاً طولانی نباشد!).
+5. **ممنوعیت ایموجی در عکس:** داخل `headline`، `badge`، `body_points` و `tool_spotlight` ایموجی نگذار تا فونت کلمه/پینارِ عکس خراب نشود (ایموجی را فقط در `telegram_caption` بگذار).
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
 
+    source_note = f"\nمتن مرجع انتخابی کاربر برای تبدیل به اسلاید:\n{reply_context[:2500]}\n" if reply_context else ""
     user_prompt = (
         f"درخواست کاربر: {user_query or topic_hint}\n"
-        f"تعداد دقیق اسلایدها: {slide_count}\n\n"
-        f"منابع مرتبط استخراج‌شده از کتابخانه آکادمی (۱۵۰ ریپو + دایرکتوری‌ها + Topicها + منابع ایران):\n"
+        f"تعداد دقیق اسلایدها: {slide_count}\n"
+        f"{source_note}\n"
+        f"منابع مرتبط برای دقت علمی (فقط در حد نیاز استفاده شود):\n"
         f"{json.dumps(context_bundle, ensure_ascii=False)}"
     )
 
@@ -756,30 +758,40 @@ def generate_edu_guide(
     topic_hint: str,
     item_count: int,
     context_bundle: dict[str, Any],
+    channel: str = "telegram",
 ) -> dict[str, Any]:
-    """Generate a direct, crisp Persian educational guide/tutorial/tool-breakdown (NO images, NO forced slide format)."""
-    system_instruction = f"""تو «استاد و طراح محتوای آموزشی» آکادمی بیوانفورماتیک ایران هستی.
-مخاطب تو دانشجویان زیست‌شناسی، بیوانفورماتیک، علوم پایه، پزشکی و علاقه‌مندان هوش مصنوعی هستند.
+    """Generate crisp, non-yellow, high-save Persian educational content across all 4 strategic viral formats."""
+    is_insta = channel == "instagram"
+    channel_rule = (
+        "قالب «اینستاگرامی»: فوق‌العاده موجز و اسکن‌پذیر! هر خط حداکثر ۱۰–۱۲ کلمه، بدون حاشیه، + در پایان یک «📝 کپشن کوتاه اینستاگرام» (نهایتاً ۳ خط + هشتگ)."
+        if is_insta
+        else "قالب «تلگرامی» (پیش‌فرض): خودمونیِ حرفه‌ای، مختصر و کوبنده، ولی یک پله کاربردی‌تر و کامل‌تر از اینستاگرام (با مثال یا نکتهٔ عملیِ کوتاه، بدون طولانی شدن)."
+    )
 
-وظیفه حیاتی تو:
-**دقیقاً همان چیزی را تولید کن که کاربر درخواست کرده است** — نه کمتر و نه چیز دیگری!
-- اگر کاربر خواسته یک موضوع را یاد بدهد یا توضیح بدهد -> گام‌به‌گام، جذاب، ساده، تصویرساز و عملی آموزش بده.
-- اگر کاربر خواسته ابزارها یا ریپوهای گیت‌هاب مرتبط معرفی شود (مثلاً {item_count} ابزار/ریپو) -> دقیقاً بهترین ابزارهای واقعی از کتابخانه پیوست‌شده را با کاربرد دقیقشان معرفی کن.
-- اگر کاربر نقشه راه یا مقایسه یا سناریوی پست خواسته -> دقیقاً در همان قالب پاسخ بده.
+    system_instruction = f"""تو استراتژیست و مدرس ارشد «آکادمی بیوانفورماتیک ایران» هستی.
+مخاطب تو در ایران امروز حوصلهٔ انشا، کش‌دادن، حرف‌های تکراری و متن‌های خشکِ دانشگاهی را ندارد؛ در عین حال به محتوای **زرد و پوچ** هم بی‌اعتماد است.
 
-قوانین نگارش (۸۰٪ آموزش جذاب و کاربردی + ۲۰٪ ابزارهای واقعی):
-1. تیتر قلاب‌دار و جذاب با ایموجی مناسب در فیلد `title`.
-2. بدنه اصلی (`body_html`) را با فرمت HTML تمیز تلگرام (`<b>`، `<i>`، `<u>`، `<blockquote>`، `<code>`) بنویس؛ خوانا، بخش‌بندی‌شده، با بولت‌های کوتاه و نکته طلایی داخل `<blockquote>`.
-3. در صورت نیاز به معرفی ابزار، از میان مخازن واقعیِ پیوست‌شده در کتابخانه آکادمی (یا ابزارهای قطعی) انتخاب کن و **هرگز نام ریپوی گیت‌هاب جعلی نساز**.
-4. از نوشتن ساختار «اسلاید ۱ از ۵» خودداری کن مگر اینکه کاربر خودش اسلاید خواسته باشد. طول `body_html` کامل، مفید و بین ۱۰۰۰ تا ۳۲۰۰ کاراکتر باشد (در تلگرام کاملاً جا شود و کسل‌کننده نباشد).
+اصول قطعی نگارش:
+1. **ضد زرد و ضد کلیشه:** کلماتی مثل «معجزه»، «باورنکردنی»، «فوری»، «انفجار»، «۱۰ سال صبر تموم شد» یا جملات تبلیغاتی مصنوعی مثل «حتماً تو اینستاگرام ببینید» و انگلیسی بی‌ربط مثل `Ready to explore?` اکیداً ممنوع!
+2. **لحن خودمونیِ باکلاس و دقیق:** مثل یک متخصصِ خوش‌بیان که در ۲ دقیقه اصل مطلب را شفاف، محکم و با ایموجی‌های به‌جا (نه شلوغ!) توضیح می‌دهد.
+3. **به زبان کاملاً ساده:** اصطلاحات سخت و ترجمه‌نشده (مثل BindAffinity، MHC-binding، BWT، توپولوژی) نیاور؛ اگر مفهومی لازم است، در یک جملهٔ ساده و ملموس بیانش کن.
+4. **چهار زاویه استراتژیک (همه را بنویس تا کاربر بهترین را انتخاب کند):**
+   مگر اینکه کاربر صریحاً فقط یک نوع خاص (مثلاً فقط لیست ابزار) خواسته باشد، موضوع را در قالب **هر ۴ مدلِ کوتاه و آمادهٔ انتشار** بنویس (هر مدل کوتاه، تیز و بدون تکرار):
+   - 📋 <b>مدل ۱: چک‌لیست / تقلب‌نامه</b> (مناسب Save)
+   - ⚖️ <b>مدل ۲: باور غلط vs واقعیت علمی</b> (مناسب Share)
+   - 🗺 <b>مدل ۳: نقشه راه سریع (۳ تا ۵ گام)</b>
+   - ⚡️ <b>مدل ۴: مقایسه کوبنده (روش سنتی vs مدرن/هوش مصنوعی)</b>
+5. {channel_rule}
+6. **ابزارهای گیت‌هاب:** کل متن را با اسم ابزارها شلوغ نکن؛ فقط در حد نیازِ واقعی ۱ تا ۲ ابزار معتبر را با توضیح ۱ خطی بگو (لیست منابع فقط وقتی خواسته شد جدا ارسال می‌شود). از علامت‌های خراب مثل `++...++` و تگ‌های غیرمجاز تلگرام استفاده نکن (فقط `<b>`, `<i>`, `<u>`, `<blockquote>`, `<code>`).
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
 
     user_prompt = (
         f"درخواست دقیق کاربر: {user_query or topic_hint}\n"
         f"موضوع هدف: {topic_hint}\n"
-        f"تعداد درخواستی (در صورت نیاز به لیست/گام): {item_count}\n\n"
-        f"منابع واقعی استخراج‌شده از کتابخانه آکادمی (۱۵۰ ریپو + دایرکتوری‌ها + Topicها + منابع ایران):\n"
+        f"کانال هدف: {channel}\n"
+        f"تعداد درخواستی (در صورت نیاز به گام/مورد): {item_count}\n\n"
+        f"منابع علمی پشتیبان از کتابخانه آکادمی (صرفاً برای دقت علمی، لازم نیست همه را لیست کنی):\n"
         f"{json.dumps(context_bundle, ensure_ascii=False)}"
     )
 
@@ -809,12 +821,54 @@ def generate_edu_guide(
     return call_edu_json_with_failover(system_instruction, user_prompt, schema, json_hint)
 
 
+def revise_reply_message(reply_context: str, user_instruction: str) -> dict[str, Any]:
+    """Strictly revise/edit the exact message the user replied to, following their exact correction."""
+    system_instruction = """تو دستیار ویراستاری و محتوای «آکادمی بیوانفورماتیک ایران» هستی.
+کاربر روی یک پیامِ مشخص ریپلای زده و دقیقاً از تو خواسته همان پیام را اصلاح یا بازنویسی کنی.
+
+قوانین اکید:
+1. **فقط و فقط روی همان متن مرجع (`reply_context`) کار کن** — موضوع را عوض نکن و چیز بی‌ربطی تولید نکن!
+2. **دقیقاً اصلاحیهٔ درخواستی کاربر را اعمال کن** (مثلاً کوتاه‌تر کردن، خودمونی‌تر کردن، حذف/اضافه بخش، تبدیل به اسلاید اینستا، اضافه کردن ایموجی، تغییر تیتر، ساده‌تر کردن اصطلاحات، و...).
+3. لحن باید حرفه‌ای، دقیق، غیرزرد، شفاف و با ایموجی‌های به‌جا باشد.
+4. فقط تگ‌های مجاز HTML تلگرام (`<b>`, `<i>`, `<u>`, `<blockquote>`, `<code>`) را به کار ببر.
+
+خروجی فقط JSON معتبر مطابق اسکیما باشد."""
+
+    user_prompt = (
+        f"متن پیامی که کاربر روی آن ریپلای زده:\n"
+        f"\"\"\"\n{reply_context}\n\"\"\"\n\n"
+        f"دستور اصلاحی کاربر:\n\"{user_instruction}\""
+    )
+    schema = {
+        "type": "OBJECT",
+        "properties": {
+            "title": {"type": "STRING"},
+            "body_html": {"type": "STRING"},
+        },
+        "required": ["title", "body_html"],
+    }
+    json_hint = '\nReturn ONLY valid JSON: {"title": str, "body_html": str}.'
+    return call_edu_json_with_failover(system_instruction, user_prompt, schema, json_hint)
+
+
 def format_guide_message(guide: dict[str, Any]) -> str:
     title = (guide.get("title") or "آموزش تخصصی بیوانفورماتیک").strip()
     body = (guide.get("body_html") or "").strip()
     return (
         f"🎓 <b>{title}</b>\n\n"
         f"{body}\n\n"
+        "⭕️ معین شیرین کام\n"
+        "آکادمی بیوانفورماتیک ایران 🖥⭐️\n"
+        "@ir_bioinformtic_academy"
+    )
+
+
+def format_edited_message(edited: dict[str, Any]) -> str:
+    title = (edited.get("title") or "").strip()
+    body = (edited.get("body_html") or "").strip()
+    header = f"✏️ <b>{title}</b>\n\n" if title and not body.startswith(f"<b>{title}") else ""
+    return (
+        f"{header}{body}\n\n"
         "⭕️ معین شیرین کام\n"
         "آکادمی بیوانفورماتیک ایران 🖥⭐️\n"
         "@ir_bioinformtic_academy"
@@ -831,77 +885,102 @@ def run_edu_studio(
     dry_run: bool,
     progress_fn: Any,
     with_images: bool = False,
+    reply_context: str = "",
+    edit_mode: bool = False,
 ) -> None:
     t0 = time.time()
+
+    # 1) Direct Reply-to-Edit mode: modify the exact replied message cleanly and return
+    if edit_mode and reply_context:
+        if not dry_run:
+            progress_fn(bot_token, target_chat_ids, status_msg_id, 55, "در حال اعمال دقیق اصلاحیه روی پیام انتخابی شما...")
+        edited = revise_reply_message(reply_context, custom_query)
+        edited_msg = format_edited_message(edited)
+        if dry_run:
+            print(f"[DRY_RUN] Reply Edit mode completed in {time.time() - t0:.1f}s")
+            print(edited_msg)
+            return
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "اصلاحیه آماده شد؛ در حال ارسال به تلگرام...")
+        for cid in target_chat_ids:
+            send_tg_text(bot_token, cid, edited_msg)
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 100, "اصلاحیه دقیق روی پیام شما اعمال و ارسال شد!", done=True)
+        return
+
     lib = load_library()
     all_cats = sorted({r.get("cat", "") for r in lib.get("repos", []) if r.get("cat")})
+
+    sources_only = (custom_query or "").startswith("__SOURCES_ONLY__")
+    clean_query = (custom_query or "").replace("__SOURCES_ONLY__", "", 1).strip()
+    wants_sources = sources_only or bool(re.search(r"(منابع|منبع|ریپو|لینک\s*گیت[‌ ]?هاب|با\s*منابع|with\s*sources)", clean_query, re.I))
+
+    search_seed = reply_context[:500] if (sources_only and reply_context) else (clean_query or custom_topic)
 
     if not dry_run:
         progress_fn(bot_token, target_chat_ids, status_msg_id, 35, "در حال جست‌وجو بین ۱۵۰ ریپوی گیت‌هاب و کتابخانه آکادمی...")
 
-    plan = plan_search_for_edu(custom_query, custom_topic, all_cats)
+    plan = plan_search_for_edu(search_seed, custom_topic, all_cats)
     matched = score_library_items(
         lib,
         search_terms=(plan.get("search_keywords") or []) + re.split(r"[\s,،]+", custom_topic or ""),
         target_cats=plan.get("target_categories") or [],
     )
 
-    with ThreadPoolExecutor(max_workers=6) as ex:
-        enriched_repos = list(ex.map(fetch_github_repo_meta, [r["repo"] for r in matched["repos"][:5]]))
+    if sources_only:
+        links_msg = format_library_links_message({}, matched)
+        if dry_run:
+            print(f"[DRY_RUN] Sources-only mode completed in {time.time() - t0:.1f}s")
+            print(links_msg)
+            return
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "منابع و ریپوهای مرتبط استخراج شدند؛ در حال ارسال...")
+        for cid in target_chat_ids:
+            send_tg_text(bot_token, cid, links_msg)
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 100, "منابع واقعی از کتابخانه آکادمی ارسال شد!", done=True)
+        return
+
+    with ThreadPoolExecutor(max_workers=5) as ex:
+        enriched_repos = list(ex.map(fetch_github_repo_meta, [r["repo"] for r in matched["repos"][:4]]))
 
     context_bundle = {
-        "matched_curated_repos": matched["repos"][:9],
+        "matched_curated_repos": matched["repos"][:7],
         "live_github_metadata": [
-            {"repo": e["repo"], "stars": e.get("stars"), "desc": (e.get("description") or "")[:140]}
+            {"repo": e["repo"], "stars": e.get("stars"), "desc": (e.get("description") or "")[:120]}
             for e in enriched_repos
         ],
-        "parent_awesome_lists": matched["parent_directories"][:3],
-        "github_topics": matched["topics"][:4],
-        "iran_persian_searches": matched["iran_searches"][:3],
+        "parent_awesome_lists": matched["parent_directories"][:2],
+        "github_topics": matched["topics"][:3],
     }
 
-    wants_slides_format = with_images or bool(re.search(r"(اسلاید|کاروسل|slide|carousel)", custom_query or "", re.I))
+    is_instagram = bool(re.search(r"(اینستا|اینستاگرام|اسلاید|کاروسل|instagram|slide|carousel)", clean_query, re.I))
+    channel = "instagram" if (is_instagram or with_images) else "telegram"
 
-    if not wants_slides_format:
+    if not with_images:
         if not dry_run:
-            progress_fn(bot_token, target_chat_ids, status_msg_id, 65, "در حال نگارش دقیق آموزش درخواستی + تطبیق با ابزارهای واقعی گیت‌هاب...")
+            progress_fn(bot_token, target_chat_ids, status_msg_id, 55, "در حال نگارش دقیق آموزش با ۴ زاویه استراتژیک (بدون تصویر)...")
 
-        guide = generate_edu_guide(custom_query, custom_topic, slide_count, context_bundle)
+        guide = generate_edu_guide(clean_query, custom_topic, slide_count, context_bundle, channel=channel)
         guide_msg = format_guide_message(guide)
-        links_msg = format_library_links_message(guide, matched)
+        links_msg = format_library_links_message(guide, matched) if wants_sources else ""
 
         if dry_run:
-            print(f"[DRY_RUN] Edu Guide mode (NO images) completed in {time.time() - t0:.1f}s")
+            print(f"[DRY_RUN] Edu Guide mode ({channel}, NO images) completed in {time.time() - t0:.1f}s")
             print(guide_msg)
-            print("\n" + links_msg)
+            if links_msg:
+                print("\n" + links_msg)
             return
 
         progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "محتوای آموزشی آماده شد؛ در حال ارسال به تلگرام...")
         for cid in target_chat_ids:
             send_tg_text(bot_token, cid, guide_msg)
-            send_tg_text(bot_token, cid, links_msg)
+            if links_msg:
+                send_tg_text(bot_token, cid, links_msg)
         progress_fn(bot_token, target_chat_ids, status_msg_id, 100, "محتوای آموزشی آماده و ارسال شد!", done=True)
         return
 
     if not dry_run:
         progress_fn(bot_token, target_chat_ids, status_msg_id, 55, f"در حال طراحی و نگارش محتوای {to_fa_digits(slide_count)} اسلاید آموزشی...")
 
-    carousel = generate_edu_carousel(custom_query, custom_topic, slide_count, context_bundle)
+    carousel = generate_edu_carousel(clean_query, custom_topic, slide_count, context_bundle, reply_context=reply_context)
     slides = (carousel.get("slides") or [])[:slide_count]
-
-    if not with_images:
-        if dry_run:
-            print(f"[DRY_RUN] Edu Carousel TEXT-ONLY mode ({len(slides)} slides, NO images) in {time.time() - t0:.1f}s")
-            print(format_editable_slides_text(carousel))
-            print("\n" + format_library_links_message(carousel, matched))
-            return
-
-        progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "متن اسلایدها و منابع گیت‌هاب آماده شدند؛ در حال ارسال به تلگرام...")
-        for cid in target_chat_ids:
-            send_tg_text(bot_token, cid, format_editable_slides_text(carousel))
-            send_tg_text(bot_token, cid, format_library_links_message(carousel, matched))
-        progress_fn(bot_token, target_chat_ids, status_msg_id, 100, f"متن {to_fa_digits(len(slides))} اسلاید آموزشی (بدون تصویر) ارسال شد!", done=True)
-        return
 
     if not dry_run:
         progress_fn(bot_token, target_chat_ids, status_msg_id, 75, f"در حال رندر گرافیکی {to_fa_digits(len(slides))} اسلاید آماده انتشار (۱۰۸۰×۱۳۵۰)...")
@@ -917,7 +996,7 @@ def run_edu_studio(
     rendered_slides: list[bytes] = []
     for idx, sl in enumerate(slides):
         bg = bg1 if idx == 0 else (bg2 or bg1)
-        rendered_slides.append(render_carousel_slide(sl, len(slides), bg, font_hint=custom_query))
+        rendered_slides.append(render_carousel_slide(sl, len(slides), bg, font_hint=clean_query))
 
     if dry_run:
         out_dir = BASE_DIR / "tmp_edu_preview"
@@ -926,13 +1005,15 @@ def run_edu_studio(
             (out_dir / f"slide_{i}.jpg").write_bytes(b)
         print(f"[DRY_RUN] Rendered {len(rendered_slides)} slides to {out_dir} in {time.time() - t0:.1f}s")
         print(format_editable_slides_text(carousel))
-        print("\n" + format_library_links_message(carousel, matched))
+        if wants_sources:
+            print("\n" + format_library_links_message(carousel, matched))
         return
 
-    progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "اسلایدها و منابع گیت‌هاب آماده شدند؛ در حال ارسال به تلگرام...")
+    progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "اسلایدهای تصویری آماده شدند؛ در حال ارسال به تلگرام...")
     for cid in target_chat_ids:
         send_tg_album(bot_token, cid, rendered_slides)
         send_tg_text(bot_token, cid, format_editable_slides_text(carousel))
-        send_tg_text(bot_token, cid, format_library_links_message(carousel, matched))
+        if wants_sources:
+            send_tg_text(bot_token, cid, format_library_links_message(carousel, matched))
 
     progress_fn(bot_token, target_chat_ids, status_msg_id, 100, f"پست آموزشی {to_fa_digits(len(slides))} اسلایدی با تصویر آماده و ارسال شد!", done=True)

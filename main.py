@@ -1226,16 +1226,19 @@ def main() -> None:
     target_chat_ids = get_target_chat_ids()
     run_mode = os.getenv("MODE", "news").strip().lower()
 
-    if run_mode == "edu":
+    if run_mode in {"edu", "edit"}:
         from edu_studio import run_edu_studio
         slide_count = int(custom_count_raw) if (custom_count_raw.isdigit() and 1 <= int(custom_count_raw) <= 10) else 5
         edu_images = os.getenv("EDU_IMAGES", "false").strip().lower() in {"true", "1", "yes"}
+        reply_context = os.getenv("REPLY_CONTEXT", "").strip()
         try:
             run_edu_studio(
                 custom_topic=custom_topic,
                 custom_query=custom_query,
                 slide_count=slide_count,
                 with_images=edu_images,
+                reply_context=reply_context,
+                edit_mode=(run_mode == "edit"),
                 bot_token=bot_token,
                 target_chat_ids=target_chat_ids,
                 status_msg_id=status_msg_id,
@@ -1243,14 +1246,14 @@ def main() -> None:
                 progress_fn=update_progress,
             )
         except Exception as exc:
-            print(f"[ERROR] Edu Studio failed: {exc}")
+            print(f"[ERROR] Edu/Edit Studio failed: {exc}")
             if not dry_run:
                 update_progress(
                     bot_token,
                     target_chat_ids,
                     status_msg_id,
                     100,
-                    f"⚠️ خطا در تولید محتوای آموزشی: {str(exc)[:220]}",
+                    f"⚠️ خطا در پردازش درخواست: {str(exc)[:220]}",
                     done=True,
                 )
             raise
