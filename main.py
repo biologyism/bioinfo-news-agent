@@ -42,6 +42,16 @@ GEMINI_FALLBACK_MODELS = [
     "gemini-3-flash-preview",
 ]
 
+
+def get_gemini_keys() -> list[str]:
+    raw = os.getenv("GEMINI_API_KEY", "").strip()
+    if not raw:
+        return []
+    keys = [k.strip() for k in re.split(r"[,;\s\n]+", raw) if k.strip()]
+    # Deduplicate while preserving order
+    seen: set[str] = set()
+    return [k for k in keys if not (k in seen or seen.add(k))]
+
 TRACKING_PARAMS = {
     "utm_source",
     "utm_medium",
@@ -451,26 +461,31 @@ def expand_on_demand_topic(custom_topic: str, custom_query: str) -> dict[str, An
         'JSON schema: {"is_specific": bool, "primary_en": str, "alt_en": str, "primary_fa": str, "match_tokens": [str]}'
     )
 
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if api_key:
-        for model in GEMINI_FALLBACK_MODELS[:4]:
-            try:
-                r = requests.post(
-                    f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
-                    params={"key": api_key},
-                    json={
-                        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-                        "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"},
-                    },
-                    timeout=15,
-                )
-                if r.status_code == 200:
-                    data = json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"])
-                    if data.get("primary_en"):
-                        print(f"[INFO] Expanded custom topic ({model}): {data}")
-                        return data
-            except Exception:
-                continue
+    gemini_keys = get_gemini_keys()
+    if gemini_keys:
+        for model in ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]:
+            for api_key in gemini_keys:
+                try:
+                    r = requests.post(
+                        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                        params={"key": api_key},
+                        json={
+                            "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+                            "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"},
+                        },
+                        timeout=15,
+                    )
+                    if r.status_code == 200:
+                        data = json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"])
+                        if data.get("primary_en"):
+                            print(f"[INFO] Expanded custom topic ({model}): {data}")
+                            return data
+                    elif r.status_code in {400, 403, 429, 503}:
+                        continue
+                    elif r.status_code == 404:
+                        break
+                except Exception:
+                    continue
 
     groq_key = os.getenv("GROQ_API_KEY", "").strip()
     if groq_key:
@@ -751,10 +766,10 @@ def call_gemini(
     custom_topic: str = "",
     custom_query: str = "",
 ) -> list[dict[str, Any]]:
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    gemini_keys = get_gemini_keys()
     cf_acc = os.getenv("CF_ACCOUNT_ID", "").strip()
     cf_tok = os.getenv("CF_AI_TOKEN", "").strip()
-    if not api_key and not os.getenv("OPENROUTER_API_KEY") and not os.getenv("GROQ_API_KEY") and not (cf_acc and cf_tok):
+    if not gemini_keys and not os.getenv("OPENROUTER_API_KEY") and not os.getenv("GROQ_API_KEY") and not (cf_acc and cf_tok):
         raise RuntimeError("No AI API key configured (GEMINI_API_KEY / GROQ_API_KEY / OPENROUTER_API_KEY / CF_AI_TOKEN).")
 
     preferred_model = os.getenv("GEMINI_MODEL", "").strip()
@@ -883,40 +898,51 @@ closing_question: ""
     }
 
     last_err = None
-    if api_key:
+    if gemini_keys:
         for model in models_to_try:
             endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-            try:
-                print(f"[INFO] Calling Writer Agent (Gemini: {model})")
-                resp = requests.post(
-                    endpoint,
-                    params={"key": api_key},
-                    json=payload,
-                    timeout=30,
-                )
-                if resp.status_code in {404, 429, 503}:
-                    print(f"[WARN] Model {model} returned {resp.status_code}: {resp.text[:250]}")
-                    last_err = resp.text
-                    continue
-                resp.raise_for_status()
-                data = resp.json()
-                text_out = data["candidates"][0]["content"]["parts"][0]["text"]
-                parsed = json.loads(text_out)
-                posts = parsed.get("selected_posts", [])
-                id_map = {idx: item for idx, item in enumerate(candidates)}
-                enriched_posts = []
-                for p in posts:
-                    art = id_map.get(p.get("article_id"))
-                    if not art:
+            model_payload = json.loads(json.dumps(payload))
+            if any(tag in model for tag in ("3.8", "3.6", "3-flash")):
+                model_payload["generationConfig"]["thinkingConfig"] = {"thinkingLevel": "LOW"}
+            for k_idx, api_key in enumerate(gemini_keys, 1):
+                try:
+                    print(f"[INFO] Calling Writer Agent (Gemini: {model}, key #{k_idx})")
+                    resp = requests.post(
+                        endpoint,
+                        params={"key": api_key},
+                        json=model_payload,
+                        timeout=30,
+                    )
+                    if resp.status_code == 400 and "thinkingConfig" in model_payload["generationConfig"]:
+                        model_payload["generationConfig"].pop("thinkingConfig", None)
+                        resp = requests.post(endpoint, params={"key": api_key}, json=model_payload, timeout=30)
+                    if resp.status_code == 404:
+                        print(f"[WARN] Model {model} returned 404: {resp.text[:200]}")
+                        last_err = resp.text
+                        break
+                    if resp.status_code in {400, 403, 429, 503}:
+                        print(f"[WARN] Model {model} key #{k_idx} returned {resp.status_code}: {resp.text[:200]}")
+                        last_err = resp.text
                         continue
-                    p["url"] = art["url"]
-                    p["raw_title"] = art["title"]
-                    p["og_image"] = art.get("og_image", "")
-                    enriched_posts.append(p)
-                return enriched_posts[:max_posts]
-            except Exception as exc:
-                print(f"[WARN] Gemini call failed on {model}: {exc}")
-                last_err = str(exc)
+                    resp.raise_for_status()
+                    data = resp.json()
+                    text_out = data["candidates"][0]["content"]["parts"][0]["text"]
+                    parsed = json.loads(text_out)
+                    posts = parsed.get("selected_posts", [])
+                    id_map = {idx: item for idx, item in enumerate(candidates)}
+                    enriched_posts = []
+                    for p in posts:
+                        art = id_map.get(p.get("article_id"))
+                        if not art:
+                            continue
+                        p["url"] = art["url"]
+                        p["raw_title"] = art["title"]
+                        p["og_image"] = art.get("og_image", "")
+                        enriched_posts.append(p)
+                    return enriched_posts[:max_posts]
+                except Exception as exc:
+                    print(f"[WARN] Gemini call failed on {model} (key #{k_idx}): {exc}")
+                    last_err = str(exc)
 
     # Automatic Multi-Provider Failover: OpenRouter Free -> Groq -> Cloudflare Workers AI
     fallback_providers = []

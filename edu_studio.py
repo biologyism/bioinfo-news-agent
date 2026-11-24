@@ -25,6 +25,15 @@ GEMINI_MODELS = [
     "gemini-3-flash-preview",
 ]
 
+
+def get_gemini_keys() -> list[str]:
+    raw = os.getenv("GEMINI_API_KEY", "").strip()
+    if not raw:
+        return []
+    keys = [k.strip() for k in re.split(r"[,;\s\n]+", raw) if k.strip()]
+    seen: set[str] = set()
+    return [k for k in keys if not (k in seen or seen.add(k))]
+
 PERSIAN_DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
 HAS_RAQM = features.check("raqm")
 if not HAS_RAQM:
@@ -156,23 +165,26 @@ def plan_search_for_edu(user_query: str, topic_hint: str, all_cats: list[str]) -
         except Exception:
             pass
 
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if api_key:
+    gemini_keys = get_gemini_keys()
+    if gemini_keys:
         for m in ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]:
-            try:
-                r = requests.post(
-                    f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent",
-                    params={"key": api_key},
-                    json={
-                        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-                        "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"},
-                    },
-                    timeout=14,
-                )
-                if r.status_code == 200:
-                    return _extract_json_obj(r.json()["candidates"][0]["content"]["parts"][0]["text"])
-            except Exception:
-                continue
+            for api_key in gemini_keys:
+                try:
+                    r = requests.post(
+                        f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent",
+                        params={"key": api_key},
+                        json={
+                            "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+                            "generationConfig": {"temperature": 0.1, "responseMimeType": "application/json"},
+                        },
+                        timeout=14,
+                    )
+                    if r.status_code == 200:
+                        return _extract_json_obj(r.json()["candidates"][0]["content"]["parts"][0]["text"])
+                    if r.status_code == 404:
+                        break
+                except Exception:
+                    continue
 
     tokens = re.split(r"[\s,،]+", f"{topic_hint} {user_query}".lower())
     return {"target_categories": [], "search_keywords": [t for t in tokens if len(t) >= 3], "is_library_lookup_only": False}
@@ -195,12 +207,12 @@ def call_edu_json_with_failover(
     response_schema: dict[str, Any],
     json_hint: str,
 ) -> dict[str, Any]:
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    gemini_keys = get_gemini_keys()
     preferred = os.getenv("GEMINI_MODEL", "").strip()
     models_to_try = ([preferred] if preferred else []) + [m for m in GEMINI_MODELS if m != preferred]
 
     last_err = None
-    if api_key:
+    if gemini_keys:
         for model in models_to_try:
             gen_cfg: dict[str, Any] = {
                 "temperature": 0.4,
@@ -216,32 +228,37 @@ def call_edu_json_with_failover(
                 "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
                 "generationConfig": gen_cfg,
             }
-            try:
-                print(f"[INFO] Edu Studio calling Gemini: {model}")
-                resp = requests.post(
-                    f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
-                    params={"key": api_key},
-                    json=payload,
-                    timeout=32,
-                )
-                if resp.status_code == 400 and "thinkingConfig" in gen_cfg:
-                    gen_cfg.pop("thinkingConfig", None)
+            for k_idx, api_key in enumerate(gemini_keys, 1):
+                try:
+                    print(f"[INFO] Edu Studio calling Gemini: {model} (key #{k_idx})")
                     resp = requests.post(
                         f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
                         params={"key": api_key},
                         json=payload,
                         timeout=32,
                     )
-                if resp.status_code in {400, 403, 404, 429, 503}:
-                    last_err = f"HTTP {resp.status_code}: {resp.text[:220]}"
-                    print(f"[WARN] Edu Gemini {model} -> {last_err}")
-                    continue
-                resp.raise_for_status()
-                text_out = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
-                return _extract_json_obj(text_out)
-            except Exception as exc:
-                last_err = str(exc)
-                print(f"[WARN] Edu Gemini {model} failed: {exc}")
+                    if resp.status_code == 400 and "thinkingConfig" in gen_cfg:
+                        gen_cfg.pop("thinkingConfig", None)
+                        resp = requests.post(
+                            f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                            params={"key": api_key},
+                            json=payload,
+                            timeout=32,
+                        )
+                    if resp.status_code == 404:
+                        last_err = f"HTTP 404 on {model}: {resp.text[:180]}"
+                        print(f"[WARN] Edu Gemini {model} -> 404")
+                        break
+                    if resp.status_code in {400, 403, 429, 503}:
+                        last_err = f"HTTP {resp.status_code} ({model} key #{k_idx}): {resp.text[:180]}"
+                        print(f"[WARN] {last_err}")
+                        continue
+                    resp.raise_for_status()
+                    text_out = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
+                    return _extract_json_obj(text_out)
+                except Exception as exc:
+                    last_err = f"{model} key #{k_idx}: {exc}"
+                    print(f"[WARN] Edu Gemini failed ({last_err})")
 
     # Multi-Provider Failover: Groq (fast!) -> Cloudflare Workers AI (with max_tokens=4096) -> OpenRouter
     groq_key = os.getenv("GROQ_API_KEY", "").strip()
@@ -760,29 +777,30 @@ def generate_edu_guide(
     context_bundle: dict[str, Any],
     channel: str = "telegram",
 ) -> dict[str, Any]:
-    """Generate crisp, non-yellow, high-save Persian educational content across all 4 strategic viral formats."""
+    """Generate crisp, short, itemized, unambiguous Persian educational content (with optional 4-angle mode only when requested)."""
     is_insta = channel == "instagram"
+    wants_all_angles = bool(re.search(r"(۴\s*مدل|چهار\s*مدل|۴\s*زاویه|همه\s*مدل|وایرال)", user_query or "", re.I))
     channel_rule = (
         "قالب «اینستاگرامی»: فوق‌العاده موجز و اسکن‌پذیر! هر خط حداکثر ۱۰–۱۲ کلمه، بدون حاشیه، + در پایان یک «📝 کپشن کوتاه اینستاگرام» (نهایتاً ۳ خط + هشتگ)."
         if is_insta
-        else "قالب «تلگرامی» (پیش‌فرض): خودمونیِ حرفه‌ای، مختصر و کوبنده، ولی یک پله کاربردی‌تر و کامل‌تر از اینستاگرام (با مثال یا نکتهٔ عملیِ کوتاه، بدون طولانی شدن)."
+        else "قالب «تلگرامی» (پیش‌فرض): کوتاه، کوبنده، موردی (۱، ۲، ۳...)، کاملاً مفهوم و بدون ابهام."
+    )
+    angle_rule = (
+        "کاربر صریحاً چند مدل خواسته است؛ موضوع را در ۴ زاویه کوتاه (چک‌لیست، باور غلط vs واقعیت، نقشه راه، مقایسه) بنویس."
+        if wants_all_angles
+        else "یک ساختار **یکدست، کوتاه، موردی و مستقیم** بنویس (بدون تقسیم اجباری به ۴ مدل مختلف!)."
     )
 
     system_instruction = f"""تو استراتژیست و مدرس ارشد «آکادمی بیوانفورماتیک ایران» هستی.
-مخاطب تو در ایران امروز حوصلهٔ انشا، کش‌دادن، حرف‌های تکراری و متن‌های خشکِ دانشگاهی را ندارد؛ در عین حال به محتوای **زرد و پوچ** هم بی‌اعتماد است.
+مخاطب تو در ایران امروز حوصلهٔ انشا، داستان‌سرایی دور از اصل موضوع، و اصطلاحات سخت دانشگاهی را ندارد؛ در عین حال به محتوای زرد و پوچ هم بی‌اعتماد است.
 
 اصول قطعی نگارش:
-1. **ضد زرد و ضد کلیشه:** کلماتی مثل «معجزه»، «باورنکردنی»، «فوری»، «انفجار»، «۱۰ سال صبر تموم شد» یا جملات تبلیغاتی مصنوعی مثل «حتماً تو اینستاگرام ببینید» و انگلیسی بی‌ربط مثل `Ready to explore?` اکیداً ممنوع!
-2. **لحن خودمونیِ باکلاس و دقیق:** مثل یک متخصصِ خوش‌بیان که در ۲ دقیقه اصل مطلب را شفاف، محکم و با ایموجی‌های به‌جا (نه شلوغ!) توضیح می‌دهد.
-3. **به زبان کاملاً ساده:** اصطلاحات سخت و ترجمه‌نشده (مثل BindAffinity، MHC-binding، BWT، توپولوژی) نیاور؛ اگر مفهومی لازم است، در یک جملهٔ ساده و ملموس بیانش کن.
-4. **چهار زاویه استراتژیک (همه را بنویس تا کاربر بهترین را انتخاب کند):**
-   مگر اینکه کاربر صریحاً فقط یک نوع خاص (مثلاً فقط لیست ابزار) خواسته باشد، موضوع را در قالب **هر ۴ مدلِ کوتاه و آمادهٔ انتشار** بنویس (هر مدل کوتاه، تیز و بدون تکرار):
-   - 📋 <b>مدل ۱: چک‌لیست / تقلب‌نامه</b> (مناسب Save)
-   - ⚖️ <b>مدل ۲: باور غلط vs واقعیت علمی</b> (مناسب Share)
-   - 🗺 <b>مدل ۳: نقشه راه سریع (۳ تا ۵ گام)</b>
-   - ⚡️ <b>مدل ۴: مقایسه کوبنده (روش سنتی vs مدرن/هوش مصنوعی)</b>
+1. **خیلی کوتاه، کوبنده، موردی، واضح و کاملاً مفهوم:** بدون مقدمه‌چینی اضافی؛ ۱–۲ خط معرفیِ شفافِ کانسپت ← ۳ تا ۴ مورد دقیق و شماره‌دار (`🔹 <b>۱. ...</b>`) ← ۱ خط جمع‌بندی روشن (`💡 <b>خلاصه:</b> ...`).
+2. **ضد زرد و ضد کلیشه:** کلمات زرد («معجزه»، «باورنکردنی»، «انفجار») و انگلیسی بی‌ربط اکیداً ممنوع! لحن علمیِ تمیز، دقیق و خودمونیِ باکلاس باشد.
+3. **به زبان ساده:** اصطلاحات سخت و ترجمه‌نشده نیاور؛ اگر یک کلمه تخصصی لازم بود، همان لحظه به زبان عادی روشنش کن.
+4. {angle_rule}
 5. {channel_rule}
-6. **ابزارهای گیت‌هاب:** کل متن را با اسم ابزارها شلوغ نکن؛ فقط در حد نیازِ واقعی ۱ تا ۲ ابزار معتبر را با توضیح ۱ خطی بگو (لیست منابع فقط وقتی خواسته شد جدا ارسال می‌شود). از علامت‌های خراب مثل `++...++` و تگ‌های غیرمجاز تلگرام استفاده نکن (فقط `<b>`, `<i>`, `<u>`, `<blockquote>`, `<code>`).
+6. **ایموجی به‌جا:** از ایموجی‌های تمیز (`🧬`, `🔹`, `💡`, `⚡️`, `🎯`) برای خوانایی استفاده کن و فقط تگ‌های مجاز تلگرام (`<b>`, `<i>`, `<u>`, `<blockquote>`, `<code>`) را به کار ببر.
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
 
@@ -867,12 +885,14 @@ def format_edited_message(edited: dict[str, Any]) -> str:
     title = (edited.get("title") or "").strip()
     body = (edited.get("body_html") or "").strip()
     header = f"✏️ <b>{title}</b>\n\n" if title and not body.startswith(f"<b>{title}") else ""
-    return (
-        f"{header}{body}\n\n"
-        "⭕️ معین شیرین کام\n"
+    footer = (
+        "\n\n⭕️ معین شیرین کام\n"
         "آکادمی بیوانفورماتیک ایران 🖥⭐️\n"
         "@ir_bioinformtic_academy"
     )
+    if "@ir_bioinformtic_academy" in body:
+        footer = ""
+    return f"{header}{body}{footer}"
 
 
 def run_edu_studio(
