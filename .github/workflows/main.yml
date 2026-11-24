@@ -34,6 +34,10 @@ on:
         description: 'آدرس بازی تقویت حافظه مینی‌اپ تلگرام'
         required: false
         default: ''
+      mode:
+        description: 'حالت اجرا: news (خبری) یا edu (استودیو آموزشی)'
+        required: false
+        default: 'news'
 
 permissions:
   contents: write
@@ -73,6 +77,8 @@ jobs:
           REPLY_CHAT_ID: ${{ github.event.inputs.reply_chat_id || '' }}
           STATUS_MESSAGE_ID: ${{ github.event.inputs.status_message_id || '' }}
           GAME_URL: ${{ github.event.inputs.game_url || '' }}
+          MODE: ${{ github.event.inputs.mode || 'news' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python main.py
 
       - name: Commit updated state
