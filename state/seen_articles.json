@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-24",
-  "daily_post_count": 18,
+  "daily_post_count": 22,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2105,6 +2105,81 @@
     "https://news.google.com/rss/articles/CBMixgFBVV95cUxNTWpkbnFmUDVpSTVGZ0QyZ2pxMWsyaEQyUFYyVU5XU21kdU95eXJjWmxGVkkwWVdQb3VZYUtyTnhUYUZBVU5GcUU1TnFUTEN5ODcxZ0d1TVV0Q3g5ZDIxSUdzVlFqUm9MMlIwLTVNT01vSkotS2NrQzdCbU4xVVF6NVd6OUc1UnFfUWJBT0c1clNJclQyZTY4SU4zdmw3ZlFYRVdWbjIxVXhSRXV3VGdLZVl3VXpxVEpyOVhFelRJb1ZxeFU3T1E?oc=5": {
       "title": "Researchers have created a synthetic cell that can adapt and learn survival skills",
       "ts": "2026-11-23T23:40:20.577829+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-recipe-world-important-cancer-drugs.html": {
+      "title": "Recipe for one of the world's most important cancer drugs uncovered: Tobacco plants could produce the medicine",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "sent"
+    },
+    "https://www.genengnews.com/topics/infectious-diseases/poxvirus-machinery-mapped-with-electron-microscopy-shows-paired-engines": {
+      "title": "Poxvirus Machinery Mapped with Electron Microscopy Shows “Paired Engines”",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41467-026-78606-6": {
+      "title": "Iso-Seq enables discovery of novel isoform variants in human retina at single-cell resolution",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41586-026-11449-9": {
+      "title": "Hexa-substituted benzene synthesis with non-classical carbocations",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNcmUxVTVyRDh0aDVxeVdXdmhYOWJqcjd2UGxyS1lES2tJMGhXOE5KaTYyRDB4d1Vqd3p4bmhZRzJwdDZZT0JkRmQ1NTZQVjdaZFlOQ3V1eU5tZXRiTE9YTVg0OHVIX1JOT2tTUXg5UzlsakF5dTVPU1pGckVDZDFPamtFYTBXTlZxLTZPRWpOQWhHVGxCMjV6eWlhYmU0YnU2WkV2ZXh1Nkc0RHFYX1Jwb3lEUkRZX1lUaUhFWkRtanllQjVuVlo2S2lKZTc2QTNa?oc=5": {
+      "title": "Bioinformatics Analysis Identifies Shared Gene Signatures Between COVID-19 and Gastrointestinal Stromal Tumors",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMisgFBVV95cUxQWWtjbjN3ZEduaU5rT2g4cmoydzgwQnNXYjNCTS1TUnVyUE9pYTh5cGVRRFRWQVM5bEpJUW5yVGN4cEk1bWlONEdNRkJRSGVwS2VGSUM3M2k1UXFSUXNEVF9CV01Cd3I2RTI0aGZkTk95RGF3ZjgxazJwSnBEb0VXQU9RcVpMQUVYNWtHQ3NfVlpxQ0JpMDZFWkNwY0NYOEJyLXhIYlY3cjlSdXlCTlF0N1BR?oc=5": {
+      "title": "Systematic Review Finds Generative AI Advances Bioinformatics but Faces Validation Gaps",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.12.766080v1": {
+      "title": "LPMOcat: an interactive database for comparative structural analysis of lytic polysaccharide monooxygenases",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://www.technologyreview.com/2026/11/23/1149569/a-legendary-philosopher-isnt-buying-anthropics-consciousness-argument": {
+      "title": "A legendary philosopher isn’t buying Anthropic’s consciousness argument",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-electron-microscopy-reveals-headquarters-poxviruses.html": {
+      "title": "Electron microscopy reveals the headquarters of poxviruses",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-hidden-link-scent-revealed.html": {
+      "title": "A hidden link between a flower's color and its scent revealed",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-reveals-modern-humans-driven-neanderthals.html": {
+      "title": "New study reveals how modern humans may have driven Neanderthals to extinction",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/gadgets/1040357/nothing-ear-note-earbuds-ai-recording": {
+      "title": "Nothing’s upcoming Ear Note is a pair of earbuds with AI transcription",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://www.theverge.com/ai-artificial-intelligence/1040255/x-grok-ai-deepfakes-oregon-virginia-lawsuit": {
+      "title": "Oregon and Virginia sue SpaceX over Grok’s porn deepfakes",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03808-3": {
+      "title": "Chemistry giant George Whitesides dies: one of the most influential researchers of his generation",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03795-5": {
+      "title": "How AI shocks are rattling the next generation of mathematicians — in charts",
+      "ts": "2026-11-24T03:27:09.142650+00:00",
       "status": "skipped"
     }
   }
