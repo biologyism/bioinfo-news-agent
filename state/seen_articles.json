@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-25",
-  "daily_post_count": 2,
+  "daily_post_count": 7,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2330,6 +2330,81 @@
     "https://www.biorxiv.org/content/10.64898/2026.11.23.768163v1": {
       "title": "Fast draft assemblies using locally consistent parsing",
       "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://doi.org/10.66224/hjcmed.1.1.4": {
+      "title": "Engineering a Multi-Epitope Vaccine for Leishmania infantum: A combination of traditional immuno-informatic tools and python programming Approaches",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43077428/": {
+      "title": "Network pharmacology and bioinformatics analysis of the potential mechanism of morin against myocardial infarction.",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43077595/": {
+      "title": "Comparative study of the anti-inflammatory activity of hyperoside and its isomer in the treatment of diabetic retinopathy: From network pharmacology and bioinformatics analysis to experimental verification.",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMilwFBVV95cUxQY2hCMF9SM3hrcWxKQzJDdzRBeTlZbTNMYmlkUzlWMWI2VldYbmwwSUlOM3E3bXZ4b1NVQzdSVmxsU3RKT0tBVVAwUEpDNFcxOHQ5aGZFVXIydUVQMWpURnlnVHZpM0JTWUJMVUwyQjFiakVJRWFSYXhHbEpYZTdLYXM4ZklCMjRUTEVsaHgyY1Zvcmtjckcw?oc=5": {
+      "title": "Evaluating Claude’s bioinformatics research capabilities with BioMysteryBench",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQVHIyajV3amxiVzlGR2ZNd0VkSFF6bWNCbzB3MUZ4cldkMUY0QXpic2cwcFVhc2xyM2E0aGEwV3BFWWhjc21wY1RaeXlHZ09pLXVlbk1nY1lHVXJJdjNHUkdBcXdsblRvWVY5ZGJ5UVNkSWw5aHRIOEhLdWV0VUwzcERELUdMaEtiRFRrbGo4Y0NLUHZVTUd4R1JYWUxyNS05a1Jxajc3bWJ6S0pKVVBaeWFkUzktQ1dSaVFGZWFDc0dxWkdvX1ZjZw?oc=5": {
+      "title": "QIAGEN Expands AI-Powered Bioinformatics for Research and Drug Discovery",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5sX0RxLWpNZnRXS0JIQjkwc09adnFkVXFLUzN4RFZCVVpUYU1HZ05tdFE5bE9aLTdFdGJ5cTBfYnNNX0M4VW0tbjNBalRhaEpIanZ6S05NdzA3cnc3MlQ4?oc=5": {
+      "title": "Flow matching for generative modelling in bioinformatics and computational biology",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://doi.org/10.5281/zenodo.18482595": {
+      "title": "Bioinformatics pipeline for: \"Effects of resource patch quality and connectivity on fungal colonization and metacommunity dynamics\"",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiX0FVX3lxTE01M0EtNV9PMjhxdDAwRXRoZ2JsRFdSZmp3QkxaaGtlM3E0VmVMcVlUWE1Oa1Rqb05rZWs1T2VZdHl3S0lYME1iRktnZzVIcGVvekdFVC13Yl9kaE9QZFUw?oc=5": {
+      "title": "Bioinformatics for human long-read whole-genome sequencing",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQN2Y2QVZlY0dhN2pDeVBQVlV0WTBUTFI1VDZpS2d0aHRia25LWmhLRjdaNE9INDJtT05GZDFGX085MW9aNldVQjF4TXJqczlsTlo3akkyM1VYY2c4VExlTndGLVFFd2pIUVU4ZVN1MzByQldCeFJyWU5YdkUwS2RTU0JCQXhZcFFHQl8yaHJuODZ3OW9SVHFBelpPVzdZUnlTZDVnZVByMDlnZjhnUVVMc0Zpb29UZUlZY1UxVUg1bDJlNHAtd2UwctIByAFBVV95cUxQN2Y2QVZlY0dhN2pDeVBQVlV0WTBUTFI1VDZpS2d0aHRia25LWmhLRjdaNE9INDJtT05GZDFGX085MW9aNldVQjF4TXJqczlsTlo3akkyM1VYY2c4VExlTndGLVFFd2pIUVU4ZVN1MzByQldCeFJyWU5YdkUwS2RTU0JCQXhZcFFHQl8yaHJuODZ3OW9SVHFBelpPVzdZUnlTZDVnZVByMDlnZjhnUVVMc0Zpb29UZUlZY1UxVUg1bDJlNHAtd2Uwcg?oc=5": {
+      "title": "UNC Charlotte Bioinformatics and Genomics Expert Shares Insights on the Cyclosporiasis Outbreak | Newswise",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMijwFBVV95cUxNY0dPaV82d0VtcXI2VXFPNjVpeDc0UFVNYU56R2IxdVY4Sng4N3g1eExnUXZsd0gyS25LX1dweWtXM2hkZU1JM3d5b2laRHEzbnRnZXZLUXFBYzhpQ2ljSkR2ajJRYzF1bDQzOGtfY1hyUW5pR3ZZblpXUk5Ma1FfYTJhT0hlVUFpaHF2YzE2aw?oc=5": {
+      "title": "New Professorship at the BIH: Cancer Bioinformatics - News - BIH at Charité",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi9AFBVV95cUxOVzNSOC0xb0tkRGxLTF9mUHhteXRkOEpRaThUUkdvcHJnS0RVUHByVUN0bUZvOWpsbEFIdTBIcFEycGpkN3A0TlkxUUY1WWlEYTVrbVVQWDd3TEQtUlEtamRiNFp3ZDVuRVd6MExHWmlFT00tSUZmLU95RlpTWW9LNUxYc3BPRllwQ3IwTk9XUjNuOW1ZNTJsb21yM0dubXlPLUQxdGtSc1NsRnlUX05uUUg0TGRNazZJbDZPelpVZDZJV2lxLUtQUS1KRTYtTmd5Y2EwTTlBSU1rNnZCMnFOeFhBM096bUh6NFhuWWRQbmZFd1lM?oc=5": {
+      "title": "Bioinformatics: rigorous quality controls, a key to effective public health decision-making",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMivgFBVV95cUxOZnBGbklDQkdvUURULUVEaVJES2R3Yjl5LWtoZEFOQjRYMlp3NzJHdUJFcWFycnVrNjlNd0V6ejZsRER4Q1didlMxSk8zQk84ekdsR3h1am9PSy1BYlFZY0FpX3RaeV9XeDlSZ0N5ajNXRlRDUDh3SW9sLVZWdFdRYURDOWhOYnVmMXVSTlVEM2Eya203QkNNeWhpODhscUNfdzVlai0tYlNiYU9HMDRHWmZPWjBicDYzTTBVUkxB?oc=5": {
+      "title": "PAHO and CDC strengthen regional capacities for influenza genomic surveillance through an international bioinformatics workshop",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiigFBVV95cUxPRFItMVJQal9pSVhiR0ZOVVY0ZnBTQS1oTjRWaGFYZWZlT0ZBOHc0cjNONHh4ZnpZYnJnR3NzQUc5SHdVUTBwNEVUX3g2YVFReHR3YWZrdVhmaHhOSDFIbFh1YmJlRzV1d29NSGpaUTFvakM2dFVzRkVmSElQejZQUFpXVDM3bVB0WGc?oc=5": {
+      "title": "New bioinformatics tools help identify pathogenic variants in the genome",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQS2dwajdXVTdyT0xINFIwZ2NTNHd5WE1lQXhPbWFfZVk1MkhYU0JLX1F2S252NXhXVTlhdXB4WmhQRnFZWEpWaUxfRHRHSjJKcWRuSjNPM3R3MnFUUVd0ZEZHeFFEVi1QNXVBcEdBSXBvTENmWU00VkN5Z2JQRFRDSDd1X2NENjVBZFRyTXRBY2VWUmhmMXR0ZWQtRjh0Y2RLb2lsRnhIQ2gtUGg2RDJJTy1FY2pfbHF4?oc=5": {
+      "title": "Latest News - Rhodes University foregrounds bioinformatics research amid anniversary celebrations",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPUUxIUUFGZkltVEpyUG4zV1owNElUUDRlZXYyNldSSzRCeXZLSm5GNG5qcFI5S2gzR29Zd2tCWGRxc1VLdzVOckxJcU9UNWRmcWZ2bThBYzB3YkRLM2lmV2FPbXUzVV9BMmRlZ2F2THRCdjQ5NFkyTFdNcGlUZTdzWUZNUTljSmJuYWdlN1RkbGdjNmNXUm5rcE5JR3RHRUlfZTFnQUxMTXFxNzdmTVFvTnhkN0xOZ1ZWdW81R0JZRHBXaFhIOGNxSGROaVRfcmVTblNteTBtOVRuaUNCaXc?oc=5": {
+      "title": "The Only Bioinformatics Master’s Programme in Lithuania: VU Studies Open the Door to a Fast-Growing Scientific Field",
+      "ts": "2026-11-24T23:33:26.757452+00:00",
       "status": "skipped"
     }
   }
