@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-24",
-  "daily_post_count": 22,
+  "daily_post_count": 27,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2180,6 +2180,81 @@
     "https://www.nature.com/articles/d41586-026-03795-5": {
       "title": "How AI shocks are rattling the next generation of mathematicians — in charts",
       "ts": "2026-11-24T03:27:09.142650+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiowFBVV95cUxPY0IzTy1VN3NzWmZQTExCSU9ya3pRUFVRbzl0RUxXNDl1VWZoc0MxZUtGTzZXa1RBVDN4NmxqN2xVUFg4bzlleG1vS2lGYTVBd0o3cUNjQXI5aWdDbUxnRWhQNnpsdjF1elVYUVVVc3FlZzJTYTI0WlZ4RGp0TFlab2xnaXpZaUFaUFhldi1QaTlWMWV6QzU0MEVCUFZodkNfaFB3?oc=5": {
+      "title": "AlphaFold 3 Predicts Soluble QTY Analogs of Mitochondrial Complex I Subunits",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiygFBVV95cUxPMVYtYlJqbnl3OU9EUV9jYllUSEVFc19FUHVkTXR1WHhGT19kbGVJQVY2RFE5aTNyREVndWRNbzZJcnpiYnlvUzljRnZSTi01VEEyWUx1aVFzM1cyejNKWWdqcHNaVEZZelgtYmxndU5ESWUyYlVYTEFrVHpyTlVPZVZnTWZ5eXlJenJMSW5mRG5xV2NLWHRYSlZmWUJQcmRVUHFodlBsVlYyOHRpV05fcTB2M0pKT2dDRkRHekhUNTFBQTk5bHNuLUdn?oc=5": {
+      "title": "Twist Bioscience CEO sees potential for another year of triple-digit AI drug discovery order growth",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "sent"
+    },
+    "https://www.marktechpost.com/2026/11/24/openai-cisco-shirudo-ebpf-linux-runtime": {
+      "title": "OpenAI and Cisco Releases Shirudo: An Open-Source Linux Runtime Allowing Agents to Defend Systems Without Downtime",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41467-026-79791-0": {
+      "title": "EcoVAE: a generative deep learning method for global species distribution prediction",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "sent"
+    },
+    "https://arxiv.org/abs/2611.30920v1": {
+      "title": "Big Tree Viewer: A high-performance browser-based phylogenetic tree viewer with agentic AI integration",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41587-026-03351-6": {
+      "title": "Modular mRNA-encoded helper proteins enhance DNA delivery",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.31227v1": {
+      "title": "How Far Can Linear Go? BiPert, a Unified Framework for Single-Cell Perturbation Modelling",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.30955v1": {
+      "title": "LeCellModel: Interpretable Density Estimation over the Gene Expression Manifold",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43074597/": {
+      "title": "OMA orthology in 2027: orthology, ancestral gene repertoires, and comparative genomics at scale.",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41592-026-03416-z": {
+      "title": "Author Correction: GHT-SELEX demonstrates unexpectedly high intrinsic sequence specificity and complex DNA binding of many human transcription factors",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41592-026-03302-8": {
+      "title": "ISOMPRA enables the disambiguation of transcriptional and post-transcriptional effects of genetic variants",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPOUpFMUtEeUdScFJhSFNxREVMSE9wTU0wazFMWXQwOXBNME5sTllLbDlRYTR3b2E2aTBUdW42YWV1NEQ2bW5nWlJIS05WMklYd3NBZHFSSnluZ3A0aEtSOW5jSEdBNWtlXzhFcm1kdTNRVTJ5U3FZQ3hlNnA1amJSLUVpbGdOWGRsb1FoVDlicHdXakYxWllJSERHVllPODhrRHVCcVpvSXB6UQ?oc=5": {
+      "title": "AlphaFold Structural Models Reveal How Pathogens Mimic Human Protein Interactions",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxPLUt1WGZmRkxPbG1vOFQ3VExxbFVHRVZUN1FkNi11VUlSYXdxc2NIV1BoeFllYjZIS2w5U25XZGFySTJuYzJtaEFvR3RwTG0yVlNTU0cxQ3lZX1BkaXJmeXp5YlR3S3hXZURJYWxZZ2NFRktiM19LdzJXUVQtYW9WTzVIZE5yb0FZSXJYbjFIR0h3dWlYS1liaTdRZmFsZk10bFdQUHB5Ny0wTWRBc3V0SEFiS0w0S3RTZ0UyMlJyZS1JcHBM?oc=5": {
+      "title": "Integrative Bioinformatics Framework Links Microbial Genomic Potential to Active Field Bioremediation",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMingFBVV95cUxOSDZjU3UxZWJPdnhTSWdEV1JyZ3V0WlhrbTVFMnBsdDFidDZrb2J1M2xucHZqTUpfcUFITTZMeDR0b1B1OEotT0ZoRGRxbjFwRjJtaVdDVEdlVjlsQW40ZHZzSl9KNFpDRXkxeDZ5dGRKWnJNOWp3cGc5cWstbHhRR2RiVWRmZjE5Yy03YnAySHc4amo4SVF5dmhvRjBfUQ?oc=5": {
+      "title": "House panel pushes to reverse 'hollowing out' of US biotech amid China's rise",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxQT1diZmlkanBUaXZmdU5CcS1PN0wtQm45SzkxbXNUeFB5TVc4Yl9mNnVfVW1sdDYzamc4SnI0b3hlNGxqeVFEUlRMWUpCeUVvWmpydTkzdHdUM29HZ1VqTm9pSnRWYml1OHFMakZua0Zxa3ZDTTZEc1JCZTEwTm9wTFJaNmFXVHh2N2s1LU1iY2c0UHpBZWdsc3N1c3k?oc=5": {
+      "title": "Led by founders of J&J-acquired Intra-Cellular, Ritzey debuts with $112M for DYRK1A inhibitors",
+      "ts": "2026-11-24T16:12:09.174073+00:00",
       "status": "skipped"
     }
   }
