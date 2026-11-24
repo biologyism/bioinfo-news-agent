@@ -1,6 +1,6 @@
 {
-  "daily_date": "2026-11-24",
-  "daily_post_count": 27,
+  "daily_date": "2026-11-25",
+  "daily_post_count": 2,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2255,6 +2255,81 @@
     "https://news.google.com/rss/articles/CBMinAFBVV95cUxQT1diZmlkanBUaXZmdU5CcS1PN0wtQm45SzkxbXNUeFB5TVc4Yl9mNnVfVW1sdDYzamc4SnI0b3hlNGxqeVFEUlRMWUpCeUVvWmpydTkzdHdUM29HZ1VqTm9pSnRWYml1OHFMakZua0Zxa3ZDTTZEc1JCZTEwTm9wTFJaNmFXVHh2N2s1LU1iY2c0UHpBZWdsc3N1c3k?oc=5": {
       "title": "Led by founders of J&J-acquired Intra-Cellular, Ritzey debuts with $112M for DYRK1A inhibitors",
       "ts": "2026-11-24T16:12:09.174073+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014968": {
+      "title": "CoEVFold suite: User friendly pipelines to visually represent protein coevolution",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.14.766667v1": {
+      "title": "Deciphering Molecular Language for Spectral Interpretation with a Foundation Model Pretrained on Repository-Wide Metabolomics Data",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.22.768440v1": {
+      "title": "Multi-omics causal deep learning reveals regulatory structure while interventions refine perturbation predictions",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.22.768448v1": {
+      "title": "Disentangling within-cell-type heterogeneity from transcript contamination in imaging-based spatial transcriptomics",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.14.766721v1": {
+      "title": "BiocPy: A Framework for Cross-Platform Genomic Data andMethods Interoperability",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768697v1": {
+      "title": "ELLA-mix: Detecting Cell-to-Cell Heterogeneity in Subcellular RNALocalization",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768692v1": {
+      "title": "Benchmarking sample mispairing detection tools in complex cancer datasets",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768521v1": {
+      "title": "Confidence-guided spatial gene expression inference for reliability-aware prognostic analysis from histology",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.22.767969v1": {
+      "title": "GlycanPUG: WURCS-Based Heterogeneous Graph Pretraining for Structurally Ambiguous Glycans",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41588-026-02838-x": {
+      "title": "Exhaustive rearrangement of an enhancer reveals that dependency-syntax encodes tissue specificity",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768572v1": {
+      "title": "A refined InDel taxonomy broadens the repertoire of mutational processes shaping multiple myeloma",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43076031/": {
+      "title": "Bridging Graph and Pairwise Learning for Gene Regulatory Network Inference from scRNA-seq Data.",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768510v1": {
+      "title": "Unipept in 2026: A Unified Web Platform for Comparative Metaproteomics Analysis",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768576v1": {
+      "title": "APEs: Agentic Prediction of Epitopes to Guide Antibody-Antigen Structure Prediction",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768163v1": {
+      "title": "Fast draft assemblies using locally consistent parsing",
+      "ts": "2026-11-24T23:30:32.052920+00:00",
       "status": "skipped"
     }
   }
