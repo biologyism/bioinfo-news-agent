@@ -903,7 +903,7 @@ closing_question: ""
             endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
             model_payload = json.loads(json.dumps(payload))
             if any(tag in model for tag in ("3.8", "3.6", "3-flash")):
-                model_payload["generationConfig"]["thinkingConfig"] = {"thinkingLevel": "LOW"}
+                model_payload["generationConfig"]["thinkingConfig"] = {"thinkingLevel": "low"}
             for k_idx, api_key in enumerate(gemini_keys, 1):
                 try:
                     print(f"[INFO] Calling Writer Agent (Gemini: {model}, key #{k_idx})")
@@ -916,11 +916,11 @@ closing_question: ""
                     if resp.status_code == 400 and "thinkingConfig" in model_payload["generationConfig"]:
                         model_payload["generationConfig"].pop("thinkingConfig", None)
                         resp = requests.post(endpoint, params={"key": api_key}, json=model_payload, timeout=30)
-                    if resp.status_code == 404:
-                        print(f"[WARN] Model {model} returned 404: {resp.text[:200]}")
+                    if resp.status_code in {404, 503}:
+                        print(f"[WARN] Model {model} returned {resp.status_code} (skipping model): {resp.text[:200]}")
                         last_err = resp.text
                         break
-                    if resp.status_code in {400, 403, 429, 503}:
+                    if resp.status_code in {400, 403, 429}:
                         print(f"[WARN] Model {model} key #{k_idx} returned {resp.status_code}: {resp.text[:200]}")
                         last_err = resp.text
                         continue

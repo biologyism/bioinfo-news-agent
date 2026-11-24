@@ -221,7 +221,7 @@ def call_edu_json_with_failover(
                 "responseSchema": response_schema,
             }
             if any(tag in model for tag in ("3.8", "3.6", "3-flash")):
-                gen_cfg["thinkingConfig"] = {"thinkingLevel": "LOW"}
+                gen_cfg["thinkingConfig"] = {"thinkingLevel": "low"}
 
             payload = {
                 "system_instruction": {"parts": [{"text": system_instruction}]},
@@ -245,11 +245,11 @@ def call_edu_json_with_failover(
                             json=payload,
                             timeout=32,
                         )
-                    if resp.status_code == 404:
-                        last_err = f"HTTP 404 on {model}: {resp.text[:180]}"
-                        print(f"[WARN] Edu Gemini {model} -> 404")
+                    if resp.status_code in {404, 503}:
+                        last_err = f"HTTP {resp.status_code} on {model}: {resp.text[:180]}"
+                        print(f"[WARN] Edu Gemini {model} -> {resp.status_code} (skipping model)")
                         break
-                    if resp.status_code in {400, 403, 429, 503}:
+                    if resp.status_code in {400, 403, 429}:
                         last_err = f"HTTP {resp.status_code} ({model} key #{k_idx}): {resp.text[:180]}"
                         print(f"[WARN] {last_err}")
                         continue
@@ -335,7 +335,7 @@ def generate_edu_carousel(
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
 
-    source_note = f"\nمتن مرجع انتخابی کاربر برای تبدیل به اسلاید:\n{reply_context[:2500]}\n" if reply_context else ""
+    source_note = f"\nمتن مرجع انتخابی کاربر برای تبدیل به اسلاید:\n{reply_context[:3500]}\n" if reply_context else ""
     user_prompt = (
         f"درخواست کاربر: {user_query or topic_hint}\n"
         f"تعداد دقیق اسلایدها: {slide_count}\n"
