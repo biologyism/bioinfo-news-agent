@@ -621,6 +621,7 @@ def call_openai_compat_json(
     payload: dict[str, Any] = {
         "model": model,
         "temperature": 0.25,
+        "max_tokens": 4096,
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
@@ -1186,13 +1187,30 @@ def update_progress(
         )
         payload["reply_markup"] = {"inline_keyboard": [[btn]]}
     try:
-        requests.post(
+        r = requests.post(
             f"https://api.telegram.org/bot{bot_token}/editMessageText",
             json=payload,
             timeout=10,
         )
-    except Exception:
-        pass
+        if r.status_code != 200:
+            print(f"[WARN] update_progress HTTP {r.status_code}: {r.text[:180]}")
+            if done and label.startswith("⚠️"):
+                requests.post(
+                    f"https://api.telegram.org/bot{bot_token}/sendMessage",
+                    json={"chat_id": chat_ids[0], "text": text, "parse_mode": "HTML"},
+                    timeout=10,
+                )
+    except Exception as exc:
+        print(f"[WARN] update_progress failed: {exc}")
+        if done and label.startswith("⚠️"):
+            try:
+                requests.post(
+                    f"https://api.telegram.org/bot{bot_token}/sendMessage",
+                    json={"chat_id": chat_ids[0], "text": text, "parse_mode": "HTML"},
+                    timeout=10,
+                )
+            except Exception:
+                pass
 
 
 def main() -> None:
@@ -1232,7 +1250,7 @@ def main() -> None:
                     target_chat_ids,
                     status_msg_id,
                     100,
-                    f"⚠️ خطا در تولید محتوای آموزشی: {html.escape(str(exc)[:220])}",
+                    f"⚠️ خطا در تولید محتوای آموزشی: {str(exc)[:220]}",
                     done=True,
                 )
             raise

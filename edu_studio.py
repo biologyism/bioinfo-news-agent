@@ -199,27 +199,39 @@ def call_edu_json_with_failover(
     preferred = os.getenv("GEMINI_MODEL", "").strip()
     models_to_try = ([preferred] if preferred else []) + [m for m in GEMINI_MODELS if m != preferred]
 
-    payload = {
-        "system_instruction": {"parts": [{"text": system_instruction}]},
-        "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
-        "generationConfig": {
-            "temperature": 0.4,
-            "responseMimeType": "application/json",
-            "responseSchema": response_schema,
-        },
-    }
-
     last_err = None
     if api_key:
         for model in models_to_try:
+            gen_cfg: dict[str, Any] = {
+                "temperature": 0.4,
+                "maxOutputTokens": 4096,
+                "responseMimeType": "application/json",
+                "responseSchema": response_schema,
+            }
+            if any(tag in model for tag in ("3.8", "3.6", "3-flash")):
+                gen_cfg["thinkingConfig"] = {"thinkingLevel": "LOW"}
+
+            payload = {
+                "system_instruction": {"parts": [{"text": system_instruction}]},
+                "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
+                "generationConfig": gen_cfg,
+            }
             try:
                 print(f"[INFO] Edu Studio calling Gemini: {model}")
                 resp = requests.post(
                     f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
                     params={"key": api_key},
                     json=payload,
-                    timeout=45,
+                    timeout=32,
                 )
+                if resp.status_code == 400 and "thinkingConfig" in gen_cfg:
+                    gen_cfg.pop("thinkingConfig", None)
+                    resp = requests.post(
+                        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                        params={"key": api_key},
+                        json=payload,
+                        timeout=32,
+                    )
                 if resp.status_code in {400, 403, 404, 429, 503}:
                     last_err = f"HTTP {resp.status_code}: {resp.text[:220]}"
                     print(f"[WARN] Edu Gemini {model} -> {last_err}")
@@ -231,22 +243,22 @@ def call_edu_json_with_failover(
                 last_err = str(exc)
                 print(f"[WARN] Edu Gemini {model} failed: {exc}")
 
-    # Multi-Provider Failover: OpenRouter -> Groq -> Cloudflare Workers AI
-    or_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    # Multi-Provider Failover: Groq (fast!) -> Cloudflare Workers AI (with max_tokens=4096) -> OpenRouter
     groq_key = os.getenv("GROQ_API_KEY", "").strip()
     cf_acc = os.getenv("CF_ACCOUNT_ID", "").strip()
     cf_tok = os.getenv("CF_AI_TOKEN", "").strip()
+    or_key = os.getenv("OPENROUTER_API_KEY", "").strip()
 
     providers = []
-    if or_key:
-        providers.append(("https://openrouter.ai/api/v1/chat/completions", or_key, "openrouter/free", False))
     if groq_key:
-        providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "openai/gpt-oss-120b", True))
         providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "llama-3.3-70b-versatile", True))
+        providers.append(("https://api.groq.com/openai/v1/chat/completions", groq_key, "openai/gpt-oss-120b", True))
     if cf_acc and cf_tok:
         cf_ep = f"https://api.cloudflare.com/client/v4/accounts/{cf_acc}/ai/v1/chat/completions"
-        providers.append((cf_ep, cf_tok, "@cf/openai/gpt-oss-120b", False))
         providers.append((cf_ep, cf_tok, "@cf/meta/llama-3.3-70b-instruct-fp8-fast", False))
+        providers.append((cf_ep, cf_tok, "@cf/openai/gpt-oss-120b", False))
+    if or_key:
+        providers.append(("https://openrouter.ai/api/v1/chat/completions", or_key, "openrouter/free", False))
 
     for ep, key, model, use_jm in providers:
         try:
@@ -255,6 +267,7 @@ def call_edu_json_with_failover(
             body: dict[str, Any] = {
                 "model": model,
                 "temperature": 0.35,
+                "max_tokens": 4096,
                 "messages": [
                     {"role": "system", "content": system_instruction + json_hint},
                     {"role": "user", "content": user_prompt},
@@ -262,15 +275,19 @@ def call_edu_json_with_failover(
             }
             if use_jm:
                 body["response_format"] = {"type": "json_object"}
-            r = requests.post(ep, headers=headers, json=body, timeout=50)
+            r = requests.post(ep, headers=headers, json=body, timeout=40)
             if r.status_code == 400 and use_jm:
                 body.pop("response_format", None)
-                r = requests.post(ep, headers=headers, json=body, timeout=50)
+                r = requests.post(ep, headers=headers, json=body, timeout=40)
             if r.status_code != 200:
                 last_err = f"{model} HTTP {r.status_code}: {r.text[:200]}"
                 print(f"[WARN] {last_err}")
                 continue
-            content = r.json()["choices"][0]["message"]["content"]
+            content = (r.json()["choices"][0]["message"].get("content") or "").strip()
+            if not content:
+                last_err = f"{model} returned empty content"
+                print(f"[WARN] {last_err}")
+                continue
             return _extract_json_obj(content)
         except Exception as exc:
             last_err = f"{model}: {exc}"
@@ -676,11 +693,14 @@ def format_editable_slides_text(carousel: dict[str, Any]) -> str:
     lines = [f"🎓 <b>{html.escape(carousel.get('post_title') or 'پست آموزشی بیوانفورماتیک')}</b>\n"]
     for s in carousel.get("slides") or []:
         n = to_fa_digits(s.get("slide_number") or 1)
-        lines.append(f"📌 <b>اسلاید {n}: {html.escape(s.get('headline') or '')}</b>")
-        for bp in s.get("body_points") or []:
-            lines.append(f"• {html.escape(bp)}")
+        lines.append(f"📌 <b>اسلاید {n}: {html.escape(str(s.get('headline') or ''))}</b>")
+        pts = s.get("body_points") or []
+        if isinstance(pts, str):
+            pts = [pts]
+        for bp in pts:
+            lines.append(f"• {html.escape(str(bp))}")
         if s.get("tool_spotlight"):
-            lines.append(f"🛠 <i>ابزار: {html.escape(s['tool_spotlight'])}</i>")
+            lines.append(f"🛠 <i>ابزار: {html.escape(str(s['tool_spotlight']))}</i>")
         lines.append("")
 
     cap = (carousel.get("telegram_caption") or "").strip()
@@ -826,15 +846,18 @@ def run_edu_studio(
         target_cats=plan.get("target_categories") or [],
     )
 
-    with ThreadPoolExecutor(max_workers=8) as ex:
-        enriched_repos = list(ex.map(fetch_github_repo_meta, [r["repo"] for r in matched["repos"][:8]]))
+    with ThreadPoolExecutor(max_workers=6) as ex:
+        enriched_repos = list(ex.map(fetch_github_repo_meta, [r["repo"] for r in matched["repos"][:5]]))
 
     context_bundle = {
-        "matched_curated_repos": matched["repos"],
-        "live_github_metadata": enriched_repos,
-        "parent_awesome_lists": matched["parent_directories"],
-        "github_topics": matched["topics"],
-        "iran_persian_searches": matched["iran_searches"],
+        "matched_curated_repos": matched["repos"][:9],
+        "live_github_metadata": [
+            {"repo": e["repo"], "stars": e.get("stars"), "desc": (e.get("description") or "")[:140]}
+            for e in enriched_repos
+        ],
+        "parent_awesome_lists": matched["parent_directories"][:3],
+        "github_topics": matched["topics"][:4],
+        "iran_persian_searches": matched["iran_searches"][:3],
     }
 
     wants_slides_format = with_images or bool(re.search(r"(اسلاید|کاروسل|slide|carousel)", custom_query or "", re.I))
