@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 import requests
-from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps, features
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps, features
 
 BASE_DIR = Path(__file__).resolve().parent
 LIBRARY_PATH = BASE_DIR / "knowledge" / "bioinfo_library.json"
@@ -551,6 +551,8 @@ def resolve_design_profile(
         palette["primary"] = str(spec["primary_hex"]).strip()
     if spec.get("accent_hex") and re.fullmatch(r"#[0-9A-Fa-f]{6}", str(spec["accent_hex"]).strip()):
         palette["accent"] = str(spec["accent_hex"]).strip()
+    if spec.get("secondary_hex") and re.fullmatch(r"#[0-9A-Fa-f]{6}", str(spec["secondary_hex"]).strip()):
+        palette["secondary"] = str(spec["secondary_hex"]).strip()
     if spec.get("text_hex") and re.fullmatch(r"#[0-9A-Fa-f]{6}", str(spec["text_hex"]).strip()):
         palette["text"] = str(spec["text_hex"]).strip()
 
@@ -572,10 +574,24 @@ def resolve_design_profile(
         b2 = _blend_rgb((255, 255, 255), a_rgb, 0.25)
         palette["blob1"] = f"#{b1[0]:02X}{b1[1]:02X}{b1[2]:02X}"
         palette["blob2"] = f"#{b2[0]:02X}{b2[1]:02X}{b2[2]:02X}"
-        # Guarantee dark readable text on light backgrounds
         bg_lum = 0.299 * bg_rgb[0] + 0.587 * bg_rgb[1] + 0.114 * bg_rgb[2]
         if bg_lum > 180 and not spec.get("text_hex"):
             palette["text"] = "#2E3438"
+
+    is_ref = bool(spec)
+    # Default reference story tokens when cloned from an image
+    card_style = str(spec.get("card_style") or ("frosted_gradient" if (ar == "story" and is_ref) else "solid_clean")).lower()
+    try:
+        card_width_ratio = float(spec.get("card_width_ratio") or (0.72 if ar == "story" else 0.88))
+        card_width_ratio = max(0.62, min(0.92, card_width_ratio))
+    except Exception:
+        card_width_ratio = 0.72 if ar == "story" else 0.88
+
+    cta_style = str(spec.get("cta_style") or ("pill" if (has_cta and not is_ref) else ("inline_text" if ar == "story" else "pill"))).lower()
+    if spec.get("cta_style"):
+        cta_style = str(spec["cta_style"]).lower()
+    elif spec.get("has_cta_pill") is True:
+        cta_style = "pill"
 
     return {
         "aspect": ar,
@@ -587,7 +603,17 @@ def resolve_design_profile(
         "layout_pref": layout_pref,
         "visual_style_en": visual_style_en,
         "palette": palette,
-        "is_reference_clone": bool(spec),
+        "is_reference_clone": is_ref,
+        "card_style": card_style,
+        "card_grad_start_hex": str(spec.get("card_grad_start_hex") or ""),
+        "card_grad_end_hex": str(spec.get("card_grad_end_hex") or ""),
+        "card_width_ratio": card_width_ratio,
+        "hero_overlap": bool(spec.get("hero_overlap", ar == "story")),
+        "headline_two_tone": bool(spec.get("headline_two_tone", is_ref and ar == "story")),
+        "has_dividers": bool(spec.get("has_dividers", True)),
+        "cta_style": cta_style,
+        "show_top_badge": bool(spec.get("show_top_badge", not is_ref)),
+        "show_footer": bool(spec.get("show_footer", not (is_ref and ar == "story"))),
     }
 
 
@@ -610,17 +636,18 @@ def generate_edu_carousel(
     if slide_count == 1:
         structure_rules = (
             "1. **تعداد دقیق اسلایدها: ۱ اسلاید مستقل و کامل (`role: \"story_card\"`):**\n"
-            "   - `headline`: تیتر اصلی کوتاه و کوبنده (حداکثر ۷ کلمه).\n"
-            "   - `highlight_phrase`: ۱ تا ۳ کلمه کلیدی از تیتر (یا زیرتیتر رنگی) برای هایلایت رنگی دقیقاً مثل سبک استوری‌های حرفه‌ای آکادمی.\n"
-            "   - `body_points`: **۳ تا ۵ بولت کوتاه** به فرمت `عنوان کوتاه: توضیح ۵ تا ۸ کلمه‌ای` (مثلاً `ردیابی ژن‌های بیماری‌زا: کشف کلید اصلی بیماری‌ها`).\n"
-            "   - `cta_text`: ۱ جمله کوتاه دعوت به اقدام برای پایین کارت (مثلاً «برای دریافت آموزش کامل، کلمه R را ریپلای کنید» یا «این کارت رو برای هم‌رشته‌ای‌ات بفرست»).\n"
-            "   - `tool_spotlight`: خالی `\"\"` بگذار مگر یک ابزار ضروری باشد.\n"
-            "   - `visual_prompt`: توصیف انگلیسی یک **شیء یا مفهوم علمی سه‌بعدی شیشه‌ای/پاستلی مینیمال** دقیقاً مرتبط با موضوع."
+            "   - `headline`: تیتر اصلی دقیق و کوبنده (اگر کاربر خودش تیتر نوشته، عین همان را حفظ کن!).\n"
+            "   - `subtitle`: زیرتیتر کوتاه (مثل «از سرفصل‌های طرح ملی بیوانفورماتیک...»؛ اگر نبود `\"\"` بگذار).\n"
+            "   - `highlight_phrase`: بخشی از تیتر (مثلاً اسم زبان/فناوری یا خط دوم تیتر) برای رنگ تأکیدی.\n"
+            "   - `body_points`: **۳ تا ۶ بولت کوتاه** به فرمت `عنوان کوتاه: توضیح ۵ تا ۱۰ کلمه‌ای`؛ **اگر کاربر خودش بولت‌ها را فرستاده، همهٔ آن‌ها را کامل و بدون حذف هیچ موردی حفظ کن!**\n"
+            "   - `cta_text`: جمله دعوت به اقدام پایین کارت (اگر کاربر خودش CTA یا عبارت ریپلای داده، عین همان را بگذار!).\n"
+            "   - `tool_spotlight`: خالی `\"\"` بگذار مگر ابزار خاصی لازم باشد.\n"
+            "   - `visual_prompt`: توصیف انگلیسی فقط **یک آبجکت یا نماد سه‌بعدی شیشه‌ای/پاستلی مینیمال** دقیقاً متناسب با موضوع (مثلاً `3D frosted iridescent translucent glass Python snake logo sculpture`)."
         )
     else:
         structure_rules = (
             f"1. **تعداد دقیق اسلایدها: {slide_count} اسلاید (حتماً دقیقاً {slide_count} آبجکت در آرایه `slides` بساز!):**\n"
-            "   - اسلاید ۱ (`role: \"cover\"`): تیتر کوتاه و کنجکاوکننده (حداکثر ۸ کلمه، غیرزرد) + `highlight_phrase` (۲ تا ۳ کلمه کلیدی تیتر برای رنگ تأکیدی) + ۱ زیرتیتر کوتاه در `body_points` + `cta_text: \"\"`.\n"
+            "   - اسلاید ۱ (`role: \"cover\"`): تیتر کوتاه و کنجکاوکننده (حداکثر ۸ کلمه، غیرزرد) + `subtitle` کوتاه + `highlight_phrase` (۲ تا ۳ کلمه کلیدی تیتر برای رنگ تأکیدی) + ۱ زیرتیتر کوتاه در `body_points` + `cta_text: \"\"`.\n"
             f"   - اسلایدهای ۲ تا {slide_count - 1} (`role: \"content\"`): هر اسلاید یک تکهٔ کلیدی را با ۲ تا ۳ جمله یا بولت خیلی کوتاه (هر کدام ۶ تا ۱۲ کلمه) بگوید + `highlight_phrase` (عبارت کلیدی داخل متن برای هایلایت رنگی).\n"
             f"   - اسلاید آخر {slide_count} (`role: \"summary\"`): جمع‌بندی شفاف + ۲ نکته عملی + `cta_text` (دعوت به ذخیره/ارسال یا ریپلای)."
         )
@@ -630,9 +657,9 @@ def generate_edu_carousel(
 
 قوانین طلایی نگارش برای اسلاید ({'استوری ۹:۱۶' if is_story else 'پست ۴:۵'}):
 {structure_rules}
-2. **هیچ حس زردی و کلیک‌بیت نداشته باشد:** کلمات زرد («معجزه»، «باورنکردنی»، «انفجار») ممنوع! لحن علمیِ باوقار، واضح، موجز و خودمونی باشد.
-3. **کمتر تخصصی و کاملاً مفهوم:** اصطلاحات سنگین انگلیسی را بدون توضیح نیاور؛ مفهوم را خیلی مستقیم و شفاف بنویس.
-4. **ممنوعیت ایموجی در عکس:** داخل `headline`، `highlight_phrase`، `badge`، `body_points`، `cta_text` و `tool_spotlight` به هیچ وجه ایموجی نگذار تا فونت کلمه/پینار خراب نشود (ایموجی را فقط در `telegram_caption` بگذار).
+2. **وفاداری کامل به متن کاربر:** اگر کاربر در پیامش یا `reply_context` تیتر، زیرتیتر، لیست بولت‌ها یا CTA مشخصی نوشته، هیچ بولت یا خطی را حذف یا تحریف نکن — دقیقاً همان‌ها را (حداکثر با حذف ایموجی داخل کارت و خلاصه‌سازی ملایم پاراگراف‌های طولانی اضافه) در فیلدهای اسلاید قرار بده.
+3. **هیچ حس زردی و کلیک‌بیت نداشته باشد:** کلمات زرد («معجزه»، «باورنکردنی»، «انفجار») ممنوع! لحن علمیِ باوقار، واضح، موجز و خودمونی باشد.
+4. **ممنوعیت ایموجی در عکس:** داخل `headline`، `subtitle`، `highlight_phrase`، `badge`، `body_points`، `cta_text` و `tool_spotlight` به هیچ وجه ایموجی نگذار تا فونت کلمه/پینار خراب نشود (ایموجی را فقط در `telegram_caption` بگذار).
 5. `telegram_caption`: کپشن کوتاه و شیک (۳ تا ۴ خط + ۴ هشتگ تخصصی).{style_note}
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
@@ -660,6 +687,7 @@ def generate_edu_carousel(
                         "role": {"type": "STRING"},
                         "badge": {"type": "STRING"},
                         "headline": {"type": "STRING"},
+                        "subtitle": {"type": "STRING"},
                         "highlight_phrase": {"type": "STRING"},
                         "body_points": {"type": "ARRAY", "items": {"type": "STRING"}},
                         "tool_spotlight": {"type": "STRING"},
@@ -671,6 +699,7 @@ def generate_edu_carousel(
                         "role",
                         "badge",
                         "headline",
+                        "subtitle",
                         "highlight_phrase",
                         "body_points",
                         "tool_spotlight",
@@ -696,7 +725,7 @@ def generate_edu_carousel(
     }
     json_hint = (
         '\nReturn ONLY valid JSON: {"post_title": str, "slides": [{"slide_number": int, "role": "cover"|"content"|"summary"|"story_card", '
-        '"badge": str, "headline": str, "highlight_phrase": str, "body_points": [str], "tool_spotlight": str, "cta_text": str, "visual_prompt": str}], '
+        '"badge": str, "headline": str, "subtitle": str, "highlight_phrase": str, "body_points": [str], "tool_spotlight": str, "cta_text": str, "visual_prompt": str}], '
         '"telegram_caption": str, "selected_repos": [{"repo": str, "why_persian": str}]}.'
     )
     return call_edu_json_with_failover(system_instruction, user_prompt, schema, json_hint)
@@ -720,10 +749,11 @@ def generate_cf_art(prompt: str, design_profile: dict[str, Any] | None = None) -
         )[:1500]
     else:
         clean_p = (
-            f"3D translucent frosted glass and smooth matte pastel scientific render of {prompt.strip()}, "
-            f"color accents {pal.get('primary', '#0D9488')} and {pal.get('accent', '#E87A42')}, "
-            f"centered isolated object on pure solid #FFFFFF white studio background, soft subtle drop shadow, "
-            f"minimalist editorial medical visualization, {style_extra}, strictly no text, no letters, no labels, no watermark"
+            f"Single centered floating 3D object: {prompt.strip()}, "
+            f"frosted iridescent translucent glass and smooth glossy pastel studio render, "
+            f"subtle rim lighting in {pal.get('primary', '#C85086')} and {pal.get('secondary', '#6CA99B')}, "
+            f"isolated on pure flat solid #FFFFFF white background, plenty of white margin around the object, "
+            f"{style_extra}, no box, no frame, no floor, no text, no letters, no watermark"
         )[:1500]
     try:
         r = requests.post(
@@ -853,22 +883,93 @@ def load_slide_fonts(role: str, query_hint: str = "") -> tuple[ImageFont.FreeTyp
 
 
 def _remove_white_backdrop(img: Image.Image) -> Image.Image:
-    """Convert near-white studio background to smooth alpha so 3D renders float over the grid/card."""
+    """Border-connected BFS flood-fill alpha matte so gray/white FLUX studio backdrops vanish with zero square border."""
+    from collections import deque
+
     rgba = img.convert("RGBA")
-    px = rgba.getdata()
-    new_px = []
-    for r, g, b, a in px:
-        mn = min(r, g, b)
-        mx = max(r, g, b)
-        sat = mx - mn
-        if mn >= 238 and sat <= 18:
-            # Smooth transition from 238..252 -> alpha 255..0
-            fade = max(0, min(255, int(255 * (252 - mn) / 14)))
-            new_px.append((r, g, b, min(a, fade)))
-        else:
-            new_px.append((r, g, b, a))
-    rgba.putdata(new_px)
-    return rgba
+    orig_w, orig_h = rgba.size
+    sw, sh = 320, max(1, round(320 * orig_h / max(1, orig_w)))
+    small = rgba.resize((sw, sh), Image.Resampling.BILINEAR)
+    px = list(small.getdata())
+
+    # Sample median backdrop color from outer 2px border
+    border_samples = []
+    for x in range(sw):
+        border_samples.append(px[x][:3])
+        border_samples.append(px[(sh - 1) * sw + x][:3])
+    for y in range(sh):
+        border_samples.append(px[y * sw][:3])
+        border_samples.append(px[y * sw + (sw - 1)][:3])
+    border_samples.sort(key=lambda c: c[0] + c[1] + c[2])
+    bg_r, bg_g, bg_b = border_samples[len(border_samples) // 2]
+
+    # Only strip if outer border is actually a studio light/neutral backdrop
+    if min(bg_r, bg_g, bg_b) < 165:
+        return rgba
+
+    tol_sq = 54 * 54  # captures off-white, #ECE9ED light gray, and soft gradient studios
+    visited = bytearray(sw * sh)
+    bg_mask = bytearray(sw * sh)
+    q: deque[int] = deque()
+
+    def _try_push(idx: int) -> None:
+        if visited[idx]:
+            return
+        r, g, b, _ = px[idx]
+        dr, dg, db = r - bg_r, g - bg_g, b - bg_b
+        # Also allow slightly darker/lighter neutral gray/white near border
+        sat = max(r, g, b) - min(r, g, b)
+        if (dr * dr + dg * dg + db * db <= tol_sq) or (min(r, g, b) >= 218 and sat <= 18):
+            visited[idx] = 1
+            bg_mask[idx] = 1
+            q.append(idx)
+
+    for x in range(sw):
+        _try_push(x)
+        _try_push((sh - 1) * sw + x)
+    for y in range(sh):
+        _try_push(y * sw)
+        _try_push(y * sw + (sw - 1))
+
+    while q:
+        idx = q.popleft()
+        x = idx % sw
+        y = idx // sw
+        if x > 0:
+            _try_push(idx - 1)
+        if x + 1 < sw:
+            _try_push(idx + 1)
+        if y > 0:
+            _try_push(idx - sw)
+        if y + 1 < sh:
+            _try_push(idx + sw)
+
+    # Build soft alpha map (0 where background, 255 where foreground, plus outer 4% edge safety vignette)
+    alpha_small = Image.new("L", (sw, sh), 255)
+    apx = [0 if bg_mask[i] else 255 for i in range(sw * sh)]
+    margin_x = max(4, int(sw * 0.04))
+    margin_y = max(4, int(sh * 0.04))
+    for y in range(sh):
+        for x in range(sw):
+            i = y * sw + x
+            if apx[i] > 0:
+                fx = min(x / margin_x, (sw - 1 - x) / margin_x, 1.0)
+                fy = min(y / margin_y, (sh - 1 - y) / margin_y, 1.0)
+                edge_f = min(fx, fy)
+                if edge_f < 1.0:
+                    apx[i] = int(apx[i] * edge_f)
+    alpha_small.putdata(apx)
+    alpha_small = alpha_small.filter(ImageFilter.GaussianBlur(radius=1.8))
+    alpha_full = alpha_small.resize((orig_w, orig_h), Image.Resampling.BICUBIC)
+
+    # Combine with original alpha
+    r_ch, g_ch, b_ch, a_ch = rgba.split()
+    merged_a = ImageChops.darker(a_ch, alpha_full)
+    out = Image.merge("RGBA", (r_ch, g_ch, b_ch, merged_a))
+    bbox = out.getbbox()
+    if bbox and (bbox[2] - bbox[0]) >= 40 and (bbox[3] - bbox[1]) >= 40:
+        out = out.crop(bbox)
+    return out
 
 
 def _draw_light_brand_background(W: int, H: int, prof: dict[str, Any]) -> Image.Image:
@@ -914,8 +1015,10 @@ def _draw_footer_and_dots(
     pal = prof["palette"]
     theme = prof["theme_mode"]
     if theme == "dark":
-        canvas_rgb = apply_academy_footer(canvas.convert("RGB"))
-        return canvas_rgb
+        return apply_academy_footer(canvas.convert("RGB"))
+
+    if prof.get("show_footer", True) is False and total_slides == 1:
+        return canvas.convert("RGB")
 
     draw = ImageDraw.Draw(canvas)
     kw_dir = {"direction": "rtl"} if HAS_RAQM else {}
@@ -923,14 +1026,11 @@ def _draw_footer_and_dots(
     prim_rgb = _hex_to_rgb(pal.get("primary") or "#0D9488")
 
     footer_y = H - 56
-    # Subtle divider line
-    draw.line([(56, footer_y - 26), (W - 56, footer_y - 26)], fill=(*muted_rgb, 40), width=1)
+    if prof.get("show_footer", True):
+        draw.line([(56, footer_y - 26), (W - 56, footer_y - 26)], fill=(*muted_rgb, 40), width=1)
+        draw.text((60, footer_y), "@ir_bioinformtic_academy", font=font_sm, fill=(*muted_rgb, 210), anchor="lm")
+        draw.text((W - 60, footer_y), shape_text("آکادمی بیوانفورماتیک ایران"), font=font_sm, fill=(*muted_rgb, 225), anchor="rm", **kw_dir)
 
-    # Left: clean academy bilingual label
-    draw.text((60, footer_y), "@ir_bioinformtic_academy", font=font_sm, fill=(*muted_rgb, 210), anchor="lm")
-    draw.text((W - 60, footer_y), shape_text("آکادمی بیوانفورماتیک ایران"), font=font_sm, fill=(*muted_rgb, 225), anchor="rm", **kw_dir)
-
-    # Center: minimal slide progress dots when > 1 slide
     if total_slides > 1:
         dots_n = min(total_slides, 12)
         dot_gap = 18
@@ -944,6 +1044,115 @@ def _draw_footer_and_dots(
             draw.ellipse([(cx - r, footer_y - r), (cx + r, footer_y + r)], fill=col)
 
     return canvas.convert("RGB")
+
+
+def _draw_frosted_gradient_card(
+    canvas: Image.Image,
+    coords: tuple[int, int, int, int],
+    radius: int,
+    start_rgb: tuple[int, int, int],
+    end_rgb: tuple[int, int, int],
+    alpha: int = 232,
+) -> Image.Image:
+    """Draw soft drop shadow + diagonal pastel frosted gradient rounded card."""
+    W, H = canvas.size
+    x1, y1, x2, y2 = coords
+    cw, ch = max(1, x2 - x1), max(1, y2 - y1)
+
+    # Soft shadow layer behind card
+    sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(sh).rounded_rectangle([(x1 + 2, y1 + 10), (x2 + 2, y2 + 16)], radius=radius, fill=(90, 80, 95, 24))
+    sh = sh.filter(ImageFilter.GaussianBlur(radius=22))
+    canvas = Image.alpha_composite(canvas, sh)
+
+    # Diagonal gradient fill inside rounded mask
+    grad = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
+    px = []
+    for y in range(ch):
+        ty = y / max(1, ch - 1)
+        for x in range(cw):
+            tx = x / max(1, cw - 1)
+            t = 0.55 * tx + 0.45 * ty
+            r = int(start_rgb[0] + (end_rgb[0] - start_rgb[0]) * t)
+            g = int(start_rgb[1] + (end_rgb[1] - start_rgb[1]) * t)
+            b = int(start_rgb[2] + (end_rgb[2] - start_rgb[2]) * t)
+            px.append((r, g, b, alpha))
+    grad.putdata(px)
+
+    mask = Image.new("L", (cw, ch), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([(0, 0), (cw - 1, ch - 1)], radius=radius, fill=255)
+    grad.putalpha(ImageChops.darker(grad.getchannel("A"), mask))
+
+    card_layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    card_layer.paste(grad, (x1, y1), mask)
+    ImageDraw.Draw(card_layer).rounded_rectangle([(x1, y1), (x2, y2)], radius=radius, outline=(255, 255, 255, 190), width=2)
+    return Image.alpha_composite(canvas, card_layer)
+
+
+def _draw_gradient_divider(
+    canvas: Image.Image,
+    x1: int,
+    x2: int,
+    y: int,
+    c1: tuple[int, int, int],
+    c2: tuple[int, int, int],
+) -> Image.Image:
+    W, H = canvas.size
+    ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    span = max(1, x2 - x1)
+    for x in range(x1, x2):
+        t = (x - x1) / span
+        fade = min(t / 0.2, (1.0 - t) / 0.2, 1.0)
+        a = int(145 * fade)
+        r = int(c1[0] + (c2[0] - c1[0]) * t)
+        g = int(c1[1] + (c2[1] - c1[1]) * t)
+        b = int(c1[2] + (c2[2] - c1[2]) * t)
+        ov.putpixel((x, y), (r, g, b, a))
+        if y + 1 < H:
+            ov.putpixel((x, y + 1), (r, g, b, a // 2))
+    return Image.alpha_composite(canvas, ov)
+
+
+def _draw_centered_rtl_with_accent(
+    draw: ImageDraw.ImageDraw,
+    center_x: int,
+    y: int,
+    line: str,
+    font_reg: ImageFont.FreeTypeFont,
+    font_bold: ImageFont.FreeTypeFont,
+    base_rgb: tuple[int, int, int],
+    accent_rgb: tuple[int, int, int],
+    accent_token: str = "",
+) -> None:
+    """Draw a centered RTL line, coloring «quoted» or accent_token in accent_rgb."""
+    kw_dir = {"direction": "rtl"} if HAS_RAQM else {}
+    m = re.search(r"«[^»]+»", line)
+    tok = m.group(0) if m else (accent_token if (accent_token and accent_token in line) else "")
+    if not tok:
+        draw.text((center_x, y), shape_text(line), font=font_reg, fill=(*base_rgb, 255), anchor="ma", **kw_dir)
+        return
+
+    # Measure total width of the full shaped line and split pieces cleanly in RTL visual order (right -> left)
+    idx = line.find(tok)
+    pre = line[:idx]
+    post = line[idx + len(tok):]
+    segs = []
+    if pre:
+        segs.append((pre, font_reg, base_rgb))
+    segs.append((tok, font_bold, accent_rgb))
+    if post:
+        segs.append((post, font_reg, base_rgb))
+
+    widths = []
+    for txt, fnt, _ in segs:
+        bb = draw.textbbox((0, 0), shape_text(txt), font=fnt, **kw_dir)
+        widths.append(bb[2] - bb[0])
+    total_w = sum(widths)
+    # In RTL, logical first segment (`pre`) sits on the RIGHT
+    cur_right = center_x + total_w // 2
+    for (txt, fnt, col), w in zip(segs, widths):
+        draw.text((cur_right, y), shape_text(txt), font=fnt, fill=(*col, 255), anchor="ra", **kw_dir)
+        cur_right -= w
 
 
 def _paste_3d_visual(
@@ -990,22 +1199,23 @@ def render_carousel_slide(
 
     prim_rgb = _hex_to_rgb(pal["primary"])
     acc_rgb = _hex_to_rgb(pal["accent"])
+    sec_rgb = _hex_to_rgb(pal.get("secondary") or pal["primary"])
     text_rgb = _hex_to_rgb(pal["text"])
     muted_rgb = _hex_to_rgb(pal.get("muted") or "#5E666B")
     card_rgb = _hex_to_rgb(pal.get("card") or "#FFFFFF")
 
     font_eb, font_b, font_r, font_sm = load_slide_fonts("cover" if role in {"cover", "story_card"} else "content", font_hint)
     if is_story:
-        # Scale headings slightly larger for tall 1080x1920 story canvas
-        font_eb = ImageFont.truetype(font_eb.path, int(font_eb.size * 1.08))
-        font_b = ImageFont.truetype(font_b.path, int(font_b.size * 1.05))
-        font_r = ImageFont.truetype(font_r.path, int(font_r.size * 1.05))
+        font_eb = _load_font_with_weight(Path(font_eb.path), int(font_eb.size * 1.12), 850)
+        font_b = _load_font_with_weight(Path(font_b.path), int(font_b.size * 1.02), 700)
+        font_r = _load_font_with_weight(Path(font_r.path), int(font_r.size * 0.96), 400)
 
     canvas = _draw_light_brand_background(W, H, prof)
     draw = ImageDraw.Draw(canvas, "RGBA")
     kw_dir = {"direction": "rtl"} if HAS_RAQM else {}
 
     headline = strip_emojis_for_card(slide.get("headline") or "")
+    subtitle_txt = strip_emojis_for_card(slide.get("subtitle") or "")
     hl_phrase = strip_emojis_for_card(slide.get("highlight_phrase") or "")
     badge_txt = strip_emojis_for_card(slide.get("badge") or "")
     pts = [strip_emojis_for_card(p) for p in (slide.get("body_points") or []) if strip_emojis_for_card(p)]
@@ -1028,74 +1238,145 @@ def render_carousel_slide(
 
     def draw_translucent_card(coords: list[tuple[int, int]], radius: int) -> None:
         nonlocal canvas, draw
-        ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        ImageDraw.Draw(ov).rounded_rectangle(coords, radius=radius, fill=card_fill, outline=card_outline, width=2)
-        canvas = Image.alpha_composite(canvas, ov)
-        draw = ImageDraw.Draw(canvas)
+        if prof.get("card_style") == "frosted_gradient" and theme != "dark":
+            g1 = _hex_to_rgb(prof.get("card_grad_start_hex"), _blend_rgb((255, 255, 255), acc_rgb, 0.16))
+            g2 = _hex_to_rgb(prof.get("card_grad_end_hex"), _blend_rgb((255, 255, 255), sec_rgb, 0.16))
+            canvas = _draw_frosted_gradient_card(canvas, (coords[0][0], coords[0][1], coords[1][0], coords[1][1]), radius, g1, g2, alpha=228)
+            draw = ImageDraw.Draw(canvas)
+        else:
+            ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+            ImageDraw.Draw(ov).rounded_rectangle(coords, radius=radius, fill=card_fill, outline=card_outline, width=2)
+            canvas = Image.alpha_composite(canvas, ov)
+            draw = ImageDraw.Draw(canvas)
 
-    # Top subtle header brand mark (for stories/covers matching Biocan/IRBIOINF style)
-    if is_story or role in {"cover", "story_card"}:
+    # Top subtle header brand mark ONLY when show_top_badge is enabled
+    if prof.get("show_top_badge", True) and (is_story or role in {"cover", "story_card"}):
         draw.text((W // 2, 52), "IRBIOINF  •  ACADEMY", font=font_sm, fill=(*muted_rgb, 210), anchor="mm")
 
     if layout == "story_card":
-        # Inspired by R story & اقساطی story: soft translucent rounded card + overlapping 3D visual + colored title + itemized points + bottom CTA pill
-        card_top = int(H * 0.21)
-        card_bot = H - (225 if cta_text else 125)
-        draw_translucent_card([(68, card_top), (W - 68, card_bot)], radius=56)
+        cw_ratio = float(prof.get("card_width_ratio") or (0.72 if is_story else 0.86))
+        card_w = int(W * cw_ratio)
+        cx1 = (W - card_w) // 2
+        cx2 = cx1 + card_w
+        cta_style = prof.get("cta_style") or "inline_text"
+        has_footer = bool(prof.get("show_footer", False))
+        card_top = int(H * (0.245 if is_story else 0.22))
+        bot_reserve = (235 if cta_text else 110) + (65 if has_footer else 0)
+        card_bot = H - bot_reserve
+        text_wrap_w = card_w - 86
 
-        # Overlapping 3D visual at top center of card
-        vis_size = int(W * 0.44)
-        canvas = _paste_3d_visual(canvas, art_bytes, ((W - vis_size) // 2, int(H * 0.075), vis_size, vis_size), theme)
+        draw_translucent_card([(cx1, card_top), (cx2, card_bot)], radius=56)
+
+        # Large floating 3D object straddling top edge of card (with zero gray square box!)
+        vis_size = int(W * (0.48 if prof.get("hero_overlap", True) else 0.40))
+        vis_y = int(card_top - vis_size * 0.56) if prof.get("hero_overlap", True) else int(H * 0.08)
+        canvas = _paste_3d_visual(canvas, art_bytes, ((W - vis_size) // 2, vis_y, vis_size, vis_size), theme)
         draw = ImageDraw.Draw(canvas)
 
-        y_cur = int(H * 0.33)
-        head_lines = wrap_text_lines(draw, headline, font_eb, W - 170)[:2]
+        y_cur = max(card_top + int(vis_size * 0.42) + 18, int(H * 0.365))
+
+        # 2-tone balanced headline (line 1 charcoal, line 2 primary rose/teal)
+        head_lines: list[str] = []
+        if prof.get("headline_two_tone", True) and hl_phrase and hl_phrase in headline and headline != hl_phrase:
+            pre_hl = headline[:headline.find(hl_phrase)].strip()
+            if pre_hl:
+                w_pre = wrap_text_lines(draw, pre_hl, font_eb, text_wrap_w)
+                w_hl = wrap_text_lines(draw, hl_phrase, font_eb, text_wrap_w)
+                if len(w_pre) == 1 and len(w_hl) == 1:
+                    head_lines = [w_pre[0], w_hl[0]]
+        if not head_lines:
+            head_lines = wrap_text_lines(draw, headline, font_eb, text_wrap_w)[:2]
+            if prof.get("headline_two_tone", True) and len(head_lines) == 1 and len(headline.split()) >= 3:
+                words_h = headline.split()
+                mid = max(1, len(words_h) // 2)
+                head_lines = [" ".join(words_h[:mid]), " ".join(words_h[mid:])]
+            elif prof.get("headline_two_tone", True) and len(head_lines) == 2 and len(head_lines[1].split()) == 1 and len(headline.split()) >= 4:
+                words_h = headline.split()
+                mid = len(words_h) // 2
+                cand1, cand2 = " ".join(words_h[:mid]), " ".join(words_h[mid:])
+                if len(wrap_text_lines(draw, cand1, font_eb, text_wrap_w)) == 1 and len(wrap_text_lines(draw, cand2, font_eb, text_wrap_w)) == 1:
+                    head_lines = [cand1, cand2]
+
         for idx_l, line in enumerate(head_lines):
-            col = (*prim_rgb, 255) if (idx_l == len(head_lines) - 1 and len(head_lines) > 1) or (hl_phrase and hl_phrase in line) else (*text_rgb, 255)
+            is_accent_line = (
+                (prof.get("headline_two_tone", True) and len(head_lines) > 1 and idx_l == len(head_lines) - 1)
+                or (not prof.get("headline_two_tone", True) and hl_phrase and hl_phrase in line)
+            )
+            col = (*prim_rgb, 255) if is_accent_line else (*text_rgb, 255)
             draw.text((W // 2, y_cur), shape_text(line), font=font_eb, fill=col, anchor="ma", **kw_dir)
-            y_cur += int(font_eb.size * 1.44)
+            y_cur += int(font_eb.size * 1.40)
 
-        if hl_phrase and hl_phrase not in headline:
-            draw.text((W // 2, y_cur + 6), shape_text(hl_phrase), font=font_b, fill=(*acc_rgb, 255), anchor="ma", **kw_dir)
-            y_cur += int(font_b.size * 1.60)
+        # Subtitle right under headline
+        sub_to_draw = subtitle_txt or (hl_phrase if (hl_phrase and hl_phrase not in headline) else "")
+        if sub_to_draw:
+            y_cur += 4
+            for sl in wrap_text_lines(draw, sub_to_draw, font_r, text_wrap_w)[:2]:
+                draw.text((W // 2, y_cur), shape_text(sl), font=font_r, fill=(*muted_rgb, 240), anchor="ma", **kw_dir)
+                y_cur += int(font_r.size * 1.40)
 
-        # Thin divider
-        y_cur += 20
-        div_col = _blend_rgb(card_rgb, prim_rgb, 0.35)
-        draw.line([(160, y_cur), (W - 160, y_cur)], fill=(*div_col, 255), width=2)
-        y_cur += 44
+        # Gradient horizontal divider
+        if prof.get("has_dividers", True):
+            y_cur += 16
+            canvas = _draw_gradient_divider(canvas, cx1 + 70, cx2 - 70, y_cur, acc_rgb, sec_rgb)
+            draw = ImageDraw.Draw(canvas)
+            y_cur += 30
+        else:
+            y_cur += 26
 
-        # Distribute points evenly inside remaining card height
-        max_pts = 5 if is_story else 3
+        # Distribute up to 6 points cleanly inside remaining card height
+        max_pts = 6 if is_story else 3
         shown_pts = pts[:max_pts]
-        avail_h = max(240, (card_bot - 50) - y_cur)
-        est_item_h = 115 if any(":" in p or "：" in p for p in shown_pts) else 85
-        step_gap = max(28, min(72, (avail_h - len(shown_pts) * est_item_h) // max(1, len(shown_pts))))
+        avail_h = max(220, (card_bot - 34) - y_cur)
+        # Estimate total item height and dynamically tune spacing so ALL bullets fit with zero clipping
+        n_items = max(1, len(shown_pts))
+        est_per_item = int(font_b.size * 1.4 + font_r.size * 1.45)
+        step_gap = max(14, min(46, (avail_h - n_items * est_per_item) // n_items))
+        item_colors = [prim_rgb, acc_rgb, sec_rgb, prim_rgb, sec_rgb, acc_rgb]
+
         for idx_p, pt in enumerate(shown_pts):
-            if y_cur > card_bot - 85:
+            if y_cur > card_bot - 60:
                 break
+            col_lbl = item_colors[idx_p % len(item_colors)]
             if ":" in pt or "：" in pt:
                 sep = "：" if "：" in pt else ":"
                 lbl, desc = pt.split(sep, 1)
-                lbl_col = (*prim_rgb, 255) if idx_p % 2 == 0 else (*acc_rgb, 255)
-                draw.text((W // 2, y_cur), shape_text(f"{lbl.strip()}:"), font=font_b, fill=lbl_col, anchor="ma", **kw_dir)
-                y_cur += int(font_b.size * 1.44)
-                for dl in wrap_text_lines(draw, desc.strip(), font_r, W - 170)[:2]:
+                draw.text((W // 2, y_cur), shape_text(f"{lbl.strip()}:"), font=font_b, fill=(*col_lbl, 255), anchor="ma", **kw_dir)
+                y_cur += int(font_b.size * 1.38)
+                for dl in wrap_text_lines(draw, desc.strip(), font_r, text_wrap_w)[:2]:
                     draw.text((W // 2, y_cur), shape_text(dl), font=font_r, fill=(*text_rgb, 255), anchor="ma", **kw_dir)
-                    y_cur += int(font_r.size * 1.48)
+                    y_cur += int(font_r.size * 1.38)
                 y_cur += step_gap
             else:
-                for dl in wrap_text_lines(draw, pt, font_r, W - 170)[:2]:
+                for dl in wrap_text_lines(draw, pt, font_r, text_wrap_w)[:2]:
                     draw.text((W // 2, y_cur), shape_text(dl), font=font_r, fill=(*text_rgb, 255), anchor="ma", **kw_dir)
-                    y_cur += int(font_r.size * 1.48)
+                    y_cur += int(font_r.size * 1.38)
                 y_cur += step_gap
 
         if cta_text:
-            pill_y1 = card_bot + 28
-            pill_y2 = pill_y1 + 78
-            draw.rounded_rectangle([(84, pill_y1), (W - 84, pill_y2)], radius=39, fill=(*acc_rgb, 255))
-            cta_lines = wrap_text_lines(draw, cta_text, font_sm, W - 220)[:1]
-            draw.text((W // 2, (pill_y1 + pill_y2) // 2), shape_text(cta_lines[0]), font=font_sm, fill=(255, 255, 255, 255), anchor="mm", **kw_dir)
+            if cta_style == "pill":
+                pill_y1 = card_bot + 30
+                pill_y2 = pill_y1 + 76
+                draw.rounded_rectangle([(cx1, pill_y1), (cx2, pill_y2)], radius=38, fill=(*acc_rgb, 255))
+                cta_lines = wrap_text_lines(draw, cta_text, font_sm, card_w - 70)[:1]
+                draw.text((W // 2, (pill_y1 + pill_y2) // 2), shape_text(cta_lines[0]), font=font_sm, fill=(255, 255, 255, 255), anchor="mm", **kw_dir)
+            else:
+                div_y = card_bot + 34
+                canvas = _draw_gradient_divider(canvas, cx1 + 40, cx2 - 40, div_y, acc_rgb, sec_rgb)
+                draw = ImageDraw.Draw(canvas)
+                cy = div_y + 28
+                if "،" in cta_text and len(cta_text) > 28:
+                    p1, p2 = cta_text.split("،", 1)
+                    l1 = f"{p1.strip()}،"
+                    l2 = p2.strip()
+                    if l2 and len(wrap_text_lines(draw, l1, font_r, card_w + 80)) == 1 and len(wrap_text_lines(draw, l2, font_r, card_w + 80)) == 1:
+                        cta_lines = [l1, l2]
+                    else:
+                        cta_lines = wrap_text_lines(draw, cta_text, font_b, card_w + 40)[:2]
+                else:
+                    cta_lines = wrap_text_lines(draw, cta_text, font_b, card_w + 40)[:2]
+                for cl in cta_lines:
+                    _draw_centered_rtl_with_accent(draw, W // 2, cy, cl, font_r, font_b, text_rgb, prim_rgb)
+                    cy += int(font_b.size * 1.48)
 
     elif layout == "cover_editorial":
         # Inspired by "انسان عظمتی به اندازه تمامی کهکشان‌ها": bold right-aligned Kalameh headline + 3D render on left
@@ -1519,29 +1800,36 @@ def run_edu_studio(
     search_seed = reply_context[:500] if (sources_only and reply_context) else (clean_query or custom_topic)
 
     if not dry_run:
-        progress_fn(bot_token, target_chat_ids, status_msg_id, 35, "در حال جست‌وجو بین ۱۵۰ ریپوی گیت‌هاب و کتابخانه آکادمی...")
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 35, "در حال آماده‌سازی منابع و ساختار طراحی...")
 
-    plan = plan_search_for_edu(search_seed, custom_topic, all_cats)
-    matched = score_library_items(
-        lib,
-        search_terms=(plan.get("search_keywords") or []) + re.split(r"[\s,،]+", custom_topic or ""),
-        target_cats=plan.get("target_categories") or [],
-    )
-
-    if sources_only:
-        links_msg = format_library_links_message({}, matched)
-        if dry_run:
-            print(f"[DRY_RUN] Sources-only mode completed in {time.time() - t0:.1f}s")
-            print(links_msg)
+    skip_slow_search = bool(with_images and not wants_sources and (len(clean_query) > 80 or reply_context))
+    if skip_slow_search:
+        matched = score_library_items(
+            lib,
+            search_terms=re.split(r"[\s,،]+", custom_topic or clean_query[:80]),
+            target_cats=[],
+        )
+        enriched_repos = []
+    else:
+        plan = plan_search_for_edu(search_seed, custom_topic, all_cats)
+        matched = score_library_items(
+            lib,
+            search_terms=(plan.get("search_keywords") or []) + re.split(r"[\s,،]+", custom_topic or ""),
+            target_cats=plan.get("target_categories") or [],
+        )
+        if sources_only:
+            links_msg = format_library_links_message({}, matched)
+            if dry_run:
+                print(f"[DRY_RUN] Sources-only mode completed in {time.time() - t0:.1f}s")
+                print(links_msg)
+                return
+            progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "منابع و ریپوهای مرتبط استخراج شدند؛ در حال ارسال...")
+            for cid in target_chat_ids:
+                send_tg_text(bot_token, cid, links_msg)
+            progress_fn(bot_token, target_chat_ids, status_msg_id, 100, "منابع واقعی از کتابخانه آکادمی ارسال شد!", done=True)
             return
-        progress_fn(bot_token, target_chat_ids, status_msg_id, 92, "منابع و ریپوهای مرتبط استخراج شدند؛ در حال ارسال...")
-        for cid in target_chat_ids:
-            send_tg_text(bot_token, cid, links_msg)
-        progress_fn(bot_token, target_chat_ids, status_msg_id, 100, "منابع واقعی از کتابخانه آکادمی ارسال شد!", done=True)
-        return
-
-    with ThreadPoolExecutor(max_workers=5) as ex:
-        enriched_repos = list(ex.map(fetch_github_repo_meta, [r["repo"] for r in matched["repos"][:4]]))
+        with ThreadPoolExecutor(max_workers=5) as ex:
+            enriched_repos = list(ex.map(fetch_github_repo_meta, [r["repo"] for r in matched["repos"][:4]]))
 
     context_bundle = {
         "matched_curated_repos": matched["repos"][:7],
