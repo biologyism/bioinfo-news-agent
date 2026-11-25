@@ -46,6 +46,14 @@ on:
         description: 'متن پیامی که کاربر روی آن ریپلای زده تا همان اصلاح یا تکمیل شود'
         required: false
         default: ''
+      aspect_ratio:
+        description: 'ابعاد تصویر: post (1080x1350)، story (1080x1920) یا square (1080x1080)'
+        required: false
+        default: 'post'
+      design_spec:
+        description: 'مشخصات سبک طراحی، پالت رنگی و تصویر مرجع (JSON)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -88,6 +96,8 @@ jobs:
           MODE: ${{ github.event.inputs.mode || 'news' }}
           EDU_IMAGES: ${{ github.event.inputs.edu_images || 'false' }}
           REPLY_CONTEXT: ${{ github.event.inputs.reply_context || '' }}
+          ASPECT_RATIO: ${{ github.event.inputs.aspect_ratio || 'post' }}
+          DESIGN_SPEC: ${{ github.event.inputs.design_spec || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python main.py
 
