@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-25",
-  "daily_post_count": 14,
+  "daily_post_count": 19,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2555,6 +2555,81 @@
     "https://news.google.com/rss/articles/CBMioAFBVV95cUxPTXBheHZjdW04Z1plaUlOdWN4Q1FBeXFHYmVOT1BfaTEybzFNZGNUOFBiR1lNQUJRd3h1QU5vN2s5bWh4X2xEUUhaVE1YOW9JdUo2dE5MT080cGVYdERQSmJQbUo5SVVWYU9Va3YzdzlrVmdxMkJUckJHYm1pWVJmTVhnZUlQT1ZBX1BZaUtTMkFkZE5valNreGRuNEdQTnhH?oc=5": {
       "title": "A 40-year-old Iran tariff quietly built America’s pistachio empire",
       "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiU0FVX3lxTE55NV9TNU5DTlkzb2MteERHNHR6TS1jTWJETWxILUxFT2E0cnpfV1JlTjJXNTlWWElfdU5uSGptMGZUSGtBcVBFUmRYdXZ5T2k2bGlv?oc=5": {
+      "title": "GPT-6 Now Capable of De Novo Protein Design: Advanced AI-Powered Protein Engineering Breakthrough",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTFBQYVlWeE1fWk5fakpaOVNlSnE0dHYtVTBLZWVvOHQwVWpfQ2l0MnVLcVlqbUotdTJjRUdfNU9WWlB3dnp3SC0xS0xpTTJWNjRRVEhOWm95SmFyNmhRM0s1NEYxbEZXZGJ5TGdRek9vZVZmZXJIOXc?oc=5": {
+      "title": "ChatGPT, Claude Expand Into Protein Design, but Replacing AlphaFold Is Still a Ways Off",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMimgFBVV95cUxOb1dMQXZIampIQVBWVnlKcS1vc0lSQlFSUDk1MmlOOEZPVGZ1RDdIQUhpTk9DaXdsdHU2YXdnMnFic20zdFMybGJTS1JlSXRLaHBPN2xGTHR1YnAtOEpHYmROVkNuSThKaUNCOGdTQzY2c2tfM2JPWU91WDNlMmNLaVRRMWhfa0RLYmpUYjFyU3dyOTRHM3VCdDFn?oc=5": {
+      "title": "Schrödinger Buys Bioinformatics Firm ENPICOM for Roughly €22 Million",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "sent"
+    },
+    "https://arxiv.org/abs/2611.32990v1": {
+      "title": "Cell and nuclear shapes predict confined motility",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41588-026-02853-y": {
+      "title": "Uncovering directionally and temporally variable genes with STAVAG",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "sent"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014994": {
+      "title": "Beyond profiles: Supervised repeat annotation using protein embeddings",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014970": {
+      "title": "Vascular modelling of peripheral ischaemic disease response",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.33094v1": {
+      "title": "Bayesian Learning of Spatially Heterogeneous Causal Structure in Spatial Transcriptomics",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014907": {
+      "title": "Deciphering the replication-division coordination in E. coli : A unified mathematical framework for systematic model comparison",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://www.frontiersin.org/articles/10.3389/fbinf.2026.2012212": {
+      "title": "Genomic surveillance of antimicrobial resistance in low- and middle-income countries: evolutionary insights, One Health integration, and implementation challenges",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.32347v1": {
+      "title": "Beyond Hard Tokens: Predictive Memory for Multimodal Protein Generation",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.32945v1": {
+      "title": "PHM-ensemble: Scalable and Stable Probabilistic Multiresolution Clustering via Ensemble Density Estimation",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://ncbiinsights.ncbi.nlm.nih.gov/2026/11/24/dbgap-authorized-access-modernization": {
+      "title": "dbGaP Authorized Access Modernization",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.32825v1": {
+      "title": "EEG-World: Context-Conditioned Dynamics of the Watching Brain",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.32382v1": {
+      "title": "Cancer multi-omics joint dimension reduction leads to reliable and interpretable survival predictions",
+      "ts": "2026-11-25T15:55:45.530222+00:00",
       "status": "skipped"
     }
   }
