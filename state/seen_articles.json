@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-25",
-  "daily_post_count": 12,
+  "daily_post_count": 14,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2480,6 +2480,81 @@
     "https://news.google.com/rss/articles/CBMiogFBVV95cUxPLVdueFBuTzBFMFJJR2FvZ0tuMXNkRjg3Y3F0U1k3Vm1RbW52aTVtQ0YwWFdLSExkNmZzTEhJNTVvQUp2YXg4Mk9PTTk2MHQ0bHYwbktYMEZTcWhsRmhXcTRaMUxQTkRKMVZaWWFaSjA5Q0oyZnB4T1N4TWhhTWFaQmNoN0F4aG44cU52eVNaZzZkbFZFdkI0SHhudEtYT1BnRUE?oc=5": {
       "title": "‘We’ve been a quiet company’: Why viral biotech Vyriad attracts Big Pharmas despite low profile",
       "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMihAFBVV95cUxPNnN4LXJvd1N4dnlHWU1ZbVI5bmt0OV96UEpKYV9oU0dPRVo2Zmt2aFdPSExDVnd3MG5ITW1NTGlVejFHUG1qYXk1ZjR3YUQ3R24xSmZGdlpuQXdySV94OEhwVTg4MGt0UFprNERYWUdkOG84NkIxOHpoMkNzNkhPckl5ZnXSAYQBQVVfeXFMTllaR004OTN5UHdfejNWeklBTmU0M3F1ZDdmbjJHR0EydzZHWWJjZEVCRjdrY1ZxUktmNUI0N0FTZ2w1WTJZdEs3UXdoWTRzdklpbnBDRHBjUmlCX3Q0TmVjZlQ5ak1lZXJXWFE2UEgtVkNNVF9EMS1QUlRFbXdWZXpoWF8x?oc=5": {
+      "title": "A heat spike in March ruined pistachio pollination, decimating crops. ‘It’s really bad’",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42956289/": {
+      "title": "Pistachio powder authenticity assessment using supervised machine learning algorithms.",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiswFBVV95cUxPX005ckhvN21nMnEtclBjVlRHTkVLQkxNMVVMOUVfOHV1NDlUQlBEWVNCSk9Jei1KOFE2cVNrTTVmVjBzVGoxQkZyN3NZZDJ2cF9QM1ZreGZ2eVdnSVdRQVlxSjk3bHlHelB3TXVNYkkzc0M0SkdRSVUxM1d3UEJ3OWxwbUU2RmpiZDZEcHNYdTF5akxUaVM1QmxFcW5NTFBpRV9OVE8tNzM0OEU2WWlKVWE5MA?oc=5": {
+      "title": "Global pistachio harvest forecast to fall 44% in 2026/27",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxQOFhlUE5NUDVYdjJZVzJtRU1qSVQtcWpKZWd3ajQ1cUhwREtkVmRheTQ1bmFkMlRPQ0x4bnFoVG9zTGswUXAydFVMWVBacGNfTlM5Qk54UTJERlVmWXJ6ZU94Z1RfR3hOYS1oaUNqR2pHUTNUb0Y3WWpmZkpob29mVHp0VEV5ckxIWkdhTnNWZ0diYkVNN2RBYtIBmAFBVV95cUxPWjFnWTh6ZHBUMGp0elV6T0RUQk1hT3RVaTVMYlhfWWxrenU2OEQ3RFVVdFhhRVJkN05yNjNfX3RER0doeFJYWExTU20xdTFDRFV2WGFwYktSX0lQZWluY2NmcERmcWhFOWZ0V3VyT0hOaG5xeE1CSFlxYS1KcktxcFR4NWEtRTNCTC1IanpqUk9ySUlsVkdIVA?oc=5": {
+      "title": "Iran and US: Two countries and the pistachio between them",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQbmNFWHZ3ZmRoWkhUR0w0cGJZS2JSNDhwQy1YZW5FTWVWXzhJR21odWc2bm5SelcwVlJEb1F6WVJhTWJTeVFoaWpnclhUNmhncjExTXlkTk42RnkyX3A5MXo1MHVlNTYzMmJrak5BREx4bTM1MldkTnhnd2Y0WWZ3MXRvUWFqNkNyZFl1WEdnZHBxYmlpWkZXMWtNZnFkbDh6Yy1ETnBJTk92b3R0T25QeHQtc29GaDZwUUNWQUM1eWE?oc=5": {
+      "title": "California's Pistachio Crop Could Fall Below 1 Billion Pounds, Tightening Supplies as Demand Stays Strong",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://doi.org/10.21608/bnni.2026.535285": {
+      "title": "Interactive Effects of Foliar Sucrose and Boric Acid on Fruit Set, Yield Components, and Nut Quality of Pistachio (Pistacia vera L.) under Semi-Arid Conditions",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMifEFVX3lxTE04SDc3UzR6UzZZOGZGMDBKeGd1VVlPcklhZmJKQmV0UHRxakI3eEFobUJRVklCajlhUXpndDZKcm12RWVXU1F5cDBGb3NlX3hHQTFELUlUMWlTUVJMc01VZ0UtNkI3WWNqNnNOTUJWQXZaT18xVUdwalhiZ0o?oc=5": {
+      "title": "A common language for pistachio growth: Researchers develop a crop-monitoring scale",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMixwFBVV95cUxQMU1MNlVmS3BFMnF5MkRWaXVoSnpiajNHaGEyaENhY3Y0aGJFUkMzVEY1SHdNd1VQeVUzdVVGMjdMc1FzQTBSd2ZqczNsQVFvME1wM2NKdkl2b1htR21pNGFwaC1BdElsWXFkSDVqV0FRNmwtS2JvTFpWdEE4V0VDclR0MHlhYnE0UnVhcVBxeS1RV0lUZmx3ZldwYXhIT2h2eExZTkg3OWZHaElIUjB2YzRLYkZfbHg2UjhucDVLMWxaXzFzVXZn?oc=5": {
+      "title": "University of Córdoba Researchers Standardize Pistachio Phenological Monitoring Across Fifty-Six Stages",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiigFBVV95cUxQUHZ4LXZEQTZFaVpESm1VWUlnWXAxb0lseUx1b3doMGtyZVF5V08yNFJOUUVsSEJ1T2JtelRXLWlWTUhBT2hmWHc4akZtRE9zMGtjRWhrUEZnamlTUWdkV2RKMUhPY0M5azJ1bE9kZ2JZUG4wMEF3YU5QUXk0amZPYlB2OG9LZktCaEE?oc=5": {
+      "title": "Water scarcity and the pistachio predicament",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMia0FVX3lxTE90OVdBeG0zZUp2cV9WNkd2VE5QZm5sd2tlWHV5YkZhWWFMM2hUbDd6YnRkWnkxSnVIbnRSS2hYUFcxOVRTb0d4ZUpIRDhZT0tmTU95MFlkRDZ0RExFWURMNG5UQ095d0FBMUtR?oc=5": {
+      "title": "Record 2025 U.S. pistachio production continues upward trend",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMihgFBVV95cUxQRmxuOW1XTnh3ejFkbng0dTV3U0JmTXA1NlhxZjNBbktjZW9CZXBxbTV1aDF3SFdiUjQzelZkYXFBYjBaV3hFSTdXaEExTS1rWWI5NEJ0TGR4V2VBcFdTTkFuSkR2TlF0Q1l4VkgyYnA0UzNEVnRVeXlJWS1LXzl6TVpkYXNOQQ?oc=5": {
+      "title": "California pistachio harvest drops 60% in 2026",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiswJBVV95cUxNelA4ekpLb1pPRVFjc1J3TEN5U2JVRThTb2VFRGp5QmVtb2lZNTVyVnB0NmQtRm5VV1hlY1ZZYzkzN0Rid3p6bFpLX3JTT3ZLLVFYUEZuTnZuYmtNMkRVRHQ4M29qa0NhenB3OW5GYm9WSzk4NmFhbG9YTTVtMEJoUW9Zd3FKN0xLVk81OGt5MFBVZS1MWGg1THJkVnI3eUNueFpCQzlIYjhaTVg2MkxtU3dmVWVxb3hlcV9lRzJMTHlPMWxjVjlyckktbGx4Z3lTaEN5VGJUYlJORmRqWjVXUTA4NDJDcUxMRDFSS0g5SnFqZ1puc1l5T3F2ejB4RjVQMEwzUDJJV3UtcEphOU53YXIzSUozQVlYazlmTTAzb0lzalhncEdSY25ocGlQNG1OdEdV?oc=5": {
+      "title": "Exploring the role of pistachio nutrients and bioactive components in sleep health: a narrative review",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMilgFBVV95cUxQSTVrY3pRdDNQSll1MUh4bENqTGNrYWdIa0ctNXFURWJSSDA3MWRLOWxQRi1rbTJmZmFOb2hSQkx6NEVQZkljZkpjeWtXMHVfTDZ3cy03WTdSSG1ILXloZzRoeE8wUlg3NTVqXzNqZDcwYklHMFBHdGZpTmtQRXVKOWJjS1czS0MtcjlIeVA2MktxUDVkWHc?oc=5": {
+      "title": "Why pistachios are going to be more expensive | CNN Business",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/42978893/": {
+      "title": "Adaptive Remodeling of the Proteome in Pistachio Roots Under Salt Stress: Implications for Food and Energy Security in Arid Regions.",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMioAFBVV95cUxPTXBheHZjdW04Z1plaUlOdWN4Q1FBeXFHYmVOT1BfaTEybzFNZGNUOFBiR1lNQUJRd3h1QU5vN2s5bWh4X2xEUUhaVE1YOW9JdUo2dE5MT080cGVYdERQSmJQbUo5SVVWYU9Va3YzdzlrVmdxMkJUckJHYm1pWVJmTVhnZUlQT1ZBX1BZaUtTMkFkZE5valNreGRuNEdQTnhH?oc=5": {
+      "title": "A 40-year-old Iran tariff quietly built America’s pistachio empire",
+      "ts": "2026-11-25T14:26:22.057528+00:00",
       "status": "skipped"
     }
   }
