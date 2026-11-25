@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-26",
-  "daily_post_count": 2,
+  "daily_post_count": 7,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2705,6 +2705,81 @@
     "https://www.biorxiv.org/content/10.64898/2026.11.23.768775v1": {
       "title": "BRIDGE: Backbone Representation for Inverse-folding-Driven Generalizable RNA Encoding",
       "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMimwFBVV95cUxQWHJRQTI1dnpJcVN4NHZYdHlUNVlNRTFGX0kwN1FsQ2Q0M0l0aFVaNXc3OUJIazdHTG56dldONnItQ1Qwd0dFT2VMOG5oOTBINEIwM2NRY04zb2x5RGU2Z3VfUkJqLWt3bkFTSW0xeFExV0d2c3pub3dfYnBDUkJQWE9mMHNzZmdGYkdMSDZQbHIzai1rN3ZMbXNEYw?oc=5": {
+      "title": "41 Agent Skills Run Whole Bioinformatics Pipelines, From FASTQ to Results",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiX0FVX3lxTE0yY1E3aXRQYmxZd3JSZmpEblA1OXl2S084UkZLTTMxUTlGQ1ZOVjFpZzNGcnpZNVJvZ21HRnFPS1dCSV9IeFNnZGhQUnhOenRuZGNmUXkzakdpS3F0cF80?oc=5": {
+      "title": "BioAgents: Bridging the gap in bioinformatics analysis with multi-agent systems | Scientific Reports",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMibkFVX3lxTE5SRnh3TVNnTG9PaUYwM2tOY05Kc0xtWUt3c0pqcjJGSlpVbkVHaTFaanJHN2VNSG1fWWREQzNNMkI0QWljTThXSXdwV1FITGhaTnd0bmMtYTl5cUFQRjBacFdDLUVsNVpscEs2RnhB?oc=5": {
+      "title": "Bioinformatics, Big Data, and Cancer",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9wOFM1cUFaRE5JTERFMGdoMXNFRWc4QVd3Vk4zMHdZMzJnWUk2VWNyTEdSUHRjWkxiTEFsMFZXcmNsSFFacTkxNjctUUVuWVAyZ1hXZmREckljNmRZRWRv?oc=5": {
+      "title": "Bioinformatics is a rewarding career in need of new recruits",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBZUnJjaHZWcmUza094SDFJYnBoYVVQQ2NjdjFuUTgycUpXZ0ZGeDVXek56eU1XR1lYcFlhNkJKY3MwdlM3M1NIVFF1LTBJeUV6cTNxZDZLZDNkTzFTRFE?oc=5": {
+      "title": "Single-cell RNA sequencing technologies and bioinformatics pipelines | Experimental & Molecular Medicine",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9lY0lCVXlOeC10d1lPcVduVjBaRU1oWDlySXB2ZFZVSV9Md3lWTVBlejFkblQtVEpGWHFQOW5EaGpULVN5dUJYUzdXckdtZTVm?oc=5": {
+      "title": "How bioinformatics tools are bringing genetic analysis to the masses",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBOeWNUU0hmd2kweEJfbHp0Z1dIRlhxT3psdGJ2eTZYMFl1YzZRb0w3VWN5TnptMjlKSmJfVnQ3UWlSSVFIejM0VzlNa2JoSTVB?oc=5": {
+      "title": "Bioinformatics in the post-sequence era",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxQMl9PTVF0OE5EOVlOTHZHUmh1Q0ZndVAxbzNiY1R6WGNXc2tNVGd2OTFYZ1VXYkJYd2FRYVR3WmFWWjEzdDdzREcxcHNEeG94VF8yQnowaURpZWUxTjcyRzc2WjdWUmJGbkZmZ0hESGtPdUFZbjJTRHVIREo0cTBCYnBhdGc1MUl4YjYtYTd3NVdxXzY2VHNlUw?oc=5": {
+      "title": "Systems biology and bioinformatics: Something for everyone",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBfLS1sUGJxQjI1M29iWTExeVBicjNMZ2ZHN3N1Z0NtNGFEOWRSSl9fZVZZY3hESzdVX3lJNXdKM0cwcGFmVFhDdC1vencyeTA?oc=5": {
+      "title": "Spotlight on Bioinformatics",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMizwFBVV95cUxNam0xQjd3VTNDUXB5X0JDSm9XZHNwT3loZW1NUmNrUTdEQ0FCVFBqeGMzM2FzVl84U2xxX0dkcDNmUXJaRXZ3ZUFmdnQ5QjFJcUtic1g5SkRoNm1USHFZUFVYX1VZbEFBaWNteUFGSUxPZW5VMkJwaXd0dzl5YjcwZHJhNFI2MUF4SHhlbDBHdDZuNzJDSmZqblA2LVk5R19Ua1R4bW5wZUV5eTdDM3poY0ViaVFJNlhSQ3V0c25WblQ1N2xWU3VCaVBOd1Z6NGM?oc=5": {
+      "title": "An Introduction to Bioinformatics, Bioinformatics Tools and Applications",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxOZ1FVdExyZXNncXBrTTIxZTVSemF2bW1GWWRkOGxkYjk4LTIzR01jaGVwTmhXaGRFWU16d0hkSDVpeTJNTDhVaFpQN21YQmprMDVoX3RDNHJrcXU1MEpkMnhZWXhuZUd6ODZoaTRTa2V6cURFQ1RYUE1nZi1xTTNCd0Y0V25Bd1RLTUF5clNhODItX1g2Tk9HLQ?oc=5": {
+      "title": "Veronica Russell, PhD in Computational Biology and Bioinformatics",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMib0FVX3lxTFBMdkl3bGZ0cFJ5YllKSzRiMVdwbksySVZQTkU5U0FQdW5aN2ZqYmtSYk1NTC1HTjNWR01Udm5scDFPSFNHSHgtRWVsNUhtWW1qOF8wMS13QmpRZXNkMUY2QXpSVnJmQ0JCNnBDX0xYbw?oc=5": {
+      "title": "Bioinformatics From Physics",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMia0FVX3lxTFB5WUlTZnBCaWZ6cDg1aW43akJVN0gyd1hvaEVCWFJWbUgyN285VEMtMDE3NnZHNk5vVzl0aXgtVF8xWDhzNnRPS0I5LVFySm9fQ2pfNUhNd25DZ2h1QTZHVG5BRVl6TTZBT29n?oc=5": {
+      "title": "What jobs can you get with a bioinformatics degree?",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMilAFBVV95cUxQRkdkLURrTlRIMEE2T3ViRm91MnI4ZjR1djNqeE96czJ2SE8zWExLSWNqTVA1SFl3MTNLWGYyaXR5Z2VVYmotR0lmMXVwUFJaRm5VZ1RwV3ItUm1kWm1sNUUwckU3dU1mYl9iQ2FJbGZ1cHZCdXNOdXpfdmxYTFVIR0M0YUNPSE5RZEh1VDE1NUxpc1NB?oc=5": {
+      "title": "Is Bioinformatics in High Demand?",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZjk5YzJVR0J3N1R6TnI5QVFZRTVLZS1qNkxHRy1FSGwxaFA3ZXM0ek9WWHRsN05NalVLRFVmd3JIdnNWbWFPZ3lMWE5qSEo2U3RJWmEzVjJsYWxDYm9MMGE5Z0V3OFFzMF9VYnVtOEJWOXNJZ2pyVGVCTHMzSEtKUXFKYXZvMGhTb0I1MEgzWGVtWDEzQW8w?oc=5": {
+      "title": "Exploring bioinformatics through the Map of Science",
+      "ts": "2026-11-25T23:06:14.050086+00:00",
       "status": "skipped"
     }
   }
