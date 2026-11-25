@@ -1254,9 +1254,13 @@ def main() -> None:
 
     if run_mode in {"edu", "edit"}:
         from edu_studio import run_edu_studio
-        slide_count = int(custom_count_raw) if (custom_count_raw.isdigit() and 1 <= int(custom_count_raw) <= 10) else 5
+        fa_map = str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789")
+        count_norm = custom_count_raw.translate(fa_map)
+        slide_count = int(count_norm) if (count_norm.isdigit() and 1 <= int(count_norm) <= 15) else 5
         edu_images = os.getenv("EDU_IMAGES", "false").strip().lower() in {"true", "1", "yes"}
         reply_context = os.getenv("REPLY_CONTEXT", "").strip()
+        aspect_ratio = os.getenv("ASPECT_RATIO", "post").strip().lower() or "post"
+        design_spec_raw = os.getenv("DESIGN_SPEC", "").strip()
         try:
             run_edu_studio(
                 custom_topic=custom_topic,
@@ -1265,6 +1269,8 @@ def main() -> None:
                 with_images=edu_images,
                 reply_context=reply_context,
                 edit_mode=(run_mode == "edit"),
+                aspect_ratio=aspect_ratio,
+                design_spec_raw=design_spec_raw,
                 bot_token=bot_token,
                 target_chat_ids=target_chat_ids,
                 status_msg_id=status_msg_id,

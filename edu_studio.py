@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 import requests
-from PIL import Image, ImageDraw, ImageFont, ImageOps, features
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps, features
 
 BASE_DIR = Path(__file__).resolve().parent
 LIBRARY_PATH = BASE_DIR / "knowledge" / "bioinfo_library.json"
@@ -313,25 +313,327 @@ def call_edu_json_with_failover(
     raise RuntimeError(f"All AI providers failed in Edu Studio: {last_err}")
 
 
+PALETTES: dict[str, dict[str, str]] = {
+    "bioinfo_teal": {
+        "name_fa": "بیوانفورماتیک ژنومیکس",
+        "bg": "#F8FAFA",
+        "card": "#FFFFFF",
+        "primary": "#0D9488",
+        "accent": "#E87A42",
+        "secondary": "#5E9DB8",
+        "text": "#2E3438",
+        "muted": "#5E666B",
+        "blob1": "#B2E5DF",
+        "blob2": "#FBD3BC",
+    },
+    "pastel_science": {
+        "name_fa": "پاستل علمی",
+        "bg": "#FAF6F8",
+        "card": "#FFFFFF",
+        "primary": "#C9739D",
+        "accent": "#73A9D8",
+        "secondary": "#E38B75",
+        "text": "#3A3438",
+        "muted": "#6D666A",
+        "blob1": "#F5D7E3",
+        "blob2": "#D6E8F8",
+    },
+    "smart_minimal": {
+        "name_fa": "مینیمال هوشمند",
+        "bg": "#F9F5EC",
+        "card": "#FFFFFF",
+        "primary": "#5E9DB8",
+        "accent": "#8FAFA5",
+        "secondary": "#B9C7B8",
+        "text": "#34383B",
+        "muted": "#646B70",
+        "blob1": "#DDECF2",
+        "blob2": "#E5EFE6",
+    },
+    "lab_citrus": {
+        "name_fa": "مرکبات آزمایشگاهی",
+        "bg": "#FFF9EA",
+        "card": "#FFFFFF",
+        "primary": "#4C9DA8",
+        "accent": "#EAAE32",
+        "secondary": "#65A98B",
+        "text": "#34383B",
+        "muted": "#646B70",
+        "blob1": "#D5EDF0",
+        "blob2": "#FBE9B9",
+    },
+    "terracotta_mist": {
+        "name_fa": "سفال و مه",
+        "bg": "#FAF3EE",
+        "card": "#FFFFFF",
+        "primary": "#A95F4B",
+        "accent": "#8CB8B6",
+        "secondary": "#CF896B",
+        "text": "#393330",
+        "muted": "#6E635E",
+        "blob1": "#F1D8CC",
+        "blob2": "#D5E8E7",
+    },
+    "transparent_gel": {
+        "name_fa": "ژل شفاف",
+        "bg": "#F2F9F8",
+        "card": "#FFFFFF",
+        "primary": "#75BDB5",
+        "accent": "#A78BC6",
+        "secondary": "#6D9CCB",
+        "text": "#333A3E",
+        "muted": "#5F6A70",
+        "blob1": "#D7EFEA",
+        "blob2": "#E5DCF3",
+    },
+    "polar_sunset": {
+        "name_fa": "غروب قطبی",
+        "bg": "#FFF6F1",
+        "card": "#FFFFFF",
+        "primary": "#D66F68",
+        "accent": "#8CBBD5",
+        "secondary": "#ED927F",
+        "text": "#3A3333",
+        "muted": "#6B6060",
+        "blob1": "#FAD4CB",
+        "blob2": "#D9EAF5",
+    },
+}
+
+
+def _hex_to_rgb(h: str, fallback: tuple[int, int, int] = (13, 148, 136)) -> tuple[int, int, int]:
+    s = (h or "").strip().lstrip("#")
+    if len(s) == 6:
+        try:
+            return (int(s[0:2], 16), int(s[2:4], 16), int(s[4:6], 16))
+        except Exception:
+            pass
+    return fallback
+
+
+def _blend_rgb(c1: tuple[int, int, int], c2: tuple[int, int, int], t: float) -> tuple[int, int, int]:
+    return (
+        int(c1[0] * (1 - t) + c2[0] * t),
+        int(c1[1] * (1 - t) + c2[1] * t),
+        int(c1[2] * (1 - t) + c2[2] * t),
+    )
+
+
+def _extract_ref_image_profile(file_id: str, bot_token: str) -> dict[str, Any]:
+    if not file_id or not bot_token:
+        return {}
+    try:
+        r = requests.get(
+            f"https://api.telegram.org/bot{bot_token}/getFile",
+            params={"file_id": file_id},
+            timeout=10,
+        )
+        fp = r.json().get("result", {}).get("file_path") if r.status_code == 200 else None
+        if not fp:
+            return {}
+        img_resp = requests.get(f"https://api.telegram.org/file/bot{bot_token}/{fp}", timeout=15)
+        if img_resp.status_code != 200:
+            return {}
+        im = Image.open(io.BytesIO(img_resp.content)).convert("RGB")
+        w, h = im.size
+        ratio = h / max(1, w)
+        aspect = "story" if ratio >= 1.55 else ("square" if 0.85 <= ratio <= 1.15 else "post")
+
+        small = im.resize((96, 96), Image.Resampling.BILINEAR)
+        # Estimate background from corners
+        corners = [
+            small.getpixel((4, 4)),
+            small.getpixel((91, 4)),
+            small.getpixel((4, 91)),
+            small.getpixel((91, 91)),
+        ]
+        bg_avg = tuple(sum(c[i] for c in corners) // 4 for i in range(3))
+        bg_lum = 0.299 * bg_avg[0] + 0.587 * bg_avg[1] + 0.114 * bg_avg[2]
+        theme_mode = "dark" if bg_lum < 110 else "light"
+
+        # Quantize to find vivid accent colors
+        q = small.quantize(colors=10).convert("RGB")
+        counts = sorted(q.getcolors(maxcolors=32) or [], reverse=True)
+        vivid: list[str] = []
+        for _, rgb in counts:
+            sat = max(rgb) - min(rgb)
+            lum = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]
+            if sat >= 32 and 45 <= lum <= 225:
+                hx = f"#{rgb[0]:02X}{rgb[1]:02X}{rgb[2]:02X}"
+                if hx not in vivid:
+                    vivid.append(hx)
+        return {
+            "detected_aspect": aspect,
+            "theme_mode": theme_mode,
+            "bg_hex": f"#{bg_avg[0]:02X}{bg_avg[1]:02X}{bg_avg[2]:02X}",
+            "primary_hex": vivid[0] if vivid else "",
+            "accent_hex": vivid[1] if len(vivid) > 1 else (vivid[0] if vivid else ""),
+        }
+    except Exception as exc:
+        print(f"[WARN] Ref image Pillow inspect failed: {exc}")
+        return {}
+
+
+def resolve_design_profile(
+    query_text: str,
+    aspect_ratio: str = "post",
+    design_spec_raw: str = "",
+    bot_token: str = "",
+) -> dict[str, Any]:
+    spec: dict[str, Any] = {}
+    if design_spec_raw:
+        try:
+            parsed = json.loads(design_spec_raw)
+            if isinstance(parsed, dict):
+                spec = parsed
+        except Exception:
+            pass
+
+    q = (query_text or "").lower()
+    # Aspect ratio resolution: explicit query/input wins over ref aspect
+    ar = (aspect_ratio or "").strip().lower()
+    if any(k in q for k in ("استوری", "story", "1920", "۹:۱۶", "9:16")):
+        ar = "story"
+    elif any(k in q for k in ("مربع", "square", "۱:۱", "1:1")):
+        ar = "square"
+    elif any(k in q for k in ("پست", "post", "کاروسل", "1350", "۴:۵", "4:5")):
+        ar = "post"
+    elif ar not in {"post", "story", "square"}:
+        ar = str(spec.get("canvas_aspect") or "post").lower()
+        if ar not in {"post", "story", "square"}:
+            ar = "post"
+
+    dims = {"post": (1080, 1350), "story": (1080, 1920), "square": (1080, 1080)}[ar]
+
+    # Pick named palette if mentioned
+    palette_key = "bioinfo_teal"
+    if any(k in q for k in ("ژل شفاف", "یاس", "بنفش")):
+        palette_key = "transparent_gel"
+    elif any(k in q for k in ("غروب قطبی", "مرجانی", "گلبهی")):
+        palette_key = "polar_sunset"
+    elif any(k in q for k in ("سفال", "آجری", "خردلی")):
+        palette_key = "terracotta_mist"
+    elif any(k in q for k in ("مرکبات", "لیمو", "کهربایی")):
+        palette_key = "lab_citrus"
+    elif any(k in q for k in ("مینیمال هوشمند", "کاغذی")):
+        palette_key = "smart_minimal"
+    elif any(k in q for k in ("پاستل", "صورتی", "دختر")):
+        palette_key = "pastel_science"
+    else:
+        # Rotate cleanly by query hash across the top light palettes for freshness
+        keys_pool = ["bioinfo_teal", "pastel_science", "transparent_gel", "polar_sunset", "lab_citrus", "terracotta_mist", "smart_minimal"]
+        palette_key = keys_pool[sum(ord(c) for c in (query_text or "bio")) % len(keys_pool)]
+
+    palette = dict(PALETTES[palette_key])
+    theme_mode = str(spec.get("theme_mode") or "light").lower()
+    has_grid = bool(spec.get("has_grid_bg", True))
+    has_cta = bool(spec.get("has_cta_pill", ar == "story"))
+    layout_pref = str(spec.get("layout_style") or "").strip().lower()
+    visual_style_en = str(spec.get("visual_style_en") or "").strip()
+
+    # If user attached a reference photo, verify/fill from Pillow if needed
+    ref_file_id = str(spec.get("ref_file_id") or "").strip()
+    if ref_file_id and bot_token and (not spec.get("bg_hex") or not spec.get("primary_hex")):
+        px = _extract_ref_image_profile(ref_file_id, bot_token)
+        for k in ("bg_hex", "primary_hex", "accent_hex", "theme_mode"):
+            if px.get(k) and not spec.get(k):
+                spec[k] = px[k]
+        if not aspect_ratio and px.get("detected_aspect"):
+            ar = px["detected_aspect"]
+            dims = {"post": (1080, 1350), "story": (1080, 1920), "square": (1080, 1080)}[ar]
+
+    # Apply extracted reference colors cleanly
+    if spec.get("bg_hex") and re.fullmatch(r"#[0-9A-Fa-f]{6}", str(spec["bg_hex"]).strip()):
+        palette["bg"] = str(spec["bg_hex"]).strip()
+    if spec.get("card_hex") and re.fullmatch(r"#[0-9A-Fa-f]{6}", str(spec["card_hex"]).strip()):
+        palette["card"] = str(spec["card_hex"]).strip()
+    if spec.get("primary_hex") and re.fullmatch(r"#[0-9A-Fa-f]{6}", str(spec["primary_hex"]).strip()):
+        palette["primary"] = str(spec["primary_hex"]).strip()
+    if spec.get("accent_hex") and re.fullmatch(r"#[0-9A-Fa-f]{6}", str(spec["accent_hex"]).strip()):
+        palette["accent"] = str(spec["accent_hex"]).strip()
+    if spec.get("text_hex") and re.fullmatch(r"#[0-9A-Fa-f]{6}", str(spec["text_hex"]).strip()):
+        palette["text"] = str(spec["text_hex"]).strip()
+
+    if theme_mode == "dark":
+        if not spec.get("bg_hex"):
+            palette["bg"] = "#0B1224"
+        if not spec.get("card_hex"):
+            palette["card"] = "#141F3C"
+        if not spec.get("text_hex"):
+            palette["text"] = "#F1F5F9"
+        palette["muted"] = "#CBD5E1"
+        palette["blob1"] = palette["primary"]
+        palette["blob2"] = palette["accent"]
+    else:
+        bg_rgb = _hex_to_rgb(palette["bg"], (248, 250, 250))
+        p_rgb = _hex_to_rgb(palette["primary"], (13, 148, 136))
+        a_rgb = _hex_to_rgb(palette["accent"], (232, 122, 66))
+        b1 = _blend_rgb((255, 255, 255), p_rgb, 0.25)
+        b2 = _blend_rgb((255, 255, 255), a_rgb, 0.25)
+        palette["blob1"] = f"#{b1[0]:02X}{b1[1]:02X}{b1[2]:02X}"
+        palette["blob2"] = f"#{b2[0]:02X}{b2[1]:02X}{b2[2]:02X}"
+        # Guarantee dark readable text on light backgrounds
+        bg_lum = 0.299 * bg_rgb[0] + 0.587 * bg_rgb[1] + 0.114 * bg_rgb[2]
+        if bg_lum > 180 and not spec.get("text_hex"):
+            palette["text"] = "#2E3438"
+
+    return {
+        "aspect": ar,
+        "width": dims[0],
+        "height": dims[1],
+        "theme_mode": theme_mode,
+        "has_grid": has_grid,
+        "has_cta": has_cta,
+        "layout_pref": layout_pref,
+        "visual_style_en": visual_style_en,
+        "palette": palette,
+        "is_reference_clone": bool(spec),
+    }
+
+
 def generate_edu_carousel(
     user_query: str,
     topic_hint: str,
     slide_count: int,
     context_bundle: dict[str, Any],
     reply_context: str = "",
+    design_profile: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    system_instruction = f"""تو استراتژیست محتوای علمی «آکادمی بیوانفورماتیک ایران» هستی.
-مخاطب: کاربران باهوش و کم‌حوصله در ایران (دانشجویان زیست، پزشکی، بیوانفورماتیک و علاقه‌مندان AI).
+    prof = design_profile or resolve_design_profile(user_query)
+    is_story = prof["aspect"] == "story"
+    style_note = (
+        f"\nسبک بصری مرجع انتخابی کاربر: {prof['visual_style_en']}"
+        if prof.get("visual_style_en")
+        else ""
+    )
 
-قوانین طلایی لحن (بسیار حیاتی):
-1. **هیچ حس زردی و کلیک‌بیت نداشته باشد:** کلمات زرد مثل «معجزه»، «باورنکردنی»، «۱۰ سال صبر تموم شد»، «انفجار علم» یا «حتماً ببینید» اکیداً ممنوع! لحن باید **خودمونیِ باکلاس، دقیق، تیز و حرفه‌ای** باشد.
-2. **فوق‌العاده موجز و کوبنده:** هر بولت نهایتاً ۸ تا ۱۲ کلمه! بدون کش‌دادن، بدون مقدمهٔ طولانی و بدون اصطلاحات سنگین انگلیسی (مثل BindAffinity یا BWT). اگر یک مفهوم تخصصی لازم بود، در همان نیم‌خط با یک مثالِ عادی توضیحش بده.
-3. **تعداد دقیق اسلایدها: {slide_count} اسلاید:**
-   - اسلاید ۱ (role: "cover"): تیتر کوتاه و کنجکاوکننده (حداکثر ۸ کلمه، غیرزرد) + زیرتیتر ۱ خطی + `visual_prompt` انگلیسی تمیز.
-   - اسلایدهای ۲ تا {slide_count - 1} (role: "content"): هر اسلاید یک تکهٔ کلیدی را با ۲ بولت کوتاه و کوبنده بگوید. `tool_spotlight` را فقط اگر ۱ ابزار خیلی ضروری است کوتاه بنویس، وگرنه خالی `""` بگذار تا اسلاید شلوغ نشود.
-   - اسلاید آخر (role: "summary"): جمع‌بندی ۱ خطی + یک سؤال حرفه‌ای برای کامنت/ذخیره.
-4. `telegram_caption`: **کپشن اینستاگرام خیلی کوتاه و شیک** (نهایتاً ۳ تا ۴ خط کوتاه + یک دلیل منطقی برای Save/Share + ۴ تا ۵ هشتگ تخصصی، با ایموجی‌های به‌جا — اصلاً طولانی نباشد!).
-5. **ممنوعیت ایموجی در عکس:** داخل `headline`، `badge`، `body_points` و `tool_spotlight` ایموجی نگذار تا فونت کلمه/پینارِ عکس خراب نشود (ایموجی را فقط در `telegram_caption` بگذار).
+    if slide_count == 1:
+        structure_rules = (
+            "1. **تعداد دقیق اسلایدها: ۱ اسلاید مستقل و کامل (`role: \"story_card\"`):**\n"
+            "   - `headline`: تیتر اصلی کوتاه و کوبنده (حداکثر ۷ کلمه).\n"
+            "   - `highlight_phrase`: ۱ تا ۳ کلمه کلیدی از تیتر (یا زیرتیتر رنگی) برای هایلایت رنگی دقیقاً مثل سبک استوری‌های حرفه‌ای آکادمی.\n"
+            "   - `body_points`: **۳ تا ۵ بولت کوتاه** به فرمت `عنوان کوتاه: توضیح ۵ تا ۸ کلمه‌ای` (مثلاً `ردیابی ژن‌های بیماری‌زا: کشف کلید اصلی بیماری‌ها`).\n"
+            "   - `cta_text`: ۱ جمله کوتاه دعوت به اقدام برای پایین کارت (مثلاً «برای دریافت آموزش کامل، کلمه R را ریپلای کنید» یا «این کارت رو برای هم‌رشته‌ای‌ات بفرست»).\n"
+            "   - `tool_spotlight`: خالی `\"\"` بگذار مگر یک ابزار ضروری باشد.\n"
+            "   - `visual_prompt`: توصیف انگلیسی یک **شیء یا مفهوم علمی سه‌بعدی شیشه‌ای/پاستلی مینیمال** دقیقاً مرتبط با موضوع."
+        )
+    else:
+        structure_rules = (
+            f"1. **تعداد دقیق اسلایدها: {slide_count} اسلاید (حتماً دقیقاً {slide_count} آبجکت در آرایه `slides` بساز!):**\n"
+            "   - اسلاید ۱ (`role: \"cover\"`): تیتر کوتاه و کنجکاوکننده (حداکثر ۸ کلمه، غیرزرد) + `highlight_phrase` (۲ تا ۳ کلمه کلیدی تیتر برای رنگ تأکیدی) + ۱ زیرتیتر کوتاه در `body_points` + `cta_text: \"\"`.\n"
+            f"   - اسلایدهای ۲ تا {slide_count - 1} (`role: \"content\"`): هر اسلاید یک تکهٔ کلیدی را با ۲ تا ۳ جمله یا بولت خیلی کوتاه (هر کدام ۶ تا ۱۲ کلمه) بگوید + `highlight_phrase` (عبارت کلیدی داخل متن برای هایلایت رنگی).\n"
+            f"   - اسلاید آخر {slide_count} (`role: \"summary\"`): جمع‌بندی شفاف + ۲ نکته عملی + `cta_text` (دعوت به ذخیره/ارسال یا ریپلای)."
+        )
+
+    system_instruction = f"""تو طراح محتوای گرافیکی و استراتژیست علمی «آکادمی بیوانفورماتیک ایران» هستی.
+مخاطب: کاربران باهوش و کم‌حوصله در ایران (دانشجویان زیست، پزشکی، بیوانفورماتیک و AI).
+
+قوانین طلایی نگارش برای اسلاید ({'استوری ۹:۱۶' if is_story else 'پست ۴:۵'}):
+{structure_rules}
+2. **هیچ حس زردی و کلیک‌بیت نداشته باشد:** کلمات زرد («معجزه»، «باورنکردنی»، «انفجار») ممنوع! لحن علمیِ باوقار، واضح، موجز و خودمونی باشد.
+3. **کمتر تخصصی و کاملاً مفهوم:** اصطلاحات سنگین انگلیسی را بدون توضیح نیاور؛ مفهوم را خیلی مستقیم و شفاف بنویس.
+4. **ممنوعیت ایموجی در عکس:** داخل `headline`، `highlight_phrase`، `badge`، `body_points`، `cta_text` و `tool_spotlight` به هیچ وجه ایموجی نگذار تا فونت کلمه/پینار خراب نشود (ایموجی را فقط در `telegram_caption` بگذار).
+5. `telegram_caption`: کپشن کوتاه و شیک (۳ تا ۴ خط + ۴ هشتگ تخصصی).{style_note}
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
 
@@ -339,6 +641,7 @@ def generate_edu_carousel(
     user_prompt = (
         f"درخواست کاربر: {user_query or topic_hint}\n"
         f"تعداد دقیق اسلایدها: {slide_count}\n"
+        f"فرمت ابعادی: {prof['aspect']} ({prof['width']}x{prof['height']})\n"
         f"{source_note}\n"
         f"منابع مرتبط برای دقت علمی (فقط در حد نیاز استفاده شود):\n"
         f"{json.dumps(context_bundle, ensure_ascii=False)}"
@@ -357,8 +660,10 @@ def generate_edu_carousel(
                         "role": {"type": "STRING"},
                         "badge": {"type": "STRING"},
                         "headline": {"type": "STRING"},
+                        "highlight_phrase": {"type": "STRING"},
                         "body_points": {"type": "ARRAY", "items": {"type": "STRING"}},
                         "tool_spotlight": {"type": "STRING"},
+                        "cta_text": {"type": "STRING"},
                         "visual_prompt": {"type": "STRING"},
                     },
                     "required": [
@@ -366,8 +671,10 @@ def generate_edu_carousel(
                         "role",
                         "badge",
                         "headline",
+                        "highlight_phrase",
                         "body_points",
                         "tool_spotlight",
+                        "cta_text",
                         "visual_prompt",
                     ],
                 },
@@ -388,22 +695,36 @@ def generate_edu_carousel(
         "required": ["post_title", "slides", "telegram_caption", "selected_repos"],
     }
     json_hint = (
-        '\nReturn ONLY valid JSON: {"post_title": str, "slides": [{"slide_number": int, "role": "cover"|"content"|"summary", '
-        '"badge": str, "headline": str, "body_points": [str], "tool_spotlight": str, "visual_prompt": str}], '
+        '\nReturn ONLY valid JSON: {"post_title": str, "slides": [{"slide_number": int, "role": "cover"|"content"|"summary"|"story_card", '
+        '"badge": str, "headline": str, "highlight_phrase": str, "body_points": [str], "tool_spotlight": str, "cta_text": str, "visual_prompt": str}], '
         '"telegram_caption": str, "selected_repos": [{"repo": str, "why_persian": str}]}.'
     )
     return call_edu_json_with_failover(system_instruction, user_prompt, schema, json_hint)
 
 
-def generate_cf_art(prompt: str) -> bytes | None:
+def generate_cf_art(prompt: str, design_profile: dict[str, Any] | None = None) -> bytes | None:
     account_id = os.getenv("CF_ACCOUNT_ID", "").strip()
     ai_token = os.getenv("CF_AI_TOKEN", "").strip()
     if not account_id or not ai_token or not prompt:
         return None
-    clean_p = (
-        f"{prompt.strip()}, dark futuristic biomedical editorial illustration, deep navy and glowing cyan tones, "
-        "clean composition with uncluttered dark negative space, strictly no text, no letters, no watermark"
-    )[:1500]
+    prof = design_profile or {}
+    theme = prof.get("theme_mode", "light")
+    pal = prof.get("palette") or PALETTES["bioinfo_teal"]
+    style_extra = prof.get("visual_style_en") or ""
+
+    if theme == "dark":
+        clean_p = (
+            f"3D translucent glowing scientific illustration of {prompt.strip()}, "
+            f"color accents {pal.get('primary', '#38BDF8')} and {pal.get('accent', '#10B981')}, "
+            f"isolated on deep dark navy studio backdrop, {style_extra}, ultra clean, no text, no letters, no watermark"
+        )[:1500]
+    else:
+        clean_p = (
+            f"3D translucent frosted glass and smooth matte pastel scientific render of {prompt.strip()}, "
+            f"color accents {pal.get('primary', '#0D9488')} and {pal.get('accent', '#E87A42')}, "
+            f"centered isolated object on pure solid #FFFFFF white studio background, soft subtle drop shadow, "
+            f"minimalist editorial medical visualization, {style_extra}, strictly no text, no letters, no labels, no watermark"
+        )[:1500]
     try:
         r = requests.post(
             f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/black-forest-labs/flux-1-schnell",
@@ -531,118 +852,368 @@ def load_slide_fonts(role: str, query_hint: str = "") -> tuple[ImageFont.FreeTyp
     )
 
 
-def render_carousel_slide(slide: dict[str, Any], total_slides: int, cover_bg: bytes | None, font_hint: str = "") -> bytes:
-    W, H = 1080, 1350
-    role = (slide.get("role") or "content").lower()
-    num = int(slide.get("slide_number") or 1)
+def _remove_white_backdrop(img: Image.Image) -> Image.Image:
+    """Convert near-white studio background to smooth alpha so 3D renders float over the grid/card."""
+    rgba = img.convert("RGBA")
+    px = rgba.getdata()
+    new_px = []
+    for r, g, b, a in px:
+        mn = min(r, g, b)
+        mx = max(r, g, b)
+        sat = mx - mn
+        if mn >= 238 and sat <= 18:
+            # Smooth transition from 238..252 -> alpha 255..0
+            fade = max(0, min(255, int(255 * (252 - mn) / 14)))
+            new_px.append((r, g, b, min(a, fade)))
+        else:
+            new_px.append((r, g, b, a))
+    rgba.putdata(new_px)
+    return rgba
 
-    font_eb, font_b, font_r, font_sm = load_slide_fonts(role, font_hint)
 
-    # Background base: deep scientific navy gradient
-    canvas = Image.new("RGB", (W, H), (10, 16, 34))
-    draw = ImageDraw.Draw(canvas)
-    for y in range(H):
-        t = y / H
-        r = int(10 + 8 * t)
-        g = int(17 + 12 * t)
-        b = int(38 + 20 * t)
-        draw.line([(0, y), (W, y)], fill=(r, g, b))
+def _draw_light_brand_background(W: int, H: int, prof: dict[str, Any]) -> Image.Image:
+    pal = prof["palette"]
+    theme = prof["theme_mode"]
+    bg_rgb = _hex_to_rgb(pal["bg"], (248, 250, 250))
+    canvas = Image.new("RGBA", (W, H), (*bg_rgb, 255))
 
-    if cover_bg:
-        try:
-            bg_img = Image.open(io.BytesIO(cover_bg)).convert("RGB")
-            if role == "cover":
-                bg_fit = ImageOps.fit(bg_img, (W, 760), method=Image.Resampling.LANCZOS, centering=(0.5, 0.4))
-                canvas.paste(bg_fit, (0, 0))
-                # Smooth fade from illustration into deep navy card area
-                fade = Image.new("RGBA", (W, 460), (0, 0, 0, 0))
-                fdraw = ImageDraw.Draw(fade)
-                for y in range(460):
-                    alpha = int(255 * ((y / 460) ** 1.5))
-                    fdraw.line([(0, y), (W, y)], fill=(12, 19, 40, alpha))
-                rgba = canvas.convert("RGBA")
-                rgba.alpha_composite(fade, (0, 320))
-                canvas = rgba.convert("RGB")
-            else:
-                # Subtle top science strip for content slides
-                strip = ImageOps.fit(bg_img, (W, 250), method=Image.Resampling.LANCZOS, centering=(0.5, 0.5))
-                strip = strip.point(lambda p: int(p * 0.45))
-                canvas.paste(strip, (0, 0))
-                fade = Image.new("RGBA", (W, 180), (0, 0, 0, 0))
-                fdraw = ImageDraw.Draw(fade)
-                for y in range(180):
-                    alpha = int(255 * (y / 180))
-                    fdraw.line([(0, y), (W, y)], fill=(12, 19, 40, alpha))
-                rgba = canvas.convert("RGBA")
-                rgba.alpha_composite(fade, (0, 75))
-                canvas = rgba.convert("RGB")
-        except Exception:
-            pass
+    # Soft ambient pastel glows (corners + behind hero area)
+    glow_layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    gdraw = ImageDraw.Draw(glow_layer)
+    b1 = _hex_to_rgb(pal.get("blob1") or pal["primary"])
+    b2 = _hex_to_rgb(pal.get("blob2") or pal["accent"])
+    alpha_g = 75 if theme == "dark" else 145
+    gdraw.ellipse([(-int(W * 0.18), int(H * 0.08)), (int(W * 0.55), int(H * 0.48))], fill=(*b1, alpha_g))
+    gdraw.ellipse([(int(W * 0.45), int(H * 0.55)), (int(W * 1.18), int(H * 0.96))], fill=(*b2, alpha_g))
+    glow_layer = glow_layer.filter(ImageFilter.GaussianBlur(radius=95))
+    canvas = Image.alpha_composite(canvas, glow_layer)
+
+    # Subtle architectural grid (like the academy reference posts & stories)
+    if prof.get("has_grid", True):
+        grid = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        gr = ImageDraw.Draw(grid)
+        step = 72
+        line_col = (255, 255, 255, 16) if theme == "dark" else (140, 145, 155, 24)
+        for x in range(36, W, step):
+            gr.line([(x, 0), (x, H)], fill=line_col, width=1)
+        for y in range(36, H, step):
+            gr.line([(0, y), (W, y)], fill=line_col, width=1)
+        canvas = Image.alpha_composite(canvas, grid)
+
+    return canvas
+
+
+def _draw_footer_and_dots(
+    canvas: Image.Image,
+    num: int,
+    total_slides: int,
+    prof: dict[str, Any],
+    font_sm: ImageFont.FreeTypeFont,
+) -> Image.Image:
+    W, H = canvas.size
+    pal = prof["palette"]
+    theme = prof["theme_mode"]
+    if theme == "dark":
+        canvas_rgb = apply_academy_footer(canvas.convert("RGB"))
+        return canvas_rgb
 
     draw = ImageDraw.Draw(canvas)
     kw_dir = {"direction": "rtl"} if HAS_RAQM else {}
+    muted_rgb = _hex_to_rgb(pal.get("muted") or "#5E666B")
+    prim_rgb = _hex_to_rgb(pal.get("primary") or "#0D9488")
 
-    # Top slide pill badge
-    badge_txt = strip_emojis_for_card(slide.get("badge") or f"اسلاید {to_fa_digits(num)} از {to_fa_digits(total_slides)}")
-    pill_color = (16, 185, 129) if role == "summary" else (56, 189, 248)
-    draw.rounded_rectangle([(W - 390, 56), (W - 64, 112)], radius=24, fill=(18, 30, 60), outline=pill_color, width=2)
-    draw.text((W - 227, 84), shape_text(badge_txt), font=font_sm, fill=pill_color, anchor="mm", **kw_dir)
+    footer_y = H - 56
+    # Subtle divider line
+    draw.line([(56, footer_y - 26), (W - 56, footer_y - 26)], fill=(*muted_rgb, 40), width=1)
 
-    # Headline
+    # Left: clean academy bilingual label
+    draw.text((60, footer_y), "@ir_bioinformtic_academy", font=font_sm, fill=(*muted_rgb, 210), anchor="lm")
+    draw.text((W - 60, footer_y), shape_text("آکادمی بیوانفورماتیک ایران"), font=font_sm, fill=(*muted_rgb, 225), anchor="rm", **kw_dir)
+
+    # Center: minimal slide progress dots when > 1 slide
+    if total_slides > 1:
+        dots_n = min(total_slides, 12)
+        dot_gap = 18
+        total_w = (dots_n - 1) * dot_gap
+        start_x = (W - total_w) // 2
+        active_idx = min(dots_n - 1, num - 1)
+        for i in range(dots_n):
+            cx = start_x + i * dot_gap
+            r = 6 if i == active_idx else 4
+            col = (*prim_rgb, 230) if i == active_idx else (*muted_rgb, 80)
+            draw.ellipse([(cx - r, footer_y - r), (cx + r, footer_y + r)], fill=col)
+
+    return canvas.convert("RGB")
+
+
+def _paste_3d_visual(
+    canvas: Image.Image,
+    art_bytes: bytes | None,
+    box: tuple[int, int, int, int],
+    theme_mode: str,
+) -> Image.Image:
+    if not art_bytes:
+        return canvas
+    try:
+        raw = Image.open(io.BytesIO(art_bytes)).convert("RGBA")
+        bx, by, bw, bh = box
+        if theme_mode != "dark":
+            raw = _remove_white_backdrop(raw)
+            fitted = ImageOps.contain(raw, (bw, bh), method=Image.Resampling.LANCZOS)
+            px = bx + (bw - fitted.width) // 2
+            py = by + (bh - fitted.height) // 2
+            canvas.alpha_composite(fitted, (px, py))
+        else:
+            fitted = ImageOps.fit(raw, (bw, bh), method=Image.Resampling.LANCZOS)
+            mask = Image.new("L", (bw, bh), 0)
+            ImageDraw.Draw(mask).rounded_rectangle([(0, 0), (bw, bh)], radius=36, fill=245)
+            canvas.paste(fitted, (bx, by), mask)
+    except Exception:
+        pass
+    return canvas
+
+
+def render_carousel_slide(
+    slide: dict[str, Any],
+    total_slides: int,
+    art_bytes: bytes | None,
+    font_hint: str = "",
+    design_profile: dict[str, Any] | None = None,
+) -> bytes:
+    prof = design_profile or resolve_design_profile(font_hint)
+    W, H = int(prof["width"]), int(prof["height"])
+    pal = prof["palette"]
+    theme = prof["theme_mode"]
+    role = (slide.get("role") or "content").lower()
+    num = int(slide.get("slide_number") or 1)
+    is_story = H >= 1700
+
+    prim_rgb = _hex_to_rgb(pal["primary"])
+    acc_rgb = _hex_to_rgb(pal["accent"])
+    text_rgb = _hex_to_rgb(pal["text"])
+    muted_rgb = _hex_to_rgb(pal.get("muted") or "#5E666B")
+    card_rgb = _hex_to_rgb(pal.get("card") or "#FFFFFF")
+
+    font_eb, font_b, font_r, font_sm = load_slide_fonts("cover" if role in {"cover", "story_card"} else "content", font_hint)
+    if is_story:
+        # Scale headings slightly larger for tall 1080x1920 story canvas
+        font_eb = ImageFont.truetype(font_eb.path, int(font_eb.size * 1.08))
+        font_b = ImageFont.truetype(font_b.path, int(font_b.size * 1.05))
+        font_r = ImageFont.truetype(font_r.path, int(font_r.size * 1.05))
+
+    canvas = _draw_light_brand_background(W, H, prof)
+    draw = ImageDraw.Draw(canvas, "RGBA")
+    kw_dir = {"direction": "rtl"} if HAS_RAQM else {}
+
     headline = strip_emojis_for_card(slide.get("headline") or "")
-    if role == "cover":
-        y_cursor = 640
-        head_lines = wrap_text_lines(draw, headline, font_eb, W - 140)
-        for line in head_lines[:3]:
-            draw.text((W - 72, y_cursor), shape_text(line), font=font_eb, fill=(255, 255, 255), anchor="ra", **kw_dir)
-            y_cursor += 78
-        draw.line([(W - 240, y_cursor + 12), (W - 72, y_cursor + 12)], fill=(56, 189, 248), width=6)
-        y_cursor += 44
-
-        for pt in (slide.get("body_points") or [])[:2]:
-            for l in wrap_text_lines(draw, strip_emojis_for_card(pt), font_b, W - 150)[:3]:
-                draw.text((W - 72, y_cursor), shape_text(l), font=font_b, fill=(195, 215, 245), anchor="ra", **kw_dir)
-                y_cursor += 46
-            y_cursor += 12
-    else:
-        y_cursor = 165
-        head_lines = wrap_text_lines(draw, headline, font_eb, W - 144)
-        for line in head_lines[:3]:
-            draw.text((W - 72, y_cursor), shape_text(line), font=font_eb, fill=(125, 211, 252), anchor="ra", **kw_dir)
-            y_cursor += 64
-        y_cursor += 28
-
-        # Bullet cards
-        for pt in (slide.get("body_points") or [])[:3]:
-            clean_pt = strip_emojis_for_card(pt)
-            wrapped = wrap_text_lines(draw, clean_pt, font_r, W - 200)
-            box_h = max(92, len(wrapped) * 44 + 42)
-            if y_cursor + box_h > 980:
-                break
-            draw.rounded_rectangle([(68, y_cursor), (W - 68, y_cursor + box_h)], radius=20, fill=(20, 31, 60), outline=(44, 62, 108), width=2)
-            # Cyan vertical accent bar on right side
-            draw.rounded_rectangle([(W - 84, y_cursor + 18), (W - 74, y_cursor + box_h - 18)], radius=4, fill=pill_color)
-            ty = y_cursor + 22
-            for l in wrapped:
-                draw.text((W - 104, ty), shape_text(l), font=font_r, fill=(238, 242, 255), anchor="ra", **kw_dir)
-                ty += 44
-            y_cursor += box_h + 22
-
-    # Tool Spotlight Box positioned cleanly below content without excessive empty gap
+    hl_phrase = strip_emojis_for_card(slide.get("highlight_phrase") or "")
+    badge_txt = strip_emojis_for_card(slide.get("badge") or "")
+    pts = [strip_emojis_for_card(p) for p in (slide.get("body_points") or []) if strip_emojis_for_card(p)]
+    cta_text = strip_emojis_for_card(slide.get("cta_text") or "")
     spotlight = strip_emojis_for_card(slide.get("tool_spotlight") or "")
-    if spotlight:
-        spot_lines = wrap_text_lines(draw, f"ابزار پیشنهادی گیت‌هاب: {spotlight}", font_sm, W - 190)[:2]
-        s_h = 34 + len(spot_lines) * 36
-        s_y = min(max(y_cursor + 32, 780 if role != "cover" else y_cursor + 24), 1150 - s_h)
-        draw.rounded_rectangle([(68, s_y), (W - 68, s_y + s_h)], radius=18, fill=(12, 42, 58), outline=(52, 211, 153), width=2)
-        sy = s_y + 18
-        for l in spot_lines:
-            draw.text((W - 96, sy), shape_text(l), font=font_sm, fill=(167, 243, 208), anchor="ra", **kw_dir)
-            sy += 36
 
-    canvas = apply_academy_footer(canvas)
+    # Choose layout cleanly: story_card, cover_editorial, content_split, content_centered, summary_cta
+    layout = prof.get("layout_pref") or ""
+    if role == "story_card" or (total_slides == 1 and is_story):
+        layout = "story_card"
+    elif role == "cover":
+        layout = "story_card" if is_story else "cover_editorial"
+    elif role == "summary":
+        layout = "summary_cta"
+    elif layout not in {"content_split", "content_centered", "arch_card"}:
+        layout = "content_split" if (num % 2 == 1 and not is_story) else "content_centered"
+
+    card_fill = (*card_rgb, 228 if theme == "dark" else 222)
+    card_outline = (255, 255, 255, 40) if theme == "dark" else (*prim_rgb, 65)
+
+    def draw_translucent_card(coords: list[tuple[int, int]], radius: int) -> None:
+        nonlocal canvas, draw
+        ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ImageDraw.Draw(ov).rounded_rectangle(coords, radius=radius, fill=card_fill, outline=card_outline, width=2)
+        canvas = Image.alpha_composite(canvas, ov)
+        draw = ImageDraw.Draw(canvas)
+
+    # Top subtle header brand mark (for stories/covers matching Biocan/IRBIOINF style)
+    if is_story or role in {"cover", "story_card"}:
+        draw.text((W // 2, 52), "IRBIOINF  •  ACADEMY", font=font_sm, fill=(*muted_rgb, 210), anchor="mm")
+
+    if layout == "story_card":
+        # Inspired by R story & اقساطی story: soft translucent rounded card + overlapping 3D visual + colored title + itemized points + bottom CTA pill
+        card_top = int(H * 0.21)
+        card_bot = H - (225 if cta_text else 125)
+        draw_translucent_card([(68, card_top), (W - 68, card_bot)], radius=56)
+
+        # Overlapping 3D visual at top center of card
+        vis_size = int(W * 0.44)
+        canvas = _paste_3d_visual(canvas, art_bytes, ((W - vis_size) // 2, int(H * 0.075), vis_size, vis_size), theme)
+        draw = ImageDraw.Draw(canvas)
+
+        y_cur = int(H * 0.33)
+        head_lines = wrap_text_lines(draw, headline, font_eb, W - 170)[:2]
+        for idx_l, line in enumerate(head_lines):
+            col = (*prim_rgb, 255) if (idx_l == len(head_lines) - 1 and len(head_lines) > 1) or (hl_phrase and hl_phrase in line) else (*text_rgb, 255)
+            draw.text((W // 2, y_cur), shape_text(line), font=font_eb, fill=col, anchor="ma", **kw_dir)
+            y_cur += int(font_eb.size * 1.44)
+
+        if hl_phrase and hl_phrase not in headline:
+            draw.text((W // 2, y_cur + 6), shape_text(hl_phrase), font=font_b, fill=(*acc_rgb, 255), anchor="ma", **kw_dir)
+            y_cur += int(font_b.size * 1.60)
+
+        # Thin divider
+        y_cur += 20
+        div_col = _blend_rgb(card_rgb, prim_rgb, 0.35)
+        draw.line([(160, y_cur), (W - 160, y_cur)], fill=(*div_col, 255), width=2)
+        y_cur += 44
+
+        # Distribute points evenly inside remaining card height
+        max_pts = 5 if is_story else 3
+        shown_pts = pts[:max_pts]
+        avail_h = max(240, (card_bot - 50) - y_cur)
+        est_item_h = 115 if any(":" in p or "：" in p for p in shown_pts) else 85
+        step_gap = max(28, min(72, (avail_h - len(shown_pts) * est_item_h) // max(1, len(shown_pts))))
+        for idx_p, pt in enumerate(shown_pts):
+            if y_cur > card_bot - 85:
+                break
+            if ":" in pt or "：" in pt:
+                sep = "：" if "：" in pt else ":"
+                lbl, desc = pt.split(sep, 1)
+                lbl_col = (*prim_rgb, 255) if idx_p % 2 == 0 else (*acc_rgb, 255)
+                draw.text((W // 2, y_cur), shape_text(f"{lbl.strip()}:"), font=font_b, fill=lbl_col, anchor="ma", **kw_dir)
+                y_cur += int(font_b.size * 1.44)
+                for dl in wrap_text_lines(draw, desc.strip(), font_r, W - 170)[:2]:
+                    draw.text((W // 2, y_cur), shape_text(dl), font=font_r, fill=(*text_rgb, 255), anchor="ma", **kw_dir)
+                    y_cur += int(font_r.size * 1.48)
+                y_cur += step_gap
+            else:
+                for dl in wrap_text_lines(draw, pt, font_r, W - 170)[:2]:
+                    draw.text((W // 2, y_cur), shape_text(dl), font=font_r, fill=(*text_rgb, 255), anchor="ma", **kw_dir)
+                    y_cur += int(font_r.size * 1.48)
+                y_cur += step_gap
+
+        if cta_text:
+            pill_y1 = card_bot + 28
+            pill_y2 = pill_y1 + 78
+            draw.rounded_rectangle([(84, pill_y1), (W - 84, pill_y2)], radius=39, fill=(*acc_rgb, 255))
+            cta_lines = wrap_text_lines(draw, cta_text, font_sm, W - 220)[:1]
+            draw.text((W // 2, (pill_y1 + pill_y2) // 2), shape_text(cta_lines[0]), font=font_sm, fill=(255, 255, 255, 255), anchor="mm", **kw_dir)
+
+    elif layout == "cover_editorial":
+        # Inspired by "انسان عظمتی به اندازه تمامی کهکشان‌ها": bold right-aligned Kalameh headline + 3D render on left
+        canvas = _paste_3d_visual(canvas, art_bytes, (40, int(H * 0.14), int(W * 0.48), int(H * 0.68)), theme)
+        draw = ImageDraw.Draw(canvas)
+
+        y_cur = int(H * 0.19)
+        head_lines = wrap_text_lines(draw, headline, font_eb, int(W * 0.48))[:5]
+        for idx_l, line in enumerate(head_lines):
+            use_col = (*prim_rgb, 255) if (idx_l > 0 or (hl_phrase and hl_phrase in line)) else (*text_rgb, 255)
+            draw.text((W - 68, y_cur), shape_text(line), font=font_eb, fill=use_col, anchor="ra", **kw_dir)
+            y_cur += int(font_eb.size * 1.48)
+
+        y_cur += 24
+        draw.text((W - 68, y_cur), "•  •  •", font=font_b, fill=(*muted_rgb, 200), anchor="ra")
+        y_cur += 54
+
+        if hl_phrase and hl_phrase not in headline:
+            draw.text((W - 68, y_cur), shape_text(hl_phrase), font=font_b, fill=(*acc_rgb, 255), anchor="ra", **kw_dir)
+            y_cur += int(font_b.size * 1.48)
+
+        for pt in pts[:2]:
+            for dl in wrap_text_lines(draw, pt, font_r, int(W * 0.46))[:3]:
+                draw.text((W - 68, y_cur), shape_text(dl), font=font_r, fill=(*text_rgb, 255), anchor="ra", **kw_dir)
+                y_cur += int(font_r.size * 1.48)
+            y_cur += 14
+
+    elif layout == "content_split":
+        # Inspired by "ژنومیکس Genomics" & "کروموزوم X": pill badge/title + crisp text on right, 3D artwork on left
+        draw_translucent_card([(46, 78), (W - 46, H - 108)], radius=48)
+        canvas = _paste_3d_visual(canvas, art_bytes, (64, int(H * 0.24), int(W * 0.42), int(H * 0.56)), theme)
+        draw = ImageDraw.Draw(canvas)
+
+        # Top right pill headline or badge
+        pill_txt = badge_txt or headline
+        if len(pill_txt) <= 22:
+            pill_w = min(int(W * 0.50), max(280, len(pill_txt) * 24 + 90))
+            draw.rounded_rectangle([(W - 76 - pill_w, 132), (W - 76, 208)], radius=38, fill=(*prim_rgb, 255))
+            draw.text((W - 76 - pill_w // 2, 170), shape_text(pill_txt), font=font_b, fill=(255, 255, 255, 255), anchor="mm", **kw_dir)
+            y_cur = 240
+            if pill_txt != headline:
+                for hl in wrap_text_lines(draw, headline, font_eb, int(W * 0.48))[:3]:
+                    draw.text((W - 78, y_cur), shape_text(hl), font=font_eb, fill=(*text_rgb, 255), anchor="ra", **kw_dir)
+                    y_cur += int(font_eb.size * 1.38)
+                y_cur += 18
+        else:
+            y_cur = 148
+            for hl in wrap_text_lines(draw, headline, font_eb, int(W * 0.52))[:3]:
+                draw.text((W - 78, y_cur), shape_text(hl), font=font_eb, fill=(*text_rgb, 255), anchor="ra", **kw_dir)
+                y_cur += int(font_eb.size * 1.38)
+            y_cur += 22
+
+        for idx_p, pt in enumerate(pts[:3]):
+            if y_cur > H - 230:
+                break
+            lines = wrap_text_lines(draw, pt, font_r, int(W * 0.45))[:4]
+            col = (*prim_rgb, 255) if (hl_phrase and hl_phrase in pt) else (*text_rgb, 255)
+            for l in lines:
+                draw.text((W - 78, y_cur), shape_text(l), font=font_r, fill=col, anchor="ra", **kw_dir)
+                y_cur += int(font_r.size * 1.50)
+            y_cur += 20
+
+        if hl_phrase and not any(hl_phrase in p for p in pts[:3]) and y_cur < H - 210:
+            draw.text((W - 78, y_cur + 6), shape_text(hl_phrase), font=font_b, fill=(*acc_rgb, 255), anchor="ra", **kw_dir)
+
+    else:
+        # "content_centered" or "summary_cta": Inspired by "سیستم ایمنی قوی‌تر" & "سفری تا خورشید"
+        draw_translucent_card([(52, 74), (W - 52, H - 108)], radius=52)
+
+        y_cur = 118
+        head_lines = wrap_text_lines(draw, headline, font_eb, W - 150)[:2]
+        for hl in head_lines:
+            draw.text((W // 2, y_cur), shape_text(hl), font=font_eb, fill=(*text_rgb, 255), anchor="ma", **kw_dir)
+            y_cur += int(font_eb.size * 1.36)
+
+        # Rounded soft pastel stage for 3D visual
+        stage_top = y_cur + 18
+        stage_h = int(H * (0.34 if is_story else 0.36))
+        stage_bg = _blend_rgb(card_rgb, prim_rgb, 0.10) if theme != "dark" else _blend_rgb(card_rgb, prim_rgb, 0.18)
+        draw.rounded_rectangle([(120, stage_top), (W - 120, stage_top + stage_h)], radius=48, fill=(*stage_bg, 255))
+        canvas = _paste_3d_visual(canvas, art_bytes, (140, stage_top + 12, W - 280, stage_h - 24), theme)
+        draw = ImageDraw.Draw(canvas)
+
+        y_cur = stage_top + stage_h + 38
+        for idx_p, pt in enumerate(pts[:3]):
+            if y_cur > H - 220:
+                break
+            is_hl = bool(hl_phrase and hl_phrase in pt) or (role == "summary" and idx_p == 0)
+            wrapped = wrap_text_lines(draw, pt, font_r, W - 140)[:3]
+            if is_hl and len(wrapped) == 1:
+                pill_h = int(font_r.size * 1.65)
+                draw.rounded_rectangle([(110, y_cur - 6), (W - 110, y_cur + pill_h)], radius=18, fill=(*prim_rgb, 255))
+                draw.text((W // 2, y_cur + pill_h // 2 - 4), shape_text(wrapped[0]), font=font_b, fill=(255, 255, 255, 255), anchor="mm", **kw_dir)
+                y_cur += pill_h + 18
+            else:
+                col = (*acc_rgb, 255) if is_hl else (*text_rgb, 255)
+                for l in wrapped:
+                    draw.text((W // 2, y_cur), shape_text(l), font=font_r, fill=col, anchor="ma", **kw_dir)
+                    y_cur += int(font_r.size * 1.50)
+                y_cur += 16
+
+        if cta_text:
+            pill_y1 = H - 205
+            draw.rounded_rectangle([(96, pill_y1), (W - 96, pill_y1 + 72)], radius=36, fill=(*acc_rgb, 255))
+            cta_l = wrap_text_lines(draw, cta_text, font_sm, W - 240)[0]
+            draw.text((W // 2, pill_y1 + 36), shape_text(cta_l), font=font_sm, fill=(255, 255, 255, 255), anchor="mm", **kw_dir)
+
+    if spotlight and layout != "story_card":
+        draw = ImageDraw.Draw(canvas)
+        sp_y = H - 185 if not cta_text else H - 270
+        sp_bg = _blend_rgb(card_rgb, prim_rgb, 0.12)
+        sp_border = _blend_rgb(card_rgb, prim_rgb, 0.45)
+        draw.rounded_rectangle([(84, sp_y), (W - 84, sp_y + 52)], radius=20, fill=(*sp_bg, 255), outline=(*sp_border, 255), width=2)
+        draw.text((W // 2, sp_y + 26), shape_text(f"ابزار گیت‌هاب: {spotlight[:55]}"), font=font_sm, fill=(*prim_rgb, 255), anchor="mm", **kw_dir)
+
+    final_rgb = _draw_footer_and_dots(canvas, num, total_slides, prof, font_sm)
     buf = io.BytesIO()
-    canvas.save(buf, format="JPEG", quality=92, optimize=True)
+    final_rgb.save(buf, format="JPEG", quality=93, optimize=True)
     return buf.getvalue()
 
 
@@ -658,21 +1229,31 @@ def send_tg_album(bot_token: str, chat_id: str, slide_images: list[bytes]) -> No
         )
         return
 
-    media = []
-    files = {}
-    for idx, img_bytes in enumerate(slide_images[:10], 1):
-        key = f"slide{idx}"
-        media.append({"type": "photo", "media": f"attach://{key}"})
-        files[key] = (f"slide_{idx}.jpg", img_bytes, "image/jpeg")
+    for chunk_start in range(0, len(slide_images), 10):
+        chunk = slide_images[chunk_start : chunk_start + 10]
+        if len(chunk) == 1:
+            requests.post(
+                f"https://api.telegram.org/bot{bot_token}/sendPhoto",
+                data={"chat_id": chat_id},
+                files={"photo": (f"slide_{chunk_start + 1}.jpg", chunk[0], "image/jpeg")},
+                timeout=30,
+            )
+            continue
+        media = []
+        files = {}
+        for idx, img_bytes in enumerate(chunk, 1):
+            key = f"slide{idx}"
+            media.append({"type": "photo", "media": f"attach://{key}"})
+            files[key] = (f"slide_{chunk_start + idx}.jpg", img_bytes, "image/jpeg")
 
-    resp = requests.post(
-        f"https://api.telegram.org/bot{bot_token}/sendMediaGroup",
-        data={"chat_id": chat_id, "media": json.dumps(media)},
-        files=files,
-        timeout=60,
-    )
-    if resp.status_code != 200:
-        print(f"[WARN] sendMediaGroup HTTP {resp.status_code}: {resp.text[:250]}")
+        resp = requests.post(
+            f"https://api.telegram.org/bot{bot_token}/sendMediaGroup",
+            data={"chat_id": chat_id, "media": json.dumps(media)},
+            files=files,
+            timeout=60,
+        )
+        if resp.status_code != 200:
+            print(f"[WARN] sendMediaGroup HTTP {resp.status_code}: {resp.text[:250]}")
 
 
 def _clean_tg_html(text: str) -> str:
@@ -907,6 +1488,8 @@ def run_edu_studio(
     with_images: bool = False,
     reply_context: str = "",
     edit_mode: bool = False,
+    aspect_ratio: str = "post",
+    design_spec_raw: str = "",
 ) -> None:
     t0 = time.time()
 
@@ -999,31 +1582,59 @@ def run_edu_studio(
     if not dry_run:
         progress_fn(bot_token, target_chat_ids, status_msg_id, 55, f"در حال طراحی و نگارش محتوای {to_fa_digits(slide_count)} اسلاید آموزشی...")
 
-    carousel = generate_edu_carousel(clean_query, custom_topic, slide_count, context_bundle, reply_context=reply_context)
+    design_profile = resolve_design_profile(
+        clean_query or custom_topic,
+        aspect_ratio=aspect_ratio,
+        design_spec_raw=design_spec_raw,
+        bot_token=bot_token,
+    )
+    carousel = generate_edu_carousel(
+        clean_query,
+        custom_topic,
+        slide_count,
+        context_bundle,
+        reply_context=reply_context,
+        design_profile=design_profile,
+    )
     slides = (carousel.get("slides") or [])[:slide_count]
 
+    dim_label = f"{to_fa_digits(design_profile['width'])}×{to_fa_digits(design_profile['height'])}"
     if not dry_run:
-        progress_fn(bot_token, target_chat_ids, status_msg_id, 75, f"در حال رندر گرافیکی {to_fa_digits(len(slides))} اسلاید آماده انتشار (۱۰۸۰×۱۳۵۰)...")
+        progress_fn(bot_token, target_chat_ids, status_msg_id, 75, f"در حال رندر گرافیکی {to_fa_digits(len(slides))} اسلاید با ابعاد {dim_label}...")
 
-    cover_prompt = (slides[0].get("visual_prompt") if slides else "") or f"{custom_topic} scientific illustration"
-    slide_prompt_2 = (slides[1].get("visual_prompt") if len(slides) > 1 else cover_prompt) or cover_prompt
-    with ThreadPoolExecutor(max_workers=2) as ex:
-        fut1 = ex.submit(generate_cf_art, cover_prompt)
-        fut2 = ex.submit(generate_cf_art, slide_prompt_2)
-        bg1 = fut1.result()
-        bg2 = fut2.result()
+    # Generate distinct 3D scientific illustrations (up to 4 unique visuals for multi-slide carousels)
+    unique_prompts: list[str] = []
+    for idx, sl in enumerate(slides):
+        vp = (sl.get("visual_prompt") or "").strip() or f"{custom_topic} 3D bioinformatics illustration"
+        if idx < 4:
+            unique_prompts.append(vp)
+
+    art_pool: list[bytes | None] = []
+    if unique_prompts:
+        with ThreadPoolExecutor(max_workers=min(4, len(unique_prompts))) as ex:
+            art_pool = list(ex.map(lambda p: generate_cf_art(p, design_profile), unique_prompts))
 
     rendered_slides: list[bytes] = []
     for idx, sl in enumerate(slides):
-        bg = bg1 if idx == 0 else (bg2 or bg1)
-        rendered_slides.append(render_carousel_slide(sl, len(slides), bg, font_hint=clean_query))
+        bg = art_pool[idx % len(art_pool)] if art_pool else None
+        if not bg and art_pool:
+            bg = next((a for a in art_pool if a), None)
+        rendered_slides.append(
+            render_carousel_slide(
+                sl,
+                len(slides),
+                bg,
+                font_hint=clean_query,
+                design_profile=design_profile,
+            )
+        )
 
     if dry_run:
         out_dir = BASE_DIR / "tmp_edu_preview"
         out_dir.mkdir(exist_ok=True)
         for i, b in enumerate(rendered_slides, 1):
             (out_dir / f"slide_{i}.jpg").write_bytes(b)
-        print(f"[DRY_RUN] Rendered {len(rendered_slides)} slides to {out_dir} in {time.time() - t0:.1f}s")
+        print(f"[DRY_RUN] Rendered {len(rendered_slides)} slides ({dim_label}) to {out_dir} in {time.time() - t0:.1f}s")
         print(format_editable_slides_text(carousel))
         if wants_sources:
             print("\n" + format_library_links_message(carousel, matched))
@@ -1036,4 +1647,11 @@ def run_edu_studio(
         if wants_sources:
             send_tg_text(bot_token, cid, format_library_links_message(carousel, matched))
 
-    progress_fn(bot_token, target_chat_ids, status_msg_id, 100, f"پست آموزشی {to_fa_digits(len(slides))} اسلایدی با تصویر آماده و ارسال شد!", done=True)
+    progress_fn(
+        bot_token,
+        target_chat_ids,
+        status_msg_id,
+        100,
+        f"پست آموزشی {to_fa_digits(len(slides))} اسلایدی ({dim_label}) آماده و ارسال شد!",
+        done=True,
+    )
