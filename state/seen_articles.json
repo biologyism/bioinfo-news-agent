@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-25",
-  "daily_post_count": 7,
+  "daily_post_count": 12,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2405,6 +2405,81 @@
     "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPUUxIUUFGZkltVEpyUG4zV1owNElUUDRlZXYyNldSSzRCeXZLSm5GNG5qcFI5S2gzR29Zd2tCWGRxc1VLdzVOckxJcU9UNWRmcWZ2bThBYzB3YkRLM2lmV2FPbXUzVV9BMmRlZ2F2THRCdjQ5NFkyTFdNcGlUZTdzWUZNUTljSmJuYWdlN1RkbGdjNmNXUm5rcE5JR3RHRUlfZTFnQUxMTXFxNzdmTVFvTnhkN0xOZ1ZWdW81R0JZRHBXaFhIOGNxSGROaVRfcmVTblNteTBtOVRuaUNCaXc?oc=5": {
       "title": "The Only Bioinformatics Master’s Programme in Lithuania: VU Studies Open the Door to a Fast-Growing Scientific Field",
       "ts": "2026-11-24T23:33:26.757452+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03836-z": {
+      "title": "Watch out, AlphaFold: Claude and ChatGPT’s new biology skills wow scientists",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMimgFBVV95cUxNdEpwZEhRSXQ2SzA3eUVEWXFKM00zT19HWGhUbm5UaXRUbXd5ZTV2STJCbjFCLWVoUHg2ZHVlaU5KcTlPdHNLdExaXy0wcEw1Z0RHTUVRTzMtb2IxVHVUalpyTnJzc3NxZHhCUjRNM2JsMExzS3Z6ZzZob0ZDb0NEQ0pEMlRRWWlyWmswaW0xbG5pNkJTanZ3bTNB?oc=5": {
+      "title": "GPT-6 Protein Design: 10.9% Minibinder Hits in Lab Tests",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "sent"
+    },
+    "https://www.genengnews.com/topics/translational-medicine/alzheimers-study-shows-gal3-shapes-a%ce%b2-remodeling-and-microglial-responses": {
+      "title": "Alzheimer’s Study Shows Gal3 Shapes Aβ Remodeling and Microglial Responses",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "sent"
+    },
+    "https://endpoints.news/sanofi-to-buy-insmed-for-41b-in-industrys-largest-acquisition-in-years": {
+      "title": "Sanofi to buy Insmed for $41B in industry's largest acquisition in years",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "sent"
+    },
+    "https://endpoints.news/cogent-prepares-for-first-commercial-launch-with-gi-tumor-treatment": {
+      "title": "Cogent prepares for first commercial launch with GI tumor treatment",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMikgFBVV95cUxOaUdETW1TNzZiLWl5Z2lOUkhpRmtFMGNxY2dRVV9URkpQX3RVRGpVZGk5Q055WEY4elV1X2VHWlVCYzZTQUMydEk4YThidXZUOUh4dlBZVmpfZ21jaTZIeVRQaEFmdFN5MDNkNDhhYU5qdTJEN3ZQeGRXNG5NS215c3hxa2hFbEFjWW1DVE93UXFkdw?oc=5": {
+      "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1UZHN0ZGpRU2FjUzk2azBMUElOZ0M2VmtFSkRmdXpRLUJ5UHVXdE5HTDJOTExUSkpGTTktRzVKWWhfUQ?oc=5": {
+      "title": "OpenAI reports GPT-6.2 protein-design lab hits—with specialists still in the mix",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://www.genengnews.com/topics/artificial-intelligence/drug-developers-should-treat-ai-as-an-operating-model-from-target-to-trial": {
+      "title": "Drug Developers Should Treat AI as an Operating Model, From Target to Trial",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/24/biotech-news-roche-potential-breast-cancer-blockbluster-drug-wins-second-fda-nod": {
+      "title": "STAT+: Roche’s potential breast cancer blockbuster drug wins second FDA nod",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://www.genengnews.com/topics/translational-medicine/with-planned-41b-insmed-acquisition-sanofi-inks-years-biggest-ma-deal": {
+      "title": "With Planned $41B Insmed Acquisition, Sanofi Inks Year’s Biggest M&A Deal",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/sanofi-makes-a-huge-bet-on-life-after-dupixent": {
+      "title": "Sanofi makes a huge bet on life after Dupixent",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://www.genengnews.com/topics/bioprocessing/why-genomics-wont-converge-on-one-technology": {
+      "title": "Why Genomics Won’t Converge on One Technology",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/kymeras-historica-1-75b-offering-diamedicas-fetal-growth-restriction-data": {
+      "title": "Kymera's historic $1.75B offering; DiaMedica's fetal growth restriction data",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/sabcs26-novartis-jj-unveil-breast-cancer-data-from-biotech-buyouts": {
+      "title": "#SABCS26: Novartis, J&J unveil breast cancer data from biotech buyouts",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiogFBVV95cUxPLVdueFBuTzBFMFJJR2FvZ0tuMXNkRjg3Y3F0U1k3Vm1RbW52aTVtQ0YwWFdLSExkNmZzTEhJNTVvQUp2YXg4Mk9PTTk2MHQ0bHYwbktYMEZTcWhsRmhXcTRaMUxQTkRKMVZaWWFaSjA5Q0oyZnB4T1N4TWhhTWFaQmNoN0F4aG44cU52eVNaZzZkbFZFdkI0SHhudEtYT1BnRUE?oc=5": {
+      "title": "‘We’ve been a quiet company’: Why viral biotech Vyriad attracts Big Pharmas despite low profile",
+      "ts": "2026-11-25T01:30:41.100053+00:00",
       "status": "skipped"
     }
   }
