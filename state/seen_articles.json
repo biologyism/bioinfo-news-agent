@@ -1,6 +1,6 @@
 {
-  "daily_date": "2026-11-25",
-  "daily_post_count": 19,
+  "daily_date": "2026-11-26",
+  "daily_post_count": 2,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2630,6 +2630,81 @@
     "https://arxiv.org/abs/2611.32382v1": {
       "title": "Cancer multi-omics joint dimension reduction leads to reliable and interpretable survival predictions",
       "ts": "2026-11-25T15:55:45.530222+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.24.768971v1": {
+      "title": "XenoType: Decoding cellular identity in breast cancer histology through molecular supervision",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "sent"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014965": {
+      "title": "Biophysically grounded deep learning improves protein–protein ΔΔ G prediction",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.24.751906v1": {
+      "title": "SYNDRI: Context-aware removal of transcript spillover in imaging-based spatial transcriptomics",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014944": {
+      "title": "Systematic clustering alignment and feature characterization for single-cell omics using ACE-OF-Clust",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014979": {
+      "title": "Generating scRNA-seq data from bulk RNA-seq using a Gaussian mixture variational autoencoder",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.24.768840v1": {
+      "title": "A noise-corrected metric for evaluating spatial transcriptomics predicted from histology",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.16.767062v1": {
+      "title": "An interpretable framework for decoding transcriptomic foundation models",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.24.768923v1": {
+      "title": "A method to disentangle enhancer-gene interactions from latent factors in single-cell multi-omics data",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014485": {
+      "title": "A structure-derived contact-network responsiveness atlas of human proteins",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.24.769044v1": {
+      "title": "GASTON-VI efficiently quantifies spatial axes and molecular gradients from multi-sample, multi-modal spatial-omics data",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014494": {
+      "title": "mirCCC: Repression-aware graph learning for miRNA-mediated cell-cell communication inference",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.24.768887v1": {
+      "title": "Functional cooperation, adaptation and synchronization of subcellular processes in cellular neighborhoods as inferred from spatial transcriptomics",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014969": {
+      "title": "Protein sequence domain annotation using a language model",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.24.768872v1": {
+      "title": "BRISANCE: A GPU-Accelerated Pipeline for Somatic Short-Variant Detection in Whole-Genome Sequencing Data",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768775v1": {
+      "title": "BRIDGE: Backbone Representation for Inverse-folding-Driven Generalizable RNA Encoding",
+      "ts": "2026-11-25T23:03:02.477032+00:00",
       "status": "skipped"
     }
   }
