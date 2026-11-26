@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-26",
-  "daily_post_count": 7,
+  "daily_post_count": 9,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2780,6 +2780,81 @@
     "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZjk5YzJVR0J3N1R6TnI5QVFZRTVLZS1qNkxHRy1FSGwxaFA3ZXM0ek9WWHRsN05NalVLRFVmd3JIdnNWbWFPZ3lMWE5qSEo2U3RJWmEzVjJsYWxDYm9MMGE5Z0V3OFFzMF9VYnVtOEJWOXNJZ2pyVGVCTHMzSEtKUXFKYXZvMGhTb0I1MEgzWGVtWDEzQW8w?oc=5": {
       "title": "Exploring bioinformatics through the Map of Science",
       "ts": "2026-11-25T23:06:14.050086+00:00",
+      "status": "skipped"
+    },
+    "https://www.genengnews.com/topics/infectious-diseases/engineered-medical-gloves-cut-bacterial-transmission-by-up-to-99": {
+      "title": "Engineered Medical Gloves Cut Bacterial Transmission by Up to 99%",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "sent"
+    },
+    "https://phys.org/news/2026-11-cells-adjust-gene-offset-extra.html": {
+      "title": "Cells can adjust gene activity to partly offset extra or missing chromosomes",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "sent"
+    },
+    "https://endpoints.news/prof-oak-is-now-lending-his-expertise-to-anthropic": {
+      "title": "'Prof Oak' is now lending his expertise to Anthropic",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxQNjNscU9BWV9aeUZZQXVrTW9yZlk5YWllNEloYmV4U3JRWXdicnlDVlpGQWpnTWgxclp6RHA4MzRoNk9lZng1VzZoa3VwRGs2em1oajNPbUdYcFFkU08wVlU5SlhhTjQxdXBHTVd5YmVmZGpIRHZIbUxTb1ZZc0VZQzJrUTdGTlZqLS0zUnJod3l2eWNXdnFLNm5wRWhHVjZpeE8xSw?oc=5": {
+      "title": "Leash Biosciences Raises $11M to Expand Automated Lab for AI Drug Discovery -",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMinwFBVV95cUxNc0YtaF9OcnZ6STlwV1dBYlRzUzY3NGtFVWlwQUFJT1hmRkN3MVdaOE5Rc2dWbWV4WXRPbHJpdWNNR3RKdXM5UFZONHVPQmFiVGJ4bjl3QmJoeEFYcVJGSGw4bGs4dHFSVmhkZW9zZXpocDNUZ0lvdFZpR2dUVm5iZHZVaDVvNHItODBqVWdCWk5YWXdLMlhJQTM0Q09FOGs?oc=5": {
+      "title": "GPT-6.2 protein design yields binders for five targets",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMijgFBVV95cUxOc3BYT3prY2lIMy01eDZYbjd5bkRGOER6dHlwQk1BN0R1cUlseXNiYzRtRXBEQVFhenFtRkhEYWtlVTJuUUg3YjBCZDg2ZUljMTdEV3ZHWnh0VXJ0NjJtVFQ1ek55VVYtRzRJOXp4SW83NHRwS3BQWDc1SlFEOThXVklRM256QlJkWDZGSWpn?oc=5": {
+      "title": "GPT-6.2 Protein Design: What the Lab Binding Data Show",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://www.genengnews.com/topics/omics/coronary-artery-disease-genetics-map-links-risk-variants-to-genes-and-cell-types": {
+      "title": "Coronary Artery Disease Genetics Map Links Risk Variants to Genes and Cell Types",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41586-026-11275-z": {
+      "title": "Single-cell variant-to-enhancer-to-gene map for coronary artery disease",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41586-026-11287-9": {
+      "title": "Licensing mechanisms during RNA-guided DNA integration by type I-F3 CAST",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPTllLMDdPV2JIcm53MnZaak5FVmlwaXFPZVNpZ3lpVmU3azVTT2ZuNVl3WlQtamVCaktmeld3UVdjeTZuY25rXzJHbXVoZVBDVWIzS1M4Z1dqMTlBbHFwbkJaZ0NsTHltWWlZQWxSS2tiaEdUNzhHZWg2Y0trNEhJN0t2aXVfQkJl?oc=5": {
+      "title": "Big Pharma Bets 60 Trillion on AI Drug Development Amid Patent Cliff",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://www.labiotech.eu/more-news/human-trial": {
+      "title": "10 biotech programs set to enter human trials in 2027",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-brainless-celled-slime-mold-problems.html": {
+      "title": "How a brainless single-celled slime mold solves problems using the laws of physics",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-birds-seabirds-reveal-hidden-fishing.html": {
+      "title": "The birds are listening: Seabirds reveal hidden fishing activity at sea",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.33031v1": {
+      "title": "Can a Frontier LLM Repair a Quantized Network by Tool-Free Weight-Space Programming?",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-database-genomic-resources-china-wild.html": {
+      "title": "New database integrates genomic resources for China's protected wild plants",
+      "ts": "2026-11-26T01:05:46.262780+00:00",
       "status": "skipped"
     }
   }
