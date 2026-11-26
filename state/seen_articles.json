@@ -1,6 +1,6 @@
 {
-  "daily_date": "2026-11-26",
-  "daily_post_count": 13,
+  "daily_date": "2026-11-27",
+  "daily_post_count": 3,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2930,6 +2930,71 @@
     "https://arxiv.org/abs/2611.34798v1": {
       "title": "Resolving cell states in spatial transcriptomics with SCATTER",
       "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43096914/": {
+      "title": "Exploring the Link Between Artificial Sweetener Consumption and COPD: Insights From NHANES Data, Machine Learning, Multi-Omics, and Experimental Validation.",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43095173/": {
+      "title": "SLC7A2 regulates the inflammation and apoptosis of LPS-induced human lung epithelial cells through TLR4/NF-κB pathway.",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxOV0d6bUtuMkpjcldHMV9OdFhXdGFXMmNrOG1wSXZnTWo1Rm5zR2xmOHh5U3gwYjEtc2tIWHR6UlVCVUhyay00Y1JuYy1aRlk4dmhNVGhPeFhCMFhyaG00WHVkSFR2TXFtQVN4Mll2dTYzWFdHUFI4UWJLUlYwWG9ycGdfd3BYMFVpR1FnenhEN1RWa3lOQ05BVA?oc=5": {
+      "title": "Bioinformatics Market to Reach $43.5 Billion by 2030, Driven by AI Integration and Expanding Genomics Applications",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMirgJBVV95cUxOTms1czJZQjg5VmE0UE9jRWVjdnZpU3N0RDhBNFcwSVk0a1BEWGtreUxrUjlaWkZSZlBUemRhVGtueGF3MEhHVzRpVjdQR1RLWGcwX1YxN2NpTjJ1TF92RjNNaFktVUFXdGpMOXFJQ0JUZWxpT29Yd192WEE3X0FQSEJTY1pMTFBCLUtjTV96dEdVVmU2X3h4UmdESmFhRVIwV2pLbmNMR3NkaktzNWhGWm5hdXdtdl9vSENmZjlzYU9nbWZGM2ZNMnU1ZENHTlNpMnptYjdLZ2c5NFJUNXRJTk1Yd3NYa2F0QW5nRkFlZHdINHBJR1A3UUlJNGxISEJjekNYbmdaejFJR05HVEZKU2pQaUhIZGR6QldrMHE3d194VlROeTFJZEJ2a0szUQ?oc=5": {
+      "title": "Responsible Use of Large Language Models in Microbial Genomics and Bioinformatics: A Life-Science Framework for Reliability, Reproducibility, and Risk-Aware Interpretation",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMioAFBVV95cUxPeEszUTM0aHRSdWFBdDk0S2FaS0cwWFlwYTJnVEZxLW0tY1hsd3cyeGZWUlI4RndjbW9fZXlFTGFxZjJ6ek1fdktHU0VubGZDeW5iRHJJQ0JDZjhJaXA2bE9DaTd0UEZDMWVMLTFMWW90cURBcVl6SlVjbXMxN2ZTOW9DY0hLR3gwTXBxcVVYNzZtaFRNOXVoTVlHOFdDZG9D?oc=5": {
+      "title": "Free bioinformatics resources for students and researchers",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMikwFBVV95cUxNSVpjSERsNzIyazZVeEdmU0xZeEVJRkFERnNIU3hObW8xUXRLOWY2UlZHaUE4TkZ4S0xqQVU0eFBqVXk2Zk1hUjZtUFFac25CWV91cFBjWlpKamg1eko2RDI1cUpIZl9IWm5jLXJ6MG5YcktqMUlLaTRuRmdJSF9NaE9sUjM5U0t2dWo1dHRjelZaRE3SAZsBQVVfeXFMTl9qSnZVUE1qaEVxc1dVeU9WaE9jM19UeXVrZVNIX2hlUDZiSVNkNmZzY015R0pnSmNnZnJya1pkb1Q1N0FjcEIyay1TZG9XeHVxQ3hPbTNJT21xa1FNUGV3Z0tGRGFGV2xwLXkzVlF6ZHJMLVRIblFmU2VZaDA5b2JUSU1STkdfOUFZUF9BSDBScm44cjVQZF9ubU0?oc=5": {
+      "title": "What Makes Shoolini’s B Tech Bioinformatics Stand Out?",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiogFBVV95cUxNYkI3TUZ5MnZXVWtVVmlLSTdyejJMMVFCcmNIbDVkYWlhZkt6S01LYTliTWN0c0ZGVFZRWnpOSW1FM24xVkJhZFI5OVZVQmFaQkdyS1lrVFZJUDhqVk1zMEUyX2QyQjZOaUNNX1hQOUNyZXNoblNzVHFLLWF0YUVTNDIyYkdSRHJwZ2xPeXRVOG84cEVlWXFaWkRMeWczMld0bEHSAaoBQVVfeXFMT29rNDZXM1JTVUFYeHE3TEcwbURyZXBDb3RyQmtzaFN5dTFfaFRNdGQxZnJkeWlNWjdVSURmSmZSMVJRWTE4NkdsaFBmdi1YWXNIcWVPREItZ08zbV9iOGhrQkNoUE14eHZwX0dHLWRsQjB0ay1wZVZld3A1alVGVG8ycnh4bnRkRENFUTE1NlEzcExqUjYwbjNaWjY5bXNoaTdaSzd4STlpcUE?oc=5": {
+      "title": "Why B Tech CSE Bioinformatics Is the Future of AI in Healthcare",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMidEFVX3lxTE43QU4xVk5fTmdPVFJIUEVYUTR1VUZpeHgyWmtrT3VwWWo5eHZvVjhON1BLRFlZckE3UC00WDRHakFUaWFSUVVqbWgxeV91RDJydEZPLVp3LUFPNnVENTItbXlCSkZRdWZYUHRUREZyTHFtNl91?oc=5": {
+      "title": "Bioinformatics Market",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMibkFVX3lxTE5UeUo1bzBLajNGSmQtUThBNWRPVmw0TWVsWW1vYktQWHlId2dCTTdJYXcwQVJldkJoNGpSdVg3VFNIeTVmQ0FvTWZjUlcwNk5hYnFzN09xdGJWTGNEeHZlbFJGYWJONUUtWlJaVGRR?oc=5": {
+      "title": "Bioinformatics Market Size & Share Analysis, Growth Report, 2035",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMigAFBVV95cUxNUE9NTkRGU1Z0M1ZlWjl6Sk91aVk0dFRxVmtxc0wtTzVhcWdTcG9RcnFwV0d0Mk9ZSGV2SnpBUEdPOE9udkZnT1VFc25xMTdmNWJfUG1oUDNtYjFMZUhtdEc2eEpiNlpkYnRfWGFZNVFGTEVxLTNmZS1oOEp3WVFGTQ?oc=5": {
+      "title": "How AI is Transforming Bioinformatics and Genomics",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMijwFBVV95cUxOemdodGJDNERyN2Y0d0NteklJZ21Pak1Fckh0aHNZRnk5TUhRVjdqZ2lNTVZiS1FtaVhOczRERXNGb3BCU3BVQ1VQYnVhQTlta1F5cjM5X0xTWUJKdWVaTmtCSlFYODUxaGpZWTFvSVYzQ2RMT1d0ZzhORTY2UnpVa2xibE5FS3I0MXRWc19nZw?oc=5": {
+      "title": "Bioinformatics: Where Biology and Data Science Meet",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMilAFBVV95cUxPYXdVeUtDMWJCbHVoeW0tWTVVc0poWTUtRmRuNFlnNzM4VEtyYkN1RHhWSzhUNE44VXVKMTh5TEZwOE93SVpKLUNqSmhjSGZ6NWFvWlBNNGxKQ2U0Yk1PY1hzM3NDM0g5T1JuVFYzdVl1cUlZOVg1cTRqTEtZdFFoQnloU1RIeVlLZTNXZjdfc241dWhs?oc=5": {
+      "title": "Editorial: Use of bioinformatics in pharmacogenetics to optimize drug efficacy",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiW0FVX3lxTFA5QUZvYVlnb1I0Q3VmNVU5bjZLRTk5aDN3NW9xUGJuVUh3Ykp5VUljWnVFMTFzcGt3azRVZUtIUm5oeHpYaGI2alBYQV9fRHkzeWtydDBncUladDg?oc=5": {
+      "title": "Bioinformatics Python: Setup and Workflow Guide",
+      "ts": "2026-11-26T23:36:26.628133+00:00",
       "status": "skipped"
     }
   }
