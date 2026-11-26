@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-26",
-  "daily_post_count": 9,
+  "daily_post_count": 13,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2855,6 +2855,81 @@
     "https://phys.org/news/2026-11-database-genomic-resources-china-wild.html": {
       "title": "New database integrates genomic resources for China's protected wild plants",
       "ts": "2026-11-26T01:05:46.262780+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiggFBVV95cUxNYmJPajJXMUczY1VhLTNEVHpFcmFZbFR6Z2tnN0pPT2oyT0EyOVZrNUZCQjhPMU5uT0VjSmNYY25pVHlVV0pSTnlOSmRic1dRQWlpa3ZHVDVVMFlacmVaeUdkSVlVVzBnbmdoaVE2VkN0OXJMVWliVnNaTHlCeTdLbVJR?oc=5": {
+      "title": "OpenAI’s GPT-6.2 Helped Design Proteins That Bound in Lab Tests",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "sent"
+    },
+    "https://endpoints.news/bayer-goes-to-hansoh-for-adc-deal-worth-150m-up-front": {
+      "title": "Bayer goes to Hansoh for ADC deal worth $150M up front",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41592-026-03382-6": {
+      "title": "Mitigating preferred orientation in cryo-EM with ultrasonic excitation during vitrification",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiswFBVV95cUxQWnFMUDRjU0trV1Q4Q1ZnV3RoR3hDUVZSNUk5V0lVaHJxeXFnVFJUeFBvZ0lJZGVWdmppREhaQTJLMUprVzBQZ0hpN1RJVlpNMTFCVE9qVjZNU24xM2dIS3E5MWpzTTZYNHp1VjJkdzZ2dklmQ1dSbmlZUmVnYjcwaEt2QXEtWnRLdGVYM2VMbEg3dzRvVm54cDJ2Rl9MWWoxWDJrb2FnbXBOVFUyc1B2eE0wQQ?oc=5": {
+      "title": "‘The potential is there’: BetterLife’s LSD cousin mirrors neuroplasticity in mice without the hallucinations",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiO0FVX3lxTE1TU2Fhdk9sNUpraGhlYU1NRjIzQ2hFS0NpOGg1YkZPRzE2UEFYZE9oRmEwTGlucDFadGNn?oc=5": {
+      "title": "GPT-6 Protein Design, 120 FPS Safari iOS Workarounds, and 30-Minute AWS Lambda Execution Reshape Modern Engineering and Security Boundaries + Video",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://www.frontiersin.org/articles/10.3389/fbinf.2026.1954308": {
+      "title": "DefunCNV: a deep learning framework for functional noncoding copy number variations prediction",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://www.statnews.com/2026/11/25/biotech-news-fda-approves-cogents-drug-for-rare-stomach-cancer": {
+      "title": "STAT+: FDA approves Cogent’s drug for rare stomach cancer",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s42256-026-01332-7": {
+      "title": "A measurement noise scaling law for cellular representation learning",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.34247v1": {
+      "title": "Did the Model Forecast It, or Already Know It? Evaluating Large Language Models for Novel Drug-Target Prioritisation with a Temporal Knowledge-Graph Oracle",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxPQ185SEE0SXFSb3BwaGlPOVYtclhlWDBTSkFYS1MwY1ZfT0o1bXc1RDdYaXJENE5LcEVibEo1a0pNOUUtVnp1SlItZWc0dHBkV0t6aHh2ekpGUXpXUlloLWpyaTVzSmNDZGZyeG44TEhNaEdhVzVCcWI4WHg4RTV4ZGgtTms3UmppSFM0b1BuOTdQb3lGZlZmS3FCX2NTbGN2UTkzRA?oc=5": {
+      "title": "Bayer becomes latest Big Pharma to head to Hansoh in $3.3B deal for phase 1 ADC",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxNeTZ1QWMwSzJ3TW9zcjliMWtncEg4elBTbFhHd3d3b1NNeDd4ZWpVWVo0eElESnl6Zmc2ZFhwNElqNnZFZDFUcklaQkJ6Z2FBbWdsSERKb3hBWGUtdk5wdTQ3RmY0WXVXR0dpTDdDLWY3cDcwZzNxN3VIUV8zYWRmSXFSQVVZYzJqbm45VU93cEZJb2p2MW5fQVZDSXRkbG1YSVFFbUh4MA?oc=5": {
+      "title": "Schrödinger signs €22M biologics collab with sequencing automation outfit Enpicom",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdDA5S2lsWkdYWjRTajRvZGV5RG9jNDdwc3lJT2pwWlU3cGV6Vko0cTdlQVZMOTA3bk1rdC1WWERucURacjBDcGV5a1BBeFMxR2FEWGJyVzRtQW11bWF6MF8zU01GMUdRRnRlS29SSnZVM3FKUXZucERkV0d6aGZrMDV5SGM3N2lxb0JRdkNzM2xVTkhrZkl4TWhXUnBjOWNUb3RHRUVHeE41SHllaG1scnBDbw?oc=5": {
+      "title": "Finnish biotech delivers durable symptom relief in phase 2 birch pollen allergy trial",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s42256-026-01334-5": {
+      "title": "Accelerating inverse materials design using generative diffusion models with reinforcement learning",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMitAFBVV95cUxQaVZFU1ZwQjgzaHByUU5pOVlVSUxRc0xWa25GNW94VXk1d215eVBzTGxUYXJiYkktdWlXLV9tVnpiMUxOUmpBYkVzV00tOWNScVE3dDVGSDY3VUE0LWFwMVk5TEFTT25lanVmYXJIQWoyanIyLWt4VXI0Z1BlTllOZ3BOMzFvT25YSjdmekpnYkZXNS1yV3RRUU5TOWFIUU1XWHNpbzV0N240eDNmdkUzbnRqbjQ?oc=5": {
+      "title": "ARM CEO reflects on ‘wild 12 months’ pushing back on FDA’s shifting gene therapy stance",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
+      "status": "skipped"
+    },
+    "https://arxiv.org/abs/2611.34798v1": {
+      "title": "Resolving cell states in spatial transcriptomics with SCATTER",
+      "ts": "2026-11-26T15:36:35.384225+00:00",
       "status": "skipped"
     }
   }
