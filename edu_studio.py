@@ -587,6 +587,21 @@ def resolve_design_profile(
     except Exception:
         card_width_ratio = 0.72 if ar == "story" else 0.88
 
+    # Ensure frosted gradient card has visible warm-to-cool pastel contrast rather than flat gray-blue
+    gs_hex = str(spec.get("card_grad_start_hex") or "").strip()
+    ge_hex = str(spec.get("card_grad_end_hex") or "").strip()
+    if card_style == "frosted_gradient":
+        p_rgb = _hex_to_rgb(palette["primary"], (200, 80, 134))
+        a_rgb = _hex_to_rgb(palette["accent"], (227, 139, 117))
+        s_rgb = _hex_to_rgb(palette.get("secondary") or palette["primary"], (115, 169, 216))
+        c1 = _hex_to_rgb(gs_hex, _blend_rgb((255, 255, 255), a_rgb, 0.16))
+        c2 = _hex_to_rgb(ge_hex, _blend_rgb((255, 255, 255), s_rgb, 0.16))
+        if abs(c1[0] - c2[0]) + abs(c1[1] - c2[1]) + abs(c1[2] - c2[2]) < 26:
+            c1 = _blend_rgb((255, 255, 255), _blend_rgb(p_rgb, a_rgb, 0.6), 0.14)
+            c2 = _blend_rgb((255, 255, 255), s_rgb, 0.14)
+        gs_hex = f"#{c1[0]:02X}{c1[1]:02X}{c1[2]:02X}"
+        ge_hex = f"#{c2[0]:02X}{c2[1]:02X}{c2[2]:02X}"
+
     cta_style = str(spec.get("cta_style") or ("pill" if (has_cta and not is_ref) else ("inline_text" if ar == "story" else "pill"))).lower()
     if spec.get("cta_style"):
         cta_style = str(spec["cta_style"]).lower()
@@ -605,8 +620,8 @@ def resolve_design_profile(
         "palette": palette,
         "is_reference_clone": is_ref,
         "card_style": card_style,
-        "card_grad_start_hex": str(spec.get("card_grad_start_hex") or ""),
-        "card_grad_end_hex": str(spec.get("card_grad_end_hex") or ""),
+        "card_grad_start_hex": gs_hex,
+        "card_grad_end_hex": ge_hex,
         "card_width_ratio": card_width_ratio,
         "hero_overlap": bool(spec.get("hero_overlap", ar == "story")),
         "headline_two_tone": bool(spec.get("headline_two_tone", is_ref and ar == "story")),
@@ -750,10 +765,9 @@ def generate_cf_art(prompt: str, design_profile: dict[str, Any] | None = None) -
     else:
         clean_p = (
             f"Single centered floating 3D object: {prompt.strip()}, "
-            f"frosted iridescent translucent glass and smooth glossy pastel studio render, "
-            f"subtle rim lighting in {pal.get('primary', '#C85086')} and {pal.get('secondary', '#6CA99B')}, "
-            f"isolated on pure flat solid #FFFFFF white background, plenty of white margin around the object, "
-            f"{style_extra}, no box, no frame, no floor, no text, no letters, no watermark"
+            f"frosted iridescent translucent glass sculpture with vivid pastel {pal.get('primary', '#C85086')} and {pal.get('secondary', '#6CA99B')} color gradients and crisp glossy rims, "
+            f"isolated on pure flat solid #FFFFFF white studio background with generous white margin, "
+            f"{style_extra}, strictly no gray studio box, no card, no frame, no floor, no text, no letters, no watermark"
         )[:1500]
     try:
         r = requests.post(
@@ -883,7 +897,7 @@ def load_slide_fonts(role: str, query_hint: str = "") -> tuple[ImageFont.FreeTyp
 
 
 def _remove_white_backdrop(img: Image.Image) -> Image.Image:
-    """Border-connected BFS flood-fill alpha matte so gray/white FLUX studio backdrops vanish with zero square border."""
+    """Edge-aware border flood-fill alpha matte: strips studio background while preserving pale frosted glass objects."""
     from collections import deque
 
     rgba = img.convert("RGBA")
@@ -903,66 +917,79 @@ def _remove_white_backdrop(img: Image.Image) -> Image.Image:
     border_samples.sort(key=lambda c: c[0] + c[1] + c[2])
     bg_r, bg_g, bg_b = border_samples[len(border_samples) // 2]
 
-    # Only strip if outer border is actually a studio light/neutral backdrop
-    if min(bg_r, bg_g, bg_b) < 165:
+    # Only strip if outer border is actually a light studio backdrop
+    if min(bg_r, bg_g, bg_b) < 170:
         return rgba
 
-    tol_sq = 54 * 54  # captures off-white, #ECE9ED light gray, and soft gradient studios
-    visited = bytearray(sw * sh)
-    bg_mask = bytearray(sw * sh)
-    q: deque[int] = deque()
+    def _run_bfs(tol: int, edge_stop: int) -> bytearray:
+        tol_sq = tol * tol
+        visited = bytearray(sw * sh)
+        bg_mask = bytearray(sw * sh)
+        q: deque[int] = deque()
 
-    def _try_push(idx: int) -> None:
-        if visited[idx]:
-            return
-        r, g, b, _ = px[idx]
-        dr, dg, db = r - bg_r, g - bg_g, b - bg_b
-        # Also allow slightly darker/lighter neutral gray/white near border
-        sat = max(r, g, b) - min(r, g, b)
-        if (dr * dr + dg * dg + db * db <= tol_sq) or (min(r, g, b) >= 218 and sat <= 18):
-            visited[idx] = 1
-            bg_mask[idx] = 1
-            q.append(idx)
+        def _try_push(idx: int, ref_r: int, ref_g: int, ref_b: int) -> None:
+            if visited[idx]:
+                return
+            r, g, b, _ = px[idx]
+            dr, dg, db = r - bg_r, g - bg_g, b - bg_b
+            # Stop right at object contours where pixel steps sharply away from neighbor
+            step_diff = abs(r - ref_r) + abs(g - ref_g) + abs(b - ref_b)
+            if (dr * dr + dg * dg + db * db <= tol_sq) and step_diff <= edge_stop:
+                visited[idx] = 1
+                bg_mask[idx] = 1
+                q.append(idx)
 
-    for x in range(sw):
-        _try_push(x)
-        _try_push((sh - 1) * sw + x)
-    for y in range(sh):
-        _try_push(y * sw)
-        _try_push(y * sw + (sw - 1))
-
-    while q:
-        idx = q.popleft()
-        x = idx % sw
-        y = idx // sw
-        if x > 0:
-            _try_push(idx - 1)
-        if x + 1 < sw:
-            _try_push(idx + 1)
-        if y > 0:
-            _try_push(idx - sw)
-        if y + 1 < sh:
-            _try_push(idx + sw)
-
-    # Build soft alpha map (0 where background, 255 where foreground, plus outer 4% edge safety vignette)
-    alpha_small = Image.new("L", (sw, sh), 255)
-    apx = [0 if bg_mask[i] else 255 for i in range(sw * sh)]
-    margin_x = max(4, int(sw * 0.04))
-    margin_y = max(4, int(sh * 0.04))
-    for y in range(sh):
         for x in range(sw):
-            i = y * sw + x
-            if apx[i] > 0:
-                fx = min(x / margin_x, (sw - 1 - x) / margin_x, 1.0)
-                fy = min(y / margin_y, (sh - 1 - y) / margin_y, 1.0)
-                edge_f = min(fx, fy)
-                if edge_f < 1.0:
-                    apx[i] = int(apx[i] * edge_f)
-    alpha_small.putdata(apx)
-    alpha_small = alpha_small.filter(ImageFilter.GaussianBlur(radius=1.8))
-    alpha_full = alpha_small.resize((orig_w, orig_h), Image.Resampling.BICUBIC)
+            _try_push(x, bg_r, bg_g, bg_b)
+            _try_push((sh - 1) * sw + x, bg_r, bg_g, bg_b)
+        for y in range(sh):
+            _try_push(y * sw, bg_r, bg_g, bg_b)
+            _try_push(y * sw + (sw - 1), bg_r, bg_g, bg_b)
 
-    # Combine with original alpha
+        while q:
+            idx = q.popleft()
+            r0, g0, b0, _ = px[idx]
+            x = idx % sw
+            y = idx // sw
+            if x > 0:
+                _try_push(idx - 1, r0, g0, b0)
+            if x + 1 < sw:
+                _try_push(idx + 1, r0, g0, b0)
+            if y > 0:
+                _try_push(idx - sw, r0, g0, b0)
+            if y + 1 < sh:
+                _try_push(idx + sw, r0, g0, b0)
+        return bg_mask
+
+    bg_mask = _run_bfs(tol=24, edge_stop=14)
+    fg_count = sw * sh - sum(bg_mask)
+    # Safety fallback: if pale frosted-glass object is close to bg, tighten tolerance so object NEVER vanishes
+    if fg_count < int(sw * sh * 0.03):
+        bg_mask = _run_bfs(tol=10, edge_stop=7)
+        fg_count = sw * sh - sum(bg_mask)
+    if fg_count < int(sw * sh * 0.02):
+        # Soft elliptical vignette fallback as last resort so artwork is always visible without square edges
+        alpha_small = Image.new("L", (sw, sh), 0)
+        ImageDraw.Draw(alpha_small).ellipse([(int(sw * 0.06), int(sh * 0.06)), (int(sw * 0.94), int(sh * 0.94))], fill=255)
+        alpha_small = alpha_small.filter(ImageFilter.GaussianBlur(radius=18))
+    else:
+        alpha_small = Image.new("L", (sw, sh), 255)
+        apx = [0 if bg_mask[i] else 255 for i in range(sw * sh)]
+        margin_x = max(4, int(sw * 0.04))
+        margin_y = max(4, int(sh * 0.04))
+        for y in range(sh):
+            for x in range(sw):
+                i = y * sw + x
+                if apx[i] > 0:
+                    fx = min(x / margin_x, (sw - 1 - x) / margin_x, 1.0)
+                    fy = min(y / margin_y, (sh - 1 - y) / margin_y, 1.0)
+                    edge_f = min(fx, fy)
+                    if edge_f < 1.0:
+                        apx[i] = int(apx[i] * edge_f)
+        alpha_small.putdata(apx)
+        alpha_small = alpha_small.filter(ImageFilter.GaussianBlur(radius=1.6))
+
+    alpha_full = alpha_small.resize((orig_w, orig_h), Image.Resampling.BICUBIC)
     r_ch, g_ch, b_ch, a_ch = rgba.split()
     merged_a = ImageChops.darker(a_ch, alpha_full)
     out = Image.merge("RGBA", (r_ch, g_ch, b_ch, merged_a))
@@ -1127,7 +1154,16 @@ def _draw_centered_rtl_with_accent(
     """Draw a centered RTL line, coloring «quoted» or accent_token in accent_rgb."""
     kw_dir = {"direction": "rtl"} if HAS_RAQM else {}
     m = re.search(r"«[^»]+»", line)
-    tok = m.group(0) if m else (accent_token if (accent_token and accent_token in line) else "")
+    if m:
+        tok = m.group(0)
+    else:
+        m2 = re.search(r"(?:کلمه|عدد|واژه|عبارت)\s+([^\s،.]+)", line)
+        if m2:
+            tok = m2.group(1)
+        elif accent_token and accent_token in line:
+            tok = accent_token
+        else:
+            tok = ""
     if not tok:
         draw.text((center_x, y), shape_text(line), font=font_reg, fill=(*base_rgb, 255), anchor="ma", **kw_dir)
         return
@@ -1267,10 +1303,28 @@ def render_carousel_slide(
 
         draw_translucent_card([(cx1, card_top), (cx2, card_bot)], radius=56)
 
-        # Large floating 3D object straddling top edge of card (with zero gray square box!)
+        # Soft contact shadow + large floating 3D object straddling top edge of card
         vis_size = int(W * (0.48 if prof.get("hero_overlap", True) else 0.40))
         vis_y = int(card_top - vis_size * 0.56) if prof.get("hero_overlap", True) else int(H * 0.08)
-        canvas = _paste_3d_visual(canvas, art_bytes, ((W - vis_size) // 2, vis_y, vis_size, vis_size), theme)
+        if art_bytes:
+            sh_ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+            sh_y = vis_y + vis_size - 28
+            ImageDraw.Draw(sh_ov).ellipse(
+                [(W // 2 - int(vis_size * 0.34), sh_y - 12), (W // 2 + int(vis_size * 0.34), sh_y + 18)],
+                fill=(120, 110, 125, 36),
+            )
+            sh_ov = sh_ov.filter(ImageFilter.GaussianBlur(radius=14))
+            canvas = Image.alpha_composite(canvas, sh_ov)
+            canvas = _paste_3d_visual(canvas, art_bytes, ((W - vis_size) // 2, vis_y, vis_size, vis_size), theme)
+        else:
+            # Clean frosted vector glass emblem fallback if FLUX art is unavailable
+            emb = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+            ed = ImageDraw.Draw(emb)
+            cx_e, cy_e = W // 2, vis_y + vis_size // 2
+            r_e = int(vis_size * 0.36)
+            ed.ellipse([(cx_e - r_e - 20, cy_e - r_e), (cx_e + r_e - 20, cy_e + r_e)], fill=(*prim_rgb, 55), outline=(255, 255, 255, 210), width=4)
+            ed.ellipse([(cx_e - r_e + 24, cy_e - r_e + 20), (cx_e + r_e + 24, cy_e + r_e + 20)], fill=(*sec_rgb, 60), outline=(255, 255, 255, 210), width=4)
+            canvas = Image.alpha_composite(canvas, emb)
         draw = ImageDraw.Draw(canvas)
 
         y_cur = max(card_top + int(vis_size * 0.42) + 18, int(H * 0.365))
