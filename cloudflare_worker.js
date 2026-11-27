@@ -59,10 +59,9 @@ export default {
     try {
       const update = await request.json();
       const message = update.message || update.edited_message;
-      const incomingPhotoId = extractPhotoFileId(message);
       const incomingAudio = extractAudioInfo(message);
       const rawMsgText = (message?.text || message?.caption || "").trim();
-      if (!message || (!rawMsgText && !incomingPhotoId && !incomingAudio)) {
+      if (!message || (!rawMsgText && !incomingAudio)) {
         return new Response("OK", { status: 200 });
       }
 
@@ -221,13 +220,11 @@ export default {
           "همین‌جا راحت با من صحبت کن، ایده بخواه، اصلاح بده («کوتاه‌ترش کن»، «این تیکه رو بازتر بگو»، «کپشن اینستا بده»، «منابع گیت‌هابشو بده»، «با امضا نهاییش کن»).\n" +
           "• برای شروع بحث تازه: <code>/new</code> یا <b>موضوع جدید</b>\n\n" +
           "🎓 <b>آشنایی کامل با دوره‌ها و اساتید آکادمی:</b>\n" +
-          "کل سرفصل‌ها، ساعات، ابزارها و اساتید طرح ملی بیوانفورماتیک را بلدم! کافی بگی: «طبق سرفصل Bulk RNA-Seq دوره خودمون یه پست بساز» یا «معرفی دکتر فلاح رو بنویس».\n" +
+          "کل سرفصل‌ها، ساعات، ابزارها و اساتید طرح ملی بیوانفورماتیک را بلدم! کافی بگی: «طبق سرفصل Bulk RNA-Seq دوره خودمون یه پست بساز» یا «ترکیبی از دوره ما و منابع گیت‌هاب بنویس».\n" +
           "• مشاهده فهرست کل سرفصل‌ها: <code>/course</code> | افزودن اطلاعات جدید دوره: <code>/setcourse</code>\n\n" +
-          "🎨 <b>ساخت تصویر اسلاید (فقط با دستور شما):</b>\n" +
-          "هر وقت متن نهایی شد بگو: <b>همینو تو ۵ اسلاید با تصویر بساز</b>\n\n" +
           "🎙 <b>تبدیل ویس و صوت هر زبانی به متن دقیق (رایگان + ۳ موتور هوشمند):</b>\n" +
-          "کافیه هر ویس، فایل صوتی یا ویدئو-نوت به هر زبانی (فارسی، انگلیسی، دو‌زبانه و...) بفرستی تا دقیق و بدون خطا تایپ کنم (حتی می‌تونی بعدش بگی همین رو اسلاید یا خلاصه کن!).\n\n" +
-          "📰 <b>اخبار علمی زنده (رصد ۴۰ پایگاه + تصویر خبری):</b>\n" +
+          "کافیه هر ویس، فایل صوتی یا ویدئو-نوت به هر زبانی (فارسی، انگلیسی، دو‌زبانه و...) بفرستی تا دقیق و بدون خطا تایپ کنم (حتی می‌تونی بعدش بگی همین رو خلاصه یا ویرایش کن!).\n\n" +
+          "📰 <b>اخبار علمی زنده (رصد ۴۰ پایگاه + طراحی تصویر اختصاصی خبر):</b>\n" +
           "بگو: <b>۵ خبر از بیوانفورماتیک بفرست</b> یا <b>/news پاروویروس</b>\n\n" +
           "🧠 بازی فکری: <code>/game</code> | 📡 وضعیت سرور: <code>/status</code>";
         await sendTelegram(env.TELEGRAM_BOT_TOKEN, chatId, helpMsg, gameMarkup, isGroup ? message.message_id : null);
@@ -238,14 +235,13 @@ export default {
 
       // Inspect reply_to_message (ignoring status/help messages)
       const replyMsg = message.reply_to_message;
-      const replyPhotoId = extractPhotoFileId(replyMsg);
       const replyAudio = extractAudioInfo(replyMsg);
       const replyRawText = (replyMsg?.text || replyMsg?.caption || "").trim();
-      const isStatusOrHelp = /^(⏳|✅|🎓 درخواست|📰 درخواست|🎨🎓 درخواست|👋 سلام|🧠|🤖 برای خبر|✨ گفت‌وگو|⛔|🎨 الگوی طراحی|🎙 رونوشت)/.test(replyRawText);
+      const isStatusOrHelp = /^(⏳|✅|🎓 درخواست|📰 درخواست|👋 سلام|🧠|🤖 برای خبر|✨ گفت‌وگو|⛔|🎙 رونوشت)/.test(replyRawText);
       const isContentReply = Boolean(replyRawText && replyRawText.length >= 25 && !isStatusOrHelp);
 
       // 0.3) Triple-Engine Beast-Mode Voice & Audio Transcription (Groq Whisper v3 + Gemini Audio + CF Workers AI Whisper)
-      const activeAudio = incomingAudio || (replyAudio && /(تایپ|متن|بنویس|رونوشت|ترجمه|خلاصه|تبدیل|اسلاید|transcribe|text)/i.test(rawReqText) ? replyAudio : null);
+      const activeAudio = incomingAudio || (replyAudio && /(تایپ|متن|بنویس|رونوشت|ترجمه|خلاصه|تبدیل|transcribe|text)/i.test(rawReqText) ? replyAudio : null);
       if (activeAudio) {
         await sendTyping(env.TELEGRAM_BOT_TOKEN, chatId);
         const memVoice = await loadChatMemory(env, chatId);
@@ -280,7 +276,7 @@ export default {
           { role: "user", text: `[ویس کاربر — ${res.language || "خودکار"}]: ${res.transcript.slice(0, 1200)}${rawReqText ? `\n[دستور همراه ویس]: ${rawReqText}` : ""}` },
           { role: "model", text: res.transcript },
         ].slice(-14);
-        await saveChatMemory(env, chatId, updatedHist, res.transcript, memVoice.last_design_ref);
+        await saveChatMemory(env, chatId, updatedHist, res.transcript);
 
         // If the user also included a follow-up instruction on the voice caption or reply (beyond "transcribe")
         const wantsOnlyTranscribe = !rawReqText || /^(تایپ|تایپش\s*کن|متن|متنش\s*رو\s*بده|متنشو\s*بده|بنویس|رونوشت|transcribe)[!؟.\s]*$/i.test(rawReqText);
@@ -293,99 +289,27 @@ export default {
             kb: kbVoice,
             lib: libVoice,
           });
-          if (detectEduImageCommand(rawReqText)) {
-            const slideCount = extractSlideCount(rawReqText, res.transcript, 5);
-            const aspectRatio = detectAspectRatio(rawReqText, memVoice.last_design_ref);
-            const dimTxt = aspectRatio === "story" ? "۱۰۸۰×۱۹۲۰ استوری" : (aspectRatio === "square" ? "۱۰۸۰×۱۰۸۰ مربع" : "۱۰۸۰×۱۳۵۰ پست");
-            const reqDesc = `🎨🎓 درخواست <b>ساخت ${toPersianDigits(slideCount)} اسلاید تصویری (${dimTxt})</b> از متن ویس ثبت شد.`;
-            const statusResp = await sendTelegram(
-              env.TELEGRAM_BOT_TOKEN,
-              chatId,
-              `${reqDesc}\n\n<code>[▓░░░░░░░░░] ۱۰٪</code>\nدر حال بیدار کردن سرور طراحی اسلاید...`,
-              gameMarkup,
-              isGroup ? message.message_id : null
-            );
-            const statusMsgId = statusResp?.result?.message_id ? String(statusResp.result.message_id) : "";
-            const combinedReplyCtx = [
-              res.transcript.slice(0, 2100),
-              resolvedVoice.courseContext ? `\n\n[اطلاعات دقیق دوره و سرفصل آکادمی:\n${resolvedVoice.courseContext.slice(0, 1200)}]` : "",
-              resolvedVoice.modeTag ? `\n[${resolvedVoice.modeTag}]` : "",
-            ].filter(Boolean).join("");
-            const triggered = await triggerGitHubWorkflow(env, {
-              topic: rawReqText.slice(0, 120),
-              count: String(slideCount),
-              custom_query: rawReqText,
-              on_demand: "true",
-              reply_chat_id: chatId,
-              status_message_id: statusMsgId,
-              game_url: gameUrl,
-              mode: "edu",
-              edu_images: "true",
-              reply_context: combinedReplyCtx.slice(0, 3500),
-              aspect_ratio: aspectRatio,
-              design_spec: memVoice.last_design_ref ? JSON.stringify(memVoice.last_design_ref).slice(0, 3500) : "",
-            });
-            await finalizeDispatchStatus(env.TELEGRAM_BOT_TOKEN, chatId, statusMsgId, reqDesc, triggered, gameMarkup);
-          } else {
-            await sendTyping(env.TELEGRAM_BOT_TOKEN, chatId);
-            const extraOut = await runConversationalCollab({
-              env,
-              userText: rawReqText,
-              history: updatedHist,
-              repliedMessage: res.transcript.slice(0, 3500),
-              matchedRepos: resolvedVoice.matchedRepos,
-              matchedCourseContext: resolvedVoice.courseContext,
-              knowledgeModeTag: resolvedVoice.modeTag,
-            });
-            await sendTelegram(env.TELEGRAM_BOT_TOKEN, chatId, extraOut, null, isGroup ? message.message_id : null);
-            const nextHist = [...updatedHist, { role: "model", text: extraOut }].slice(-14);
-            await saveChatMemory(env, chatId, nextHist, extraOut.length >= 120 ? extraOut : res.transcript, memVoice.last_design_ref);
-          }
+          await sendTyping(env.TELEGRAM_BOT_TOKEN, chatId);
+          const extraOut = await runConversationalCollab({
+            env,
+            userText: rawReqText,
+            history: updatedHist,
+            repliedMessage: res.transcript.slice(0, 3500),
+            matchedRepos: resolvedVoice.matchedRepos,
+            matchedCourseContext: resolvedVoice.courseContext,
+            knowledgeModeTag: resolvedVoice.modeTag,
+          });
+          await sendTelegram(env.TELEGRAM_BOT_TOKEN, chatId, extraOut, null, isGroup ? message.message_id : null);
+          const nextHist = [...updatedHist, { role: "model", text: extraOut }].slice(-14);
+          await saveChatMemory(env, chatId, nextHist, extraOut.length >= 120 ? extraOut : res.transcript);
         }
         return new Response("OK", { status: 200 });
       }
 
-      // 0.5) Reference Photo Analysis / Style Cloning
-      const activePhotoId = incomingPhotoId || replyPhotoId;
-      const memPre = await loadChatMemory(env, chatId);
-      let activeDesignSpec = memPre.last_design_ref || null;
+      const mem = await loadChatMemory(env, chatId);
 
-      if (activePhotoId && (!activeDesignSpec || activeDesignSpec.ref_file_id !== activePhotoId)) {
-        await sendTyping(env.TELEGRAM_BOT_TOKEN, chatId);
-        activeDesignSpec = await analyzeReferenceDesign(env, activePhotoId);
-      }
-
-      const mentionsRefClone = /(مشابه|شبیه|مثل|همین\s*(سبک|قالب|طراحی|طرح|تم|نمونه)|همون\s*(سبک|قالب|طراحی|طرح|تم|نمونه)|قالب\s*قبلی|نمونه\s*قبلی)/i.test(rawReqText);
-      const isPureRefInspection = Boolean(
-        incomingPhotoId &&
-        (!rawReqText || /(بررسی|تحلیل|آنالیز|این\s*نمونه|این\s*طرح|ببین|چطوره)/i.test(rawReqText)) &&
-        !detectEduImageCommand(rawReqText)
-      );
-
-      if (isPureRefInspection && activeDesignSpec) {
-        const aspectFa = activeDesignSpec.canvas_aspect === "story" ? "استوری (۱۰۸۰×۱۹۲۰)" : (activeDesignSpec.canvas_aspect === "square" ? "مربع (۱۰۸۰×۱۰۸۰)" : "پست (۱۰۸۰×۱۳۵۰)");
-        const inspectMsg =
-          `🎨 <b>الگوی طراحی با موفقیت تحلیل و ذخیره شد!</b>\n\n` +
-          `📐 <b>ابعاد تشخیص‌داده‌شده:</b> ${aspectFa}\n` +
-          `🎨 <b>پالت رنگی:</b> پس‌زمینه <code>${escapeHtml(activeDesignSpec.bg_hex || "خودکار")}</code> | اصلی <code>${escapeHtml(activeDesignSpec.primary_hex || "خودکار")}</code> | تأکیدی <code>${escapeHtml(activeDesignSpec.accent_hex || "خودکار")}</code>\n` +
-          `🧩 <b>تحلیل سبک:</b> ${escapeHtml(activeDesignSpec.design_summary_fa || "طراحی مینیمال علمی آماده الگو‌برداری")}\n\n` +
-          `حالا هر وقت خواستید با همین سبک طراحی کنم، فقط موضوع، تعداد اسلاید و ابعاد (مثلاً: <b>مشابه همین درباره CRISPR در ۳ اسلاید پست بساز</b> یا <b>یه استوری شبیه این درباره R بساز</b>) را بنویسید!`;
-        await sendTelegram(env.TELEGRAM_BOT_TOKEN, chatId, inspectMsg, null, isGroup ? message.message_id : null);
-        const updatedHist = [
-          ...memPre.history,
-          { role: "user", text: `[کاربر یک تصویر نمونه طراحی ارسال کرد] ${rawReqText}` },
-          { role: "model", text: inspectMsg },
-        ].slice(-14);
-        await saveChatMemory(env, chatId, updatedHist, memPre.last_draft, activeDesignSpec);
-        return new Response("OK", { status: 200 });
-      }
-
-      // 1) Decide if this goes to GitHub Actions (ONLY News OR explicit Visual Image Slides / Reference Clone)
+      // 1) Decide if this goes to GitHub Actions (ONLY News requests — News has image generation)
       const isNewsRequest = !forceEdu && isExplicitNewsIntent(text, rawReqText, forceNews, isContentReply);
-      const wantsVisualSlides = !isNewsRequest && (
-        detectEduImageCommand(rawReqText) ||
-        (Boolean(activePhotoId || (mentionsRefClone && activeDesignSpec)) && /(بساز|طراحی|بزن|درست\s*کن|تولید|آماده|بده|بفرست|استوری|پست|اسلاید)/i.test(rawReqText))
-      );
 
       if (isNewsRequest) {
         const parsed = await parseNewsRequest(rawReqText, env);
@@ -420,63 +344,8 @@ export default {
         return new Response("OK", { status: 200 });
       }
 
-      if (wantsVisualSlides) {
-        const lastModelTurn = [...(memPre.history || [])].reverse().find((t) => t.role === "model")?.text || "";
-        const baseReplyContext = (isContentReply ? replyRawText : (memPre.last_draft || lastModelTurn || "")).slice(0, 2200);
-        const kbSlides = await fetchAcademyCourses(env);
-        const resolvedSlides = resolveKnowledgeSources({
-          queryText: rawReqText,
-          contextSeed: baseReplyContext.slice(0, 400),
-          kb: kbSlides,
-          lib: null,
-        });
-        const replyContext = [
-          baseReplyContext,
-          resolvedSlides.courseContext ? `\n\n[اطلاعات دقیق دوره و اساتید آکادمی:\n${resolvedSlides.courseContext.slice(0, 1100)}]` : "",
-          resolvedSlides.modeTag ? `\n[${resolvedSlides.modeTag}]` : "",
-        ].filter(Boolean).join("").slice(0, 3500);
-        const slideCount = extractSlideCount(rawReqText, baseReplyContext, 5);
-        const useRefSpec = (activePhotoId || mentionsRefClone) ? activeDesignSpec : null;
-        const aspectRatio = detectAspectRatio(rawReqText, useRefSpec);
-        const dimTxt = aspectRatio === "story" ? "۱۰۸۰×۱۹۲۰ استوری" : (aspectRatio === "square" ? "۱۰۸۰×۱۰۸۰ مربع" : "۱۰۸۰×۱۳۵۰ پست");
-        const cloneTag = useRefSpec ? " (مطابق سبک نمونه مرجع)" : "";
-        const reqDesc = `🎨🎓 درخواست <b>ساخت ${toPersianDigits(slideCount)} اسلاید تصویری (${dimTxt})${cloneTag}</b> ثبت شد.`;
-
-        if (activeDesignSpec) {
-          await saveChatMemory(env, chatId, memPre.history, memPre.last_draft, activeDesignSpec);
-        }
-
-        const statusResp = await sendTelegram(
-          env.TELEGRAM_BOT_TOKEN,
-          chatId,
-          `${reqDesc}\n\n<code>[▓░░░░░░░░░] ۱۰٪</code>\nدر حال بیدار کردن سرور طراحی اسلاید...`,
-          gameMarkup,
-          isGroup ? message.message_id : null
-        );
-        const statusMsgId = statusResp?.result?.message_id ? String(statusResp.result.message_id) : "";
-
-        const triggered = await triggerGitHubWorkflow(env, {
-          topic: rawReqText.slice(0, 120),
-          count: String(slideCount),
-          custom_query: rawReqText,
-          on_demand: "true",
-          reply_chat_id: chatId,
-          status_message_id: statusMsgId,
-          game_url: gameUrl,
-          mode: "edu",
-          edu_images: "true",
-          reply_context: replyContext,
-          aspect_ratio: aspectRatio,
-          design_spec: useRefSpec ? JSON.stringify(useRefSpec).slice(0, 3500) : "",
-        });
-
-        await finalizeDispatchStatus(env.TELEGRAM_BOT_TOKEN, chatId, statusMsgId, reqDesc, triggered, gameMarkup);
-        return new Response("OK", { status: 200 });
-      }
-
-      // 2) Instant 2-Second Conversational Collaborator (Chat + Drafting + Editing + Sources)
+      // 2) Instant 2-Second Conversational Collaborator (Chat + Drafting + Editing + Course/Library Sources)
       await sendTyping(env.TELEGRAM_BOT_TOKEN, chatId);
-      const mem = memPre;
       const contextSeed = isContentReply ? replyRawText.slice(0, 400) : (mem.last_draft || "").slice(0, 350);
 
       const [kbCourses, libCourses] = await Promise.all([
@@ -521,7 +390,7 @@ export default {
         { role: "model", text: replyTextOut },
       ].slice(-14);
       const nextDraft = replyTextOut.length >= 120 ? replyTextOut : mem.last_draft;
-      await saveChatMemory(env, chatId, updatedHistory, nextDraft, activeDesignSpec || mem.last_design_ref);
+      await saveChatMemory(env, chatId, updatedHistory, nextDraft);
 
       return new Response("OK", { status: 200 });
     } catch (err) {
@@ -568,99 +437,11 @@ function isExplicitNewsIntent(fullText, cleanText, forceNews, isContentReply) {
   if (isContentReply) return false; // Replies refine/discuss the replied post instead of running news search
   const t = `${fullText || ""} ${cleanText || ""}`.trim();
   const hasNewsWord = /(?:^|\s)(خبر|اخبار|خبرهای|خبرها|تازه‌های\s+خبر|جدیدترین\s+خبر|news)(?=\s|$|[!؟،.])/i.test(t);
-  const hasCreateEdu = /(پست|محتوا|اسلاید|کاروسل|آموزش|بنویس|طراحی|کپشن)/i.test(t);
+  const hasCreateEdu = /(پست|محتوا|اسلاید|کاروسل|آموزش|بنویس|کپشن)/i.test(t);
   if (hasNewsWord && !hasCreateEdu) return true;
   // Also catch "۵ تا خبر درباره آموزش X"
   if (/^(?:\d+|[۰-۹]+)?\s*(تا\s+)?(خبر|اخبار|خبرهای)/i.test(cleanText || "")) return true;
   return false;
-}
-
-function detectEduImageCommand(text) {
-  const t = String(text || "").replace(/\u200c/g, " ").replace(/\s+/g, " ").trim();
-  if (!t) return false;
-  if (/(بدون\s*(عکس|تصویر|اسلاید\s*تصویری)|فقط\s*متن|صرفاً\s*متن|متنی\s*باشه|بدون\s*طراحی\s*گرافیکی|(پیشنهاد|ایده|پرامپت)\s*(عکس|تصویر)|no\s*images?|text\s*only)/i.test(t)) {
-    return false;
-  }
-  return new RegExp(
-    [
-      "(با|همراه|به‌همراه|به همراه|دارای)\\s*(تصویر|تصاویر|عکس|عکسا|عکس‌ها|تصویرسازی|اسلاید\\s*تصویری|اسلاید\\s*عکسی)",
-      "(تصویر|تصاویر|تصویری|عکس|عکسا|عکس‌ها|عکسی|کاور|پوستر|اسلاید(?:\\s*(?:های|ها))?\\s*(?:گرافیکی|تصویری|عکسی)|کاروسل(?:\\s*(?:های|ها))?\\s*(?:گرافیکی|تصویری|عکسی)).{0,45}(بساز|بده|بفرست|طراحی|آماده|بزن|درست\\s*کن|تولید|خروجی|تبدیل|بکش|بذار|بگذار|کن)",
-      "(بساز|بده|بفرست|طراحی\\s*کن|آماده\\s*کن|درست\\s*کن|تولید\\s*کن|تبدیل\\s*کن).{0,35}(تصویر|تصاویر|تصویری|عکس|عکسا|عکس‌ها|عکسی|کاور|پوستر|اسلاید(?:\\s*(?:های|ها))?\\s*(?:گرافیکی|تصویری|عکسی))",
-      "طراحی\\s*(کاور|پوستر|تصویر|عکس|اسلاید\\s*(?:گرافیکی|تصویری|عکسی))",
-      "ساخت\\s*(تصویر|تصاویر|عکس|اسلاید)",
-      "(تصویرش|تصاویرش|تصویرشو|تصاویرشو|تصویرهاش|تصویراشو|عکسش|عکساش|عکساشو|عکس‌هاش|عکسهارو|عکس‌ها رو|تصویرها رو|تصاویر رو)",
-      "with\\s*images?|generate\\s*images?|visual\\s*slides?|make\\s*slides?\\s*with\\s*image",
-    ].join("|"),
-    "i"
-  ).test(t);
-}
-
-function extractPhotoFileId(msg) {
-  if (!msg) return "";
-  if (Array.isArray(msg.photo) && msg.photo.length) {
-    const sorted = [...msg.photo].sort((a, b) => (a.file_size || 0) - (b.file_size || 0));
-    const preferred = sorted.filter((p) => !p.file_size || p.file_size <= 2500000);
-    const chosen = preferred.length ? preferred[preferred.length - 1] : sorted[sorted.length - 1];
-    return chosen?.file_id || "";
-  }
-  if (msg.document?.file_id && String(msg.document.mime_type || "").startsWith("image/")) {
-    return msg.document.file_id;
-  }
-  return "";
-}
-
-function extractSlideCount(text, replyContext = "", fallback = 5) {
-  // Strip dimensions like 1080x1920, 1080 در 1350, 9:16, 4:5 so they aren't parsed as slide counts
-  const cleaned = toEnglishDigits(String(text || "").replace(/\u200c/g, " "))
-    .replace(/\b1080\s*(?:x|×|\*|در|to|by)\s*(?:1920|1350|1080)\b/gi, " ")
-    .replace(/\b(?:1920|1350|1080)\b/g, " ")
-    .replace(/\b(?:9\s*[:/]\s*16|4\s*[:/]\s*5|1\s*[:/]\s*1)\b/g, " ");
-
-  const mExplicit = cleaned.match(/(?:^|[^0-9])(1[0-5]|[1-9])\s*(?:تا\s*)?(?:اسلاید|صفحه|برگ|کارت|پست|استوری|slides?|cards?)/i);
-  if (mExplicit) return Math.min(15, Math.max(1, parseInt(mExplicit[1], 10)));
-
-  const wordMap = [
-    [/(?:^|\s)(?:تک|یه|یک)\s*(?:اسلاید|صفحه|کارت|استوری|پوستر|کاور)(?=\s|$|[!؟،.])/i, 1],
-    [/(?:^|\s)پانزده|پونزده(?=\s|$|[!؟،.])/, 15],
-    [/(?:^|\s)چهارده(?=\s|$|[!؟،.])/, 14],
-    [/(?:^|\s)سیزده(?=\s|$|[!؟،.])/, 13],
-    [/(?:^|\s)دوازده(?=\s|$|[!؟،.])/, 12],
-    [/(?:^|\s)یازده(?=\s|$|[!؟،.])/, 11],
-    [/(?:^|\s)(?:ده)\s*(?:تا\s*)?(?:اسلاید|صفحه|برگ|کارت|استوری)?(?=\s|$|[!؟،.])/, 10],
-    [/(?:^|\s)نه\s*(?:تا\s*)?(?:اسلاید|صفحه|برگ|کارت|استوری)/, 9],
-    [/(?:^|\s)هشت(?=\s|$|[!؟،.])/, 8],
-    [/(?:^|\s)هفت(?=\s|$|[!؟،.])/, 7],
-    [/(?:^|\s)(?:شش|شیش)(?=\s|$|[!؟،.])/, 6],
-    [/(?:^|\s)پنج(?=\s|$|[!؟،.])/, 5],
-    [/(?:^|\s)چهار(?=\s|$|[!؟،.])/, 4],
-    [/(?:^|\s)سه(?=\s|$|[!؟،.])/, 3],
-    [/(?:^|\s)دو\s*(?:تا\s*)?(?:اسلاید|صفحه|برگ|کارت|استوری|پست)/, 2],
-  ];
-  for (const [re, val] of wordMap) {
-    if (re.test(cleaned)) return val;
-  }
-
-  const mAny = cleaned.match(/(?:^|[^0-9])(1[0-5]|[1-9])(?=$|[^0-9])/);
-  if (mAny) return Math.min(15, Math.max(1, parseInt(mAny[1], 10)));
-
-  // If user didn't give a number in this command (e.g. "همینو با تصویر بساز"), infer from the draft in replyContext
-  if (replyContext) {
-    const slideMatches = replyContext.match(/اسلاید\s+(?:اول|دوم|سوم|چهارم|پنجم|ششم|هفتم|هشتم|نهم|دهم|\d+|[۰-۹]+)/g);
-    if (slideMatches && slideMatches.length >= 1 && slideMatches.length <= 15) {
-      return slideMatches.length;
-    }
-  }
-  return fallback;
-}
-
-function detectAspectRatio(text, designSpec = null) {
-  const t = toEnglishDigits(String(text || "").replace(/\u200c/g, " ")).toLowerCase();
-  if (/(استوری|story|1920|9\s*[:/]\s*16|9\s*به\s*16)/i.test(t)) return "story";
-  if (/(مربع|square|1\s*[:/]\s*1|1080\s*[x×*در]\s*1080)/i.test(t)) return "square";
-  if (/(پست|post|کاروسل|carousel|1350|4\s*[:/]\s*5|4\s*به\s*5)/i.test(t)) return "post";
-  const refAspect = String(designSpec?.canvas_aspect || "").toLowerCase();
-  if (refAspect === "story" || refAspect === "post" || refAspect === "square") return refAspect;
-  return "post";
 }
 
 function arrayBufferToBase64(buf) {
@@ -671,76 +452,6 @@ function arrayBufferToBase64(buf) {
     binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
   }
   return btoa(binary);
-}
-
-async function analyzeReferenceDesign(env, fileId) {
-  const baseFallback = {
-    ref_file_id: fileId,
-    canvas_aspect: "post",
-    theme_mode: "light",
-    design_summary_fa: "تصویر نمونه دریافت شد؛ رنگ‌ها و چیدمان هنگام رندر اسلاید اعمال می‌شوند.",
-  };
-  if (!fileId || !env.TELEGRAM_BOT_TOKEN) return baseFallback;
-
-  try {
-    const gf = await fetch(
-      `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getFile?file_id=${encodeURIComponent(fileId)}`,
-      { signal: AbortSignal.timeout(8000) }
-    );
-    const gfData = gf.ok ? await gf.json() : null;
-    const fp = gfData?.result?.file_path;
-    if (!fp) return baseFallback;
-
-    const imgResp = await fetch(`https://api.telegram.org/file/bot${env.TELEGRAM_BOT_TOKEN}/${fp}`, {
-      signal: AbortSignal.timeout(12000),
-    });
-    if (!imgResp.ok) return baseFallback;
-    const buf = await imgResp.arrayBuffer();
-    if (buf.byteLength > 3500000) return baseFallback;
-    const b64 = arrayBufferToBase64(buf);
-    const mimeType = fp.endsWith(".png") ? "image/png" : "image/jpeg";
-
-    const prompt =
-      "Analyze this Instagram/Telegram graphic design template with extreme precision so our Python Pillow + FLUX renderer can clone its exact layout, spacing, card style, and color palette for new text.\n" +
-      "Return ONLY valid JSON with these exact keys:\n" +
-      '- canvas_aspect: "story" if vertical 9:16, "square" if 1:1, else "post" (4:5)\n' +
-      '- theme_mode: "light" or "dark"\n' +
-      "- bg_hex: 6-digit hex of main canvas background (e.g. #FAF6F8)\n" +
-      "- card_hex: 6-digit hex of inner card center (e.g. #FFFFFF)\n" +
-      "- card_grad_start_hex: 6-digit hex of top-left tint inside the inner card (e.g. #FDEAE6)\n" +
-      "- card_grad_end_hex: 6-digit hex of bottom-right tint inside the inner card (e.g. #E6F2F1)\n" +
-      "- primary_hex: 6-digit hex of primary accent/headline color (e.g. #C85086)\n" +
-      "- accent_hex: 6-digit hex of secondary warm accent color (e.g. #E38B75)\n" +
-      "- secondary_hex: 6-digit hex of cool/mint secondary accent color (e.g. #6CA99B)\n" +
-      "- text_hex: 6-digit hex of main dark/light body text (e.g. #4A4A4A)\n" +
-      '- layout_style: one of "story_card", "cover_editorial", "content_split", "content_centered"\n' +
-      '- card_style: "frosted_gradient" if inner card has a soft pastel gradient/frosted glass fill, "solid_clean" if solid white/flat, "none" if no card\n' +
-      "- card_width_ratio: float between 0.65 and 0.92 (e.g. 0.68 for narrow centered story card, 0.86 for wide card)\n" +
-      "- hero_overlap: boolean (true if the 3D icon/illustration straddles or overlaps the top edge of the card)\n" +
-      "- headline_two_tone: boolean (true if headline uses 2 colors: dark neutral + primary accent)\n" +
-      "- has_grid_bg: boolean (true if subtle grid/dot background is visible)\n" +
-      "- has_dividers: boolean (true if thin horizontal divider lines separate headline/items/CTA)\n" +
-      '- cta_style: "inline_text" (plain centered text below card with colored keyword), "pill" (solid rounded button), or "none"\n' +
-      "- show_top_badge: boolean (true ONLY if there is a visible logo/brand text at the very top)\n" +
-      "- show_footer: boolean (true ONLY if there is a visible @handle/brand bar at the very bottom)\n" +
-      "- has_cta_pill: boolean (true if cta_style is pill)\n" +
-      "- visual_style_en: concise English art-direction prompt describing ONLY the central 3D/2D object style, material (e.g. frosted iridescent translucent glass), and pastel rim lighting\n" +
-      "- design_summary_fa: 1-2 short Persian sentences summarizing the layout, colors, and visual vibe.";
-
-    const gemRes = await callGeminiMultiKey(
-      env,
-      ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"],
-      [{ role: "user", parts: [{ inline_data: { mime_type: mimeType, data: b64 } }, { text: prompt }] }],
-      null,
-      { temperature: 0.15, responseMimeType: "application/json" }
-    );
-    if (gemRes?.text) {
-      const parsed = JSON.parse(gemRes.text);
-      parsed.ref_file_id = fileId;
-      return parsed;
-    }
-  } catch (_) {}
-  return baseFallback;
 }
 
 function extractAudioInfo(msg) {
@@ -1119,10 +830,10 @@ async function runConversationalCollab({ env, userText, history, repliedMessage,
      • اگر کاربر به «بقیه منابع / منابع بیرونی / گیت‌هاب / منابع علمی دیگه» اشاره کرده (یا اصلاً اشاره‌ای به دوره نکرده): از دانش علمی خودت و [منابع واقعی کتابخانه گیت‌هاب] کمک بگیر و پای دوره را بی‌دلیل وسط نکش.
      • اگر کاربر خواسته «ترکیبی از هر دو» باشد: سرفصل/جزئیات واقعی دوره خودتان را هوشمندانه با ابزارها و منابع تکمیلی گیت‌هاب/علمی ترکیب کن.
      • **هر قید، فرمت، لحن یا خواسته‌ای که کاربر الان مشخص کرده بر همه چیز اولویت مطلق دارد.**
-5. **امضا، منابع و قابلیت ساخت تصویر واقعی:**
+5. **امضا و منابع:**
    - امضای آکادمی (⭕️ معین شیرین کام / آکادمی بیوانفورماتیک ایران 🖥⭐️ / @ir_bioinformtic_academy) را **فقط وقتی کاربر گفت نهایی کن / با امضا / آماده انتشار** اضافه کن، نه وسط چت عادی!
    - هرگز اسم ریپوی گیت‌هاب از خودت نساز؛ فقط اگر در کانتکست منابع واقعی داده شده از همان‌ها استفاده کن.
-   - این سیستم قابلیت ساخت تصویر واقعی اسلایدها (با فونت‌های کلمه و پینار) را دارد؛ پس **هرگز نگو «من ابزار تولید عکس ندارم» یا «در Canva/Photoshop بساز»!** اگر کاربر درباره اسلاید تصویری پرسید و هنوز تولید خودکار شروع نشده بود، خیلی کوتاه بگو: «اگر می‌خوای همین الان اسلایدهای تصویریش رو برات طراحی و ارسال کنم، کافی بنویسی: <b>همینو با تصویر بساز</b>».
+   - اگر کاربر درخواست تولید تصویر غیرخبری (مثل پوستر، اسلاید گرافیکی یا تصویرسازی آموزشی) داد، شفاف و کوتاه بگو که طراحی گرافیکی و تصویرسازی در این ربات فقط برای **بخش اخبار علمی** فعال است و برای محتوای آموزشی بهترین متن، اسلاید متنی و کپشن را آماده می‌کنی.
 6. **قالب HTML تلگرام:** فقط تگ‌های <b>، <i>، <u>، <blockquote>، <code> و <a href="..."> را به کار ببر (هرگز مارک‌داون ** یا ### یا تگ <br> ننویس).`;
 
   const contents = [];
@@ -1240,7 +951,7 @@ async function runConversationalCollab({ env, userText, history, repliedMessage,
 }
 
 async function loadChatMemory(env, chatId) {
-  if (!env.CHAT_MEMORY) return { history: [], last_draft: "", last_design_ref: null };
+  if (!env.CHAT_MEMORY) return { history: [], last_draft: "" };
   try {
     const raw = await env.CHAT_MEMORY.get(`chat:${chatId}`);
     if (raw) {
@@ -1248,14 +959,13 @@ async function loadChatMemory(env, chatId) {
       return {
         history: Array.isArray(parsed.history) ? parsed.history : [],
         last_draft: String(parsed.last_draft || ""),
-        last_design_ref: parsed.last_design_ref || null,
       };
     }
   } catch (_) {}
-  return { history: [], last_draft: "", last_design_ref: null };
+  return { history: [], last_draft: "" };
 }
 
-async function saveChatMemory(env, chatId, history, lastDraft, lastDesignRef = null) {
+async function saveChatMemory(env, chatId, history, lastDraft) {
   if (!env.CHAT_MEMORY) return;
   try {
     await env.CHAT_MEMORY.put(
@@ -1263,7 +973,6 @@ async function saveChatMemory(env, chatId, history, lastDraft, lastDesignRef = n
       JSON.stringify({
         history: history.slice(-14),
         last_draft: lastDraft || "",
-        last_design_ref: lastDesignRef || null,
       }),
       { expirationTtl: 604800 }
     );

@@ -1257,7 +1257,8 @@ def main() -> None:
         fa_map = str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789")
         count_norm = custom_count_raw.translate(fa_map)
         slide_count = int(count_norm) if (count_norm.isdigit() and 1 <= int(count_norm) <= 15) else 5
-        edu_images = os.getenv("EDU_IMAGES", "false").strip().lower() in {"true", "1", "yes"}
+        # Graphic design / image generation is strictly reserved for News mode only
+        edu_images = False
         reply_context = os.getenv("REPLY_CONTEXT", "").strip()
         aspect_ratio = os.getenv("ASPECT_RATIO", "post").strip().lower() or "post"
         design_spec_raw = os.getenv("DESIGN_SPEC", "").strip()
