@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-27",
-  "daily_post_count": 5,
+  "daily_post_count": 8,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -3070,6 +3070,81 @@
     "https://pubmed.ncbi.nlm.nih.gov/43095784/": {
       "title": "OrthoDB and BUSCO update: broader phylogenomic sampling, deeper homology searches, and AI-agent support.",
       "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/bayer-pulls-blockbuster-drug-from-germany-over-pricing-dispute": {
+      "title": "Bayer pulls blockbuster drug from Germany over pricing dispute",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "sent"
+    },
+    "https://endpoints.news/the-38-year-history-behind-insmed-now-sanofis-strongest-wager-since-2004": {
+      "title": "The 38-year history behind Insmed, now Sanofi's strongest wager since 2004",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "sent"
+    },
+    "https://endpoints.news/drug-labels-must-flag-accelerated-approval-to-patients-fda-says": {
+      "title": "Drug labels must flag accelerated approval to patients, FDA says",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMigwFBVV95cUxPcWZiTXdpSkwzUDBGV1AwSDVkOW90RlZQa19PdFJrMDJPc180RS15bGE3dVdETHFPZVMtQXVvdm5TeGw5SkdQQ092bWxqYkNzcWp2NE00bUR5ems3OHdyZlFuOGxfaENraDZOVU1SekVhc2k4X21BYnVrTWpBZ3VGamFuaw?oc=5": {
+      "title": "Iyabo Ojo reacts to viral handshake controversy, apologises",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiowFBVV95cUxPeWoteU05RnRIT3JaOF9WNnBsZHFjalhBeTVoc0lWa2tQVy0yT0FCbnBEakoxcGUyeFl5YTVnMmx2SW13Q29GSlFMdWY0SEtELWJudVZSYTRJRVVrSnphQ0NCeTZEeFlpQnBvbTJ5WmwtV2NFS3dQaTAyaEdWSm5mUHF5QWFMc3lLY2MyWC1nbmV5S29tSkg1MTltc0NxYTNnOERz0gGoAUFVX3lxTE1VRVJwNDh0ZGlzYl83Z2xPa1hTNXdmWm5WRndqaDVHZks4RV9rY3BySGt0RGNJSE51Rm50d1pfek9LX0NOYnNMZXNRTkxneHJuUTRXQUtmR1htUnB3T3dvSDlDOHZ1NWxiNWNuSDJWNkczakYtTldkNnprdXBpckw1Qm5ucmxhQ0pHNVY5dlF3OFhYb3FsSGFhbzhmaVBteU5zR1NONm5BUg?oc=5": {
+      "title": "What to know about the viral 'Cat in the Hat' trend prompting school warnings - ABC News",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiugFBVV95cUxObHRzdndQaFZXSUlBUlplSEVZOFVaaXZWUUxyd29sYXRfcWxuTWpUYWRXSk92QWFvdWp1YXVCdDFKNWVZWUk5dXhNUDB4SXJkNWJvNVFybTdINmlMZnFNXzNfcW9Wd1lxR2Nqcnpfeko5bDhuSVQwdmR4cldjX0VlWTc4Y1IxSjIxbHduc3BobGV3YWlVSWZPelpRMXI2QnlxTThuM3BRVGFHSU5mai1YTEJ3dWN6YWhGVVE?oc=5": {
+      "title": "Isomorphic Labs president Max Jaderberg on the race to design drugs with AI",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNZEZHbFFhMWYyczBSbUxpdnB4TmxOY1Y0eHQ0M3I0Y3pQb0t4cm00Tmw0dHFWbjVRQl9Cb2Z1MFRpUnl3SWFBa0wwVHBYdEg2em15M3NHeWp4QTJEel9vRTNnbUZrR0JFT0hHVVd2am9Wek9MNWhwS0tmemZELVhEbXh1VE5GbVRY?oc=5": {
+      "title": "OpenAI and Anthropic Design Proteins for Drug Development",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41592-026-03387-1": {
+      "title": "Mechanism-grounded RNA velocity: from kinetic models to deep learning and foundation models",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769078v1": {
+      "title": "Auditable AI agents for verifiable end-to-end scientific analysis",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMivgFBVV95cUxNUkN3Y0piLW10ZENOUFlkSjFUQ2p2T2E1dzhDdDBQRFhNcWlCbHkxc1NEcnpNd0t5OG02ako3Z2tWeUp4R0lTNE1oOC0zN2RuZTJ0SFR5NS1ZMHBMZlNKbHVOX2cxWE55ZXhsTTh2cDFzMWR4ZUlnV0xfbkIzV00tdDJDMmFla3hRcERwNjNFcXFHVms3UnQ3cFpJM2EyOVJzSUYzZlBSU3BEZlJPank0aTNLOTllcHAzU0IzQkhR?oc=5": {
+      "title": "£20m Cambridge hub launches to advance human disease models and AI drug discovery",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41588-026-02833-2": {
+      "title": "Human TRAF6 deficiency causes osteopetrosis, lymphoproliferation and immune deficiency",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMifkFVX3lxTFAxc01TTEx0Z0xZRDV5MHRkUUNzQXBsV0tiaUlTRTBwR29hSEZjZnRZZlRzbDQwNWt4eGphRVUtTzRYdEZzdEdhVEFuRDdwRDhlNFpCRnFOTFNmeUZkRGdfVDU5X0JhV19mQUxKM3U3akltV1ZCSktVMTJzM2lxZw?oc=5": {
+      "title": "GPT-6 protein design: lab results and workflow",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/gsks-autoimmune-success-abbvie-drug-gets-expanded-label-for-vitiligo": {
+      "title": "GSK's autoimmune success; AbbVie drug gets expanded label for vitiligo",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/bristol-myers-reports-one-phase-3-success-one-failure-in-sotyktu-lupus-trials": {
+      "title": "Bristol Myers reports one Phase 3 success, one failure in Sotyktu lupus trials",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://endpoints.news/pharming-pauses-ruconest-production-warns-of-supply-interruption": {
+      "title": "Pharming pauses Ruconest production, warns of supply interruption",
+      "ts": "2026-11-27T15:48:24.711303+00:00",
       "status": "skipped"
     }
   }
