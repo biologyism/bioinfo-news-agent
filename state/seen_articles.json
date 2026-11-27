@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-27",
-  "daily_post_count": 3,
+  "daily_post_count": 5,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -2995,6 +2995,81 @@
     "https://news.google.com/rss/articles/CBMiW0FVX3lxTFA5QUZvYVlnb1I0Q3VmNVU5bjZLRTk5aDN3NW9xUGJuVUh3Ykp5VUljWnVFMTFzcGt3azRVZUtIUm5oeHpYaGI2alBYQV9fRHkzeWtydDBncUladDg?oc=5": {
       "title": "Bioinformatics Python: Setup and Workflow Guide",
       "ts": "2026-11-26T23:36:26.628133+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769087v1": {
+      "title": "Learning the Malignant Transformation of Lung Adenocarcinoma Cells Using Explainable AI",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41588-026-02859-6": {
+      "title": "A brown planthopper effector promotes virulence by targeting the rice resistance protein BPH6",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "sent"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43095786/": {
+      "title": "GTRD 2026: expanded content and resources for deep learning.",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768763v1": {
+      "title": "RIPPLE: learning nucleotide relations in an RNA foundation model",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769099v1": {
+      "title": "scRefine: hierarchical and contrastive learning for biologically faithful single-cell atlas integration and annotation",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769101v1": {
+      "title": "A Single-Cell Transcriptomic Atlas of Human Heart Organoids across Differentiation Protocols",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769256v1": {
+      "title": "GeneScribe - a tool for fact extraction and gene summarization using Large Language Models (LLMs)",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43095780/": {
+      "title": "TFRegDB v2.0: an integrated database of human transcription factor effector domains.",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768714v1": {
+      "title": "gPlace: fast, memory-bounded phylogenetic placement with results identical to pplacer",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768700v1": {
+      "title": "ONTOLOGY™: Streamlined DNA Barcoding and Metabarcoding on Nanopore",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.23.768755v1": {
+      "title": "Publicly Available Genomic Evidence for Nipah and Avian Influenza Viruses in Bangladesh: A Scoping Assessment of Metadata Completeness and Surveillance Representativeness at the Human-Animal Interface",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769100v1": {
+      "title": "GlycoBind: a general toolkit for protein-glycan binding prediction",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769220v1": {
+      "title": "Chromosome-scale genome assembly of multinucleate heterokaryotic Rhizoctonia solani AG1-IB",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43096658/": {
+      "title": "SPAMO: Spatial Multi-Omics Integration via Dual-Graph Encoding and Neighborhood-Constrained Cross-Modal Fusion.",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
+      "status": "skipped"
+    },
+    "https://pubmed.ncbi.nlm.nih.gov/43095784/": {
+      "title": "OrthoDB and BUSCO update: broader phylogenomic sampling, deeper homology searches, and AI-agent support.",
+      "ts": "2026-11-27T01:11:39.568808+00:00",
       "status": "skipped"
     }
   }
