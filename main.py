@@ -453,7 +453,7 @@ def expand_on_demand_topic(custom_topic: str, custom_query: str) -> dict[str, An
         f'User query: "{raw_phrase}"\n'
         f'Initial topic hint: "{custom_topic}"\n'
         "Rules:\n"
-        "- is_specific: true if the user asked about ANY concrete/specific subject (disease, syndrome, virus, gene, drug, method, company, person, animal, phenomenon — e.g. Brown-Sequard syndrome, parvovirus, CRISPR, Ozempic, neuralink). false ONLY if they asked broadly for general daily news in bioinformatics/biology/AI.\n"
+        "- is_specific: true ONLY if the user asked about a concrete scientific subject (disease, syndrome, virus, gene, drug, method, company, person, animal — e.g. Brown-Sequard syndrome, parvovirus, CRISPR, Ozempic, neuralink). Set is_specific: false if they asked broadly for daily/viral/controversial/trending/interesting news (e.g. 'خبر جنجالی', 'خبر داغ', 'ریپلای خور', 'خبرهای خفن') without naming a specific disease/gene/topic.\n"
         "- primary_en: exact specific English/scientific search phrase (NEVER broaden 'parvovirus' to 'virus', NEVER broaden 'Brown-Sequard syndrome' to 'neurology').\n"
         "- alt_en: 1 short alternative exact English search query (or empty string).\n"
         "- primary_fa: exact short Persian topic phrase.\n"
@@ -1291,6 +1291,44 @@ def main() -> None:
             raise
         return
 
+    try:
+        _run_news_pipeline(
+            t_start=t_start,
+            dry_run=dry_run,
+            on_demand=on_demand,
+            custom_topic=custom_topic,
+            custom_query=custom_query,
+            custom_count_raw=custom_count_raw,
+            status_msg_id=status_msg_id,
+            bot_token=bot_token,
+            target_chat_ids=target_chat_ids,
+        )
+    except Exception as exc:
+        print(f"[ERROR] News pipeline failed: {exc}")
+        if on_demand and not dry_run:
+            update_progress(
+                bot_token,
+                target_chat_ids,
+                status_msg_id,
+                100,
+                f"⚠️ خطا در پردازش خبر: {str(exc)[:220]}",
+                done=True,
+            )
+        raise
+
+
+def _run_news_pipeline(
+    *,
+    t_start: float,
+    dry_run: bool,
+    on_demand: bool,
+    custom_topic: str,
+    custom_query: str,
+    custom_count_raw: str,
+    status_msg_id: str,
+    bot_token: str,
+    target_chat_ids: list[str],
+) -> None:
     if on_demand and not dry_run:
         update_progress(bot_token, target_chat_ids, status_msg_id, 35, "در حال رصد ۴۰ پایگاه علمی و PubMed...")
 
