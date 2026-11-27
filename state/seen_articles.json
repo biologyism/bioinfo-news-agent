@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-27",
-  "daily_post_count": 8,
+  "daily_post_count": 13,
   "seen": {
     "https://www.nature.com/articles/s41467-026-79404-w": {
       "title": "A quantitative deep-learning-based framework reveals a continuum of chromatin sensitivities across transcription factors",
@@ -3145,6 +3145,81 @@
     "https://endpoints.news/pharming-pauses-ruconest-production-warns-of-supply-interruption": {
       "title": "Pharming pauses Ruconest production, warns of supply interruption",
       "ts": "2026-11-27T15:48:24.711303+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03875-6": {
+      "title": "Has AI just cracked Internet encryption? Rumoured ‘bombshell’ stuns scientists",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "sent"
+    },
+    "https://www.labiotech.eu/podcast/perturbai-and-openai-turn-crispr-data-into-drug-targets": {
+      "title": "PerturbAI and OpenAI turn CRISPR data into drug targets",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/d41586-026-03849-8": {
+      "title": "Why the incoming US Congress should ban the development of self-improving AI",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/d41586-026-03874-7": {
+      "title": "Chromosome ‘glue’ could boost fertility by stabilizing ageing eggs",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMirwFBVV95cUxPcWgtR09TNkJNU2xzMjRaNjQtRzZDa1BhdnJZRFZwa1BqcEQtTmpVckZrem5KckZiMk5fZlhMM0lWWVJOaWEzZk0tdVY3T3hVXy1VcWZRaEdjSTN1NHBiTVVDMDFfR084b3FwUDUwRXNwekdWWTZST2xBWjBsOFctTV9XS3c2Q0JmR1dZbmxUS3VkZDlsNlJBTUZYVEk0TXVvZXFaRDlRU3dpNUxQZmtv?oc=5": {
+      "title": "FDA issues noncompliance letters to 2 biotechs over lack of trial data reporting",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiugFBVV95cUxNTUpNQVZGS3VKZFF6N3lPcmhZYmhXVnlIeWpHakZ6SGpzV2RWX0hRbW1PM0tWUndKdnFuN2hHZ2ItcjByLWJmaUdaYnprWE13dkN1Um9Vc3RmM2lJS0ZsWG1rb3E2czg4cmtGWno1U0JPY0FkbVlTWHBfTTBjMmFUNjZOck1lZUtoYUV1WGhiNllHNUE1amF1aV9zZWY1WEo2dl85a284LUxIU25FdW9mZGhUTDNGZEFiWlHSAbYBQVVfeXFMTU5zQkJmUHN4VktBak81VjVDNnU1WlcwbnFxcGFJZUtNNHBZU0NGWUlVM1dRLVZFZmlLUVVTOWU2czZRakFJcVBxYkh3elhnTURJQVJuVDd3WDZRRGYyam1hQTF6WWZGbk9XNVBheThldktuWjBsMWIwdTRZWms2NFJjYm4tNTEzbjBObEJCNDJ1MUR0Mzg0RzN4Q3BjUnY0TVBPS3pkY0tMY09TME9uajlYaFRibXc?oc=5": {
+      "title": "Why Taylor Swift's guitar teacher defends writer behind controversial article?",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMirgFBVV95cUxNY3hxWHk1WmJ5ZS1BbFRVbUpXTWFTUjJ0UkkzRXVncVZKdTlXREt5V0wyZTcxRlZHdHNDTmd4OHpaR3lWOWJRRmhOVXlYOWN3Q1liZGpSRlNGMFdOa0V4T2pkMUpPQ3BsX2haaEY5bVFJSUgzNDNUNXFybDAzSVZ5aWRzRWd6YTdhMUQ4TnpWWUpSNGZ6OWFZY200T0tSUUJZMV9pT01WcEVfT0k4ZUHSAbMBQVVfeXFMTjNHcW1scGktdklvcEx2ZFcydy1kZ3I2b3hkcVJnZm1QRFlfUFRxdzJLQXc5WWVURlVwZDNBUC1PU2NwcWZiNTJKWUJEUHhhdi1peXdiUUFtNTRPZUZtVGJyaDYzRFZXRk5sblRZTmdKa0JvWGQ1aFNBRDMtQUk4RTZKRml2YlFZeHd0NFJya1htcUtHeVBWSGxKZnYxTDZkWDBCY0hGUWd4dG5TcUNlMUx2dW8?oc=5": {
+      "title": "Coronation Street wedding news confirmed for controversial and doomed couple",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOMm9YYTNvT1F3d0ZpR1huSE5QQW1pM1pfMDdpTDc0QXh4cjZhYnVMaEd6Z0ZpRjVycmVnYU9yT1Zxb29fOVNJNEpYNWdLd0JtTnNRa0ZicGZaeHFFcU1HVlJ2dmFMalFnc0gyUWFjZGhRU0E3VUhpN05tRHgzeWUxa3ZKZDEwYjNU?oc=5": {
+      "title": "37 Years Ago Today, One of the Most Controversial Songs Ever Hit No. 1 on the Billboard Charts",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMi_gFBVV95cUxOVXg5R1FSaUl3bmlzdVlhR0t6TVp1YVFRR3VxbGpZYmFfT2dIcFlmel83Y2RNMU5jdE4wbVNCTDd4dmw1ai13UWI5ekNLcmctQTRvemE0aUpKTG8zR05PLUpkZmQ0OVdpX1JsSWtJY1AtMC1nRnNNSzV5Z2Y3NnJES2Fhb2d6aFltelZKVThvdVFuNWRILXQtalBoQUJYS0ZmZ1hzN3JfSzF6a05ybTFrNElqdmZfMlBINTdFY0VKcGlkaWdFS3U3ckxMNGI4ZkM3WFlCQTBTUjdURk5EbEU4bk1VNFV5dEFVeTJnNG8yTWRERWtIQWlkU3otSWwxQdIBgwJBVV95cUxQVEQtaXNuZ3Z5ZEpiRnc1S3NmRTJGS2h3SFhDVUNnQVdZMzNLRUF3NmMwRXFLR0s5Y3JqNHdEZ3liUG16Y2RZVDZCZFZsR21rQkVxWXJxN1NFc2h3Z1ZwM2MtRUxMUTZScEl3Z2R6eGhFTWVDUTVsZmNOWXVqaEdvSHlIa3Jyei1vSi1WSXRNVkc0Y29ocEdMZ3NxbUlMVEJ5Wl9XMmJSNzNfX0x0cFZfTXlXRW1yVVFGSFZwYkJxbEhzZ0ZhRF9EcS1zZ0VFSVU5TUQtTElzOW1jN29KR1pRWkRfcF9WS0w3aHJqdF9aNWlrM3Fyalk2VWlDSmhuRXJiRVNr?oc=5": {
+      "title": "Comedian Yash Maheshwari apologises for vulgar joke about Bihar women’s sindoor tradition during Chhath Puja | Trending",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMikgFBVV95cUxQU2htUGJWUnBwVERQS3V4UHdzZ3dRbFJlNWgtbGl5bkhiTU9yMUtTRzI4czNnTzBtMC1PTTdpUWNpVGpFaVRMaFR6ZWZzcHZsR3NYTFk5aUNNSWtib3BNdXR6MmdqN2FwN0s3eG54MUZhbm9tWVhVQTh4MlVvYVhiVnZMZGNPaEFKZmNkeFdjTXJ2UQ?oc=5": {
+      "title": "Fox News Defends Sophie Cunningham’s Photoshoot Amid Controversy",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxOOE1YaWI1Vkp4V0puTTIyRmtyZkxoWE1UR3AyWnl0b2huRlE2NHI1cHB3Y2xkdExleUpuUlhtaHJ2T1ZsaXdtdFRFLTdGTjBTQVRCb2xjWVNteWwwaHVEOTBSUlB4M0ZHb2VEdC1DdEFCU1VFYU1Mak43S2VqOEZSYTdyOGlRSW5EeVFYUHB3VEgzWE9IUUlrM1dQWEhmX1JYS0k3Nw?oc=5": {
+      "title": "NHS Grampian turnaround team faces scrutiny over members’ past controversies",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMioAFBVV95cUxOYWNUTVRjb3J1UFBKOV8yQ2x0czNSdjlsYkxrWjR4MlNYOVpiS2E3SG4wMnJwR2t6ZEhyc3VuM3oydldGSDM3U1NRd2M1XzkwejI4bFk0cm5nMWR4b1JvekVjcEprZlBwbFhGdVFYZTNIbm1IcHlhZDJBNmNfakw0QzBhMWVVeE5tWHhWaUZvWlc1OURvZ1JqSXZTTlBvTHpz0gGmAUFVX3lxTE1kTC1fdzNKTGJySVZ1SGNWUWRJTTBoZzhSUFpUR0s0b2lvbEY3Wnh1dGhfc242U2g0VWRIWE5zVjlBdFNPemN2dUVRNk04R0w4c1dydGJrcDZ6N29YZWZuVHo0alVFTEFWTUVSTlpWSnFfQkp4UWdkalVCMmFNQ3RMNzdtaXdWOUVlSFRSLXNGdmxqOERHMW53c0s3b0lxeFM1MUVxQWc?oc=5": {
+      "title": "Bad news for Greggs fans as chain confirms ‘Christmas controversy’",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03837-y": {
+      "title": "Succumbing to certainty is a failure in science",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://blog.google/products-and-platforms/products/gemini/gemini-golden-state": {
+      "title": "How Gemini is changing the game for Golden State's organization and fans.",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/d41586-026-03853-y": {
+      "title": "Dual proofs of legendary Riemann hypothesis stun mathematicians",
+      "ts": "2026-11-27T15:52:12.877884+00:00",
       "status": "skipped"
     }
   }
