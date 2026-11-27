@@ -14,6 +14,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps, 
 
 BASE_DIR = Path(__file__).resolve().parent
 LIBRARY_PATH = BASE_DIR / "knowledge" / "bioinfo_library.json"
+COURSES_PATH = BASE_DIR / "knowledge" / "academy_courses.json"
 OVERLAY_PATH = BASE_DIR / "assets" / "brand_overlay.png"
 FONTS_DIR = BASE_DIR / "assets" / "fonts"
 
@@ -63,6 +64,85 @@ def load_library() -> dict[str, Any]:
     if not LIBRARY_PATH.exists():
         return {"repos": [], "parent_directories": [], "github_topics": [], "iran_persian_searches": []}
     return json.loads(LIBRARY_PATH.read_text(encoding="utf-8"))
+
+
+def load_academy_courses() -> dict[str, Any]:
+    if not COURSES_PATH.exists():
+        return {}
+    try:
+        return json.loads(COURSES_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def match_academy_course_context(query_text: str) -> dict[str, Any] | None:
+    kb = load_academy_courses()
+    if not kb:
+        return None
+    stop_words = {
+        "دکتر", "مهندس", "استاد", "اساتید", "مدرس", "دوره", "بخش", "جلسه", "ساعت", "سرفصل", "سرفصلها",
+        "درس", "کدوم", "کدام", "میده", "میدهد", "چیا", "چیست", "هست", "داره", "داری", "کن", "بساز",
+        "بنویس", "معرفی", "پست", "استوری", "اسلاید", "کارگاه", "طرح", "ملی", "برای", "درباره", "روی",
+        "این", "های", "ها", "که", "با", "از", "به", "را", "رو", "در", "تا", "بر", "یا", "یک", "یه", "ما", "خودمون", "هم",
+        "دانشگاه", "تهران", "ایران", "بیوانفورماتیک", "دکتری", "دانشیار", "استادیار", "علوم", "پزشکی",
+    }
+    q = re.sub(r"[ي]", "ی", re.sub(r"[ك]", "ک", str(query_text or "").lower()))
+    tokens = [w for w in re.split(r"[\s,،.؛؟!:/()«»‌]+", q) if (len(w) >= 3 or re.match(r"^[a-z0-9]{1,2}$", w)) and w not in stop_words]
+    courses = kb.get("courses", [])
+    step1 = next((c for c in courses if c.get("id") == "step_1_intro"), None)
+    step2 = next((c for c in courses if c.get("id") == "step_2_omics_ai"), None)
+    mods = (step2 or {}).get("modules", [])
+
+    scored = []
+    instructor_matched = False
+    for m in mods:
+        inst_text = " ".join(f"{i.get('name','')} {i.get('bio','')}" for i in m.get("instructors", []))
+        norm_inst = re.sub(r"[ي]", "ی", re.sub(r"[ك]", "ک", inst_text.lower()))
+        norm_title = re.sub(r"[ي]", "ی", re.sub(r"[ك]", "ک", m.get("title", "").lower()))
+        blob = re.sub(
+            r"[ي]",
+            "ی",
+            re.sub(r"[ك]", "ک", f"{m.get('title','')} {inst_text} {' '.join(m.get('syllabus', []))} {' '.join(m.get('tools', []))}".lower()),
+        )
+        sc = 0
+        for t in tokens:
+            if len(t) >= 3 and t in norm_inst:
+                instructor_matched = True
+            if t in blob:
+                if t in norm_inst:
+                    sc += 8
+                elif t in norm_title:
+                    sc += 6
+                else:
+                    sc += 2
+        if sc >= 6:
+            scored.append((sc, m))
+    scored.sort(key=lambda x: x[0], reverse=True)
+
+    general_course_intent = bool(
+        re.search(r"(دوره|طرح\s*ملی|سرفصل|اساتید|استاد|مدرس|کارگاه|گام\s*اول|گام\s*دوم|فوق\s*جامع|ثبت[‌ ]?نام|اقساط|آکادمی|خودمون|کتابچه)", q)
+    )
+    if not general_course_intent and not instructor_matched:
+        return None
+
+    out: dict[str, Any] = {"academy": kb.get("academy", {})}
+    if scored:
+        max_sc = scored[0][0]
+        min_keep = int(max_sc * 0.6) if max_sc >= 12 else 6
+        out["matched_modules"] = [x[1] for x in scored if x[0] >= min_keep][:5]
+    else:
+        if step1:
+            out["step_1_overview"] = {"title": step1.get("title"), "format": step1.get("format"), "topics": step1.get("topics", [])[:12]}
+        if step2:
+            out["step_2_modules_index"] = [
+                {
+                    "title": m.get("title"),
+                    "hours": m.get("hours"),
+                    "instructors": [i.get("name") for i in m.get("instructors", [])],
+                }
+                for m in mods
+            ]
+    return out
 
 
 def score_library_items(lib: dict[str, Any], search_terms: list[str], target_cats: list[str]) -> dict[str, Any]:
@@ -632,6 +712,50 @@ def resolve_design_profile(
     }
 
 
+def resolve_edu_knowledge_bundle(
+    user_query: str,
+    topic_hint: str,
+    context_bundle: dict[str, Any],
+    reply_context: str = "",
+) -> tuple[dict[str, Any], str]:
+    q = f"{user_query} {topic_hint}".strip()
+    exclude_course = bool(
+        re.search(r"(بدون\s*(?:اشاره\s*به\s*)?دوره|ربطی\s*به\s*دوره\s*ندار|از\s*دوره\s*(?:ما\s*)?(?:نگو|نیار|استفاده\s*نکن)|فقط\s*(?:منابع\s*دیگه|بقیه\s*منابع|منابع\s*بیرونی|گیت[‌ ]?هاب))", q, re.I)
+    )
+    wants_external = bool(
+        re.search(r"(منابع|منبع|بقیه\s*منابع|سایر\s*منابع|منابع\s*دیگه|منابع\s*بیرونی|کتابخانه|ریپو|گیت[‌ ]?هاب|مخزن|لینک|تکمیلی)", q, re.I)
+    )
+    wants_hybrid = bool(
+        re.search(r"(ترکیب|ترکیبی|هر\s*دو|هردو|هم\s+از\s+دوره.*هم|هم\s+سرفصل.*هم|در\s*کنار\s*(?:دوره|سرفصل)|به\s*اضافه\s*منابع)", q, re.I)
+    )
+
+    course_ctx = None if exclude_course else match_academy_course_context(f"{q} {reply_context[:400]}")
+    if wants_hybrid and not course_ctx and not exclude_course:
+        course_ctx = match_academy_course_context(f"دوره {q} {reply_context[:400]}")
+
+    enriched = dict(context_bundle or {})
+    if course_ctx:
+        enriched["academy_courses_official"] = course_ctx
+
+    if exclude_course:
+        mode_note = (
+            "\n⚠️ حالت درخواستی کاربر: فقط از منابع کتابخانه گیت‌هاب و دانش علمی روز استفاده کن و پای دوره آکادمی را وسط نکش."
+        )
+    elif wants_hybrid or (course_ctx and wants_external):
+        mode_note = (
+            "\n⚠️ حالت درخواستی کاربر (ترکیبی): اطلاعات رسمی دوره آکادمی (`academy_courses_official`) را با منابع کتابخانه گیت‌هاب (`repos`) و دانش علمی روز به صورت هوشمندانه ترکیب کن و دقیقاً دستور کاربر را اجرا کن."
+        )
+    elif course_ctx:
+        mode_note = (
+            "\n⚠️ حالت درخواستی کاربر (مبتنی بر دوره آکادمی): اطلاعات رسمی دوره آکادمی در `academy_courses_official` آمده؛ در بخش‌های مرتبط دقیقاً طبق سرفصل‌ها، ساعات و اساتید واقعی بنویس و در کنارش هر قید دیگری که کاربر خواسته رعایت کن."
+        )
+    else:
+        mode_note = (
+            "\n⚠️ حالت آزاد/علمی: دقیقاً مطابق دستور کاربر عمل کن و فقط در حد نیاز از دانش علمی و منابع پشتیبان (`repos`) استفاده کن."
+        )
+    return enriched, mode_note
+
+
 def generate_edu_carousel(
     user_query: str,
     topic_hint: str,
@@ -679,14 +803,20 @@ def generate_edu_carousel(
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
 
+    enriched_bundle, course_rule = resolve_edu_knowledge_bundle(
+        user_query=user_query,
+        topic_hint=topic_hint,
+        context_bundle=context_bundle,
+        reply_context=reply_context,
+    )
     source_note = f"\nمتن مرجع انتخابی کاربر برای تبدیل به اسلاید:\n{reply_context[:3500]}\n" if reply_context else ""
     user_prompt = (
         f"درخواست کاربر: {user_query or topic_hint}\n"
         f"تعداد دقیق اسلایدها: {slide_count}\n"
         f"فرمت ابعادی: {prof['aspect']} ({prof['width']}x{prof['height']})\n"
-        f"{source_note}\n"
+        f"{source_note}{course_rule}\n"
         f"منابع مرتبط برای دقت علمی (فقط در حد نیاز استفاده شود):\n"
-        f"{json.dumps(context_bundle, ensure_ascii=False)}"
+        f"{json.dumps(enriched_bundle, ensure_ascii=False)}"
     )
 
     schema = {
@@ -1720,13 +1850,18 @@ def generate_edu_guide(
 
 خروجی فقط JSON معتبر مطابق اسکیما باشد."""
 
+    enriched_bundle, course_note = resolve_edu_knowledge_bundle(
+        user_query=user_query,
+        topic_hint=topic_hint,
+        context_bundle=context_bundle,
+    )
     user_prompt = (
         f"درخواست دقیق کاربر: {user_query or topic_hint}\n"
         f"موضوع هدف: {topic_hint}\n"
         f"کانال هدف: {channel}\n"
-        f"تعداد درخواستی (در صورت نیاز به گام/مورد): {item_count}\n\n"
+        f"تعداد درخواستی (در صورت نیاز به گام/مورد): {item_count}{course_note}\n\n"
         f"منابع علمی پشتیبان از کتابخانه آکادمی (صرفاً برای دقت علمی، لازم نیست همه را لیست کنی):\n"
-        f"{json.dumps(context_bundle, ensure_ascii=False)}"
+        f"{json.dumps(enriched_bundle, ensure_ascii=False)}"
     )
 
     schema = {
