@@ -1,5 +1,81 @@
 {
-  "daily_date": "",
-  "daily_post_count": 0,
-  "seen": {}
+  "daily_date": "2026-11-28",
+  "daily_post_count": 5,
+  "seen": {
+    "https://www.biorxiv.org/content/10.64898/2026.11.26.769521v1": {
+      "title": "Confident but misplaced: a model-free ruler for post-translational modification placement by AI structure predictors",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769129v1": {
+      "title": "L++: A Language for Programming Life",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "sent"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014965": {
+      "title": "Biophysically grounded deep learning improves protein–protein ΔΔ G prediction",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41588-026-02833-2": {
+      "title": "Human TRAF6 deficiency causes osteopetrosis, lymphoproliferation and immune deficiency",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41592-026-03382-6": {
+      "title": "Mitigating preferred orientation in cryo-EM with ultrasonic excitation during vitrification",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41592-026-03387-1": {
+      "title": "Mechanism-grounded RNA velocity: from kinetic models to deep learning and foundation models",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769274v1": {
+      "title": "GNEval: A Context-Specific Benchmark for Gene Network Inference with Single-Cell Foundation Models",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769310v1": {
+      "title": "HapAdapter: A Transfer Learning Protocol for DNA Foundation Models Adapted to Diploid Personal Epigenomes",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.27.769542v1": {
+      "title": "EHRMENEIA: A Benchmark for Foundation Models on Longitudinal Electronic Health Records",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769162v1": {
+      "title": "A Benchmark for Generative Modeling of High-Dimensional Enzyme Kinetic Parameters of Metabolic Networks",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014494": {
+      "title": "mirCCC: Repression-aware graph learning for miRNA-mediated cell-cell communication inference",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.24.769033v1": {
+      "title": "Benchmarking sequence-to-function models and mapping enhancer-gene interactions with E2GScore",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.27.769672v1": {
+      "title": "Pretrained Decision Models in Bioinformatics: Comparable to Active-Learning Screening, Baseline-Dependent in Cell-Type Annotation, Behind a Trained Mass-Spectrometry Re-scorer",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41588-026-02789-3": {
+      "title": "Genome-wide association analyses of suicidality identify 77 loci and implicate subcortical brain regions and synaptic pathways",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014969": {
+      "title": "Protein sequence domain annotation using a language model",
+      "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    }
+  }
 }
