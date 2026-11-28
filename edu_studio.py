@@ -91,18 +91,21 @@ def match_academy_course_context(query_text: str) -> dict[str, Any] | None:
     courses = kb.get("courses", [])
     step1 = next((c for c in courses if c.get("id") == "step_1_intro"), None)
     step2 = next((c for c in courses if c.get("id") == "step_2_omics_ai"), None)
-    mods = (step2 or {}).get("modules", [])
+    step3 = next((c for c in courses if c.get("id") == "step_3_advanced_drug_ai"), None)
+    all_mods = [dict(m, _step="گام دوم") for m in (step2 or {}).get("modules", [])] + [
+        dict(m, _step="گام اول") for m in (step1 or {}).get("modules", [])
+    ]
 
     scored = []
     instructor_matched = False
-    for m in mods:
+    for m in all_mods:
         inst_text = " ".join(f"{i.get('name','')} {i.get('bio','')}" for i in m.get("instructors", []))
         norm_inst = re.sub(r"[ي]", "ی", re.sub(r"[ك]", "ک", inst_text.lower()))
         norm_title = re.sub(r"[ي]", "ی", re.sub(r"[ك]", "ک", m.get("title", "").lower()))
         blob = re.sub(
             r"[ي]",
             "ی",
-            re.sub(r"[ك]", "ک", f"{m.get('title','')} {inst_text} {' '.join(m.get('syllabus', []))} {' '.join(m.get('tools', []))}".lower()),
+            re.sub(r"[ك]", "ک", f"{m.get('title','')} {inst_text} {m.get('schedule','')} {' '.join(m.get('syllabus', []))} {' '.join(m.get('tools', []))}".lower()),
         )
         sc = 0
         for t in tokens:
@@ -115,12 +118,14 @@ def match_academy_course_context(query_text: str) -> dict[str, Any] | None:
                     sc += 6
                 else:
                     sc += 2
+        if m.get("_step") == "گام دوم" and sc > 0:
+            sc += 1
         if sc >= 6:
             scored.append((sc, m))
     scored.sort(key=lambda x: x[0], reverse=True)
 
     general_course_intent = bool(
-        re.search(r"(دوره|طرح\s*ملی|سرفصل|اساتید|استاد|مدرس|کارگاه|گام\s*اول|گام\s*دوم|فوق\s*جامع|ثبت[‌ ]?نام|اقساط|آکادمی|خودمون|کتابچه)", q)
+        re.search(r"(دوره|طرح\s*ملی|سرفصل|اساتید|استاد|مدرس|کارگاه|گام\s*اول|گام\s*دوم|گام\s*سوم|فوق\s*جامع|ثبت[‌ ]?نام|اقساط|تخفیف|گواهی|مدرک|کارآموزی|بورسیه|پروژه|پیش[‌ ]?نیاز|تقویم|تاریخ|شروع|پایان|پشتیبانی|طراحی\s*دارو|کولورکتال|آکادمی|خودمون|کتابچه)", q)
     )
     if not general_course_intent and not instructor_matched:
         return None
@@ -129,19 +134,39 @@ def match_academy_course_context(query_text: str) -> dict[str, Any] | None:
     if scored:
         max_sc = scored[0][0]
         min_keep = int(max_sc * 0.6) if max_sc >= 12 else 6
-        out["matched_modules"] = [x[1] for x in scored if x[0] >= min_keep][:5]
-    else:
-        if step1:
-            out["step_1_overview"] = {"title": step1.get("title"), "format": step1.get("format"), "topics": step1.get("topics", [])[:12]}
+        out["matched_modules"] = [x[1] for x in scored if x[0] >= min_keep][:6]
+    if general_course_intent:
         if step2:
-            out["step_2_modules_index"] = [
-                {
-                    "title": m.get("title"),
-                    "hours": m.get("hours"),
-                    "instructors": [i.get("name") for i in m.get("instructors", [])],
+            out["step_2_summary_stats"] = step2.get("summary_stats", {})
+            if re.search(r"(پروژه|عملی|کولورکتال|کارآموزی|۲۸۰)", q):
+                out["step_2_practical_projects"] = step2.get("practical_projects", [])
+                out["step_2_internship_projects"] = step2.get("internship_projects", [])
+            if re.search(r"(پیش[‌ ]?نیاز|صفر|گواهی|تخفیف|کارآموزی|ثبت[‌ ]?نام)", q):
+                out["step_2_faqs"] = step2.get("faqs", [])
+        if not scored:
+            if step1:
+                out["step_1_overview"] = {
+                    "title": step1.get("title"),
+                    "format": step1.get("format"),
+                    "features": step1.get("features", []),
+                    "modules": [
+                        {"title": m.get("title"), "hours": m.get("hours"), "instructors": [i.get("name") for i in m.get("instructors", [])]}
+                        for m in step1.get("modules", [])
+                    ],
+                    "internship_projects": step1.get("internship_projects", []),
                 }
-                for m in mods
-            ]
+            if step2:
+                out["step_2_modules_index"] = [
+                    {
+                        "title": m.get("title"),
+                        "hours": m.get("hours"),
+                        "schedule": m.get("schedule", ""),
+                        "instructors": [i.get("name") for i in m.get("instructors", [])],
+                    }
+                    for m in step2.get("modules", [])
+                ]
+            if step3:
+                out["step_3_overview"] = step3
     return out
 
 

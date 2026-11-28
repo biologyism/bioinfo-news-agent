@@ -1052,7 +1052,7 @@ async function fetchAcademyCourses(env) {
   let kb = null;
   if (env.CHAT_MEMORY) {
     try {
-      const cached = await env.CHAT_MEMORY.get("kb:academy_courses_v1");
+      const cached = await env.CHAT_MEMORY.get("kb:academy_courses_v2");
       if (cached) kb = JSON.parse(cached);
     } catch (_) {}
   }
@@ -1074,7 +1074,7 @@ async function fetchAcademyCourses(env) {
           kb = await r.json();
           if (env.CHAT_MEMORY) {
             try {
-              await env.CHAT_MEMORY.put("kb:academy_courses_v1", JSON.stringify(kb), { expirationTtl: 21600 });
+              await env.CHAT_MEMORY.put("kb:academy_courses_v2", JSON.stringify(kb), { expirationTtl: 21600 });
             } catch (_) {}
           }
         }
@@ -1122,28 +1122,44 @@ function formatAcademyOverviewHtml(kb) {
   const courses = kb.courses || [];
   const step1 = courses.find((c) => c.id === "step_1_intro");
   const step2 = courses.find((c) => c.id === "step_2_omics_ai");
+  const step3 = courses.find((c) => c.id === "step_3_advanced_drug_ai");
   let out = `🎓 <b>پایگاه دانش رسمی ${escapeHtml(ac.name || "آکادمی بیوانفورماتیک ایران")}</b>\n`;
   if (ac.scientific_supervisor) {
     out += `👨‍🏫 <b>ناظر علمی:</b> ${escapeHtml(ac.scientific_supervisor.split("(")[0].trim())}\n`;
   }
+  if (ac.national_plan?.total_hours) {
+    out += `🗺 <b>طرح ملی:</b> ${escapeHtml(ac.national_plan.total_steps || "۳ تا ۴ گام")} | ${escapeHtml(ac.national_plan.total_hours)}\n`;
+  }
   if (ac.registration_url) {
-    out += `🌐 <b>ثبت‌نام:</b> ${escapeHtml(ac.registration_url)}\n`;
+    out += `🌐 <b>ثبت‌نام:</b> ${escapeHtml(ac.registration_url)}`;
+    if (Array.isArray(ac.support_telegram_ids) && ac.support_telegram_ids.length) {
+      out += ` | 💬 <b>پشتیبانی:</b> ${ac.support_telegram_ids.map(escapeHtml).join(" ، ")}`;
+    }
+    out += "\n";
   }
   if (step1) {
+    const s1Items = Array.isArray(step1.modules) && step1.modules.length
+      ? step1.modules.map((m) => m.title)
+      : (step1.topics || []);
     out += `\n📘 <b>${escapeHtml(step1.title)}</b> (${escapeHtml(step1.format || "")})\n`;
-    out += `• ${(step1.topics || []).slice(0, 8).map(escapeHtml).join("، ")} و ...\n`;
+    out += `• ${s1Items.slice(0, 8).map(escapeHtml).join("، ")} و ...\n`;
   }
   if (step2) {
     const mods = step2.modules || [];
-    const totalHours = mods.reduce((acc, m) => acc + (Number(m.hours) || 0), 0);
+    const st = step2.summary_stats || {};
+    const totalHours = st.total_hours || mods.reduce((acc, m) => acc + (Number(m.hours) || 0), 0);
+    const totalSessions = st.total_sessions || mods.reduce((acc, m) => acc + (Number(m.sessions) || 0), 0);
     out += `\n🚀 <b>${escapeHtml(step2.title)}</b>\n`;
-    out += `📊 ${toPersianDigits(mods.length)} بخش تخصصی (~${toPersianDigits(totalHours)} ساعت آموزش):\n`;
+    out += `📊 ${toPersianDigits(mods.length)} بخش (${toPersianDigits(totalSessions)} جلسه / +${toPersianDigits(totalHours)} ساعت)${st.start_date ? ` | 📅 ${escapeHtml(st.start_date)} تا ${escapeHtml(st.end_date || "")}` : ""}:\n`;
     out += mods
       .map((m, idx) => {
         const inst = (m.instructors || []).map((i) => i.name).join(" و ");
         return `${toPersianDigits(idx + 1)}. <b>${escapeHtml(m.title)}</b> (${toPersianDigits(m.hours || 0)} ساعت)${inst ? ` — ${escapeHtml(inst)}` : ""}`;
       })
       .join("\n");
+  }
+  if (step3) {
+    out += `\n\n🧬 <b>${escapeHtml(step3.title)}</b>: ${(step3.topics || []).slice(0, 6).map(escapeHtml).join("، ")} و ...`;
   }
   if (Array.isArray(kb.custom_notes) && kb.custom_notes.length) {
     out += `\n\n📌 <b>یادداشت‌های تکمیلی ثبت‌شده:</b> ${toPersianDigits(kb.custom_notes.length)} مورد`;
@@ -1160,7 +1176,11 @@ function findMatchingCourseContext(kb, queryText) {
   const courses = kb.courses || [];
   const step1 = courses.find((c) => c.id === "step_1_intro");
   const step2 = courses.find((c) => c.id === "step_2_omics_ai");
-  const mods = step2?.modules || [];
+  const step3 = courses.find((c) => c.id === "step_3_advanced_drug_ai");
+  const allTaggedMods = [
+    ...((step2?.modules || []).map((m) => ({ ...m, _step: "گام دوم" }))),
+    ...((step1?.modules || []).map((m) => ({ ...m, _step: "گام اول" }))),
+  ];
 
   const stopWords = new Set([
     "دکتر", "مهندس", "استاد", "اساتید", "مدرس", "دوره", "بخش", "جلسه", "ساعت", "سرفصل", "سرفصلها",
@@ -1177,11 +1197,11 @@ function findMatchingCourseContext(kb, queryText) {
 
   const scored = [];
   let instructorMatched = false;
-  for (const m of mods) {
+  for (const m of allTaggedMods) {
     const instText = (m.instructors || []).map((i) => `${i.name} ${i.bio}`).join(" ");
     const normInst = instText.toLowerCase().replace(/ي/g, "ی").replace(/ك/g, "ک");
     const normTitle = (m.title || "").toLowerCase().replace(/ي/g, "ی").replace(/ك/g, "ک");
-    const blob = `${m.title} ${instText} ${(m.syllabus || []).join(" ")} ${(m.tools || []).join(" ")}`
+    const blob = `${m.title} ${instText} ${m.schedule || ""} ${(m.syllabus || []).join(" ")} ${(m.tools || []).join(" ")}`
       .toLowerCase()
       .replace(/ي/g, "ی")
       .replace(/ك/g, "ک");
@@ -1196,45 +1216,77 @@ function findMatchingCourseContext(kb, queryText) {
         else sc += 2;
       }
     }
+    if (m._step === "گام دوم" && sc > 0) sc += 1;
     if (sc >= 6) scored.push({ sc, m });
   }
   scored.sort((a, b) => b.sc - a.sc);
 
-  const generalCourseIntent = /(دوره|طرح\s*ملی|سرفصل|سرفصل[‌ ]?ها|اساتید|استاد|مدرس|کارگاه|گام\s*اول|گام\s*دوم|مقدمات|فوق\s*جامع|ثبت[‌ ]?نام|اقساط|شهریه|گواهی|کارآموزی|آکادمی|خودمون|کتابچه)/i.test(q);
+  const generalCourseIntent = /(دوره|طرح\s*ملی|سرفصل|سرفصل[‌ ]?ها|اساتید|استاد|مدرس|کارگاه|گام\s*اول|گام\s*دوم|گام\s*سوم|مقدمات|فوق\s*جامع|ثبت[‌ ]?نام|اقساط|شهریه|تخفیف|گواهی|مدرک|کارآموزی|بورسیه|پروژه|پروژه[‌ ]?ها|پیش[‌ ]?نیاز|تقویم|زمان[‌ ]?بندی|تاریخ|شروع|پایان|پشتیبانی|مادام[‌ ]?العمر|طراحی\s*دارو|کولورکتال|آکادمی|خودمون|کتابچه)/i.test(q);
   if (!generalCourseIntent && !instructorMatched) {
     return null;
   }
 
   const lines = [];
   const ac = kb.academy || {};
-  lines.push(`آکادمی: ${ac.name || "آکادمی بیوانفورماتیک ایران"} | ناظر علمی: ${ac.scientific_supervisor || ""} | ثبت‌نام: ${ac.registration_url || ""}`);
+  const socials = ac.social_channels || {};
+  lines.push(
+    `آکادمی: ${ac.name || "آکادمی بیوانفورماتیک ایران"} | ناظر علمی: ${ac.scientific_supervisor || ""} | ثبت‌نام: ${ac.registration_url || ""}` +
+    (ac.support_telegram_ids?.length ? ` | پشتیبانی تلگرام: ${ac.support_telegram_ids.join(" ، ")}` : "") +
+    (socials.biocan_telegram ? ` | کانال تلگرام: ${socials.biocan_telegram} | اینستاگرام: ${socials.instagram || ""}` : "")
+  );
+  if (ac.national_plan) {
+    lines.push(`طرح ملی بیوانفورماتیک: ${ac.national_plan.total_steps || ""} (${ac.national_plan.total_hours || ""}) | مزایا: ${(ac.national_plan.highlights || []).join("؛ ")}`);
+  }
 
   if (scored.length > 0) {
     const maxSc = scored[0].sc;
     const minKeep = maxSc >= 12 ? Math.floor(maxSc * 0.6) : 6;
-    const topMods = scored.filter((x) => x.sc >= minKeep).slice(0, 5).map((x) => x.m);
-    lines.push("بخش‌های مرتبط در دوره فوق جامع (گام دوم):");
+    const topMods = scored.filter((x) => x.sc >= minKeep).slice(0, 6).map((x) => x.m);
+    lines.push("بخش‌های مرتبط در سرفصل‌های رسمی آکادمی:");
     for (const m of topMods) {
       const instStr = (m.instructors || []).map((i) => `${i.name} (${i.bio})`).join("؛ ");
       lines.push(
-        `• ${m.title} (${m.sessions} جلسه / ${m.hours} ساعت)` +
+        `• [${m._step}] ${m.title} (${m.sessions ? `${m.sessions} جلسه / ` : ""}${m.hours || 0} ساعت)` +
+        (m.schedule ? ` | زمان‌بندی: ${m.schedule}` : "") +
         (instStr ? ` | مدرس: ${instStr}` : "") +
         (m.tools?.length ? ` | ابزارها: ${m.tools.join(", ")}` : "") +
-        `\n  سرفصل: ${(m.syllabus || []).join(" | ")}`
+        (m.syllabus?.length ? `\n  سرفصل: ${m.syllabus.join(" | ")}` : "")
       );
     }
-  } else if (generalCourseIntent) {
-    if (step1) {
-      lines.push(`${step1.title} (${step1.format}): ویژگی‌ها: ${(step1.features || []).join("، ")} | محورها: ${(step1.topics || []).join("، ")}`);
+  }
+
+  if (generalCourseIntent) {
+    if (step2?.summary_stats) {
+      const st = step2.summary_stats;
+      lines.push(`مشخصات کلی گام دوم: ${st.total_sessions} جلسه، +${st.total_hours} ساعت | ${st.schedule_days} از ${st.start_date} تا ${st.end_date} | پیش‌نیاز: ${st.prerequisites} | کارآموزی: ${st.internship_capacity}`);
     }
-    if (step2) {
-      const modSummary = mods
+    if (step2?.sections?.length && /(بخش|ساختار|کلیات|کل\s*دوره|گام\s*دوم)/i.test(q)) {
+      lines.push(`ساختار ۳ بخشی گام دوم: ${step2.sections.join(" | ")}`);
+    }
+    if (step2?.practical_projects?.length && /(پروژه|عملی|دیتاست|کولورکتال|میکروبیوتا|گلیوما)/i.test(q)) {
+      lines.push(`پروژه‌های عملی گام دوم (${step2.practical_projects.length} مورد): ${step2.practical_projects.join(" ؛ ")}`);
+    }
+    if (step2?.internship_projects?.length && /(کارآموزی|کولورکتال|۲۸۰|رایگان|پروژه)/i.test(q)) {
+      lines.push(`پروژه‌های کارآموزی تخصصی گام دوم (برای +۲۸۰ نفر برتر): ${step2.internship_projects.join(" ؛ ")}`);
+    }
+    if (step2?.faqs?.length && /(پیش[‌ ]?نیاز|صفر|گواهی|مدرک|تخفیف|کارآموزی|ثبت[‌ ]?نام|ساعت|جلسه|اقساط)/i.test(q)) {
+      lines.push(`پرسش‌های متداول گام دوم: ${step2.faqs.map((f) => `${f.q} -> ${f.a}`).join(" | ")}`);
+    }
+    if (step1 && (/(گام\s*اول|مقدماتی|بورسیه|۱۲۰|۷۰\s*نفر)/i.test(q) || !scored.length)) {
+      const s1Mods = (step1.modules || []).map((m) => `${m.title} (${m.hours}س - ${(m.instructors || []).map((i) => i.name).join(" و ")})`).join(" | ");
+      lines.push(`${step1.title} (${step1.format}): ویژگی‌ها: ${(step1.features || []).join("، ")} | سرفصل و اساتید: ${s1Mods} | کارآموزی: ${(step1.internship_projects || []).join("؛ ")}`);
+    }
+    if (step2 && !scored.length) {
+      const modSummary = (step2.modules || [])
         .map((m) => {
           const inst = (m.instructors || []).map((i) => i.name).join(" و ");
-          return `${m.title} (${m.hours}س${inst ? ` - ${inst}` : ""})`;
+          return `${m.title} (${m.hours}س${m.schedule ? `، ${m.schedule}` : ""}${inst ? ` - ${inst}` : ""})`;
         })
         .join(" | ");
-      lines.push(`${step2.title} — ${mods.length} بخش: ${modSummary}`);
+      lines.push(`${step2.title} — ${(step2.modules || []).length} بخش: ${modSummary}`);
+    }
+    if (step3 && (/(گام\s*سوم|پیشرفته|طراحی\s*دارو|داکینگ|متاآنالیز|داکر)/i.test(q) || !scored.length)) {
+      lines.push(`${step3.title}: ${(step3.topics || []).join("، ")}`);
     }
   }
 
@@ -1245,7 +1297,7 @@ function findMatchingCourseContext(kb, queryText) {
     }
   }
 
-  return lines.join("\n").slice(0, 3200);
+  return lines.join("\n").slice(0, 5200);
 }
 
 function resolveKnowledgeSources({ queryText, contextSeed = "", kb = null, lib = null }) {
