@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-28",
-  "daily_post_count": 5,
+  "daily_post_count": 10,
   "seen": {
     "https://www.biorxiv.org/content/10.64898/2026.11.26.769521v1": {
       "title": "Confident but misplaced: a model-free ruler for post-translational modification placement by AI structure predictors",
@@ -75,6 +75,81 @@
     "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1014969": {
       "title": "Protein sequence domain annotation using a language model",
       "ts": "2026-11-28T00:02:34.841301+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s42256-026-01329-2": {
+      "title": "Generating proteins with computationally predicted functions and multiple states via multimodal diffusion",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s42256-026-01321-w": {
+      "title": "A long-context generative foundation model for versatile RNA design",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769306v1": {
+      "title": "Adult gut microbiomes single out individuals at population scale",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "sent"
+    },
+    "https://phys.org/news/2026-11-denisovan-unknown-archaic-human-lineage.html": {
+      "title": "Denisovan remains and an unknown archaic human lineage discovered in southern China",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.27.769674v1": {
+      "title": "CellTouch: Learning to separate touching nuclei in anisotropic 3D cell cultures",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "sent"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.26.769597v1": {
+      "title": "Task-aligned foundation model representations enable single-cell cytokine response inference",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.26.769524v1": {
+      "title": "FunDLM: A Foundation DNA Language Model for Fungi",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.26.769378v1": {
+      "title": "Reconstructing regulatory histories of cell fate decisions from single-cell lineage and multi-omics",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.26.769454v1": {
+      "title": "Thin2Seg: Single-cell Segmentation of Label-free FLIM at Low Photon Counts",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.labiotech.eu/podcast/perturbai-and-openai-turn-crispr-data-into-drug-targets": {
+      "title": "PerturbAI and OpenAI turn CRISPR data into drug targets",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.biorxiv.org/content/10.64898/2026.11.25.769362v1": {
+      "title": "Tumor2Line: population-aware tumor-cell line alignment for cancer cell line selection",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.frontiersin.org/articles/10.3389/fbinf.2026.1995179": {
+      "title": "Exploring RNA conformational diversity and RNA-ligand interaction using CoDNaS-RNA",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41586-026-11411-9": {
+      "title": "Author Correction: Artificial intelligence-enabled clinical phenotyping of human brown fat",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-newly-barrier-nucleic-acid-medicines.html": {
+      "title": "Newly discovered barrier could explain why nucleic acid medicines remain trapped inside cells",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s42256-026-01330-9": {
+      "title": "Generating proteins with complex functions",
+      "ts": "2026-11-28T00:40:02.528089+00:00",
       "status": "skipped"
     }
   }
