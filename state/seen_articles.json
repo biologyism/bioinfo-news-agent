@@ -1,6 +1,6 @@
 {
   "daily_date": "2026-11-28",
-  "daily_post_count": 10,
+  "daily_post_count": 13,
   "seen": {
     "https://www.biorxiv.org/content/10.64898/2026.11.26.769521v1": {
       "title": "Confident but misplaced: a model-free ruler for post-translational modification placement by AI structure predictors",
@@ -150,6 +150,81 @@
     "https://www.nature.com/articles/s42256-026-01330-9": {
       "title": "Generating proteins with complex functions",
       "ts": "2026-11-28T00:40:02.528089+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/28/ant-group-lingsante-3-1-flash-open-source-medical-ai": {
+      "title": "Ant Group Releases LingSante-3.1-flash: An Open-Weight MoE Model with 560B Total Parameters and 25B Activations per Token",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41467-026-79448-y": {
+      "title": "Z-TAC enables custom and combinatorial degradation of cell surface proteins",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "sent"
+    },
+    "https://www.nature.com/articles/s41467-026-79640-0": {
+      "title": "EGMOF: efficient generation of metal-organic frameworks using a hybrid diffusion-transformer architecture",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "sent"
+    },
+    "https://news.google.com/rss/articles/CBMiugFBVV95cUxPYUJVQW80Vk1pX0tzaEdkTmxIUmZITDZweW5JUEgzdHg5d0R2czE2R1dOWDlGYXZPNTBfNnJJcnJTLVY1NjJJZ2VGeU5vVmhKLVBCMkFUODk4Y2F3ZmJWS25IcnJOZUNYcWF3eTgxdmQ3N0xacUlES2hOSDhqblRCaVNDWFBycXdsMFF6S3AxaU0wazVCQUdRZ0IzWHluT3FCdjJHbzg0TWQtSjJCZFNqV3cxbkxQcmM4MFHSAboBQVVfeXFMUFVsU2Z2V2xQbmhtZTllaFdra0QwV3dhdGxRX1ZTQS1uY1dCUHp4RVdqcjN5eElKY1JvSnFPVU1YclFhNWlqTG1WYjhtTWdiVlhZV2p2Y1VFYmVNWDFGbENwOGNxMHJkLVZ5SFp0NzJ3LXhfMEZQRnZrLXpwYklqMC1hWmJrTTREVnFWS05rZy1lQTZrcVB1UHNSSmstYXExS0M5aXVDUEQzQk9tOFhhTVpsMUNTdzlIMXhB?oc=5": {
+      "title": "China’s Tencent makes AI drug discovery breakthrough with Nature paper",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMivgFBVV95cUxNUkN3Y0piLW10ZENOUFlkSjFUQ2p2T2E1dzhDdDBQRFhNcWlCbHkxc1NEcnpNd0t5OG02ako3Z2tWeUp4R0lTNE1oOC0zN2RuZTJ0SFR5NS1ZMHBMZlNKbHVOX2cxWE55ZXhsTTh2cDFzMWR4ZUlnV0xfbkIzV00tdDJDMmFla3hRcERwNjNFcXFHVms3UnQ3cFpJM2EyOVJzSUYzZlBSU3BEZlJPank0aTNLOTllcHAzU0IzQkhR?oc=5": {
+      "title": "£20m Cambridge hub launches to advance human disease models and AI drug discovery",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://www.marktechpost.com/2026/11/26/tencent-dfly2-speculative-decoding-sparse-models": {
+      "title": "Tencent Open-Sources DFly2: Speculative Decoding That Reuses the Target’s Sparse KV Cache",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://news.google.com/rss/articles/CBMivAFBVV95cUxOQ0JDRmRTTXNrVnZzVjdzT2RzVEE5U2laRENSTEtLZXBySzkwQVNpNFhKV2JENllNQm4wcVFNUTU3Z205SjNUVHp6RnpjRGg4b1FNZ0hWc2dYNzA0ek9yYUVkbld0UmdUWHFuLUhRZWk0UGhkSVg2R05OTThUVks2bGVoZ3FaOEZMVVNDOVdPUnVWenFJWWdmVFptM0J6NzZSR0pUbDQ0TjJSejFYRUJrdzU5T1hhM2diNS1xRQ?oc=5": {
+      "title": "Bioinformatics Study Identifies Gene Networks Linking Citrate Plasticizers to Colorectal Cancer",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79910-x": {
+      "title": "Engineering electrolyte ion solvation structures for next-generation batteries",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79743-8": {
+      "title": "A pervasive but uneven loss of global natural forests under multi-risk exposures",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79739-4": {
+      "title": "Carbon nucleophile-mediated pyridine ring-opening enables Polymethine-functionalized Cyanine 9",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79666-4": {
+      "title": "Transpiration-driven solvent welding for extendable 3D soft strain sensing modules",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://www.nature.com/articles/s41467-026-79878-8": {
+      "title": "Tailoring diet and temperature to enable sex-aware modelling of MASLD in mice",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-rna-discovery-reveals-gut-bacterium.html": {
+      "title": "RNA discovery reveals how gut bacterium adapts to life in intestinal mucus",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-lab-rsv-human-cells-antibodies.html": {
+      "title": "Lab experiments suggest bat RSV can enter human cells, but existing antibodies block it",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
+      "status": "skipped"
+    },
+    "https://phys.org/news/2026-11-drone-poop-sniffing-dog-scientists.html": {
+      "title": "Using a drone and a poop-sniffing dog, scientists perform health checks on endangered orcas",
+      "ts": "2026-11-28T14:29:29.571093+00:00",
       "status": "skipped"
     }
   }
